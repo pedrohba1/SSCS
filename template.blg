@@ -1,22 +1,26 @@
-This is BibTeX, Version 0.99d (TeX Live 2020/Arch Linux)
-Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: template.aux
+Reallocating 'name_of_file' (item size: 1) to 16 items.
+Reallocating 'name_of_file' (item size: 1) to 26 items.
+Reallocating 'name_of_file' (item size: 1) to 12 items.
 The style file: abntex2-alf.bst
-Reallocated singl_function (elt_size=8) to 100 items from 50.
-Reallocated singl_function (elt_size=8) to 100 items from 50.
-Reallocated singl_function (elt_size=8) to 100 items from 50.
-Reallocated singl_function (elt_size=8) to 100 items from 50.
-Reallocated wiz_functions (elt_size=8) to 6000 items from 3000.
-Reallocated singl_function (elt_size=8) to 100 items from 50.
-Reallocated singl_function (elt_size=8) to 100 items from 50.
-Reallocated singl_function (elt_size=8) to 100 items from 50.
-Reallocated wiz_functions (elt_size=8) to 9000 items from 6000.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 6000 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 9000 items.
 Database file #1: abntex2-options.bib
 Database file #2: abntex2-modelo-references.bib
-Reallocated singl_function (elt_size=8) to 100 items from 50.
-Reallocated glb_str_ptr (elt_size=8) to 20 items from 10.
-Reallocated global_strs (elt_size=20001) to 20 items from 10.
-Reallocated glb_str_end (elt_size=8) to 20 items from 10.
+Warning--I didn't find a database entry for "NBR6028:2003"
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'glb_str_end' (item size: 4) to 20 items.
+Reallocating 'glb_str_ptr' (item size: 4) to 20 items.
+Reallocating 'global_strs' (item size: 1) to 4000000 items.
 +---------------------------------------------------------+
 | Estilo bibliográfico abntex2-alf.bst versão v-1.9.7           |
 | Em caso de dúvidas ou problemas com este estilo procure |
@@ -24,42 +28,43 @@ Reallocated glb_str_end (elt_size=8) to 20 items from 10.
 +---------------------------------------------------------+
 You've used 3 entries,
             6714 wiz_defined-function locations,
-            1213 strings with 9630 characters,
-and the built_in function-call counts, 2030 in all, are:
-= -- 277
-> -- 16
+            1212 strings with 9666 characters,
+and the built_in function-call counts, 2281 in all, are:
+= -- 284
+> -- 48
 < -- 4
-+ -- 52
-- -- 5
-* -- 114
-:= -- 312
-add.period$ -- 7
++ -- 64
+- -- 15
+* -- 136
+:= -- 366
+add.period$ -- 6
 call.type$ -- 3
-change.case$ -- 16
+change.case$ -- 21
 chr.to.int$ -- 6
 cite$ -- 2
-duplicate$ -- 72
-empty$ -- 155
-format.name$ -- 23
-if$ -- 490
+duplicate$ -- 79
+empty$ -- 145
+format.name$ -- 70
+if$ -- 522
 int.to.chr$ -- 0
 int.to.str$ -- 0
-missing$ -- 41
+missing$ -- 44
 newline$ -- 18
-num.names$ -- 5
-pop$ -- 56
+num.names$ -- 10
+pop$ -- 69
 preamble$ -- 1
-purify$ -- 9
+purify$ -- 10
 quote$ -- 0
-skip$ -- 145
+skip$ -- 154
 stack$ -- 1
 substring$ -- 109
-swap$ -- 35
+swap$ -- 34
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 12
+while$ -- 17
 width$ -- 0
-write$ -- 41
+write$ -- 40
+(There was 1 warning)
