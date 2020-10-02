@@ -116,19 +116,20 @@ brazil]{facom-ufu-abntex2}
 
 
 \begin{resumo} %TCC:
- Segundo a \citeonline[3.1-3.2]{NBR6028:2003}, o resumo deve ressaltar o
- objetivo, o método, os resultados e as conclusões do documento. A ordem e a extensão
- destes itens dependem do tipo de resumo (informativo ou indicativo) e do
- tratamento que cada item recebe no documento original. O resumo deve ser
- precedido da referência do documento, com exceção do resumo inserido no
- próprio documento. (\ldots) As palavras-chave devem figurar logo abaixo do
- resumo, antecedidas da expressão Palavras-chave:, separadas entre si por
- ponto e finalizadas também por ponto.
+ Os sistemas de segurança domésticos carecem de soluções
+ que sejam customizáveis de acordo com a falha de segurança que existe em cada domicílio.
+ Frequentemente encontra-se no mercado câmeras que fazem apenas a gravação com baixa resolução, e
+ caso busque algo mais sofisticado, existem modelos envolvendo reconhecimento facial, mas eles são ainda mais caros e raros.
+ Além disso, as soluções de segurança pública ou providas por empresas privadas, quando existem, podem usar as informações 
+ coletadas para seus próprios benefícios, diminuindo a privacidade do indivíduo. Este trabalho propõe uma solução que seja
+ fácil de implementar, com ferramentas prontas para uso e customizável por ser de código aberto,  
+ trazendo com esta última característica o poder para qualquer um de criar a sua própria segurança 
+ e modificar este projeto de acordo com suas necessidades. 
 
  \vspace{\onelineskip}
     
  \noindent
- \textbf{Palavras-chave}: Até, cinco, palavras-chave, separadas, por, vírgulas. %TCC:
+ \textbf{Palavras-chave}: Segurança, código,  aberto, reconhecimento, facial, câmera.  %TCC:
 \end{resumo}
 
 % ---
@@ -227,18 +228,25 @@ contém as instruções para implementar o sistema em domicílio, para que qualq
 
 \section{Método}
 
-Para os objetivos apresentados Seção 1.1 serem alcançados, os seguintes passos serão seguidos para o desenvolvimento deste sistema
+Para os objetivos apresentados Seção 1.1 serem alcançados, os seguintes passos serão seguidos para o desenvolvimento deste sistema:
 
 \begin{itemize}
-  \item  First Level
-  \begin{itemize}
-    \item  Second Level
+    \item  Criar um protótipo de solução para a questão apresentada:
     \begin{itemize}
-      \item  Third Level
-      \begin{itemize}
-        \item  Fourth Level
-      \end{itemize}
-    \end{itemize}
+      \item  Definir a arquitetura do sistema, tanto do backend quanto do frontend.
+      \item Definir o tipo de API e qual a melhor linguagem para criá-la.
+      \item Explorar as capacidades do hardware da câmera e do sistema que coordena suas ações, além de encontrar suas limitações e como contorná-las.
+      \item Se for necessário, definir como implementar um servidor para que seja processada e armazenada a imagem da câmera.
+  end{itemize}
+  \end{itemize}
+\end{itemize}
+
+\begin{itemize}
+  \item  Programar o protótipo que solucionará o problema apresentado:
+  \begin{itemize}
+    \item Escolher algoritmos de compressão de imagem adequado para as gravações.
+    \item Implementar o aplicativo de acesso do usuário utilizando React Native.
+    \item Implementar a API que será responsável pelo reconhecimento de imagem e streaming do vídeo para o aplicativo, utilizando NodeJs.
   \end{itemize}
 \end{itemize}
 

@@ -1,18 +1,18 @@
 # Fdb version 3
-["bibtex template"] 1601332280 "template.aux" "template.bbl" "template" 1601333242
+["bibtex template"] 1601602046 "template.aux" "template.bbl" "template" 1601602108
   "./abntex2-alf.bst" 1601301133 62226 0819ac8568f9a482510a46e3a8a6f605 ""
   "abntex2-modelo-references.bib" 1601312633 1254 895c3be2fb3c5f897a59110f6a9e9086 ""
   "abntex2-options.bib" 1601301133 5612 4eb260dac60f150ae608d45252853090 ""
-  "template.aux" 1601332282 9053 5ae812483d0f8ac30325cb45d74a57cb "pdflatex"
+  "template.aux" 1601602107 8959 144fd66da3512ad7a29bf1c19f2edcd2 "pdflatex"
   (generated)
   "template.bbl"
   "template.blg"
-["makeindex template.idx"] 1601234286 "template.idx" "template.ind" "template" 1601333242
-  "template.idx" 1601332282 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+["makeindex template.idx"] 1601602043 "template.idx" "template.ind" "template" 1601602108
+  "template.idx" 1601602106 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   (generated)
-  "template.ind"
   "template.ilg"
-["pdflatex"] 1601332280 "g:/Documentos/TCC/template.tex" "g:/Documentos/TCC/template.pdf" "template" 1601333242
+  "template.ind"
+["pdflatex"] 1601602105 "g:/Documentos/TCC/template.tex" "g:/Documentos/TCC/template.pdf" "template" 1601602108
   "C:/Users/Pedro Bufulin/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1600283890 10043590 d4fefd0e9b8aa6579874e44507914216 ""
   "C:/Users/Pedro Bufulin/AppData/Local/MiKTeX/pdftex/config/pdftex.map" 1601302374 82507 a9eef8696c92627b87e9975edea03b2a ""
   "C:/Users/Pedro Bufulin/AppData/Roaming/MiKTeX/tex/generic/atbegshi/atbegshi.sty" 1575571100 24708 5584a51a7101caf7e6bbf1fc27d8f7b1 ""
@@ -143,24 +143,24 @@
   "abntex2cite.sty" 1601301133 42772 a89e7383c2b0a64588bf9617f29323c1 ""
   "facom-ufu-abntex2.cls" 1601301133 5402 f2fe405fd2f95d5f07f5b87ba5ce63c3 ""
   "figuras/imagemExemplo.pdf" 1601301133 387962 a730435385e6aff0956d8644af2c6504 ""
-  "g:/Documentos/TCC/template.aux" 1601332282 9053 5ae812483d0f8ac30325cb45d74a57cb ""
-  "g:/Documentos/TCC/template.tex" 1601332276 10423 986f1f7ec0818f4d6bc40f1346762313 ""
-  "template.aux" 1601332282 9053 5ae812483d0f8ac30325cb45d74a57cb "pdflatex"
-  "template.bbl" 1601332280 724 3adf22dd4034610a8aefbb19c4678e39 "bibtex template"
-  "template.brf" 1601332282 145 c9128e818a1dc42a148b86e248a710b3 "pdflatex"
-  "template.ind" 1601301133 0 d41d8cd98f00b204e9800998ecf8427e "makeindex template.idx"
-  "template.lof" 1601332282 128 2ec43426f46a595d564f0db0db4e9444 "pdflatex"
-  "template.lot" 1601332282 22 e3b4ba0be9b1d1edeb31788ad4914153 "pdflatex"
-  "template.tex" 1601332276 10423 986f1f7ec0818f4d6bc40f1346762313 ""
-  "template.toc" 1601332282 3635 e228da39ecf3fab56b5335caa192bb04 "pdflatex"
+  "g:/Documentos/TCC/template.aux" 1601602107 8959 144fd66da3512ad7a29bf1c19f2edcd2 ""
+  "g:/Documentos/TCC/template.tex" 1601602104 11575 2425823f56fce1c0fd09e983e7133b8e ""
+  "template.aux" 1601602107 8959 144fd66da3512ad7a29bf1c19f2edcd2 "pdflatex"
+  "template.bbl" 1601602046 724 3adf22dd4034610a8aefbb19c4678e39 "bibtex template"
+  "template.brf" 1601602107 92 d60a919db29c5cdd3a3f0ca475e6a972 "pdflatex"
+  "template.ind" 1601602043 0 d41d8cd98f00b204e9800998ecf8427e "makeindex template.idx"
+  "template.lof" 1601602107 128 2ec43426f46a595d564f0db0db4e9444 "pdflatex"
+  "template.lot" 1601602107 22 e3b4ba0be9b1d1edeb31788ad4914153 "pdflatex"
+  "template.tex" 1601602104 11575 2425823f56fce1c0fd09e983e7133b8e ""
+  "template.toc" 1601602107 3635 e228da39ecf3fab56b5335caa192bb04 "pdflatex"
   (generated)
   "template.lot"
+  "template.pdf"
+  "template.toc"
+  "g:/Documentos/TCC/template.log"
   "g:/Documentos/TCC/template.pdf"
   "template.log"
-  "g:/Documentos/TCC/template.log"
-  "template.toc"
   "template.brf"
   "template.lof"
   "template.idx"
-  "template.pdf"
   "template.aux"

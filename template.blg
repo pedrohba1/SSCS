@@ -16,7 +16,6 @@ Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'wiz_functions' (item size: 4) to 9000 items.
 Database file #1: abntex2-options.bib
 Database file #2: abntex2-modelo-references.bib
-Warning--I didn't find a database entry for "NBR6028:2003"
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'glb_str_end' (item size: 4) to 20 items.
 Reallocating 'glb_str_ptr' (item size: 4) to 20 items.
@@ -28,7 +27,7 @@ Reallocating 'global_strs' (item size: 1) to 4000000 items.
 +---------------------------------------------------------+
 You've used 3 entries,
             6714 wiz_defined-function locations,
-            1212 strings with 9666 characters,
+            1210 strings with 9642 characters,
 and the built_in function-call counts, 2281 in all, are:
 = -- 284
 > -- 48
@@ -67,4 +66,3 @@ warning$ -- 0
 while$ -- 17
 width$ -- 0
 write$ -- 40
-(There was 1 warning)
