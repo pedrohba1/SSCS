@@ -233,11 +233,11 @@ Para os objetivos apresentados Seção 1.1 serem alcançados, os seguintes passo
 \begin{itemize}
     \item  Criar um protótipo de solução para a questão apresentada:
     \begin{itemize}
-      \item  Definir a arquitetura do sistema, tanto do backend quanto do frontend.
+      \item Definir a arquitetura do sistema, tanto do backend quanto do frontend.
       \item Definir o tipo de API e qual a melhor linguagem para criá-la.
+      \item definir qual o hardware a ser utilizado, tanto da câmera quanto do sistema que processará as informações da câmera. 
       \item Explorar as capacidades do hardware da câmera e do sistema que coordena suas ações, além de encontrar suas limitações e como contorná-las.
       \item Se for necessário, definir como implementar um servidor para que seja processada e armazenada a imagem da câmera.
-  end{itemize}
   \end{itemize}
 \end{itemize}
 
@@ -245,10 +245,43 @@ Para os objetivos apresentados Seção 1.1 serem alcançados, os seguintes passo
   \item  Programar o protótipo que solucionará o problema apresentado:
   \begin{itemize}
     \item Escolher algoritmos de compressão de imagem adequado para as gravações.
-    \item Implementar o aplicativo de acesso do usuário utilizando React Native.
-    \item Implementar a API que será responsável pelo reconhecimento de imagem e streaming do vídeo para o aplicativo, utilizando NodeJs.
+    \item Implementar a aplicação de acesso do usuário.
+    \item Implementar o software que será responsável pelo reconhecimento de imagem e streaming do vídeo para o aplicativo.
   \end{itemize}
 \end{itemize}
+
+
+
+
+\chapter{Fundamentação Teórica}
+
+
+Neste capítulo estão as tecnologias e os conceitos que serão utilizados no decorrer da construção deste projeto.
+São conceitos relacionados à arquitetura do sistema que será construído, as abordagens que já existem, \emph{hardware}, 
+linguagens e \emph{frameworks} que serão utilizados.
+
+
+\section{Arquitetura de transmissão em tempo real}
+ 
+A figura abaixo mostra um sistema de cliente-servidor para trocar de dados de multimídia.
+Na origem, tem-se a gravação comprimida, codificada e armazenada no dispositivo de armazenamento,
+como um disco rígido, por exemplo. Em seguida, por meio de algum software de tratamento de mídia que será produzido,
+esses arquivos são requisitados por usuários e entregues de acordo. Um protocolo de transferência é utilizado para
+entregar os dados de multimídia para o cliente (tais como RTMP ou HLS), onde eles são primeiramente armazenados
+na memória principal e eventualmente decodificados e apresentados ao usuário.
+
+
+\begin{figure}[!ht]
+  \centering
+\includegraphics[width=1\linewidth]{Capturar.PNG}
+\caption[Representação de um arquitetura de tempo real genérica]{Arquitetura genérica de transmissão em tempo real}
+\label{fig:graficosVariandoTamanhoRede}
+\end{figure}
+
+Esta arquitetura é a que levarei em consideração na implementação do projeto. O servidor que será implementado utilizando
+um microcomputador contem a câmera e sistema operacional para realizar o processamento e transmissão dos dados de 
+multimídia.
+
 
 
 \chapter{Revisão Bibliográfica}

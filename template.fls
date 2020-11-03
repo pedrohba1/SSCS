@@ -225,6 +225,12 @@ INPUT G:\latex\tex\latex\lm\ts1lmr.fd
 INPUT G:\latex\tex\latex\lm\ts1lmr.fd
 INPUT G:\latex\fonts\tfm\public\lm\ts1-lmr12.tfm
 INPUT G:\latex\fonts\tfm\public\lm\ec-lmri10.tfm
+INPUT G:\latex\fonts\tfm\public\lm\ec-lmri12.tfm
+INPUT g:\Documentos\TCC\figuras\Capturar.PNG
+INPUT g:\Documentos\TCC\figuras\Capturar.PNG
+INPUT g:\Documentos\TCC\figuras\Capturar.PNG
+INPUT g:\Documentos\TCC\figuras\Capturar.PNG
+INPUT g:\Documentos\TCC\figuras\Capturar.PNG
 INPUT g:\Documentos\TCC\figuras\imagemExemplo.pdf
 INPUT g:\Documentos\TCC\figuras\imagemExemplo.pdf
 INPUT g:\Documentos\TCC\figuras\imagemExemplo.pdf
@@ -236,7 +242,6 @@ INPUT g:\Documentos\TCC\template.brf
 INPUT g:\Documentos\TCC\template.brf
 INPUT g:\Documentos\TCC\template.brf
 OUTPUT g:\Documentos\TCC\template.brf
-INPUT G:\latex\fonts\tfm\public\lm\ec-lmri12.tfm
 INPUT g:\Documentos\TCC\template.ind
 INPUT g:\Documentos\TCC\template.ind
 OUTPUT g:\Documentos\TCC\template.lof

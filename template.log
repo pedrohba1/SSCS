@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.7) (preloaded format=pdflatex 2020.9.16)  1 OCT 2020 22:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.7) (preloaded format=pdflatex 2020.9.16)  3 NOV 2020 00:41
 entering extended mode
 **g:/Documentos/TCC/template.tex
 (g:/Documentos/TCC/template.tex
@@ -641,7 +641,11 @@ Package hyperref Info: Option `colorlinks' set `true' on input line 189.
 
 
 Writing index file template.idx 
-(g:/Documentos\TCC\template.aux)
+(g:/Documentos\TCC\template.aux
+
+LaTeX Warning: Label `fig:graficosVariandoTamanhoRede' multiply defined.
+
+)
 \openout1 = `template.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
@@ -752,13 +756,13 @@ l.38
 
 ] (g:/Documentos\TCC\template.toc
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 23.
+(Font)              <14.4> on input line 26.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 23.
+(Font)              <10> on input line 26.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 23.
+(Font)              <7> on input line 26.
 
-Overfull \hbox (7.84593pt too wide) in paragraph at lines 31--31
+Overfull \hbox (7.84593pt too wide) in paragraph at lines 34--34
  [][] [][][]\T1/lmss/bx/n/12 COISAS QUE FIZ E QUE ACHEI IN-TE-RES-SANTE 
  []
 
@@ -771,55 +775,63 @@ Overfull \hbox (7.84593pt too wide) in paragraph at lines 31--31
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 234.
  (G:\latex\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [9] [10
+) [9]
+<figuras/Capturar.PNG, id=119, 664.73344pt x 214.55156pt>
+File: figuras/Capturar.PNG Graphic file (type png)
+<use figuras/Capturar.PNG>
+Package pdftex.def Info: figuras/Capturar.PNG  used on input line 276.
+(pdftex.def)             Requested size: 455.0pt x 146.85889pt.
+ [10
+
+ <g:/Documentos/TCC/figuras/Capturar.PNG>] [11
 
 ]
 
 pdfTeX warning: pdflatex (file g:/Documentos/TCC/figuras/imagemExemplo.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<figuras/imagemExemplo.pdf, id=117, 517.50027pt x 430.17424pt>
+<figuras/imagemExemplo.pdf, id=131, 517.50027pt x 430.17424pt>
 File: figuras/imagemExemplo.pdf Graphic file (type pdf)
 <use figuras/imagemExemplo.pdf>
-Package pdftex.def Info: figuras/imagemExemplo.pdf  used on input line 267.
+Package pdftex.def Info: figuras/imagemExemplo.pdf  used on input line 300.
 (pdftex.def)             Requested size: 250.25139pt x 208.0238pt.
-[11
+[12
 
  <g:/Documentos/TCC/figuras/imagemExemplo.pdf>] (g:/Documentos\TCC\template.bbl (g:/Documentos\TCC\template.brf)
 \tf@brf=\write6
 \openout6 = `template.brf'.
 
- [12
+ [13
 
 ]
 bibitemlist
-) [13
+) [14
 
 ]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\uppercase' on input line 312.
+(hyperref)                removing `\uppercase' on input line 345.
 
-[14
+[15
 
-
-] [15
 
 ] [16
 
+] [17
+
 ]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\uppercase' on input line 339.
+(hyperref)                removing `\uppercase' on input line 372.
 
-[17
+[18
 
-
-] [18
 
 ] [19
 
+] [20
+
 ] (g:/Documentos\TCC\template.ind) 
 AED: lastpage setting LastPage
-[20
+[21
 
 ]
 \tf@lof=\write7
@@ -831,27 +843,31 @@ AED: lastpage setting LastPage
 \tf@toc=\write9
 \openout9 = `template.toc'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 367.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 367.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 400.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 400.
  (g:/Documentos\TCC\template.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 367.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 367.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 400.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 400.
 Package rerunfilecheck Info: File `template.brf' has not changed.
 (rerunfilecheck)             Checksum: D60A919DB29C5CDD3A3F0CA475E6A972;92.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 367.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 400.
  ) 
 Here is how much of TeX's memory you used:
- 12229 strings out of 481199
- 189435 string characters out of 2922345
- 748262 words of memory out of 3000000
- 27487 multiletter control sequences out of 15000+200000
+ 12242 strings out of 481199
+ 189611 string characters out of 2922345
+ 748362 words of memory out of 3000000
+ 27494 multiletter control sequences out of 15000+200000
  600629 words of font info for 65 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  58i,12n,45p,324b,508s stack positions out of 5000i,500n,10000p,200000b,50000s
 {G:/latex/fonts/enc/dvips/lm/lm-ec.enc}{G:/latex/fonts/enc/dvips/lm/lm-ts1.enc}{G:/latex/fonts/enc/dvips/lm/lm-mathit.enc}<G:/latex/fonts/type1/public/lm/lmbx12.pfb><G:/latex/fonts/type1/public/lm/lmmi12.pfb><G:/latex/fonts/type1/public/lm/lmmi8.pfb><G:/latex/fonts/type1/public/lm/lmr10.pfb><G:/latex/fonts/type1/public/lm/lmr12.pfb><G:/latex/fonts/type1/public/lm/lmri10.pfb><G:/latex/fonts/type1/public/lm/lmri12.pfb><G:/latex/fonts/type1/public/lm/lmss12.pfb><G:/latex/fonts/type1/public/lm/lmss17.pfb><G:/latex/fonts/type1/public/lm/lmssbx10.pfb>
-Output written on g:/Documentos\TCC\template.pdf (21 pages, 623926 bytes).
+Output written on g:/Documentos\TCC\template.pdf (22 pages, 652996 bytes).
 PDF statistics:
- 292 PDF objects out of 1000 (max. 8388607)
- 55 named destinations out of 1000 (max. 500000)
- 194 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 311 PDF objects out of 1000 (max. 8388607)
+ 59 named destinations out of 1000 (max. 500000)
+ 215 words of extra memory for PDF output out of 10000 (max. 10000000)
 
