@@ -5,6 +5,10 @@
 \providecommand{\abntbstabout}[1]{}
 \abntbstabout{v-1.9.7 }
 
+\bibitem[Boduch 2017]{boduch2017react}
+\abntrefinfo{Boduch}{BODUCH}{2017}
+{BODUCH, A. \emph{React and React Native}. [S.l.]: Packt Publishing Ltd, 2017.}
+
 \bibitem[Lee 2005]{lee2005scalable}
 \abntrefinfo{Lee}{LEE}{2005}
 {LEE, J. \emph{Scalable continuous media streaming systems: Architecture,
@@ -16,10 +20,19 @@
   privacy.
 CreateSpace Independent Publishing Platform, 2016.}
 
+\bibitem[Orsin 2013]{aboutnodejs}
+\abntrefinfo{Orsin}{ORSIN}{2013}
+{ORSIN, L. \emph{What You Need To Know About Node.js}. 2013.
+  \url{https://readwrite.com/2013/11/07/what-you-need-to-know-about-nodejs/}.}
+
 \bibitem[Qiang 2019]{qiang2019road}
 \abntrefinfo{Qiang}{QIANG}{2019}
 {QIANG, X. The road to digital unfreedom: President xi's surveillance state.
 \emph{Journal of Democracy}, Johns Hopkins University Press, v.~30, n.~1, p.
   53--67, 2019.}
+
+\bibitem[Sobre Node.js®]{NodeJSaboutoriginal}
+\abntrefinfo{Sobre\ldots}{SOBRE\ldots}{}
+{SOBRE Node.js®. \url{https://nodejs.org/pt-br/about/}.}
 
 \end{thebibliography}

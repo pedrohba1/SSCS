@@ -198,9 +198,9 @@ brazil]{facom-ufu-abntex2}
 \chapter[Introdução]{Introdução}
 %TCC:
 % Contextualização, problema, hipótese, objetivo geral, objetivos específicos, justificativa e resultados esperados.
-Em 2019 foi estimado que existem 200 milhões de câmeras de vigilância na China. Na última década,
+Em 2019 foi estimado que existem 200 milhões de câmeras de vigilância na China e na última década,
 avanços tecnológicos tornaram essas câmeras ainda mais eficientes em monitorar 1.4 bilhões de chineses. 
-O reconhecimento de rostos por câmeras começou a ser uma realidade em 2010 quando pesquisadores 
+Ainda segundo o autor, o reconhecimento de rostos por câmeras começou a ser uma realidade em 2010 quando pesquisadores 
 descobriram algoritmos de deep learning usados para reconhecer imagens e voz. Esses algoritmos podem
 também inferir em tempo real a quantidade e a densidade de pessoas numa dada imagem
 \cite{qiang2019road}. É notável que esse nível de vigilância está se tornando uma realidade em muitos outros
@@ -296,17 +296,42 @@ que permita a criação de um front-end mobile. Além disso, a aplicação resul
 deverá ser replicável em múltiplos dispositivos, para que o usuário não seja tolhido por não ter o meio adequado.
 Dadas essas condições, o \emph{framework} que satisfaz elas é o \emph{React Native}
 
-O React Native é um framework de desenvolvimento mobile híbrido (iOS e Android simultâneamente) criado 
+O React Native é um framework de desenvolvimento mobile híbrido (iOS e Android simultâneamente) voltado para a construção de interfaces
+de usuário criado 
 pelo facebook, utilizando \emph{javascript} com a linguagem de programação e compilando-o de forma que
-seja executável pela plataforma nativa. \cite{boduch2017react}. Assim sendo, Essa aplicação funcionará como a camada
-\emph{View} do sistema.
+seja executável pela plataforma nativa. Vale lembrar que o React Native não é 
+uma solução \emph{full-stack} que vai lidar com tudo desde o banco de dados à atualizações em tempo real
+de \emph{web sockets}. Ele é simplesmente a \emph{View layer} da aplicação. \cite{boduch2017react}
+
 
 \section{Tecnologias de desenvolvimento back-end}
+
+O back-end é a parte do sistema que realizará o processamento da imagem
+que consiste de um servidor contendo o
+banco de dados e uma aplicação que fornece os \emph{endpoints} responsáveis pela comunicação
+com o front-end. Nesses \emph{endpoints}, o usuário consegue fazer o envio, requisição e alteração
+de dados por meio da abstração fornecida pelo front-end. 
+
+% Neste trabalho, o back-end é responsável pelo processamento da imagem assim como pela criação do 
+% canal de transmissão em tempo real dela. Além disso, existirá um \emph{endpoint} que permite
+% o cadastro de um rosto específico, evitando que o sistema emita um alerta para essa pessoa.
+
+Neste trabalho, a aplicação do \emph{back-end} será feita utilizando o \emph{NodeJS}, que é um
+ambiente de execução de javascript no servidor baseado em \emph{event-driven architecture} capaz
+de entrada e saída assíncrona, muito utilizado em aplicações de comunicação em tempo real. \cite{aboutnodejs}
+Além disso, Em Node.js, HTTP é um cidadão de primeira classe, projetado para que tenha um alta taxa de fluxo e baixa latência. 
+Isso torna o Node.js uma ótima escolha para servir como base para uma biblioteca web ou para um framework. \cite{NodeJSaboutoriginal}
+ 
+Na aplicação a ser desenvolvida então, \emph{endpoints} serão desenvolvidos em NodeJS e disponibilizados ao usuário de forma que seja
+possível realizar requisições HTTP para obter o acesso ao fluxo de vídeo, assim como outras funcionalidades.
+
+\section{Algoritmo de reconhecimento facial}
+
 
 \section{Tecnologias de segurança da informação}
 
 
-
+\section{Tecnologia de Hardware}
 
 
 \chapter{Revisão Bibliográfica}
