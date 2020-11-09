@@ -268,7 +268,7 @@ Na origem, tem-se a gravação comprimida, codificada e armazenada no dispositiv
 como um disco rígido, por exemplo. Em seguida, por meio de algum software de tratamento de mídia que será produzido,
 esses arquivos são requisitados por usuários e entregues de acordo. Um protocolo de transferência é utilizado para
 entregar os dados de multimídia para o cliente (tais como RTMP ou HLS), onde eles são primeiramente armazenados
-na memória principal e eventualmente decodificados e apresentados ao usuário.
+na memória principal e eventualmente decodificados e apresentados ao usuário. \cite{lee2005scalable}
 
 
 \begin{figure}[!ht]
@@ -280,7 +280,32 @@ na memória principal e eventualmente decodificados e apresentados ao usuário.
 
 Esta arquitetura é a que levarei em consideração na implementação do projeto. O servidor que será implementado utilizando
 um microcomputador contem a câmera e sistema operacional para realizar o processamento e transmissão dos dados de 
-multimídia.
+multimídia. Outra alternativa seria o microcomputador apenas enviar os fluxo de vídeo para um terceiro servidor que faria o processamento
+da imagem caso a capacidade daquele não seja suficiente, resultando em um sistema distribuído. Essa outra abordagem também
+respeita a arquitetura citada acima.
+
+
+
+\section{Framework de desenvolvimento front-end}
+
+Como é de se esperar, um sistema que permite a visualização em tempo real necessitará
+de um meio para apresentar ao usuário as saídas e o resultado do processamento delas.
+Como se trata de um sistema de segurança, o mais viavel é que o usuário sempre tenha 
+em mãos o dispositivo que fornece a imagem, ou seja, o \emph{smartphone}. Portanto, faz sentido utilizar um \emph{framework}
+que permita a criação de um front-end mobile. Além disso, a aplicação resultante
+deverá ser replicável em múltiplos dispositivos, para que o usuário não seja tolhido por não ter o meio adequado.
+Dadas essas condições, o \emph{framework} que satisfaz elas é o \emph{React Native}
+
+O React Native é um framework de desenvolvimento mobile híbrido (iOS e Android simultâneamente) criado 
+pelo facebook, utilizando \emph{javascript} com a linguagem de programação e compilando-o de forma que
+seja executável pela plataforma nativa. \cite{boduch2017react}. Assim sendo, Essa aplicação funcionará como a camada
+\emph{View} do sistema.
+
+\section{Tecnologias de desenvolvimento back-end}
+
+\section{Tecnologias de segurança da informação}
+
+
 
 
 

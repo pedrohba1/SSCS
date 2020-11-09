@@ -5,6 +5,11 @@
 \providecommand{\abntbstabout}[1]{}
 \abntbstabout{v-1.9.7 }
 
+\bibitem[Lee 2005]{lee2005scalable}
+\abntrefinfo{Lee}{LEE}{2005}
+{LEE, J. \emph{Scalable continuous media streaming systems: Architecture,
+  design, analysis and implementation}. [S.l.]: John Wiley \& Sons, 2005.}
+
 \bibitem[Mardjan e Jahan 2016]{mardjan2016open}
 \abntrefinfo{Mardjan e Jahan}{MARDJAN; JAHAN}{2016}
 {MARDJAN, M.~J.; JAHAN, A. Open reference architecture for security and
