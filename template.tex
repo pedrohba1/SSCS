@@ -286,13 +286,13 @@ respeita a arquitetura citada acima.
 
 
 
-\section{Framework de desenvolvimento front-end}
+\section{Framework de desenvolvimento front end}
 
 Como é de se esperar, um sistema que permite a visualização em tempo real necessitará
 de um meio para apresentar ao usuário as saídas e o resultado do processamento delas.
 Como se trata de um sistema de segurança, o mais viavel é que o usuário sempre tenha 
 em mãos o dispositivo que fornece a imagem, ou seja, o \emph{smartphone}. Portanto, faz sentido utilizar um \emph{framework}
-que permita a criação de um front-end mobile. Além disso, a aplicação resultante
+que permita a criação de um front end mobile. Além disso, a aplicação resultante
 deverá ser replicável em múltiplos dispositivos, para que o usuário não seja tolhido por não ter o meio adequado.
 Dadas essas condições, o \emph{framework} que satisfaz elas é o \emph{React Native}
 
@@ -304,31 +304,41 @@ uma solução \emph{full-stack} que vai lidar com tudo desde o banco de dados à
 de \emph{web sockets}. Ele é simplesmente a \emph{View layer} da aplicação. \cite{boduch2017react}
 
 
-\section{Tecnologias de desenvolvimento back-end}
+\section{Tecnologias de desenvolvimento back end}
 
-O back-end é a parte do sistema que realizará o processamento da imagem
+O back end é a parte do sistema que realizará o processamento da imagem
 que consiste de um servidor contendo o
 banco de dados e uma aplicação que fornece os \emph{endpoints} responsáveis pela comunicação
-com o front-end. Nesses \emph{endpoints}, o usuário consegue fazer o envio, requisição e alteração
-de dados por meio da abstração fornecida pelo front-end. 
+com o front end. Nesses \emph{endpoints}, o usuário consegue fazer o envio, requisição e alteração
+de dados por meio da abstração fornecida pelo front end. 
 
-% Neste trabalho, o back-end é responsável pelo processamento da imagem assim como pela criação do 
+% Neste trabalho, o back end é responsável pelo processamento da imagem assim como pela criação do 
 % canal de transmissão em tempo real dela. Além disso, existirá um \emph{endpoint} que permite
 % o cadastro de um rosto específico, evitando que o sistema emita um alerta para essa pessoa.
 
-Neste trabalho, a aplicação do \emph{back-end} será feita utilizando o \emph{NodeJS}, que é um
+Neste trabalho, a aplicação do \emph{back end} será feita utilizando o \emph{NodeJS}, que é um
 ambiente de execução de javascript no servidor baseado em \emph{event-driven architecture} capaz
 de entrada e saída assíncrona, muito utilizado em aplicações de comunicação em tempo real. \cite{aboutnodejs}
 Além disso, Em Node.js, HTTP é um cidadão de primeira classe, projetado para que tenha um alta taxa de fluxo e baixa latência. 
-Isso torna o Node.js uma ótima escolha para servir como base para uma biblioteca web ou para um framework. \cite{NodeJSaboutoriginal}
+Isso torna o Node.js uma ótima escolha para servir como base para uma biblioteca web ou para um framework. \cite{NodeJSaboutoriginal}.
+Mais um motivo para a utilização de Node.js, é a grande quantidade de módulos disponíveis no npm. Este projeto particularmente
+utilizará vários deles, sendo os principais o Express e o node-media-server. O primeiro facilita a criação da aplicação web no servidor,
+e o segundo servirá para utilizar o protocolo RTMP, que é o ideal para transmissão de vídeo e áudio em alta performance. 
  
-Na aplicação a ser desenvolvida então, \emph{endpoints} serão desenvolvidos em NodeJS e disponibilizados ao usuário de forma que seja
-possível realizar requisições HTTP para obter o acesso ao fluxo de vídeo, assim como outras funcionalidades.
+Também é necessária a implementação de um banco de dados que se comunicará com a aplicação do servidor. Para este projeto,
+foi escolhido o PostgreSQL, sendo ele um banco de dados relacional de código aberto. Este sistema de banco de dados foi escolhido
+por possuir \emph{Write-ahead Logging}, \emph{point-in-time-recovery}. Essas duas características são importantes para garantir
+a confiabilidade e a possível recuperação dos dados em caso de perda. Além disso, a comunidade ativa do PostgreSQL é responsável
+por criar diversas extensões e alguma delas podem ajudar no desenvolvimento do projeto. O último aspecto importante dessa escolha,
+é que esse sistema de banco de dados também permite \emph{multi-factor authentication}. \cite{aboutPostgre}
+
+Uma última camada de segurança da aplicação é necessária, de forma que tanto as informações do usuário
+quanto o servidor em si estejam protegidos de possíveis ataques. Para proteger o servidor de acesso indevido aos \emph{endpoints}
+vou utilizar o JSON Web Token (JWT). O JSON Web Token é um meio de representar reivindicações à serem transferidas entre duas partes.
+Os dados são codificados com um JSON que é usado como o \emph{payload} de uma estrutura  JSON Web Encryption (JWE), permitindo que essas
+reivindicações sejam assinadas digitalmente ou a integridade protegida com \emph{Message Authentication Code} ou criptografada. \cite{jsonwebtoken}
 
 \section{Algoritmo de reconhecimento facial}
-
-
-\section{Tecnologias de segurança da informação}
 
 
 \section{Tecnologia de Hardware}

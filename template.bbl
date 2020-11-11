@@ -9,6 +9,16 @@
 \abntrefinfo{Boduch}{BODUCH}{2017}
 {BODUCH, A. \emph{React and React Native}. [S.l.]: Packt Publishing Ltd, 2017.}
 
+\bibitem[Bradley 2015]{jsonwebtoken}
+\abntrefinfo{Bradley}{BRADLEY}{2015}
+{BRADLEY, N.~S. J. \emph{What is PostgreSQL?} 2015.
+  \url{https://www.postgresql.org/about/}.}
+
+\bibitem[Group]{aboutPostgre}
+\abntrefinfo{Group}{GROUP}{}
+{GROUP, T. P. G.~D. \emph{What is PostgreSQL?}
+  \url{https://www.postgresql.org/about/}.}
+
 \bibitem[Lee 2005]{lee2005scalable}
 \abntrefinfo{Lee}{LEE}{2005}
 {LEE, J. \emph{Scalable continuous media streaming systems: Architecture,
