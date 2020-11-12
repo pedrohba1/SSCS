@@ -359,11 +359,18 @@ A próxima parte do processo envolve usar o algoritmo que reconhece que existe u
 algoritmo que reconhecerá à quem pertence este rosto. Para o algoritmo classificador reconhecedor que será usado agora, são necessárias
 varias imagens do rosto a ser reconhecido, que serão convertidas para \emph{grayscale}, dessa forma mantendo o plano de luminância
 e separando o de crominância de cada imagem o que por sua vez reduz a quantidade de informação desnecessária presente e, por isso, facilita a identificação
-das características importantes para classificação.
+das características importantes para classificação. Em seguida, será usado o algoritmo Local Binary Patterns Histogram (LBPH) para
+realizar o treinamento do modelo que reconhecerá os rostos usando as imagens preparadas anteriormente. O LBPH foi escolhido
+por funcionar bem com as imagens em \emph{grayscale} e ser capaz de desconsiderar a luminosidade como característica importante, como
+mostra a figura abaixo:
 
-
-
-
+\begin{figure}[!ht]
+  \centering
+\includegraphics[width=0.7\linewidth]{grayscale.PNG}
+\caption[De \emph{grayscale} para LBP
+]{Imagens resultantes do algoritmo LBP abaixo, geradas à partir da imagem em \emph{grayscale} acima.}
+\label{fig:graficosVariandoTamanhoRede}
+\end{figure}
 % é o proposto por Paul Viola e Michael Jones no 
 % artigo  "Rapid Object Detection using a Boosted Cascade of Simple Features" em 2001. É uma abordagem
 % baseada em Machine Learning em que uma função \emph{cascade} é treinada com o uso de muitas imagens
@@ -371,6 +378,19 @@ das características importantes para classificação.
 
 
 \section{Tecnologia de Hardware}
+
+Todos os algoritmos que irão processar a imagem da câmera e aplicação do back end precisam ficar alocados num servidor. Assim sendo, foi
+escolhido um raspberry pi zero W 1.1 para ser usado como o dispositivo que funcionará como servidor. Além disso, o Camera Module V2
+será responsável por captar a imagem. Se fizermos uma comparação com os dispositivos de monitoramento presentes no mercado,
+esses dispositivos não são muito potentes. A empresa força tarefa de Uberlândia que fornece serviços de segurança e portaria remota, por exemplo,
+utiliza câmeras IP da Intelbras, muitas delas com sensores de visibilidade noturna, como o modelo VIP 3230 B SL. Por meio de uma conexão de rede, a informação de vídeo
+dessas câmeras vai para os servidores da empresa que possuem alta capacidade de processamento. Entretanto, mesmo com a capacidade reduzida
+dos dispositivos que serão usados neste trabalho, os algoritmos de reconhecimento facial, a aplicação do servidor e o front end poderão ser transferidos
+para outros melhores.
+
+% raspberry pi zero W V 1.1
+
+
 
 
 \chapter{Revisão Bibliográfica}
