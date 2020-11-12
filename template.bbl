@@ -45,4 +45,15 @@ CreateSpace Independent Publishing Platform, 2016.}
 \abntrefinfo{Sobre\ldots}{SOBRE\ldots}{}
 {SOBRE Node.js®. \url{https://nodejs.org/pt-br/about/}.}
 
+\bibitem[team]{opencv}
+\abntrefinfo{team}{TEAM}{}
+{TEAM, O. \emph{About Open CV}. \url{https://opencv.org/about/}.}
+
+\bibitem[Viola e Jones 2001]{viola2001rapid}
+\abntrefinfo{Viola e Jones}{VIOLA; JONES}{2001}
+{VIOLA, P.; JONES, M. Rapid object detection using a boosted cascade of simple
+  features. In:  IEEE. \emph{Proceedings of the 2001 IEEE computer society
+  conference on computer vision and pattern recognition. CVPR 2001}. [S.l.],
+  2001. v.~1, p.~I--I.}
+
 \end{thebibliography}

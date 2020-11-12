@@ -340,6 +340,35 @@ reivindicações sejam assinadas digitalmente ou a integridade protegida com \em
 
 \section{Algoritmo de reconhecimento facial}
 
+Para a funcionalidade de reconhecimento facial da câmera, usarei uma biblioteca de código aberto
+de \emph{computer vision} chamada \emph{OpenCV}. Essa biblioteca possui mais de 2500 algoritmos
+otimizados, incluindo os clássicos e os mais recentes do estado da arte. Eles podem ser utilizados
+para detectar e reconhecer faces, identificar objetos classificar ações humanas em vídeo e mais. \cite{opencv}.
+Ela suporta múltiplas linguagens incluindo Java, C++ e Python. para este trabalho, será usada a biblioteca em Python.
+
+Para realizar o reconhecimento facial, é preciso conseguir antes reconhecer que há um rosto em vídeo.
+O método que utilizarei, facilitado pelo \emph{OpenCV}, é o chamado \emph{Haar Cascades} \cite{viola2001rapid}.
+Este algoritmo é baseado em \emph{machine learning} onde a função de cascata é treinada por meio de muitas imagens positivas
+e negativas. No caso, as imagens positivas são várias fotos com rostos e as negativas são fotos sem rosto. O conceito
+de classificadores em cascata desse algoritmo por sua vez, vem do fato de que no lugar de aplicar as características
+encontradas numa única etapa, elas são agrupadas em diferentes estágios de classificação uma a uma. Se um desses estágios
+falhar, então a imagem é descartada, desconsiderando as características remanescentes nela. Assim sendo, a foto que passar
+por todos os estágios é uma região de um rosto.
+
+A próxima parte do processo envolve usar o algoritmo que reconhece que existe um rosto no vídeo junto com um outro
+algoritmo que reconhecerá à quem pertence este rosto. Para o algoritmo classificador reconhecedor que será usado agora, são necessárias
+varias imagens do rosto a ser reconhecido, que serão convertidas para \emph{grayscale}, dessa forma mantendo o plano de luminância
+e separando o de crominância de cada imagem o que por sua vez reduz a quantidade de informação desnecessária presente e, por isso, facilita a identificação
+das características importantes para classificação.
+
+
+
+
+% é o proposto por Paul Viola e Michael Jones no 
+% artigo  "Rapid Object Detection using a Boosted Cascade of Simple Features" em 2001. É uma abordagem
+% baseada em Machine Learning em que uma função \emph{cascade} é treinada com o uso de muitas imagens
+% positivas e negativas.
+
 
 \section{Tecnologia de Hardware}
 
