@@ -247,6 +247,7 @@ INPUT g:\Documentos\TCC\template.brf
 INPUT g:\Documentos\TCC\template.brf
 INPUT g:\Documentos\TCC\template.brf
 OUTPUT g:\Documentos\TCC\template.brf
+INPUT G:\latex\fonts\tfm\public\lm\ts1-lmri12.tfm
 INPUT g:\Documentos\TCC\template.ind
 INPUT g:\Documentos\TCC\template.ind
 OUTPUT g:\Documentos\TCC\template.lof
@@ -257,13 +258,8 @@ INPUT g:\Documentos\TCC\template.brf
 INPUT g:\Documentos\TCC\template.brf
 INPUT G:\latex\fonts\enc\dvips\lm\lm-ts1.enc
 INPUT G:\latex\fonts\enc\dvips\lm\lm-ec.enc
-INPUT G:\latex\fonts\enc\dvips\lm\lm-mathit.enc
 INPUT G:\latex\fonts\type1\public\lm\lmbx12.pfb
 INPUT G:\latex\fonts\type1\public\lm\lmbx12.pfb
-INPUT G:\latex\fonts\type1\public\lm\lmmi12.pfb
-INPUT G:\latex\fonts\type1\public\lm\lmmi12.pfb
-INPUT G:\latex\fonts\type1\public\lm\lmmi8.pfb
-INPUT G:\latex\fonts\type1\public\lm\lmmi8.pfb
 INPUT G:\latex\fonts\type1\public\lm\lmr10.pfb
 INPUT G:\latex\fonts\type1\public\lm\lmr10.pfb
 INPUT G:\latex\fonts\type1\public\lm\lmr12.pfb

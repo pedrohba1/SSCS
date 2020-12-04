@@ -20,8 +20,6 @@ Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'glb_str_end' (item size: 4) to 20 items.
 Reallocating 'glb_str_ptr' (item size: 4) to 20 items.
 Reallocating 'global_strs' (item size: 1) to 4000000 items.
-Warning--campo year vazio ou faltando em aboutPostgre
-Warning--campo year vazio ou faltando em NodeJSaboutoriginal
 Warning--campo year vazio ou faltando em opencv
 +---------------------------------------------------------+
 | Estilo bibliográfico abntex2-alf.bst versão v-1.9.7           |
@@ -30,43 +28,43 @@ Warning--campo year vazio ou faltando em opencv
 +---------------------------------------------------------+
 You've used 11 entries,
             6714 wiz_defined-function locations,
-            1250 strings with 10579 characters,
-and the built_in function-call counts, 7430 in all, are:
-= -- 702
-> -- 171
+            1254 strings with 10601 characters,
+and the built_in function-call counts, 7358 in all, are:
+= -- 652
+> -- 186
 < -- 7
-+ -- 118
-- -- 55
-* -- 433
-:= -- 1055
-add.period$ -- 34
++ -- 111
+- -- 60
+* -- 445
+:= -- 1068
+add.period$ -- 37
 call.type$ -- 11
-change.case$ -- 79
+change.case$ -- 80
 chr.to.int$ -- 17
-cite$ -- 13
-duplicate$ -- 338
-empty$ -- 630
-format.name$ -- 255
-if$ -- 1812
+cite$ -- 11
+duplicate$ -- 346
+empty$ -- 633
+format.name$ -- 278
+if$ -- 1755
 int.to.chr$ -- 0
 int.to.str$ -- 0
-missing$ -- 182
+missing$ -- 185
 newline$ -- 50
-num.names$ -- 45
-pop$ -- 252
+num.names$ -- 50
+pop$ -- 254
 preamble$ -- 1
 purify$ -- 35
 quote$ -- 0
-skip$ -- 519
+skip$ -- 452
 stack$ -- 1
-substring$ -- 249
-swap$ -- 138
+substring$ -- 260
+swap$ -- 145
 text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 6
-warning$ -- 3
-while$ -- 62
+type$ -- 0
+warning$ -- 1
+while$ -- 67
 width$ -- 0
-write$ -- 152
-(There were 3 warnings)
+write$ -- 155
+(There was 1 warning)

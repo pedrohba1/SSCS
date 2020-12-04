@@ -14,9 +14,13 @@
 {BRADLEY, N.~S. J. \emph{What is PostgreSQL?} 2015.
   \url{https://www.postgresql.org/about/}.}
 
-\bibitem[Group]{aboutPostgre}
-\abntrefinfo{Group}{GROUP}{}
-{GROUP, T. P. G.~D. \emph{What is PostgreSQL?}
+\bibitem[Dahl 2009]{NodeJSaboutoriginal}
+\abntrefinfo{Dahl}{DAHL}{2009}
+{DAHL, R. \emph{Sobre Node.js®}. 2009. \url{https://nodejs.org/pt-br/about/}.}
+
+\bibitem[Group 1996]{aboutPostgre}
+\abntrefinfo{Group}{GROUP}{1996}
+{GROUP, T. P. G.~D. \emph{What is PostgreSQL?} 1996.
   \url{https://www.postgresql.org/about/}.}
 
 \bibitem[Lee 2005]{lee2005scalable}
@@ -40,10 +44,6 @@ CreateSpace Independent Publishing Platform, 2016.}
 {QIANG, X. The road to digital unfreedom: President xi's surveillance state.
 \emph{Journal of Democracy}, Johns Hopkins University Press, v.~30, n.~1, p.
   53--67, 2019.}
-
-\bibitem[Sobre Node.js®]{NodeJSaboutoriginal}
-\abntrefinfo{Sobre\ldots}{SOBRE\ldots}{}
-{SOBRE Node.js®. \url{https://nodejs.org/pt-br/about/}.}
 
 \bibitem[team]{opencv}
 \abntrefinfo{team}{TEAM}{}

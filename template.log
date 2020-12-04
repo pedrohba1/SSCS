@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.7) (preloaded format=pdflatex 2020.9.16)  11 NOV 2020 23:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.7) (preloaded format=pdflatex 2020.9.16)  3 DEC 2020 23:39
 entering extended mode
 **g:/Documentos/TCC/template.tex
 (g:/Documentos/TCC/template.tex
@@ -779,21 +779,14 @@ LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 23
  (G:\latex\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [9]
-<figuras/Capturar.PNG, id=132, 664.73344pt x 214.55156pt>
+<figuras/Capturar.PNG, id=130, 664.73344pt x 214.55156pt>
 File: figuras/Capturar.PNG Graphic file (type png)
 <use figuras/Capturar.PNG>
 Package pdftex.def Info: figuras/Capturar.PNG  used on input line 276.
 (pdftex.def)             Requested size: 455.0pt x 146.85889pt.
  [10
 
- <g:/Documentos/TCC/figuras/Capturar.PNG>]
-
-Package hyperref Warning: Suppressing empty link on input line 323.
-
-
-Package hyperref Warning: Suppressing empty link on input line 333.
-
-[11]
+ <g:/Documentos/TCC/figuras/Capturar.PNG>] [11]
 
 Package hyperref Warning: Suppressing empty link on input line 346.
 
@@ -877,17 +870,17 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 509.
  ) 
 Here is how much of TeX's memory you used:
- 12342 strings out of 481199
- 191327 string characters out of 2922345
- 750063 words of memory out of 3000000
+ 12343 strings out of 481199
+ 191337 string characters out of 2922345
+ 750066 words of memory out of 3000000
  27577 multiletter control sequences out of 15000+200000
- 600629 words of font info for 65 fonts, out of 3000000 for 9000
+ 601044 words of font info for 66 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  58i,12n,45p,324b,508s stack positions out of 5000i,500n,10000p,200000b,50000s
-{G:/latex/fonts/enc/dvips/lm/lm-ts1.enc}{G:/latex/fonts/enc/dvips/lm/lm-ec.enc}{G:/latex/fonts/enc/dvips/lm/lm-mathit.enc}<G:/latex/fonts/type1/public/lm/lmbx12.pfb><G:/latex/fonts/type1/public/lm/lmmi12.pfb><G:/latex/fonts/type1/public/lm/lmmi8.pfb><G:/latex/fonts/type1/public/lm/lmr10.pfb><G:/latex/fonts/type1/public/lm/lmr12.pfb><G:/latex/fonts/type1/public/lm/lmri10.pfb><G:/latex/fonts/type1/public/lm/lmri12.pfb><G:/latex/fonts/type1/public/lm/lmss12.pfb><G:/latex/fonts/type1/public/lm/lmss17.pfb><G:/latex/fonts/type1/public/lm/lmssbx10.pfb>
-Output written on g:/Documentos\TCC\template.pdf (25 pages, 1550573 bytes).
+{G:/latex/fonts/enc/dvips/lm/lm-ts1.enc}{G:/latex/fonts/enc/dvips/lm/lm-ec.enc}<G:/latex/fonts/type1/public/lm/lmbx12.pfb><G:/latex/fonts/type1/public/lm/lmr10.pfb><G:/latex/fonts/type1/public/lm/lmr12.pfb><G:/latex/fonts/type1/public/lm/lmri10.pfb><G:/latex/fonts/type1/public/lm/lmri12.pfb><G:/latex/fonts/type1/public/lm/lmss12.pfb><G:/latex/fonts/type1/public/lm/lmss17.pfb><G:/latex/fonts/type1/public/lm/lmssbx10.pfb>
+Output written on g:/Documentos\TCC\template.pdf (25 pages, 1543813 bytes).
 PDF statistics:
- 387 PDF objects out of 1000 (max. 8388607)
+ 382 PDF objects out of 1000 (max. 8388607)
  75 named destinations out of 1000 (max. 500000)
  252 words of extra memory for PDF output out of 10000 (max. 10000000)
 
