@@ -1,0 +1,9 @@
+{
+    "latex-workshop.linting.chktex.enabled": true,
+    "latex-workshop.linting.run": "onSave",
+    "latex-workshop.latexindent.path": "latexindent",
+    "[latex]": {
+        "editor.formatOnSave": false,
+    }
+
+}
