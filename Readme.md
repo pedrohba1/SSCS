@@ -21,10 +21,8 @@ to integrate the tools.
 ## Installation
 
 ### Prerequisites
-- GoLang (v1.16+ recommended)
+- GoLang (v1.19+ recommended)
 - OpenCV (v4.0+ recommended)
-
-
 
 ## Contribution
 Fork the project.
