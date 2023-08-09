@@ -13,10 +13,13 @@ The Self-Sovereign Camera System (SSCS) is an open-source, decentralized camera 
 
 ## Features
 
-2. **Facial Detection**: Capable of detecting faces in real-time.
-3. **Human Detection**: Real-time detection of human figures.
-4. **Self-Sovereign**: Your data, your rules. No third-party control or access, unless you prefer it. In that case, it's up to the user 
-to integrate the tools.
+1. **Facial Detection**: Capable of detecting faces in real-time.
+2. **Human Detection**: Real-time detection of human figures.
+7. **Facial Database**: You can save faces for later recognition and notifications. 
+3. **Archiving and Playback**: integrate either your local storage our cloud storage to have later access to files.
+4. **Notifications**: This software can notify you when some specific events happen on camera, in your phone. 
+5. **Self-Sovereign**: Your data, your rules. No third-party control or access, unless you prefer it. In that case, it's up to the user to integrate the tools provided.
+6. **Search and Filter**: with the saved data, you can check for when specific events happened in the feed. 
 
 ## Installation
 
