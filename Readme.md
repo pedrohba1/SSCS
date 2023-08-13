@@ -29,6 +29,8 @@ The Self-Sovereign Camera System (SSCS) is an open-source, decentralized camera 
 - OpenCV (v4.0+ recommended)
 - ffmpeg (version 4.4.2 recommended)
 
+To quickly install openCV, just clone this repo and run `make install-opencv`. It will attempt to install all dependencies required and setup openCV properly.
+
 ## Contribution
 Fork the project.
 Create a new branch (git checkout -b feature/YourFeature).

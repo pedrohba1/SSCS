@@ -280,7 +280,7 @@ sudo_install_openvino:
 	sudo $(MAKE) install
 	sudo ldconfig
 	cd -
-
+1
 # Build a minimal Go app to confirm gocv works.
 verify:
 	go run ./cmd/version/main.go
