@@ -1,9 +1,10 @@
 {
-    "latex-workshop.linting.chktex.enabled": true,
-    "latex-workshop.linting.run": "onSave",
-    "latex-workshop.latexindent.path": "latexindent",
-    "[latex]": {
-        "editor.formatOnSave": false,
-    }
-
+    "editor.formatOnSave": true,
+    "latex-workshop.latexindent.args": [
+        "-c",
+        "%DIR%/",
+        "%TMPFILE%",
+        "-y=defaultIndent: '%INDENT%'",
+        "-m"
+    ]
 }

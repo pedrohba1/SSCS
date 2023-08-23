@@ -5,6 +5,8 @@ oneside, %
 a4paper,    %
 %english,   %
 brazil]{facom-ufu-abntex2}
+
+\usepackage[brazil]{babel}
 \usepackage{graphicx}
 \graphicspath{{figuras/}{pictures/}{images/}{./}} % where to search for the images
 
@@ -20,10 +22,10 @@ brazil]{facom-ufu-abntex2}
 % ---
 % Informações de dados para CAPA e FOLHA DE ROSTO
 % ---
- 
-\titulo{Sistema de segurança doméstica: uma solução open source, customizável e auto-soberano} %TCC
 
-\hypersetup{pdfkeywords={sistema distribuído}{auto-soberano}{distributed system}{}{palavra 5}} %TCC
+\titulo{Sistema de segurança doméstica: uma solução open source e customizável} %TCC
+
+\hypersetup{pdfkeywords={palavra 1}{palavra 2}{palavra 4}{palavra 4}{palavra 5}} %TCC
 
 \begin{document}
 \frenchspacing
@@ -34,7 +36,6 @@ brazil]{facom-ufu-abntex2}
 %\pretextual
 \imprimircapa
 \imprimirfolhaderosto
-
 
 % ---
 % Inserir folha de aprovação
@@ -58,7 +59,7 @@ brazil]{facom-ufu-abntex2}
 		\vspace*{\fill}
 	\end{center}
 
-	Trabalho aprovado.  \imprimirlocal, 01 de novembro de 2016: %TCC:
+	Trabalho aprovado. \imprimirlocal, 01 de novembro de 2016: %TCC:
 
 	\assinatura{\textbf{\imprimirorientador} \\ Orientador}
 	\assinatura{\textbf{Professor}}% \\ Convidado 1} %TCC:
@@ -76,7 +77,6 @@ brazil]{facom-ufu-abntex2}
 
 \end{folhadeaprovacao}
 % ---
-
 
 %%As seções dedicatória, agradecimento e epígrafe não são obrigatórias.
 %%Só as mantenha se achar pertinente.
@@ -112,18 +112,15 @@ brazil]{facom-ufu-abntex2}
 %\end{epigrafe}
 % ---
 
-
-
 \begin{resumo} %TCC:
 	Os sistemas de segurança domésticos carecem de soluções
-	que sejam customizáveis de acordo com a falha de segurança que existe em cada domicílio.
-	Frequentemente encontra-se no mercado câmeras que fazem apenas a gravação com baixa resolução, e
-	caso busque algo mais sofisticado, existem modelos envolvendo reconhecimento facial, mas eles são ainda mais caros e raros.
-	Além disso, as soluções de segurança pública ou providas por empresas privadas, quando existem, podem usar as informações
+	que sejam customizáveis. Apesar de existirem no mercado câmeras que fazem a gravação e o armazenamento de
+	imagem, elas o fazem com com baixa resolução e limitações de espaço de memória severas. Mesmo os equipamentos
+	de monitoramento mais sofisticados, como os que possuem reconhecimento de imagem, limitam o usuário de aprimorar
+	essas funções por ter o \textit{\foreignlanguage{english}{software}} como \textit{\foreignlanguage{english}{closed source}}.
+	Além disso, as soluções providas pela segurança pública ou privada, quando existem, podem usar as imagens
 	coletadas para seus próprios benefícios, diminuindo a privacidade do indivíduo. Este trabalho propõe uma solução que seja
-	fácil de implementar, com ferramentas prontas para uso e customizável por ser de código aberto,
-	trazendo com esta última característica o poder para qualquer um de criar a sua própria segurança
-	e modificar este projeto de acordo com suas necessidades. Além disso,
+	fácil de implementar, com ferramentas prontas para uso e completamente customizável por ser \textit{\foreignlanguage{english}{open source}}.
 
 	\vspace{\onelineskip}
 
@@ -146,8 +143,6 @@ brazil]{facom-ufu-abntex2}
 \listoftables*
 \cleardoublepage
 % ---
-
-
 
 % ---
 % inserir lista de abreviaturas e siglas
@@ -180,15 +175,10 @@ brazil]{facom-ufu-abntex2}
 \cleardoublepage
 % ---
 
-
-
-
-
 % ----------------------------------------------------------
 % ELEMENTOS TEXTUAIS
 % ----------------------------------------------------------
 \textual
-
 
 % ----------------------------------------------------------
 % Introdução
@@ -201,15 +191,19 @@ Em 2019 foi estimado que existem 200 milhões de câmeras de vigilância na Chin
 avanços tecnológicos tornaram essas câmeras ainda mais eficientes em monitorar 1.4 bilhões de chineses.
 Ainda segundo o autor, o reconhecimento de rostos por câmeras começou a ser uma realidade em 2010 quando pesquisadores
 descobriram algoritmos de deep learning usados para reconhecer imagens e voz. Esses algoritmos podem
-também inferir em tempo real a quantidade e a densidade de pessoas numa dada imagem
+ambém inferir em tempo real a quantidade e a densidade de pessoas numa dada imagem
 \cite{qiang2019road}. É notável que esse nível de vigilância está se tornando uma realidade em muitos outros
 países no mundo além da China. Nesse sentido, é perceptível que existe uma demanda por aumentar a segurança usando os meios
 necessários, mas sem que isso signifique diminuir a privacidade dos indivíduos colocando suas informações disponíveis aos
 governantes e corporações.
 
-No entanto, à medida que esses sistemas de vigilância aumentam em complexidade e tamanho, a necessidade de sistemas distribuídos, capazes de processar grandes quantidades de dados de maneira eficiente, torna-se cada vez mais aparente. Sistemas distribuídos podem lidar com a transmissão de informações em tempo real, o processamento paralelo de imagens e a redundância necessária para garantir a confiabilidade do sistema.
+Ao mesmo tempo, à medida que esses sistemas de vigilância aumentam em complexidade e tamanho, a necessidade de sistemas distribuídos,
+capazes de processar grandes quantidades de dados de maneira eficiente, torna-se cada vez mais aparente. Sistemas distribuídos
+podem lidar com a transmissão de informações em tempo real, o processamento paralelo de imagens e a redundância necessária para garantir a confiabilidade do sistema.
 
-Além disso, a privacidade dos indivíduos é uma preocupação fundamental. Nesse contexto, tecnologias de código aberto podem oferecer uma solução, pois permitem que qualquer pessoa verifique se o proprietário está tratando a segurança e a privacidade de maneira adequada \cite{mardjan2016open}.
+Entretanto, a privacidade dos indivíduos não é uma preocupação primária
+dos principais provedores desse tipo de serviço. Nesse contexto,
+tecnologias de código aberto podem oferecer uma solução, pois permitem que qualquer pessoa verifique se o proprietário está tratando a segurança e a privacidade de maneira adequada \cite{mardjan2016open}.
 
 Considerando-se a necessidade de criar uma solução que traga os benefícios da vigilância e mantendo a privacidade individual, surge
 essa proposta da construção de um sistema de segurança doméstica que oferece as opções de reconhecimento de imagem
@@ -218,8 +212,9 @@ abertos em virtude da transparência.
 
 \section{Objetivos}
 
-O objetivo principal deste trabalho é performar a concepção, modelagem e implementação de um sistema de segurança doméstica utilizando
-apenas hardware e software que sejam abertos, assim como o projeto resultante final deverá ser. Pretende-se que seja possível visualizar
+A intenção deste trabalho é conceber, modelar e implementar um sistema de monitoramento exclusivamente de software livre e que se integre com o máximo de
+dispositivos de hardware o possível.... (continuar daqui)
+, assim como o projeto resultante final deverá ser. Pretende-se que seja possível visualizar
 a imagem da câmera em tempo real, adicionar rostos de pessoas que sejam tidos como confiáveis e não passíveis de alarme, enviar notificações
 para o usuário quando for identificado alguém na câmera que não passar como confiável. Também será disponibilizada uma documentação que
 contém as instruções para implementar o sistema em domicílio, para que qualquer indivíduo provido do equipamento possa colocá-lo em uso.
@@ -248,16 +243,11 @@ Para os objetivos apresentados Seção 1.1 serem alcançados, os seguintes passo
 	      \end{itemize}
 \end{itemize}
 
-
-
-
 \chapter{Fundamentação Teórica}
-
 
 Neste capítulo estão as tecnologias e os conceitos que serão utilizados no decorrer da construção deste projeto.
 São conceitos relacionados à arquitetura do sistema que será construído, as abordagens que já existem, \emph{hardware},
 linguagens e \emph{frameworks} que serão utilizados.
-
 
 \section{Arquitetura de transmissão em tempo real}
 
@@ -267,7 +257,6 @@ como um disco rígido, por exemplo. Em seguida, por meio de algum software de tr
 esses arquivos são requisitados por usuários e entregues de acordo. Um protocolo de transferência é utilizado para
 entregar os dados de multimídia para o cliente (tais como RTMP ou HLS), onde eles são primeiramente armazenados
 na memória principal e eventualmente decodificados e apresentados ao usuário. \cite{lee2005scalable}
-
 
 \begin{figure}[!ht]
 	\centering
@@ -281,8 +270,6 @@ um microcomputador contem a câmera e sistema operacional para realizar o proces
 multimídia. Outra alternativa seria o microcomputador apenas enviar os fluxo de vídeo para um terceiro servidor que faria o processamento
 da imagem caso a capacidade daquele não seja suficiente, resultando em um sistema distribuído. Essa outra abordagem também
 respeita a arquitetura citada acima.
-
-
 
 \section{Framework de desenvolvimento front end}
 
@@ -300,7 +287,6 @@ pelo facebook, utilizando \emph{javascript} com a linguagem de programação e c
 seja executável pela plataforma nativa. Vale lembrar que o React Native não é
 uma solução \emph{full-stack} que vai lidar com tudo desde o banco de dados à atualizações em tempo real
 de \emph{web sockets}. Ele é simplesmente a \emph{View layer} da aplicação. \cite{boduch2017react}
-
 
 \section{Tecnologias de desenvolvimento back end}
 
@@ -353,7 +339,7 @@ encontradas numa única etapa, elas são agrupadas em diferentes estágios de cl
 falhar, então a imagem é descartada, desconsiderando as características remanescentes nela. Assim sendo, a foto que passar
 por todos os estágios é uma região de um rosto.
 
-A próxima parte do processo envolve usar o algoritmo que reconhece que existe um rosto no vídeo junto com um outro
+A  próxima parte do processo envolve usar o algoritmo que reconhece que existe um rosto no vídeo junto com um outro
 algoritmo que reconhecerá à quem pertence este rosto. Para o algoritmo classificador reconhecedor que será usado agora, são necessárias
 varias imagens do rosto a ser reconhecido, que serão convertidas para \emph{grayscale}, dessa forma mantendo o plano de luminância
 e separando o de crominância de cada imagem o que por sua vez reduz a quantidade de informação desnecessária presente e, por isso, facilita a identificação
@@ -374,7 +360,6 @@ mostra a figura abaixo:
 % baseada em Machine Learning em que uma função \emph{cascade} é treinada com o uso de muitas imagens
 % positivas e negativas.
 
-
 \section{Tecnologia de Hardware}
 
 Todos os algoritmos que irão processar a imagem da câmera e aplicação do back end precisam ficar alocados num servidor. Assim sendo, foi
@@ -388,19 +373,13 @@ para outros melhores.
 
 % raspberry pi zero W V 1.1
 
-
-
-
 \chapter{Revisão Bibliográfica}
 %TCC:
 Um ou mais capítulos (por exemplo, se há duas linhas de trabalhos relacionados).
 
-
-
 \chapter{Desenvolvimento}
 %TCC:
 Um ou mais capítulos (por exemplo um para testes)
-
 
 \begin{figure}[!ht]
 	\centering
@@ -408,7 +387,6 @@ Um ou mais capítulos (por exemplo um para testes)
 	\caption[Isso é o que aparece no sumário]{Imagem de exemplo.}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
-
 
 %TCC:
 %TCC:
@@ -422,21 +400,15 @@ Um ou mais capítulos (por exemplo um para testes)
 %TCC:
 E daí?
 
-
-
-
-
 % ----------------------------------------------------------
 % ELEMENTOS PÓS-TEXTUAIS
 % ----------------------------------------------------------
 \postextual
 
-
 % ----------------------------------------------------------
 % Referências bibliográficas
 % ----------------------------------------------------------
 \bibliography{abntex2-modelo-references}
-
 
 %% ----------------------------------------------------------
 %% Apêndices TCC: só mantenha se for pertinente.
@@ -463,7 +435,6 @@ E daí?
 
 \end{apendicesenv}
 % ---
-
 
 % ----------------------------------------------------------
 % Anexos %TCC: so mantenha se pertinente.
@@ -501,7 +472,5 @@ E daí?
 %---------------------------------------------------------------------
 
 \printindex
-
-
 
 \end{document}
