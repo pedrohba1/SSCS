@@ -222,45 +222,68 @@ abertos em virtude da transparência.
 
 \section{Objetivos}
 
-A intenção deste trabalho é conceber, modelar e implementar um sistema de
-monitoramento exclusivamente de software livre e que se integre com o máximo de
-dispositivos de hardware o possível.... (continuar daqui) , assim como o
-projeto resultante final deverá ser. Pretende-se que seja possível visualizar a
-imagem da câmera em tempo real, adicionar rostos de pessoas que sejam tidos
-como confiáveis e não passíveis de alarme, enviar notificações para o usuário
-quando for identificado alguém na câmera que não passar como confiável. Também
-será disponibilizada uma documentação que contém as instruções para implementar
-o sistema em domicílio, para que qualquer indivíduo provido do equipamento
-possa colocá-lo em uso.
+O propósito deste trabalho é projetar um sistema de monitoramento integralmente
+sustentado por software livre, com capacidade de integração com uma ampla
+variedade de dispositivos de hardware. Este sistema oferecerá visualização em
+tempo real de imagens de câmeras, incorporando algoritmos de visão
+computacional para análise destas. Será possível armazenar e buscar vídeos,
+utilizando critérios identificados pelos algoritmos. Uma das grandes virtudes
+do projeto é sua adaptabilidade: ele é projetado para permitir a inclusão de
+novas funcionalidades, como notificações de eventos, e a modificação de
+características existentes. Por exemplo, o armazenamento pode ser configurado
+para ser local ou em nuvem, e o processamento para reconhecimento de imagens
+pode ocorrer tanto em transmissões ao vivo quanto em vídeos arquivados. Para
+facilitar a implementação e personalização do sistema, será disponibilizada uma
+documentação abrangente, delineando várias opções de uso para satisfazer as
+distintas necessidades dos usuários.
 
-\section{Método}
+\subsection{Objetivos específicos}
 
-Para os objetivos apresentados Seção 1.1 serem alcançados, os seguintes passos
-serão seguidos para o desenvolvimento deste sistema:
-
-\begin{itemize}
-	\item  Criar um protótipo de solução para a questão apresentada:
-	      \begin{itemize}
-		      \item Definir a arquitetura do sistema, tanto do backend quanto do frontend.
-		      \item Definir o tipo de API e qual a melhor linguagem para criá-la.
-		      \item definir qual o hardware a ser utilizado, tanto da câmera quanto do sistema que
-		            processará as informações da câmera.
-		      \item Explorar as capacidades do hardware da câmera e do sistema que coordena suas
-		            ações, além de encontrar suas limitações e como contorná-las.
-		      \item Se for necessário, definir como implementar um servidor para que seja
-		            processada e armazenada a imagem da câmera.
-	      \end{itemize}
-\end{itemize}
+Os objetivos específicos envolvem:
 
 \begin{itemize}
-	\item  Programar o protótipo que solucionará o problema apresentado:
-	      \begin{itemize}
-		      \item Escolher algoritmos de compressão de imagem adequado para as gravações.
-		      \item Implementar a aplicação de acesso do usuário.
-		      \item Implementar o software que será responsável pelo reconhecimento de imagem e
-		            streaming do vídeo para o aplicativo.
-	      \end{itemize}
+    \item Desenvolver todo o software com código aberto e mantê-lo publicamente disponível no Github.
+    \item Usar a conteinerização como estratégia para conseguir portabilidade entre vários hardwares diferentes. 
+    \item Implementar uma funcionalidade de visualização em tempo real de imagens provenientes de câmeras.
+    \item Incorporar algoritmos de visão computacional robustos para análise e processamento das imagens em tempo real.
+    \item Projetar e desenvolver um módulo de armazenamento flexível, permitindo opções tanto locais quanto em nuvem.
+    \item Habilitar a busca de vídeos com critérios baseados nas identificações realizadas pelos algoritmos de visão.
+    \item Possibilitar a customização do sistema, incluindo a adição de novas funcionalidades como notificações de eventos.
+    \item Adaptar o sistema para permitir variações no processamento de reconhecimento de imagens, seja em transmissões ao vivo ou em vídeos arquivados.
+	\item Escrever testes automatizados e \textit{\foreignlanguage{english}{benchmarks}} para manter a qualidade do software e das soluções em um nível aceitável.
+	\item Produzir uma documentação detalhada e abrangente, facilitando a implementação, personalização e manutenção do sistema por parte dos usuários.
 \end{itemize}
+
+% TODO: removi isso daqui, pode ser que talvez eu use depois
+
+% \section{Método}
+
+% Para os objetivos apresentados Seção 1.1 serem alcançados, os seguintes passos
+% serão seguidos para o desenvolvimento deste sistema:
+
+% \begin{itemize}
+% 	\item  Criar um protótipo de solução para a questão apresentada:
+% 	      \begin{itemize}
+% 		      \item Definir a arquitetura do sistema, tanto do backend quanto do frontend.
+% 		      \item Definir o tipo de API e qual a melhor linguagem para criá-la.
+% 		      \item definir qual o hardware a ser utilizado, tanto da câmera quanto do sistema que
+% 		            processará as informações da câmera.
+% 		      \item Explorar as capacidades do hardware da câmera e do sistema que coordena suas
+% 		            ações, além de encontrar suas limitações e como contorná-las.
+% 		      \item Se for necessário, definir como implementar um servidor para que seja
+% 		            processada e armazenada a imagem da câmera.
+% 	      \end{itemize}
+% \end{itemize}
+
+% \begin{itemize}
+% 	\item  Programar o protótipo que solucionará o problema apresentado:
+% 	      \begin{itemize}
+% 		      \item Escolher algoritmos de compressão de imagem adequado para as gravações.
+% 		      \item Implementar a aplicação de acesso do usuário.
+% 		      \item Implementar o software que será responsável pelo reconhecimento de imagem e
+% 		            streaming do vídeo para o aplicativo.
+% 	      \end{itemize}
+% \end{itemize}
 
 \chapter{Fundamentação Teórica}
 
@@ -287,6 +310,10 @@ principal e eventualmente decodificados e apresentados ao usuário.
 	\caption[Representação de um arquitetura de tempo real genérica]{Arquitetura genérica de transmissão em tempo real}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
+
+
+\section{Sistema distribuído aberto}
+
 
 Esta arquitetura é a que levarei em consideração na implementação do projeto. O
 servidor que será implementado utilizando um microcomputador contem a câmera e
@@ -399,6 +426,30 @@ modelo que reconhecerá os rostos usando as imagens preparadas anteriormente. O
 LBPH foi escolhido por funcionar bem com as imagens em \emph{grayscale} e ser
 capaz de desconsiderar a luminosidade como característica importante, como
 mostra a figura abaixo:
+
+
+\section{Protoclo RTSP}
+
+Explciar como o protocolo RTSP vai sr usado para pegar o feed das imagens
+
+\section{Conteinerização}
+
+Explicar aqui o porquê de servir o software no docker
+
+\section{Daemon}
+
+Explicar o conceito de Daemon e o porquê de ser últil
+manter o software rodando como um processo segundo  plano
+
+\section{Proxy}
+
+Explicar o porquê de às vezes usar um proxy. Às vezes queremos
+dar um feed de imagem, mas não tem como fazer uma conexão direta
+ao sistema que está provendo diretamente a imagem com RTSP. 
+Tanto porque o sistema não consegue lidar com muitas requisições
+ao mesmo tempo, ou porque ele está numa intranet que precisa de um
+acesso seguro para prover ao resto da rede.
+
 
 \begin{figure}[!ht]
 	\centering
