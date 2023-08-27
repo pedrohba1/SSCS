@@ -242,16 +242,26 @@ distintas necessidades dos usuários.
 Os objetivos específicos envolvem:
 
 \begin{itemize}
-    \item Desenvolver todo o software com código aberto e mantê-lo publicamente disponível no Github.
-    \item Usar a conteinerização como estratégia para conseguir portabilidade entre vários hardwares diferentes. 
-    \item Implementar uma funcionalidade de visualização em tempo real de imagens provenientes de câmeras.
-    \item Incorporar algoritmos de visão computacional robustos para análise e processamento das imagens em tempo real.
-    \item Projetar e desenvolver um módulo de armazenamento flexível, permitindo opções tanto locais quanto em nuvem.
-    \item Habilitar a busca de vídeos com critérios baseados nas identificações realizadas pelos algoritmos de visão.
-    \item Possibilitar a customização do sistema, incluindo a adição de novas funcionalidades como notificações de eventos.
-    \item Adaptar o sistema para permitir variações no processamento de reconhecimento de imagens, seja em transmissões ao vivo ou em vídeos arquivados.
-	\item Escrever testes automatizados e \textit{\foreignlanguage{english}{benchmarks}} para manter a qualidade do software e das soluções em um nível aceitável.
-	\item Produzir uma documentação detalhada e abrangente, facilitando a implementação, personalização e manutenção do sistema por parte dos usuários.
+	\item Desenvolver todo o software com código aberto e mantê-lo publicamente
+	      disponível no Github.
+	\item Usar a conteinerização como estratégia para conseguir portabilidade entre
+	      vários hardwares diferentes.
+	\item Implementar uma funcionalidade de visualização em tempo real de imagens
+	      provenientes de câmeras.
+	\item Incorporar algoritmos de visão computacional robustos para análise e
+	      processamento das imagens em tempo real.
+	\item Projetar e desenvolver um módulo de armazenamento flexível, permitindo opções
+	      tanto locais quanto em nuvem.
+	\item Habilitar a busca de vídeos com critérios baseados nas identificações
+	      realizadas pelos algoritmos de visão.
+	\item Possibilitar a customização do sistema, incluindo a adição de novas
+	      funcionalidades como notificações de eventos.
+	\item Adaptar o sistema para permitir variações no processamento de reconhecimento de
+	      imagens, seja em transmissões ao vivo ou em vídeos arquivados.
+	\item Escrever testes automatizados e \textit{\foreignlanguage{english}{benchmarks}}
+	      para manter a qualidade do software e das soluções em um nível aceitável.
+	\item Produzir uma documentação detalhada e abrangente, facilitando a implementação,
+	      personalização e manutenção do sistema por parte dos usuários.
 \end{itemize}
 
 % TODO: removi isso daqui, pode ser que talvez eu use depois
@@ -311,9 +321,7 @@ principal e eventualmente decodificados e apresentados ao usuário.
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
-
 \section{Sistema distribuído aberto}
-
 
 Esta arquitetura é a que levarei em consideração na implementação do projeto. O
 servidor que será implementado utilizando um microcomputador contem a câmera e
@@ -427,7 +435,6 @@ LBPH foi escolhido por funcionar bem com as imagens em \emph{grayscale} e ser
 capaz de desconsiderar a luminosidade como característica importante, como
 mostra a figura abaixo:
 
-
 \section{Protoclo RTSP}
 
 Explciar como o protocolo RTSP vai sr usado para pegar o feed das imagens
@@ -438,18 +445,16 @@ Explicar aqui o porquê de servir o software no docker
 
 \section{Daemon}
 
-Explicar o conceito de Daemon e o porquê de ser últil
-manter o software rodando como um processo segundo  plano
+Explicar o conceito de Daemon e o porquê de ser últil manter o software rodando
+como um processo segundo plano
 
 \section{Proxy}
 
-Explicar o porquê de às vezes usar um proxy. Às vezes queremos
-dar um feed de imagem, mas não tem como fazer uma conexão direta
-ao sistema que está provendo diretamente a imagem com RTSP. 
-Tanto porque o sistema não consegue lidar com muitas requisições
-ao mesmo tempo, ou porque ele está numa intranet que precisa de um
-acesso seguro para prover ao resto da rede.
-
+Explicar o porquê de às vezes usar um proxy. Às vezes queremos dar um feed de
+imagem, mas não tem como fazer uma conexão direta ao sistema que está provendo
+diretamente a imagem com RTSP. Tanto porque o sistema não consegue lidar com
+muitas requisições ao mesmo tempo, ou porque ele está numa intranet que precisa
+de um acesso seguro para prover ao resto da rede.
 
 \begin{figure}[!ht]
 	\centering
