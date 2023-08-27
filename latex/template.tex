@@ -45,35 +45,35 @@ brazil]{facom-ufu-abntex2}
 %
 \begin{folhadeaprovacao}
 
-  \begin{center}
-    {\ABNTEXchapterfont\large\imprimirautor}
+	\begin{center}
+		{\ABNTEXchapterfont\large\imprimirautor}
 
-    \vspace*{\fill}\vspace*{\fill}
-    {\ABNTEXchapterfont\bfseries\Large\imprimirtitulo}
-    \vspace*{\fill}
+		\vspace*{\fill}\vspace*{\fill}
+		{\ABNTEXchapterfont\bfseries\Large\imprimirtitulo}
+		\vspace*{\fill}
 
-    \hspace{.45\textwidth}
-    \begin{minipage}{.5\textwidth}
-      \imprimirpreambulo
-    \end{minipage}%
-    \vspace*{\fill}
-  \end{center}
+		\hspace{.45\textwidth}
+		\begin{minipage}{.5\textwidth}
+			\imprimirpreambulo
+		\end{minipage}%
+		\vspace*{\fill}
+	\end{center}
 
-  Trabalho aprovado. \imprimirlocal, 01 de novembro de 2016: %TCC:
+	Trabalho aprovado. \imprimirlocal, 01 de novembro de 2016: %TCC:
 
-  \assinatura{\textbf{\imprimirorientador} \\ Orientador}
-  \assinatura{\textbf{Professor}}% \\ Convidado 1} %TCC:
-  \assinatura{\textbf{Professor}}% \\ Convidado 2} %TCC:
-  %\assinatura{\textbf{Professor} \\ Convidado 3}
-  %\assinatura{\textbf{Professor} \\ Convidado 4}
+	\assinatura{\textbf{\imprimirorientador} \\ Orientador}
+	\assinatura{\textbf{Professor}}% \\ Convidado 1} %TCC:
+	\assinatura{\textbf{Professor}}% \\ Convidado 2} %TCC:
+	%\assinatura{\textbf{Professor} \\ Convidado 3}
+	%\assinatura{\textbf{Professor} \\ Convidado 4}
 
-  \begin{center}
-    \vspace*{0.5cm}
-    {\large\imprimirlocal}
-    \par
-    {\large\imprimirdata}
-    \vspace*{1cm}
-  \end{center}
+	\begin{center}
+		\vspace*{0.5cm}
+		{\large\imprimirlocal}
+		\par
+		{\large\imprimirdata}
+		\vspace*{1cm}
+	\end{center}
 
 \end{folhadeaprovacao}
 % ---
@@ -113,19 +113,19 @@ brazil]{facom-ufu-abntex2}
 % ---
 
 \begin{resumo} %TCC:
-  Os sistemas de segurança domésticos carecem de soluções
-  que sejam customizáveis. Apesar de existirem no mercado câmeras que fazem a gravação e o armazenamento de
-  imagem, elas o fazem com com baixa resolução e limitações de espaço de memória severas. Mesmo os equipamentos
-  de monitoramento mais sofisticados, como os que possuem reconhecimento de imagem, limitam o usuário de aprimorar
-  essas funções por ter o \textit{\foreignlanguage{english}{software}} como \textit{\foreignlanguage{english}{closed source}}.
-  Além disso, as soluções providas pela segurança pública ou privada, quando existem, podem usar as imagens
-  coletadas para seus próprios benefícios, diminuindo a privacidade do indivíduo. Este trabalho propõe uma solução que seja
-  fácil de implementar, com ferramentas prontas para uso e completamente customizável por ser \textit{\foreignlanguage{english}{open source}}.
+	Os sistemas de segurança domésticos carecem de soluções
+	que sejam customizáveis. Apesar de existirem no mercado câmeras que fazem a gravação e o armazenamento de
+	imagem, elas o fazem com com baixa resolução e limitações de espaço de memória severas. Mesmo os equipamentos
+	de monitoramento mais sofisticados, como os que possuem reconhecimento de imagem, limitam o usuário de aprimorar
+	essas funções por ter o \textit{\foreignlanguage{english}{software}} como \textit{\foreignlanguage{english}{closed source}}.
+	Além disso, as soluções providas pela segurança pública ou privada, quando existem, podem usar as imagens
+	coletadas para seus próprios benefícios, diminuindo a privacidade do indivíduo. Este trabalho propõe uma solução que seja
+	fácil de implementar, com ferramentas prontas para uso e completamente customizável por ser \textit{\foreignlanguage{english}{open source}}.
 
-  \vspace{\onelineskip}
+	\vspace{\onelineskip}
 
-  \noindent
-  \textbf{Palavras-chave}: Segurança, código,  aberto, reconhecimento, facial, câmera.  %TCC:
+	\noindent
+	\textbf{Palavras-chave}: Segurança, código,  aberto, reconhecimento, facial, câmera.  %TCC:
 \end{resumo}
 
 % ---
@@ -148,11 +148,11 @@ brazil]{facom-ufu-abntex2}
 % inserir lista de abreviaturas e siglas
 % ---
 \begin{siglas} %TCC: 
-  \item[API] Application Programming Interface
-  \item[REST] Representational State Transfer
-  \item[HSL] HTTP Live Streaming
-  \item[RTMP] Real Time Messaging Protocol
-  \item[LBPH] Local Binary Patterns Histogram
+	\item[API] Application Programming Interface
+	\item[REST] Representational State Transfer
+	\item[HSL] HTTP Live Streaming
+	\item[RTMP] Real Time Messaging Protocol
+	\item[LBPH] Local Binary Patterns Histogram
 \end{siglas}
 % ---
 
@@ -212,38 +212,35 @@ abertos em virtude da transparência.
 
 \section{Objetivos}
 
-// VOLTAR NESSE TREXTO AQUI
 A intenção deste trabalho é conceber, modelar e implementar um sistema de monitoramento exclusivamente de software livre e que se integre com o máximo de
-dispositivos de hardware o possível. Sobre as funcionalidades, pretende-se que seja possível visualizar
-a imagem da câmera em tempo real, usar algoritmos de visão computacional na imagem para detectar entidades (como pessoas,
-placas de carros e rostos)
-enviar notificações para o usuário quando for identificado alguém na câmera que não passar como confiável. Também será disponibilizada uma documentação que
+dispositivos de hardware o possível.... (continuar daqui)
+, assim como o projeto resultante final deverá ser. Pretende-se que seja possível visualizar
+a imagem da câmera em tempo real, adicionar rostos de pessoas que sejam tidos como confiáveis e não passíveis de alarme, enviar notificações
+para o usuário quando for identificado alguém na câmera que não passar como confiável. Também será disponibilizada uma documentação que
 contém as instruções para implementar o sistema em domicílio, para que qualquer indivíduo provido do equipamento possa colocá-lo em uso.
-
-// CONCLUIR A CORREÇÃO DOS OBJETIVOS ANTES
 
 \section{Método}
 
 Para os objetivos apresentados Seção 1.1 serem alcançados, os seguintes passos serão seguidos para o desenvolvimento deste sistema:
 
 \begin{itemize}
-  \item  Criar um protótipo de solução para a questão apresentada:
-        \begin{itemize}
-          \item Definir a arquitetura do sistema, tanto do backend quanto do frontend.
-          \item Definir o tipo de API e qual a melhor linguagem para criá-la.
-          \item definir qual o hardware a ser utilizado, tanto da câmera quanto do sistema que processará as informações da câmera.
-          \item Explorar as capacidades do hardware da câmera e do sistema que coordena suas ações, além de encontrar suas limitações e como contorná-las.
-          \item Se for necessário, definir como implementar um servidor para que seja processada e armazenada a imagem da câmera.
-        \end{itemize}
+	\item  Criar um protótipo de solução para a questão apresentada:
+	      \begin{itemize}
+		      \item Definir a arquitetura do sistema, tanto do backend quanto do frontend.
+		      \item Definir o tipo de API e qual a melhor linguagem para criá-la.
+		      \item definir qual o hardware a ser utilizado, tanto da câmera quanto do sistema que processará as informações da câmera.
+		      \item Explorar as capacidades do hardware da câmera e do sistema que coordena suas ações, além de encontrar suas limitações e como contorná-las.
+		      \item Se for necessário, definir como implementar um servidor para que seja processada e armazenada a imagem da câmera.
+	      \end{itemize}
 \end{itemize}
 
 \begin{itemize}
-  \item  Programar o protótipo que solucionará o problema apresentado:
-        \begin{itemize}
-          \item Escolher algoritmos de compressão de imagem adequado para as gravações.
-          \item Implementar a aplicação de acesso do usuário.
-          \item Implementar o software que será responsável pelo reconhecimento de imagem e streaming do vídeo para o aplicativo.
-        \end{itemize}
+	\item  Programar o protótipo que solucionará o problema apresentado:
+	      \begin{itemize}
+		      \item Escolher algoritmos de compressão de imagem adequado para as gravações.
+		      \item Implementar a aplicação de acesso do usuário.
+		      \item Implementar o software que será responsável pelo reconhecimento de imagem e streaming do vídeo para o aplicativo.
+	      \end{itemize}
 \end{itemize}
 
 \chapter{Fundamentação Teórica}
@@ -262,10 +259,10 @@ entregar os dados de multimídia para o cliente (tais como RTMP ou HLS), onde el
 na memória principal e eventualmente decodificados e apresentados ao usuário. \cite{lee2005scalable}
 
 \begin{figure}[!ht]
-  \centering
-  \includegraphics[width=1\linewidth]{Capturar.PNG}
-  \caption[Representação de um arquitetura de tempo real genérica]{Arquitetura genérica de transmissão em tempo real}
-  \label{fig:graficosVariandoTamanhoRede}
+	\centering
+	\includegraphics[width=1\linewidth]{Capturar.PNG}
+	\caption[Representação de um arquitetura de tempo real genérica]{Arquitetura genérica de transmissão em tempo real}
+	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
 Esta arquitetura é a que levarei em consideração na implementação do projeto. O servidor que será implementado utilizando
@@ -352,11 +349,11 @@ por funcionar bem com as imagens em \emph{grayscale} e ser capaz de desconsidera
 mostra a figura abaixo:
 
 \begin{figure}[!ht]
-  \centering
-  \includegraphics[width=0.7\linewidth]{grayscale.PNG}
-  \caption[De \emph{grayscale} para LBP
-  ]{Imagens resultantes do algoritmo LBP abaixo, geradas à partir da imagem em \emph{grayscale} acima.}
-  \label{fig:graficosVariandoTamanhoRede}
+	\centering
+	\includegraphics[width=0.7\linewidth]{grayscale.PNG}
+	\caption[De \emph{grayscale} para LBP
+	]{Imagens resultantes do algoritmo LBP abaixo, geradas à partir da imagem em \emph{grayscale} acima.}
+	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 % é o proposto por Paul Viola e Michael Jones no 
 % artigo  "Rapid Object Detection using a Boosted Cascade of Simple Features" em 2001. É uma abordagem
@@ -385,10 +382,10 @@ Um ou mais capítulos (por exemplo, se há duas linhas de trabalhos relacionados
 Um ou mais capítulos (por exemplo um para testes)
 
 \begin{figure}[!ht]
-  \centering
-  \includegraphics[width=0.55\linewidth]{imagemExemplo.pdf}
-  \caption[Isso é o que aparece no sumário]{Imagem de exemplo.}
-  \label{fig:graficosVariandoTamanhoRede}
+	\centering
+	\includegraphics[width=0.55\linewidth]{imagemExemplo.pdf}
+	\caption[Isso é o que aparece no sumário]{Imagem de exemplo.}
+	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
 %TCC:
@@ -422,19 +419,19 @@ E daí?
 % ---
 \begin{apendicesenv}
 
-  % Imprime uma página indicando o início dos apêndices
-  \partapendices
+	% Imprime uma página indicando o início dos apêndices
+	\partapendices
 
-  % ----------------------------------------------------------
-  \chapter{Quisque libero justo}
-  % ----------------------------------------------------------
+	% ----------------------------------------------------------
+	\chapter{Quisque libero justo}
+	% ----------------------------------------------------------
 
-  \lipsum[50]
+	\lipsum[50]
 
-  % ----------------------------------------------------------
-  \chapter{Coisas que fiz e que achei interessante mas não tanto para entrar no corpo do texto}
-  % ----------------------------------------------------------
-  \lipsum[55-57]
+	% ----------------------------------------------------------
+	\chapter{Coisas que fiz e que achei interessante mas não tanto para entrar no corpo do texto}
+	% ----------------------------------------------------------
+	\lipsum[55-57]
 
 \end{apendicesenv}
 % ---
@@ -448,25 +445,25 @@ E daí?
 % ---
 \begin{anexosenv}
 
-  % Imprime uma página indicando o início dos anexos
-  \partanexos
+	% Imprime uma página indicando o início dos anexos
+	\partanexos
 
-  % ---
-  \chapter{Eu sempre quis aprender latim}
-  % ---
-  \lipsum[30]
+	% ---
+	\chapter{Eu sempre quis aprender latim}
+	% ---
+	\lipsum[30]
 
-  % ---
-  \chapter{Coisas que eu não fiz mas que achei interessante o suficiente para colocar aqui}
-  % ---
+	% ---
+	\chapter{Coisas que eu não fiz mas que achei interessante o suficiente para colocar aqui}
+	% ---
 
-  \lipsum[31]
+	\lipsum[31]
 
-  % ---
-  \chapter{Fusce facilisis lacinia dui}
-  % ---
+	% ---
+	\chapter{Fusce facilisis lacinia dui}
+	% ---
 
-  \lipsum[32]
+	\lipsum[32]
 
 \end{anexosenv}
 
