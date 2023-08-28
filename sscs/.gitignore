@@ -1,2 +1,4 @@
 sscs
-samples
+samples/*
+
+!samples/.gitkeep
