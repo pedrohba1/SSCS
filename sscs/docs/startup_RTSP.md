@@ -18,8 +18,12 @@ ffmpeg -re -stream_loop -1 -i ./sscs/samples/sp1.mp4 -c copy -f rtsp rtsp://loca
 ```
 
 To read the stream, for checking if it works, you can run the command below. (ffplay comes with ffmpeg) 
+
 ```
 ffplay rtsp://localhost:8554/mystream
 ```
 
-You can start multiple RTSP feeds using this approach. Or either use a single RTSP server to create multiple streams.
+You can start multiple RTSP feeds using this approach. Or either use a single RTSP server to create multiple streams,
+like this:
+
+
