@@ -123,7 +123,7 @@ func handleClient(client net.Conn) {
 
 func init() {
 	stdlog = log.New(os.Stdout, "", log.Ldate|log.Ltime)
-	errlog = log.New(os.Stderr, "", log.Ldate|log.Ltime)
+	errlog = log.New(os.Stderr, "error", log.Ldate|log.Ltime)
 }
 
 func main() {
