@@ -148,6 +148,7 @@ brazil]{facom-ufu-abntex2}
 % inserir lista de abreviaturas e siglas
 % ---
 \begin{siglas} %TCC: 
+	\item[SSCS] \textit{\foreignlanguage{english}{Self-Sovereign Camera System}}
 	\item[API] Application Programming Interface
 	\item[REST] Representational State Transfer
 	\item[HSL] HTTP Live Streaming
@@ -268,15 +269,52 @@ Os objetivos específicos envolvem:
 
 \chapter{Método de Desenvolvimento}
 
-A abordagem escolhida para o desenvolvimento deste projeto inicia-se com uma
-pesquisa de mercado das soluções de software e hardware já disponíveis, suas
-funções e fraquezas. Ou seja, trata-se de uma pesquisa qualitativa. Em seguida,
-serão levantadas as tecnologias normalmente usadas, tais como protocolos de
-transporte, arquitetura de hardware e software e algoritmos de compressão e
-reconhecimento e nisso veremos como o SSCS reimplementa essas soluções do
-mercado ou se integra junto à elas. Após isto, uma pesquisa em relação ao custo
-desses sistemas tanto de contratação do software, execução do software e
-aquisição e manutenção do hardware.
+A metodologia selecionada para o avanço deste projeto se baseia, inicialmente,
+em um exame das soluções de software e hardware atualmente presentes no
+mercado. O objetivo é compreender suas características, funcionalidades e
+possíveis vulnerabilidades de segurança. Esse estudo, de caráter essencialmente
+qualitativo, procura identificar tendências, padrões e lacunas nas soluções
+existentes.
+
+Em Seguida, serão exploradas as tecnologias comumente adotadas na indústria.
+Essa investigação abrange desde protocolos de transporte e arquiteturas
+predominantes de hardware e software até algoritmos sofisticados de compressão
+e reconhecimento. O intuito é discernir os padrões de uso e as preferências do
+setor.
+
+Dentro desse contexto, uma análise focada no SSCS será realizada.
+Investigaremos se ele propõe uma reinvenção dessas soluções padrão ou se opta
+por uma integração harmônica com elas. Esta etapa é crucial para entender a
+proposta de valor e o diferencial que o sistema proposto oferece em relação às
+alternativas tradicionais.
+
+Posteriormente, adentraremos na esfera econômica, conduzindo uma pesquisa sobre
+os custos envolvidos. Essa avaliação não se restringirá apenas aos valores de
+aquisição de software ou hardware, mas também contemplará os gastos
+operacionais, incluindo a execução de softwares e os custos de aquisição,
+manutenção e atualização de hardwares.
+
+\section{Estado da arte de câmeras de vigilância}
+
+Existem inúmeras soluções de vigilância disponíveis no mercado, cada uma delas
+utilizando uma série de padrões e tecnologias diferenciada. Entre elas, as
+câmeras CCTV (\textit{\foreignlanguage{english}{Closed-circuit television}}) se
+destacam como uma das opções mais tradicionais e amplamente adotadas. Estas
+câmeras funcionam em um sistema que transmite os sinais de vídeo para um
+conjunto específico e privado de monitores. Ao contrário de soluções mais
+modernas que utilizam transmissão via IP, as câmeras CCTV são frequentemente
+associadas a sistemas de transmissão analógica, embora modelos mais recentes
+possam incorporar capacidades digitais e transmissão via rede. Atualmente, os
+modelos mais comuns de câmeras de vigilância já possuem integração direta à
+internet usando o protocolo IP.
+
+No quesito dos métodos de transmissão multimídia por essas câmeras, temos três métodos
+principais: \textit{\foreignlanguage{english}{streaming}} tradicional,
+\textit{\foreignlanguage{english}{download}} progressivo, e
+\textit{\foreignlanguage{english}{streaming}} adaptativo. \textit{\foreignlanguage{english}{Streaming}}
+tradicional requer um protocolo \textit{\foreignlanguage{english}{stateful}} que estabelece
+uma sessão entre o servidor e o cliente. Nessa método, a mídia é transmitida como uma
+corrente constante de pacotes por UDP ou TCP. (continaur daqui) 
 
 \chapter{Fundamentação Teórica}
 
