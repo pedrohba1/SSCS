@@ -294,7 +294,7 @@ aquisição de software ou hardware, mas também contemplará os gastos
 operacionais, incluindo a execução de softwares e os custos de aquisição,
 manutenção e atualização de hardwares.
 
-\section{Estado da arte de câmeras de vigilância}
+\section{Estado da Arte de Câmeras de Vigilância}
 
 Existem inúmeras soluções de vigilância disponíveis no mercado, cada uma delas
 utilizando uma série de padrões e tecnologias diferenciada. Entre elas, as
@@ -314,7 +314,9 @@ principais: \textit{\foreignlanguage{english}{streaming}} tradicional,
 \textit{\foreignlanguage{english}{streaming}} adaptativo. \textit{\foreignlanguage{english}{Streaming}}
 tradicional requer um protocolo \textit{\foreignlanguage{english}{stateful}} que estabelece
 uma sessão entre o servidor e o cliente. Nessa método, a mídia é transmitida como uma
-corrente constante de pacotes por UDP ou TCP. (continaur daqui) 
+corrente constante de pacotes por UDP ou TCP. O Real Time Streaming Protocol (RTSP)
+Real Time Protocol (RTP)  (continaur daqui)
+
 
 \chapter{Fundamentação Teórica}
 
@@ -334,6 +336,8 @@ transferência é utilizado para entregar os dados de multimídia para o cliente
 (tais como RTMP ou HLS), onde eles são primeiramente armazenados na memória
 principal e eventualmente decodificados e apresentados ao usuário.
 \cite{lee2005scalable}
+
+
 
 \begin{figure}[!ht]
 	\centering
@@ -421,6 +425,8 @@ ou criptografada. \cite{jsonwebtoken}
 
 \section{Algoritmo de reconhecimento facial}
 
+(Separe isso em openCV e Haar Cascade.)
+
 Para a funcionalidade de reconhecimento facial da câmera, usarei uma biblioteca
 de código aberto de \emph{computer vision} chamada \emph{OpenCV}. Essa
 biblioteca possui mais de 2500 algoritmos otimizados, incluindo os clássicos e
@@ -456,9 +462,19 @@ LBPH foi escolhido por funcionar bem com as imagens em \emph{grayscale} e ser
 capaz de desconsiderar a luminosidade como característica importante, como
 mostra a figura abaixo:
 
+
+\section{Arquitetura de microsserviços}
+
+Explicar aqui o que são microsseviços e como eles funcionam. Fazer talvez uma comparação em relação à uma monolito
+
+\section{Arquitetura Monolítica}
+
+Explicar aqui como funciona uma arquitetura monolítica e quais as desvantagens e vantagens em relação ao microsserviço. 
+
 \section{Protoclo RTSP}
 
-Explciar como o protocolo RTSP vai sr usado para pegar o feed das imagens
+Explciar como o protocolo RTSP vai sr usado para pegar o feed das imagens. Existe o RFC to protocolo RTSP aqui:
+% https://www.rfc-editor.org/rfc/rfc2326#page-71
 
 \section{Conteinerização}
 
