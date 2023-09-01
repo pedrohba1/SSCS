@@ -308,14 +308,39 @@ possam incorporar capacidades digitais e transmissão via rede. Atualmente, os
 modelos mais comuns de câmeras de vigilância já possuem integração direta à
 internet usando o protocolo IP.
 
-No quesito dos métodos de transmissão multimídia por essas câmeras, temos três métodos
-principais: \textit{\foreignlanguage{english}{streaming}} tradicional,
+No quesito dos métodos de transmissão multimídia por essas câmeras, temos três
+métodos principais: \textit{\foreignlanguage{english}{streaming}} tradicional,
 \textit{\foreignlanguage{english}{download}} progressivo, e
-\textit{\foreignlanguage{english}{streaming}} adaptativo. \textit{\foreignlanguage{english}{Streaming}}
-tradicional requer um protocolo \textit{\foreignlanguage{english}{stateful}} que estabelece
-uma sessão entre o servidor e o cliente. Nessa método, a mídia é transmitida como uma
-corrente constante de pacotes por UDP ou TCP. O Real Time Streaming Protocol (RTSP)
-Real Time Protocol (RTP)  (continaur daqui)
+\textit{\foreignlanguage{english}{streaming}} adaptativo.
+\textit{\foreignlanguage{english}{Streaming}} tradicional requer um protocolo
+\textit{\foreignlanguage{english}{stateful}} que estabelece uma sessão entre o
+servidor e o cliente. Ness último método, a mídia é transmitida como uma
+corrente constante de pacotes por UDP ou TCP. O Real Time Streaming Protocol
+(RTSP) , baseado no Real-time Transport Protocol (RTP), é o mais comum para a
+transmissão de vídeo nas câmeras por IP: vasta maioria delas o integram como
+padrão. Já no método do streaming por
+\textit{\foreignlanguage{english}{download}} progressivo, usa-se um servidor
+HTTP para transferir o vídeo entre o cliente e o servidor, de maneira
+\textit{\foreignlanguage{english}{stateless}}. Os clientes fazem requisições de
+multimídia, que é enviado progressivamente para um buffer local. Assim que ele
+tem informação o suficiente, o vídeo começa a tocar. Se a taxa de
+\textit{\foreignlanguage{english}{playback}} excede a taxa de transmissão de
+dados, então o vídeo é interrompido até que o buffer seja preenchido
+adequadamente. O \textit{\foreignlanguage{english}{streaming}} adaptativo por
+sua vez, consiste em detectar a largura de banda de rede e capacidade de CPU do
+cliente para ajustar a qualidade do vídeo transmitido buscando a melhor opção
+para as condições dadas. Isso requer um
+\textit{\foreignlanguage{english}{encoder}} para prover vídeo em múltiplos
+\textit{\foreignlanguage{english}{bit rates}} diferentes, ou múltiplos
+\textit{\foreignlanguage{english}{encoders}} e pode ser usada uma Content
+Delivery Network (CDN) para aumentar a escalabilidade. É comum em streaming adaptativo utilizar a técnica de 
+\textit{\foreignlanguage{english}{stream switching}}. Esse é um método híbrido que usa HTTP
+como o protocolo de entrega no lugar de definir um novo protocolo. Os dados de multimídia são
+segmentados em pequenas partes de mesmo tamanho, codificados no formato
+desejado e armazenadas em um servidor. Os clientes então requisitam os segmentos sequencialmente por
+download progressivo e eles são tocados em ordem já que são contíguos. O resultado é uma experiência de usuário
+praticamente livre de gargalos de buffering em condições normais de rede e CPU. 
+
 
 
 \chapter{Fundamentação Teórica}
@@ -336,8 +361,6 @@ transferência é utilizado para entregar os dados de multimídia para o cliente
 (tais como RTMP ou HLS), onde eles são primeiramente armazenados na memória
 principal e eventualmente decodificados e apresentados ao usuário.
 \cite{lee2005scalable}
-
-
 
 \begin{figure}[!ht]
 	\centering
@@ -425,7 +448,7 @@ ou criptografada. \cite{jsonwebtoken}
 
 \section{Algoritmo de reconhecimento facial}
 
-(Separe isso em openCV e Haar Cascade.)
+ (Separe isso em openCV e Haar Cascade.)
 
 Para a funcionalidade de reconhecimento facial da câmera, usarei uma biblioteca
 de código aberto de \emph{computer vision} chamada \emph{OpenCV}. Essa
@@ -462,18 +485,20 @@ LBPH foi escolhido por funcionar bem com as imagens em \emph{grayscale} e ser
 capaz de desconsiderar a luminosidade como característica importante, como
 mostra a figura abaixo:
 
-
 \section{Arquitetura de microsserviços}
 
-Explicar aqui o que são microsseviços e como eles funcionam. Fazer talvez uma comparação em relação à uma monolito
+Explicar aqui o que são microsseviços e como eles funcionam. Fazer talvez uma
+comparação em relação à uma monolito
 
 \section{Arquitetura Monolítica}
 
-Explicar aqui como funciona uma arquitetura monolítica e quais as desvantagens e vantagens em relação ao microsserviço. 
+Explicar aqui como funciona uma arquitetura monolítica e quais as desvantagens
+e vantagens em relação ao microsserviço.
 
 \section{Protoclo RTSP}
 
-Explciar como o protocolo RTSP vai sr usado para pegar o feed das imagens. Existe o RFC to protocolo RTSP aqui:
+Explciar como o protocolo RTSP vai sr usado para pegar o feed das imagens.
+Existe o RFC to protocolo RTSP aqui:
 % https://www.rfc-editor.org/rfc/rfc2326#page-71
 
 \section{Conteinerização}
