@@ -113,19 +113,38 @@ brazil]{facom-ufu-abntex2}
 % ---
 
 \begin{resumo} %TCC:
-	Os sistemas de segurança domésticos carecem de soluções
+	Os sistemas de vigilância carecem de soluções
 	que sejam customizáveis. Apesar de existirem no mercado câmeras que fazem a gravação e o armazenamento de
 	imagem, elas o fazem com com baixa resolução e limitações de espaço de memória severas. Mesmo os equipamentos
 	de monitoramento mais sofisticados, como os que possuem reconhecimento de imagem, limitam o usuário de aprimorar
 	essas funções por ter o \textit{\foreignlanguage{english}{software}} como \textit{\foreignlanguage{english}{closed source}}.
 	Além disso, as soluções providas pela segurança pública ou privada, quando existem, podem usar as imagens
-	coletadas para seus próprios benefícios, diminuindo a privacidade do indivíduo. Este trabalho propõe uma solução que seja
+	coletadas para seus próprios benefícios, o que afeta a privacidade do indivíduo. Este trabalho propõe uma solução que seja
 	fácil de implementar, com ferramentas prontas para uso e completamente customizável por ser \textit{\foreignlanguage{english}{open source}}.
 	Dadas essas características, surge o chamado \textit{\foreignlanguage{english}{Self-Sovereign Camera System}} (SSCS)
 	\vspace{\onelineskip}
 
 	\noindent
 	\textbf{Palavras-chave}: Segurança, código,  aberto, reconhecimento, facial, câmera.  %TCC:
+\end{resumo}
+
+\begin{resumo}[Abstract]
+
+	Surveillance systems lack customizable solutions. Despite the existence of
+	cameras on the market that handle both recording and storage of images, they do
+	so at low resolution and with severe memory space limitations. Even the most
+	sophisticated monitoring equipment, such as those with image recognition
+	capabilities, restrict the user from enhancing these features due to the
+	software being closed source. Furthermore, solutions provided by public or
+	private security, when available, may use the collected images for their own
+	benefit, affecting individual privacy. This work proposes a solution that is
+	easy to implement, equipped with ready-to-use tools, and fully customizable as
+	it is open source. Given these characteristics, the so-called Self-Sovereign
+	Camera System (SSCS) emerges.
+
+	\vspace{\onelineskip}
+	\noindent
+	\textbf{Keywords}: word1, word2, word3.
 \end{resumo}
 
 % ---
@@ -276,11 +295,11 @@ possíveis vulnerabilidades de segurança. Esse estudo, de caráter essencialmen
 qualitativo, procura identificar tendências, padrões e lacunas nas soluções
 existentes.
 
-Em Seguida, serão exploradas as tecnologias comumente adotadas na indústria.
-Essa investigação abrange desde protocolos de transporte e arquiteturas
-predominantes de hardware e software até algoritmos sofisticados de compressão
-e reconhecimento. O intuito é discernir os padrões de uso e as preferências do
-setor.
+Em Seguida, serão exploradas as tecnologias e técnicas comumente adotadas na
+indústria. Essa investigação abrange desde protocolos de transporte e
+arquiteturas predominantes de hardware e software até algoritmos sofisticados
+de compressão e reconhecimento. O intuito é discernir os padrões de uso e as
+preferências do setor.
 
 Dentro desse contexto, uma análise focada no SSCS será realizada.
 Investigaremos se ele propõe uma reinvenção dessas soluções padrão ou se opta
@@ -315,10 +334,10 @@ métodos principais: \textit{\foreignlanguage{english}{streaming}} tradicional,
 \textit{\foreignlanguage{english}{Streaming}} tradicional requer um protocolo
 \textit{\foreignlanguage{english}{stateful}} que estabelece uma sessão entre o
 servidor e o cliente. Ness último método, a mídia é transmitida como uma
-corrente constante de pacotes por UDP ou TCP. O Real Time Streaming Protocol
-(RTSP) , baseado no Real-time Transport Protocol (RTP), é o mais comum para a
-transmissão de vídeo nas câmeras por IP: vasta maioria delas o integram como
-padrão. Já no método do streaming por
+corrente constante de pacotes por UDP ou TCP. Como exemplo o Real Time
+Streaming Protocol (RTSP) , baseado no Real-time Transport Protocol (RTP), que
+é o mais comum para a transmissão de vídeo nas câmeras por IP: a vasta maioria
+delas o integram como padrão. Já no método do streaming por
 \textit{\foreignlanguage{english}{download}} progressivo, usa-se um servidor
 HTTP para transferir o vídeo entre o cliente e o servidor, de maneira
 \textit{\foreignlanguage{english}{stateless}}. Os clientes fazem requisições de
@@ -333,15 +352,22 @@ para as condições dadas. Isso requer um
 \textit{\foreignlanguage{english}{encoder}} para prover vídeo em múltiplos
 \textit{\foreignlanguage{english}{bit rates}} diferentes, ou múltiplos
 \textit{\foreignlanguage{english}{encoders}} e pode ser usada uma Content
-Delivery Network (CDN) para aumentar a escalabilidade. É comum em streaming adaptativo utilizar a técnica de 
-\textit{\foreignlanguage{english}{stream switching}}. Esse é um método híbrido que usa HTTP
-como o protocolo de entrega no lugar de definir um novo protocolo. Os dados de multimídia são
-segmentados em pequenas partes de mesmo tamanho, codificados no formato
-desejado e armazenadas em um servidor. Os clientes então requisitam os segmentos sequencialmente por
-download progressivo e eles são tocados em ordem já que são contíguos. O resultado é uma experiência de usuário
-praticamente livre de gargalos de buffering em condições normais de rede e CPU. 
+Delivery Network (CDN) para aumentar a escalabilidade. É comum em streaming
+adaptativo utilizar a técnica de \textit{\foreignlanguage{english}{stream
+		switching}}. Esse é um método híbrido que usa HTTP como o protocolo de entrega
+no lugar de definir um novo protocolo. Os dados de multimídia são segmentados
+em pequenas partes de mesmo tamanho, codificados no formato desejado e
+armazenadas em um servidor. Os clientes então requisitam os segmentos
+sequencialmente por download progressivo e eles são tocados em ordem já que são
+contíguos. O resultado é uma experiência de usuário praticamente livre de
+gargalos de buffering em condições normais de rede e CPU.
 
+% Usar esse link como referência pode ser bom:
+% https://stackoverflow.com/questions/35697778/what-streaming-protocols-can-publish-video-audio?rq=2
 
+% E esse aqui tem um report visual ! com informações de quais protocolos estão sendo usados:
+
+% https://www.wowza.com/blog/hls-vs-webrtc#delivery-method
 
 \chapter{Fundamentação Teórica}
 
