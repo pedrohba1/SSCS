@@ -289,9 +289,9 @@ Os objetivos específicos envolvem:
 \chapter{Método de Desenvolvimento}
 
 A metodologia selecionada para o avanço deste projeto se baseia, inicialmente,
-em um exame das soluções de software e hardware atualmente presentes no
-mercado. O objetivo é compreender suas características, funcionalidades e
-possíveis vulnerabilidades de segurança. Esse estudo, de caráter essencialmente
+em um exame das soluções de software atualmente presentes no mercado. O
+objetivo é compreender suas características, funcionalidades e possíveis
+vulnerabilidades de segurança. Esse estudo, de caráter essencialmente
 qualitativo, procura identificar tendências, padrões e lacunas nas soluções
 existentes.
 
@@ -315,40 +315,45 @@ manutenção e atualização de hardwares.
 
 \section{Estado da Arte de Câmeras de Vigilância}
 
-Existem inúmeras soluções de vigilância disponíveis no mercado, cada uma delas
-utilizando uma série de padrões e tecnologias diferenciada. Entre elas, as
-câmeras CCTV (\textit{\foreignlanguage{english}{Closed-circuit television}}) se
-destacam como uma das opções mais tradicionais e amplamente adotadas. Estas
-câmeras funcionam em um sistema que transmite os sinais de vídeo para um
-conjunto específico e privado de monitores. Ao contrário de soluções mais
-modernas que utilizam transmissão via IP, as câmeras CCTV são frequentemente
-associadas a sistemas de transmissão analógica, embora modelos mais recentes
-possam incorporar capacidades digitais e transmissão via rede. Atualmente, os
-modelos mais comuns de câmeras de vigilância já possuem integração direta à
-internet usando o protocolo IP.
+Diversas soluções de vigilância estão atualmente disponíveis no mercado, cada
+uma adotando um conjunto único de padrões e tecnologias. Entre as várias
+opções, as câmeras CCTV (\textit{\foreignlanguage{english}{Closed-circuit
+		television}}) emergem como um sistema tradicional e amplamente empregado.
+Curiosamente, o conceito de CCTV remonta a 1927, quando o físico russo Léon
+Theremin desenvolveu o primeiro dispositivo desse tipo
+\cite{glinsky2000theremin}. Essas câmeras funcionam em um sistema que transmite
+os sinais de vídeo para um conjunto específico e privado de monitores. Ao
+contrário de soluções mais modernas que utilizam transmissão via IP, as câmeras
+CCTV são frequentemente associadas a sistemas de transmissão analógica, embora
+modelos mais recentes possam incorporar capacidades digitais e transmissão pela
+web. Atualmente, os modelos mais comuns de câmeras de vigilância já possuem
+integração direta à internet usando o protocolo IP.
 
 No quesito dos métodos de transmissão multimídia por essas câmeras, temos três
 métodos principais: \textit{\foreignlanguage{english}{streaming}} tradicional,
 \textit{\foreignlanguage{english}{download}} progressivo, e
-\textit{\foreignlanguage{english}{streaming}} adaptativo.
-\textit{\foreignlanguage{english}{Streaming}} tradicional requer um protocolo
+\textit{\foreignlanguage{english}{streaming}} adaptativo. Cada um deles tem
+suas vantagens e desvantagens quanto aos critérios de latência, qualidade,
+requerimentos de processamento e compatibilidade com outros tipos de software.
+O \textit{\foreignlanguage{english}{Streaming}} tradicional requer um protocolo
 \textit{\foreignlanguage{english}{stateful}} que estabelece uma sessão entre o
-servidor e o cliente. Ness último método, a mídia é transmitida como uma
-corrente constante de pacotes por UDP ou TCP. Como exemplo o Real Time
-Streaming Protocol (RTSP) , baseado no Real-time Transport Protocol (RTP), que
-é o mais comum para a transmissão de vídeo nas câmeras por IP: a vasta maioria
-delas o integram como padrão. Já no método do streaming por
-\textit{\foreignlanguage{english}{download}} progressivo, usa-se um servidor
-HTTP para transferir o vídeo entre o cliente e o servidor, de maneira
-\textit{\foreignlanguage{english}{stateless}}. Os clientes fazem requisições de
-multimídia, que é enviado progressivamente para um buffer local. Assim que ele
-tem informação o suficiente, o vídeo começa a tocar. Se a taxa de
-\textit{\foreignlanguage{english}{playback}} excede a taxa de transmissão de
-dados, então o vídeo é interrompido até que o buffer seja preenchido
-adequadamente. O \textit{\foreignlanguage{english}{streaming}} adaptativo por
-sua vez, consiste em detectar a largura de banda de rede e capacidade de CPU do
-cliente para ajustar a qualidade do vídeo transmitido buscando a melhor opção
-para as condições dadas. Isso requer um
+servidor e o cliente. Nesse último método, a mídia é transmitida como uma
+corrente constante de pacotes por UDP ou TCP.
+% Como exemplo o Real Time
+% Streaming Protocol (RTSP) , baseado no Real-time Transport Protocol (RTP), que
+% é o mais comum para a transmissão de vídeo nas câmeras por IP: a vasta maioria
+% delas o integram como padrão.
+Já no método do streaming por \textit{\foreignlanguage{english}{download}}
+progressivo, usa-se um servidor HTTP para transferir o vídeo entre o cliente e
+o servidor, de maneira \textit{\foreignlanguage{english}{stateless}}. Os
+clientes fazem requisições de multimídia, que é enviado progressivamente para
+um buffer local. Assim que ele tem informação o suficiente, o vídeo começa a
+tocar. Se a taxa de \textit{\foreignlanguage{english}{playback}} excede a taxa
+de transmissão de dados, então o vídeo é interrompido até que o buffer seja
+preenchido adequadamente. O \textit{\foreignlanguage{english}{streaming}}
+adaptativo por sua vez, consiste em detectar a largura de banda de rede e
+capacidade de CPU do cliente para ajustar a qualidade do vídeo transmitido
+buscando a melhor opção para as condições dadas. Isso requer um
 \textit{\foreignlanguage{english}{encoder}} para prover vídeo em múltiplos
 \textit{\foreignlanguage{english}{bit rates}} diferentes, ou múltiplos
 \textit{\foreignlanguage{english}{encoders}} e pode ser usada uma Content
@@ -361,6 +366,9 @@ armazenadas em um servidor. Os clientes então requisitam os segmentos
 sequencialmente por download progressivo e eles são tocados em ordem já que são
 contíguos. O resultado é uma experiência de usuário praticamente livre de
 gargalos de buffering em condições normais de rede e CPU.
+
+% TODO: verificar se essa parte toda aqui que eu falei sobre os protocolos faz sentido de estar aqui.
+% ao meu ver perdeu um pouco do sentido e parece mais fazer parte do desenvolvimento em si
 
 % Usar esse link como referência pode ser bom:
 % https://stackoverflow.com/questions/35697778/what-streaming-protocols-can-publish-video-audio?rq=2
@@ -511,6 +519,18 @@ LBPH foi escolhido por funcionar bem com as imagens em \emph{grayscale} e ser
 capaz de desconsiderar a luminosidade como característica importante, como
 mostra a figura abaixo:
 
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.7\linewidth]{grayscale.PNG}
+	\caption[De \emph{grayscale} para LBP
+	]{Imagens resultantes do algoritmo LBP abaixo, geradas à partir da imagem em \emph{grayscale} acima.}
+	\label{fig:graficosVariandoTamanhoRede}
+\end{figure}
+% é o proposto por Paul Viola e Michael Jones no 
+% artigo  "Rapid Object Detection using a Boosted Cascade of Simple Features" em 2001. É uma abordagem
+% baseada em Machine Learning em que uma função \emph{cascade} é treinada com o uso de muitas imagens
+% positivas e negativas.
+
 \section{Arquitetura de microsserviços}
 
 Explicar aqui o que são microsseviços e como eles funcionam. Fazer talvez uma
@@ -523,8 +543,8 @@ e vantagens em relação ao microsserviço.
 
 \section{Protoclo RTSP}
 
-Explciar como o protocolo RTSP vai sr usado para pegar o feed das imagens.
-Existe o RFC to protocolo RTSP aqui:
+Explciar como o protocolo RTSP é usado para pegar o feed das imagens. Existe o
+RFC to protocolo RTSP aqui:
 % https://www.rfc-editor.org/rfc/rfc2326#page-71
 
 \section{Conteinerização}
@@ -544,17 +564,21 @@ diretamente a imagem com RTSP. Tanto porque o sistema não consegue lidar com
 muitas requisições ao mesmo tempo, ou porque ele está numa intranet que precisa
 de um acesso seguro para prover ao resto da rede.
 
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[width=0.7\linewidth]{grayscale.PNG}
-	\caption[De \emph{grayscale} para LBP
-	]{Imagens resultantes do algoritmo LBP abaixo, geradas à partir da imagem em \emph{grayscale} acima.}
-	\label{fig:graficosVariandoTamanhoRede}
-\end{figure}
-% é o proposto por Paul Viola e Michael Jones no 
-% artigo  "Rapid Object Detection using a Boosted Cascade of Simple Features" em 2001. É uma abordagem
-% baseada em Machine Learning em que uma função \emph{cascade} é treinada com o uso de muitas imagens
-% positivas e negativas.
+\section{Licenças de Software}
+
+Explciar o porquê de usar uma licença de software adequada. E como diferentes
+Licenças de Software podem afetar como esse sistema é construído e mantido.
+Citar aquela licença (Acho que é a BPD) que pode absolutamente obliterar todo
+mundo que já estava usando um software específico.
+
+\section{Encodings de vídeo e som}
+
+Tenho que citar alguns encodings disponíves.
+
+\subsection{H.264}
+
+O que acontece nesse tipo de encoding? Em quais cenários ele é usado? Quais os
+problemas dele?
 
 \section{Tecnologia de Hardware}
 
