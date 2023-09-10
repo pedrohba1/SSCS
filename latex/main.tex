@@ -167,7 +167,7 @@ brazil]{facom-ufu-abntex2}
 % inserir lista de abreviaturas e siglas
 % ---
 \begin{siglas} %TCC: 
-	
+
 	\item[SSCS] Self-Sovereign Camera System
 	\item[CAGR] Compound annual growth rate, ou taxa de crescimento anual.
 	\item[API] Application Programming Interface
@@ -175,7 +175,7 @@ brazil]{facom-ufu-abntex2}
 	\item[HSL] HTTP Live Streaming
 	\item[RTMP] Real Time Messaging Protocol
 	\item[LBPH] Local Binary Patterns Histogram
-	 
+
 \end{siglas}
 % ---
 
@@ -232,18 +232,20 @@ mas também sua trajetória ascendente, realçando a importância de abordar
 questões de privacidade e segurança em um contexto tão amplo e em rápido
 crescimento.
 
-Ao mesmo tempo, à medida que esses sistemas de vigilância aumentam em
-complexidade e tamanho, a necessidade de sistemas capazes de processar grandes
-quantidades de dados de maneira eficiente, torna-se cada vez mais aparente.
-Sistemas distribuídos podem lidar com a transmissão de informações em tempo
-real, o processamento paralelo de imagens e a redundância necessária para
-garantir a confiabilidade do sistema.
+À medida que o mercado de vigilância por vídeo se expande,
+os sistemas associados também se tornam progressivamente mais complexos e de maior alcance.
+Isso demonstra a necessidade de infraestruturas mais robustas e eficientes.
+Nesse contexto, é intrigante observar que as complicações técnicas enfrentadas pelos
+sistemas de vigilância têm muitas semelhanças com aquelas encontradas em plataformas de
+streaming de vídeo. Ambos os tipos de
+sistemas têm uma dependência substancial de infraestruturas distribuídas para
+assegurar a prestação de serviços em tempo real, de maneira eficaz e confiável.
 
 Entretanto, a privacidade dos indivíduos não é uma preocupação primária dos
 principais provedores desse tipo de serviço. Nesse contexto, tecnologias de
 código aberto podem oferecer uma solução, pois permitem que qualquer pessoa
-verifique se o software tratando a segurança e a privacidade de
-maneira adequada \cite{mardjan2016open}.
+verifique se o software tratando a segurança e a privacidade de maneira
+adequada \cite{mardjan2016open}.
 
 Considerando-se a necessidade de criar uma solução que traga os benefícios da
 vigilância e mantendo a privacidade individual, surge neste trabalho a proposta
@@ -375,6 +377,19 @@ armazenadas em um servidor. Os clientes então requisitam os segmentos
 sequencialmente por download progressivo e eles são tocados em ordem já que são
 contíguos. O resultado é uma experiência de usuário praticamente livre de
 gargalos de buffering em condições normais de rede e CPU.
+
+No quesito dos riscos de segurança, as câmeras IP apresentam várias
+vulnerabilidades que podem expô-las a ameaças. Uma das falhas mais comuns é a
+utilização de credenciais de login padrão, que são facilmente acessíveis para
+qualquer pessoa com conhecimento básico em segurança de rede. Além disso,
+políticas de autenticação fracas frequentemente permitem a seleção de senhas
+simples e fáceis de adivinhar. A criptografia inadequada de informações
+confidenciais é outro ponto de preocupação, pois muitas vezes os dados são
+transmitidos sem qualquer processo de criptografia, tornando-os suscetíveis a
+interceptações e ataques. Como exemplo dessas falhas, em \cite{9116392} uma
+câmera smart identifica como Onvif YY HD passou por um teste de penetração.
+Nesse teste, um ataque do tipo man in the middle (MITM) foi capaz de visualizar
+em texto plano todos os dados transmitidos pela câmera, inclusive credenciais.
 
 % TODO: verificar se essa parte toda aqui que eu falei sobre os protocolos faz sentido de estar aqui.
 % ao meu ver perdeu um pouco do sentido e parece mais fazer parte do desenvolvimento em si
