@@ -125,7 +125,7 @@ brazil]{facom-ufu-abntex2}
 	\vspace{\onelineskip}
 
 	\noindent
-	\textbf{Palavras-chave}: Segurança, código,  aberto, reconhecimento, facial, câmera.  %TCC:
+	\textbf{Palavras-chave}: código  aberto, visão computacional, IP câmera, streaming multimídia.  %TCC:
 \end{resumo}
 
 \begin{resumo}[Abstract]
@@ -144,7 +144,7 @@ brazil]{facom-ufu-abntex2}
 
 	\vspace{\onelineskip}
 	\noindent
-	\textbf{Keywords}: word1, word2, word3.
+	\textbf{Keywords}: open source, computer vision, IP camera, multimedia streaming.
 \end{resumo}
 
 % ---
@@ -167,12 +167,15 @@ brazil]{facom-ufu-abntex2}
 % inserir lista de abreviaturas e siglas
 % ---
 \begin{siglas} %TCC: 
-	\item[SSCS] \textit{\foreignlanguage{english}{Self-Sovereign Camera System}}
+	
+	\item[SSCS] Self-Sovereign Camera System
+	\item[CAGR] Compound annual growth rate, ou taxa de crescimento anual.
 	\item[API] Application Programming Interface
 	\item[REST] Representational State Transfer
 	\item[HSL] HTTP Live Streaming
 	\item[RTMP] Real Time Messaging Protocol
 	\item[LBPH] Local Binary Patterns Histogram
+	 
 \end{siglas}
 % ---
 
@@ -212,33 +215,39 @@ e na última década, avanços tecnológicos tornaram essas câmeras ainda mais
 eficientes em monitorar 1.4 bilhões de chineses. Ainda segundo o autor, o
 reconhecimento de rostos por câmeras começou a ser uma realidade em 2010 quando
 pesquisadores descobriram algoritmos de deep learning usados para reconhecer
-imagens e voz. Esses algoritmos podem ambém inferir em tempo real a quantidade
-e a densidade de pessoas numa dada imagem \cite{qiang2019road}. É notável que
-esse nível de vigilância está se tornando uma realidade em muitos outros países
-no mundo além da China. Nesse sentido, é perceptível que existe uma demanda por
-aumentar a segurança usando os meios necessários, mas sem que isso signifique
-diminuir a privacidade dos indivíduos colocando suas informações disponíveis
-aos governantes e corporações.
+imagens e voz. Esses algoritmos podem também inferir em tempo real a quantidade
+e a densidade de pessoas numa dada imagem \cite{qiang2019road}.
+
+Esta intensificação do uso da tecnologia de vigilância não se limita à China;
+ou está se tornando ou já é a realidade em muitos outros países. De acordo com
+um relatório da Market Research Future \cite{Gupta2018}, a América do Norte é
+atualmente líder em termos de participação de mercado de câmeras de CCTV,
+detendo 28,5\% do mercado global, seguida pela Europa com 18,3\%. Este domínio
+é reflexo de um mercado de vigilância por vídeo que tem mostrado crescimento
+substancial: avaliado em 45,9 bilhões de dólares em 2021, este mercado tem uma
+projeção de crescimento para 110,2 bilhões de dólares até 2030, com uma taxa
+composta anual de crescimento (CAGR) de 11,6\% para o período de 2022 a 2030.
+Esses dados evidenciam não apenas a escala atual da indústria de vigilância,
+mas também sua trajetória ascendente, realçando a importância de abordar
+questões de privacidade e segurança em um contexto tão amplo e em rápido
+crescimento.
 
 Ao mesmo tempo, à medida que esses sistemas de vigilância aumentam em
-complexidade e tamanho, a necessidade de sistemas distribuídos, capazes de
-processar grandes quantidades de dados de maneira eficiente, torna-se cada vez
-mais aparente. Sistemas distribuídos podem lidar com a transmissão de
-informações em tempo real, o processamento paralelo de imagens e a redundância
-necessária para garantir a confiabilidade do sistema.
+complexidade e tamanho, a necessidade de sistemas capazes de processar grandes
+quantidades de dados de maneira eficiente, torna-se cada vez mais aparente.
+Sistemas distribuídos podem lidar com a transmissão de informações em tempo
+real, o processamento paralelo de imagens e a redundância necessária para
+garantir a confiabilidade do sistema.
 
 Entretanto, a privacidade dos indivíduos não é uma preocupação primária dos
 principais provedores desse tipo de serviço. Nesse contexto, tecnologias de
 código aberto podem oferecer uma solução, pois permitem que qualquer pessoa
-verifique se o proprietário está tratando a segurança e a privacidade de
+verifique se o software tratando a segurança e a privacidade de
 maneira adequada \cite{mardjan2016open}.
 
 Considerando-se a necessidade de criar uma solução que traga os benefícios da
-vigilância e mantendo a privacidade individual, surge essa proposta da
-construção de um sistema de segurança doméstica que oferece as opções de
-reconhecimento de imagem por inteligência artificial, além da visualização em
-tempo real da gravação, e que tenha tanto o código fonte quanto o hardware
-abertos em virtude da transparência.
+vigilância e mantendo a privacidade individual, surge neste trabalho a proposta
+da construção de um software de vigilância.
 
 \section{Objetivos}
 
