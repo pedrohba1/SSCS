@@ -629,15 +629,39 @@ Um ou mais capítulos (por exemplo, se há duas linhas de trabalhos
 relacionados).
 
 \chapter{Desenvolvimento}
-%TCC:
-Um ou mais capítulos (por exemplo um para testes)
+Inicialmente, é vantajoso estabelecer um meio de simular um fluxo de vídeo para
+o SCSS processar. Esta abordagem facilita os testes e proporciona um ambiente
+de desenvolvimento que replica com fidelidade as condições sob as quais o
+sistema operará quando implementado em um ambiente de produção. É importante
+esclarecer que, ao referir-se a "sistema em produção", estamos discutindo a
+aplicação prática do software em ambientes comerciais, residenciais, ou outros
+contextos reais onde a vigilância é empregada para segurança e monitoramento.
 
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[width=0.55\linewidth]{imagemExemplo.pdf}
-	\caption[Isso é o que aparece no sumário]{Imagem de exemplo.}
-	\label{fig:graficosVariandoTamanhoRede}
-\end{figure}
+No desenvolvimento do sistema, foi empregado o MediaMTX \cite{mediamtx}, um
+servidor de mídia em tempo real de código aberto que facilita a publicação,
+leitura, gravação e roteamento de streams de vídeo. Este software foi
+originalmente concebido para funcionar como um roteador de mídia de ponta a
+ponta, proporcionando uma plataforma robusta a partir da qual o SSCS pode
+acessar e consumir streams de vídeo. Entretanto, para que o servidor seja
+operacional, é necessário que a mídia seja publicada nele. Conforme indicado na
+documentação do MediaMTX, uma das abordagens recomendadas para isso é a
+utilização do ffmpeg, um framework de multimídia que permite a codificação,
+decodificação, transcodificação, muxing, demuxing, streaming e reprodução de
+dados de mídia. Através do ffmpeg \cite{ffmpeg}, é possível direcionar streams de vídeo para
+o servidor MediaMTX, criando assim um ambiente propício para a integração e
+operação eficiente do SSCS. 
+
+Como é muito comum que sistemas de vigilância possuam várias câmeras ao mesmo tempo,
+fazem sentido as duas arquiteturas nas figuras abaixo. Ambas as arquiteturas
+são apenas a parte da transmissão para o servidor de mídia SSCS.
+
+
+% \begin{figure}[!ht]
+% 	\centering
+% 	\includegraphics[width=0.55\linewidth]{imagemExemplo.pdf}
+% 	\caption[Isso é o que aparece no sumário]{Imagem de exemplo.}
+% 	\label{fig:graficosVariandoTamanhoRede}
+% \end{figure}
 
 %TCC:
 %TCC:
