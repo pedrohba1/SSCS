@@ -24,6 +24,6 @@ ffplay rtsp://localhost:8554/mystream
 ```
 
 You can start multiple RTSP feeds using this approach. Or either use a single RTSP server to create multiple streams,
-like this:
+just by chaning the `mystream` path
 
 
