@@ -1,0 +1,30 @@
+<mxfile host="app.diagrams.net" modified="2023-09-29T21:01:56.190Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36" etag="joniM1ntsyd_niGDDx-i" version="22.0.0" type="device">
+  <diagram name="Página-1" id="KjTtuctHwxDyZRn3l2mg">
+    <mxGraphModel dx="462" dy="270" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="1v8-vr0Qcsb3jSITrx1u-3" value="&amp;lt;&amp;lt;external system&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;MediaServer&lt;/b&gt;" style="html=1;dropTarget=0;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="240" y="180" width="164" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="1v8-vr0Qcsb3jSITrx1u-4" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" vertex="1" parent="1v8-vr0Qcsb3jSITrx1u-3">
+          <mxGeometry x="1" width="20" height="20" relative="1" as="geometry">
+            <mxPoint x="-27" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1v8-vr0Qcsb3jSITrx1u-21" value="" style="ellipse;whiteSpace=wrap;html=1;align=center;aspect=fixed;fillColor=none;strokeColor=none;resizable=0;perimeter=centerPerimeter;rotatable=0;allowArrows=0;points=[];outlineConnect=1;" vertex="1" parent="1">
+          <mxGeometry x="140" y="305" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="1v8-vr0Qcsb3jSITrx1u-26" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=0;" vertex="1" parent="1">
+          <mxGeometry x="234" y="306" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="1v8-vr0Qcsb3jSITrx1u-30" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;direction=south;" vertex="1" parent="1">
+          <mxGeometry x="70" y="306" width="10" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="1v8-vr0Qcsb3jSITrx1u-36" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="1">
+          <mxGeometry x="100" y="306" width="40" height="8" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

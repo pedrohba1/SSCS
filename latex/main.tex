@@ -597,12 +597,25 @@ mundo que já estava usando um software específico.
 
 \section{Encodings de vídeo e som}
 
-Tenho que citar alguns encodings disponíves.
+Tenho que citar alguns encodings usados.
 
 \subsection{H.264}
 
 O que acontece nesse tipo de encoding? Em quais cenários ele é usado? Quais os
 problemas dele?
+
+Essa informação aqui é importante para o streaming com WebRTC
+
+WebRTC doesn't support H264 streams with B-frames: H264 is a video compression
+codec. In H264 encoding, three types of frames are used: I-frames (Intra
+frames), P-frames (Predictive frames), and B-frames (Bidirectional predictive
+frames). The error message is stating that WebRTC does not support H264 streams
+that include B-frames.
+
+B-frames depend on both previous and future frames to derive their data, and
+this can cause issues in real-time streaming scenarios like those handled by
+WebRTC, where latency and real-time performance are crucial. Therefore, WebRTC
+doesn't support H264 streams with B-frames.
 
 \section{Tecnologia de Hardware}
 
@@ -647,21 +660,30 @@ operacional, é necessário que a mídia seja publicada nele. Conforme indicado 
 documentação do MediaMTX, uma das abordagens recomendadas para isso é a
 utilização do ffmpeg, um framework de multimídia que permite a codificação,
 decodificação, transcodificação, muxing, demuxing, streaming e reprodução de
-dados de mídia. Através do ffmpeg \cite{ffmpeg}, é possível direcionar streams de vídeo para
-o servidor MediaMTX, criando assim um ambiente propício para a integração e
-operação eficiente do SSCS. 
+dados de mídia. Através do ffmpeg \cite{ffmpeg}, é possível direcionar streams
+de vídeo para o servidor MediaMTX, criando assim um ambiente propício para a
+integração e operação eficiente do SSCS.
 
-Como é muito comum que sistemas de vigilância possuam várias câmeras ao mesmo tempo,
-fazem sentido as duas arquiteturas nas figuras abaixo. Ambas as arquiteturas
-são apenas a parte da transmissão para o servidor de mídia SSCS.
+Como é muito comum que sistemas de vigilância possuam várias câmeras ao mesmo
+tempo, fazem sentido as duas arquiteturas nas figuras abaixo. Ambas as
+arquiteturas lidam exclusivamente com a parte da transmissão para o servidor de mídia SSCS.
 
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\linewidth]{arch1.pdf}
+	\caption[Exemplo de arquiteutra de transmissão]{Arquitetura de transmissão, múltiplas fontes para um servidor de mídia}
+	\label{fig:graficosVariandoTamanhoRede}
+\end{figure}
 
-% \begin{figure}[!ht]
-% 	\centering
-% 	\includegraphics[width=0.55\linewidth]{imagemExemplo.pdf}
-% 	\caption[Isso é o que aparece no sumário]{Imagem de exemplo.}
-% 	\label{fig:graficosVariandoTamanhoRede}
-% \end{figure}
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\linewidth]{arch2.pdf}
+	\caption[Exemplo de arquiteutra de transmissão]{Arquitetura de transmissão, múltiplos servidores de mídia}
+	\label{fig:graficosVariandoTamanhoRede}
+\end{figure}
+
+A arquitetura na figura 3, demonstra um caso onde as câmeras ou outras fontes de streaming podem enviar
+streams para um único servidor intermediário. Esse servidor intermediário 
 
 %TCC:
 %TCC:
