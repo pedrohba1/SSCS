@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-09-29T21:49:22.309Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36" etag="p6WumZhEAut4PTcfY29C" version="22.0.0" type="device">
+<mxfile host="app.diagrams.net" modified="2023-09-29T21:49:55.219Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36" etag="AS8aPQOVzAag1ZXS5Afm" version="22.0.0" type="device">
   <diagram name="Página-1" id="KjTtuctHwxDyZRn3l2mg">
     <mxGraphModel dx="839" dy="497" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -109,14 +109,6 @@
         </mxCell>
         <mxCell id="1v8-vr0Qcsb3jSITrx1u-98" value="" style="group" vertex="1" connectable="0" parent="1">
           <mxGeometry x="210" y="480" width="266" height="280" as="geometry" />
-        </mxCell>
-        <mxCell id="1v8-vr0Qcsb3jSITrx1u-99" value="&amp;lt;&amp;lt;external system&amp;gt;&amp;gt;&lt;br&gt;&lt;b&gt;MediaServer&lt;/b&gt;" style="html=1;dropTarget=0;whiteSpace=wrap;" vertex="1" parent="1v8-vr0Qcsb3jSITrx1u-98">
-          <mxGeometry x="-16" y="-10" width="180" height="100" as="geometry" />
-        </mxCell>
-        <mxCell id="1v8-vr0Qcsb3jSITrx1u-100" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" vertex="1" parent="1v8-vr0Qcsb3jSITrx1u-99">
-          <mxGeometry x="1" width="20" height="20" relative="1" as="geometry">
-            <mxPoint x="-27" y="7" as="offset" />
-          </mxGeometry>
         </mxCell>
         <mxCell id="1v8-vr0Qcsb3jSITrx1u-101" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=0;" vertex="1" parent="1v8-vr0Qcsb3jSITrx1u-98">
           <mxGeometry x="159" y="35" width="10" height="10" as="geometry" />
