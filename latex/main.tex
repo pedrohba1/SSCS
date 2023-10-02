@@ -301,15 +301,14 @@ Os objetivos específicos envolvem:
 
 A metodologia selecionada para o avanço deste projeto se baseia, inicialmente,
 em um exame das soluções de software atualmente presentes no mercado. O
-objetivo é compreender suas características, funcionalidades e possíveis
-vulnerabilidades de segurança. Esse estudo, de caráter essencialmente
-qualitativo, procura identificar tendências, padrões e lacunas nas soluções
-existentes.
+objetivo é compreender suas características, funcionalidades e deficiências.
+Esse estudo, de caráter essencialmente qualitativo, procura identificar
+tendências, padrões e lacunas nas soluções existentes.
 
-Em Seguida, serão exploradas as tecnologias e técnicas comumente adotadas na
-indústria. Essa investigação abrange desde protocolos de transporte e
-arquiteturas predominantes de hardware e software até algoritmos sofisticados
-de compressão e reconhecimento. O intuito é discernir os padrões de uso e as
+Em seguida, serão exploradas as tecnologias e técnicas comumente adotadas na
+indústria. Essa investigação abrange desde protocolos de transporte até
+algoritmos sofisticados de compressão e reconhecimento, assim como casos de
+vulnerabilidades de segurança. O intuito é discernir os padrões de uso e as
 preferências do setor.
 
 Dentro desse contexto, uma análise focada no SSCS será realizada.
@@ -331,14 +330,35 @@ uma adotando um conjunto único de padrões e tecnologias. Entre as várias
 opções, as câmeras CCTV (\textit{\foreignlanguage{english}{Closed-circuit
 		television}}) emergem como um sistema tradicional e amplamente empregado.
 Curiosamente, o conceito de CCTV remonta a 1927, quando o físico russo Léon
-Theremin desenvolveu o primeiro dispositivo desse tipo
-\cite{glinsky2000theremin}. Essas câmeras funcionam em um sistema que transmite
-os sinais de vídeo para um conjunto específico e privado de monitores. Ao
-contrário de soluções mais modernas que utilizam transmissão via IP, as câmeras
-CCTV são frequentemente associadas a sistemas de transmissão analógica, embora
-modelos mais recentes possam incorporar capacidades digitais e transmissão pela
-web. Atualmente, os modelos mais comuns de câmeras de vigilância já possuem
-integração direta à internet usando o protocolo IP.
+Theremin desenvolveu o primeiro dispositivo desse tipo, dando origem à primeira
+geração de sistemas de vigilância \cite{glinsky2000theremin}. Esse sistema
+consiste em um número de câmeras localizadas em múltiplas posições remotas e
+conectadas a um conjunto de monitores, geralmente em uma única sala de
+controle, através de switches (uma matriz de vídeo). Ao contrário de soluções
+mais modernas que utilizam transmissão via IP, as câmeras CCTV são
+frequentemente associadas a sistemas de transmissão analógica, embora modelos
+mais recentes possam incorporar capacidades digitais e transmissão pela web.
+Atualmente, os modelos mais comuns de câmeras de vigilância para uso comercial
+já possuem integração direta à internet usando o protocolo IP.
+
+O avanço tecnológico nas câmeras de vigilância levou ao desenvolvimento de
+sistemas semi-automáticos, conhecidos como sistemas de vigilância de segunda
+geração. A maior parte da pesquisa nesses sistemas é baseada na criação de
+algoritmos para detecção automática em tempo real de eventos, auxiliando o
+usuário a reconhecer os eventos.
+
+Seguindo essa mesma tendência tecnológica, chegamos então à terceira geração,
+que se refere aos sistemas de vigilância concebidos para lidar com um grande
+número de câmeras, uma dispersão geográfica de recursos, muitos pontos de
+monitoramento, e para espelhar a natureza hierárquica e distribuída do processo
+humano de vigilância. Os principais objetivos que se espera de uma aplicação
+genérica de vigilância visual de terceira geração, baseada nas exigências do
+usuário final, são fornecer uma boa compreensão da cena, orientada para atrair
+a atenção do operador humano em tempo real, possivelmente em um ambiente
+multi-sensorial, informações de vigilância e usando componentes padrões de
+baixo custo.
+
+\section{Tecnologias e técnicas comuns}
 
 No quesito dos métodos de transmissão multimídia por essas câmeras, temos três
 métodos principais: \textit{\foreignlanguage{english}{streaming}} tradicional,
@@ -403,10 +423,11 @@ em texto plano todos os dados transmitidos pela câmera, inclusive credenciais.
 
 \chapter{Fundamentação Teórica}
 
-Neste capítulo estão as tecnologias e os conceitos que serão utilizados no
-decorrer da construção deste projeto. São conceitos relacionados à arquitetura
-do sistema que será construído, as abordagens que já existem, \emph{hardware},
-linguagens e \emph{frameworks} que serão utilizados.
+Neste capítulo, são apresentadas as tecnologias e os conceitos que serão
+empregados ao longo da execução deste projeto. Esses conceitos estão
+relacionados à arquitetura do sistema que será desenvolvido, aos protocolos,
+técnicas de reconhecimento de imagem, compressão, técnicas de software e demais
+elementos necessários para a materialização da solução proposta.
 
 \section{Arquitetura de transmissão em tempo real}
 
@@ -660,13 +681,14 @@ operacional, é necessário que a mídia seja publicada nele. Conforme indicado 
 documentação do MediaMTX, uma das abordagens recomendadas para isso é a
 utilização do ffmpeg, um framework de multimídia que permite a codificação,
 decodificação, transcodificação, muxing, demuxing, streaming e reprodução de
-dados de mídia. Através do ffmpeg \cite{ffmpeg}, é possível direcionar streams
-de vídeo para o servidor MediaMTX, criando assim um ambiente propício para a
-integração e operação eficiente do SSCS.
+dados de mídia. Através do ffmpeg \cite{ffmpeg}, é possível enviar streams de
+vídeo para o servidor MediaMTX, criando assim um ambiente propício para a
+integração e operação eficiente com o SSCS.
 
 Como é muito comum que sistemas de vigilância possuam várias câmeras ao mesmo
 tempo, fazem sentido as duas arquiteturas nas figuras abaixo. Ambas as
-arquiteturas lidam exclusivamente com a parte da transmissão para o servidor de mídia SSCS.
+arquiteturas lidam exclusivamente com a parte da transmissão para o servidor de
+mídia SSCS.
 
 \begin{figure}[!ht]
 	\centering
@@ -682,9 +704,15 @@ arquiteturas lidam exclusivamente com a parte da transmissão para o servidor de
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
-A arquitetura na figura 3, demonstra um caso onde as câmeras ou outras fontes de streaming podem enviar
-streams para um único servidor intermediário. Esse servidor intermediário 
-
+A descrição na Figura 3 ilustra um cenário onde câmeras ou outras fontes de
+streaming podem transmitir streams para um servidor intermediário singular. Por
+outro lado, a configuração na Figura 4 se distingue pela presença de múltiplos
+servidores de mídia, cada um recebendo transmissões de câmeras distintas. Em
+ambas as arquiteturas, os servidores intermediários desempenham o papel de
+proxies para o servidor que opera o SSCS. A utilização de um servidor de mídia
+como proxy apresenta diversas vantagens. Por exemplo, pode ser necessário
+converter o protocolo de transmissão de RTSP para WebRTC ou HLS, realizar
+balanceamento de carga, ou até mesmo implementar autenticação externa.
 %TCC:
 %TCC:
 %TCC:
