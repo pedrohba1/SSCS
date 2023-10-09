@@ -2,11 +2,15 @@ package core
 
 import (
 	"sscs/conf"
+	BaseLogger "sscs/logger"
+
+	"github.com/sirupsen/logrus"
 )
 
 type Core struct {
 	configPath string
-	Config     conf.Config
+	config     conf.Config
+	Logger     *logrus.Entry
 }
 
 func New(args []string) *Core {
@@ -15,14 +19,16 @@ func New(args []string) *Core {
 	configPath := args[0] // assumes args[0] has the config path
 
 	// Read the configuration using ReadConf
-	cfg, err := conf.ReadConf(configPath)
+	cfg, err := conf.ReadConf("./sscs.yml")
 	if err != nil {
 		panic(err) // or handle the error more gracefully, based on your application's needs
 	}
 
 	// Create a new Core instance with the read configuration
+
 	return &Core{
 		configPath: configPath,
-		Config:     cfg,
+		config:     cfg,
+		Logger:     BaseLogger.BaseLogger.WithField("package", "core"),
 	}
 }

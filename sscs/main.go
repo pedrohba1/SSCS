@@ -3,12 +3,15 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net"
 	"os"
 	"os/signal"
 	"syscall"
 
+	"sscs/core"
+	BaseLogger "sscs/logger"
+
+	"github.com/sirupsen/logrus"
 	"github.com/takama/daemon"
 )
 
@@ -27,11 +30,12 @@ const (
 // so it is advised to have your network service as a dependency
 var dependencies = []string{"NetworkManager.service"}
 
-var stdlog, errlog *log.Logger
+var logger *logrus.Entry
 
 // Service has embedded daemon
 type Service struct {
 	daemon.Daemon
+	core *core.Core
 }
 
 // Manage by daemon commands or run the daemon
@@ -72,19 +76,17 @@ func (service *Service) Manage() (string, error) {
 		return "Possibly was a problem with the port binding", err
 	}
 
-	// set up channel on which to send accepted connections
-	listen := make(chan net.Conn, 100)
-	go acceptConnection(listener, listen)
-
+	// Initialize the Core application
+	args := []string{""}
+	service.core = core.New(args)
+	service.core.Logger.Info("I'm completely operational, and all my circuits are functioning perfectly")
 	// loop work cycle with accept connections or interrupt
 	// by system signal
 	for {
 		select {
-		case conn := <-listen:
-			go handleClient(conn)
 		case killSignal := <-interrupt:
-			stdlog.Println("Got signal:", killSignal)
-			stdlog.Println("Stoping listening on ", listener.Addr())
+			logger.Info("Got signal:", killSignal)
+			logger.Info("Stoping listening on ", listener.Addr())
 			listener.Close()
 			if killSignal == os.Interrupt {
 				return "Daemon was interrupted by system signal", nil
@@ -97,46 +99,23 @@ func (service *Service) Manage() (string, error) {
 	return usage, nil
 }
 
-// Accept a client connection and collect it in a channel
-func acceptConnection(listener net.Listener, listen chan<- net.Conn) {
-	for {
-		conn, err := listener.Accept()
-		if err != nil {
-			continue
-		}
-		listen <- conn
-	}
-}
-
-func handleClient(client net.Conn) {
-	for {
-		buf := make([]byte, 4096)
-		numbytes, err := client.Read(buf)
-		if numbytes == 0 || err != nil {
-			return
-		}
-		stdlog.Println("test")
-		stdlog.Println(buf[:numbytes])
-		client.Write(buf[:numbytes])
-	}
-}
-
 func init() {
-	stdlog = log.New(os.Stdout, "", log.Ldate|log.Ltime)
-	errlog = log.New(os.Stderr, "error", log.Ldate|log.Ltime)
+	logger = BaseLogger.BaseLogger.WithField("package", "main")
 }
 
 func main() {
 	srv, err := daemon.New(name, description, daemon.SystemDaemon, dependencies...)
+
 	if err != nil {
-		errlog.Println("Error: ", err)
+		logger.Error("Error: ", err)
 		os.Exit(1)
 	}
-	service := &Service{srv}
+	service := &Service{Daemon: srv}
 	status, err := service.Manage()
 	if err != nil {
-		errlog.Println(status, "\nError: ", err)
+		logger.Error(status, "\nError: ", err)
 		os.Exit(1)
 	}
 	fmt.Println(status)
+
 }
