@@ -1,0 +1,2 @@
+rtsp:
+  feeds: ["rtsp://localhost:8554/mystream"]
