@@ -18,7 +18,7 @@ import (
 const (
 
 	// name of the service
-	name        = "scss"
+	name        = "sscs"
 	description = "Self-sovereign camera system"
 
 	// port which daemon should be listen

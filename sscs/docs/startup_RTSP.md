@@ -1,11 +1,11 @@
 # Startup of RTSP server
 
-The idea here is that SCSS simply processes and stores the image from a
+The idea here is that SSCS simply processes and stores the image from a
 RTSP server. Let's start by initiating an RTSP server:
 
 ```
 # run in root of this repo
-docker run --rm -d -it --network=host -v $PWD/scss/mediamtx.yml bluenviron/mediamtx
+docker run --rm -d -it --network=host -v $PWD/sscs/mediamtx.yml bluenviron/mediamtx
 ```
 
 The script above creates a docker container with [bluenviron/mediamtx image](https://hub.docker.com/r/bluenviron/mediamtx) which is a server and proxy that allows users to publish, read and proxy live video and audio streams. Basically,

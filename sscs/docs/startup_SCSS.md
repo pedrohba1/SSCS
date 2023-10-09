@@ -1,6 +1,6 @@
-# Startup of SCSS
+# Startup of SSCS
 
-SCSS is started as a Daemon. Which keeps running on the system, unless
+SSCS is started as a Daemon. Which keeps running on the system, unless
 the network service fails for some reason. 
 
 The basic manual startup process goes like this:
@@ -8,27 +8,27 @@ The basic manual startup process goes like this:
 ```
 make build
 
-sudo ./scss install
+sudo ./sscs install
 
-sudo ./scss start
+sudo ./sscs start
 ```
 
 If you are using systemd, the procedure above will create a system unit on 
-`/etc/systemd/system/`. You can check if the scss service is enabled, or installed with:
+`/etc/systemd/system/`. You can check if the sscs service is enabled, or installed with:
 
 ```
-systemctl list-unit-files --type=service  | grep -i scss
+systemctl list-unit-files --type=service  | grep -i sscs
 ```
 
 ##  Other useful commands for debugging 
 
 To check status of service:
 ```
-systemctl status scss
+systemctl status sscs
 ```
 
 To check all logs of service:
 ```
-sudo journalctl -u scss -p debug
+sudo journalctl -u sscs -p debug
 ```
 
