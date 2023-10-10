@@ -3,7 +3,6 @@ package main
 
 import (
 	"fmt"
-	"net"
 	"os"
 	"os/signal"
 	"syscall"
@@ -70,12 +69,6 @@ func (service *Service) Manage() (string, error) {
 	interrupt := make(chan os.Signal, 1)
 	signal.Notify(interrupt, os.Interrupt, os.Kill, syscall.SIGTERM)
 
-	// Set up listener for defined host and port
-	listener, err := net.Listen("tcp", port)
-	if err != nil {
-		return "Possibly was a problem with the port binding", err
-	}
-
 	// Initialize the Core application
 	args := []string{""}
 	service.core = core.New(args)
@@ -86,8 +79,7 @@ func (service *Service) Manage() (string, error) {
 		select {
 		case killSignal := <-interrupt:
 			logger.Info("Got signal:", killSignal)
-			logger.Info("Stoping listening on ", listener.Addr())
-			listener.Close()
+			service.core.Wait()
 			if killSignal == os.Interrupt {
 				return "Daemon was interrupted by system signal", nil
 			}
