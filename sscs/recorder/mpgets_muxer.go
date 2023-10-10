@@ -18,11 +18,13 @@ type mpegtsMuxer struct {
 	sps []byte
 	pps []byte
 
-	f            *os.File
-	b            *bufio.Writer
-	w            *mpegts.Writer
-	track        *mpegts.Track
-	dtsExtractor *h264.DTSExtractor
+	f              *os.File
+	b              *bufio.Writer
+	w              *mpegts.Writer
+	startTimestamp time.Time
+	chunkDuration  time.Duration
+	track          *mpegts.Track
+	dtsExtractor   *h264.DTSExtractor
 }
 
 // newMPEGTSMuxer allocates a mpegtsMuxer.
@@ -40,12 +42,14 @@ func newMPEGTSMuxer(sps []byte, pps []byte) (*mpegtsMuxer, error) {
 	w := mpegts.NewWriter(b, []*mpegts.Track{track})
 
 	return &mpegtsMuxer{
-		sps:   sps,
-		pps:   pps,
-		f:     f,
-		b:     b,
-		w:     w,
-		track: track,
+		sps:            sps,
+		pps:            pps,
+		f:              f,
+		b:              b,
+		w:              w,
+		startTimestamp: time.Now(),
+		chunkDuration:  8 * time.Second,
+		track:          track,
 	}, nil
 }
 
@@ -55,8 +59,31 @@ func (e *mpegtsMuxer) close() {
 	e.f.Close()
 }
 
+func createChunkFileName() string {
+	timestamp := time.Now().Format("2006-01-02_15-04-05")
+	return "feed_" + timestamp + ".ts"
+}
+
 // encode encodes a H264 access unit into MPEG-TS.
 func (e *mpegtsMuxer) encode(au [][]byte, pts time.Duration) error {
+
+	var err error
+
+	if time.Since(e.startTimestamp) > e.chunkDuration {
+		// Close the current resources
+		e.b.Flush()
+		e.f.Close()
+
+		// Start a new file
+		e.f, err = os.Create(createChunkFileName())
+		if err != nil {
+			return err
+		}
+		e.b = bufio.NewWriter(e.f)
+		e.w = mpegts.NewWriter(e.b, []*mpegts.Track{e.track})
+		e.startTimestamp = time.Now()
+	}
+
 	// prepend an AUD. This is required by some players
 	filteredAU := [][]byte{
 		{byte(h264.NALUTypeAccessUnitDelimiter), 240},
@@ -110,7 +137,6 @@ func (e *mpegtsMuxer) encode(au [][]byte, pts time.Duration) error {
 		e.dtsExtractor = h264.NewDTSExtractor()
 	}
 
-	var err error
 	dts, err = e.dtsExtractor.Extract(au, pts)
 	if err != nil {
 		return err
