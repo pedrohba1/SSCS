@@ -36,8 +36,8 @@ func New(args []string) *Core {
 	}
 
 	// start resources
-	// r := recorder.NewRTSPRecorder(cfg.RTSP.Feeds[0])
-	// r.Start()
+	r := recorder.NewRTSPRecorder(cfg.RTSP.Feeds[0])
+	r.Start()
 
 	ctx, ctxCancel := context.WithCancel(context.Background())
 
@@ -48,8 +48,8 @@ func New(args []string) *Core {
 		ctxCancel:  ctxCancel,
 		configPath: configPath,
 		config:     cfg,
-		// recorder:   r,
-		Logger: BaseLogger.BaseLogger.WithField("package", "core"),
+		recorder:   r,
+		Logger:     BaseLogger.BaseLogger.WithField("package", "core"),
 	}
 
 	p.done = make(chan struct{})
@@ -61,6 +61,7 @@ func New(args []string) *Core {
 
 // Close closes Core and waits for all goroutines to return.
 func (p *Core) Close() {
+	p.closeResources()
 	p.ctxCancel()
 	<-p.done
 }
@@ -81,12 +82,19 @@ outer:
 		select {
 
 		case <-interrupt:
-			p.Logger.Logger.Info("shutting down gracefully")
+			p.Logger.Info("shutting down gracefully")
 			break outer
 
 		case <-p.ctx.Done():
 			break outer
 		}
+	}
+
+}
+
+func (p *Core) closeResources() {
+	if p.recorder != nil {
+		p.recorder.Stop()
 	}
 
 }

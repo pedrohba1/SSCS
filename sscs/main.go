@@ -79,7 +79,7 @@ func (service *Service) Manage() (string, error) {
 		select {
 		case killSignal := <-interrupt:
 			logger.Info("Got signal:", killSignal)
-			service.core.Wait()
+			service.core.Close()
 			if killSignal == os.Interrupt {
 				return "Daemon was interrupted by system signal", nil
 			}
