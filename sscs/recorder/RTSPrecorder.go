@@ -63,8 +63,6 @@ func (r *RTSPRecorder) Stop() error {
 	return nil
 }
 
-// continuar à partir desse exemplo:
-
 func (r *RTSPRecorder) record(u *url.URL) error {
 	defer r.wg.Done()
 
@@ -90,7 +88,11 @@ func (r *RTSPRecorder) record(u *url.URL) error {
 	if err != nil {
 		return err
 	}
-
+	// Ensure the recordings directory exists
+	err = ensureDirectoryExists("./recordings")
+	if err != nil {
+		return err
+	}
 	// setup H264 -> MPEG-TS muxer
 	mpegtsMuxer, err := newMPEGTSMuxer(forma.SPS, forma.PPS)
 	if err != nil {

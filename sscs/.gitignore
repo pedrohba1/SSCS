@@ -1,4 +1,8 @@
 sscs
-samples/*
 
+samples/*
 !samples/.gitkeep
+
+
+recordings/*
+!recordings/.gitkeep

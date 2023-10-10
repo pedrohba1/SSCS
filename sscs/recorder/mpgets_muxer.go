@@ -28,6 +28,14 @@ type mpegtsMuxer struct {
 }
 
 // newMPEGTSMuxer allocates a mpegtsMuxer.
+
+func ensureDirectoryExists(dir string) error {
+	if _, err := os.Stat(dir); os.IsNotExist(err) {
+		return os.MkdirAll(dir, 0755) // 0755 means everyone can read, owner can write
+	}
+	return nil
+}
+
 func newMPEGTSMuxer(sps []byte, pps []byte) (*mpegtsMuxer, error) {
 	f, err := os.Create("mystream.ts")
 	if err != nil {
@@ -61,15 +69,24 @@ func (e *mpegtsMuxer) close() {
 
 func createChunkFileName() string {
 	timestamp := time.Now().Format("2006-01-02_15-04-05")
-	return "feed_" + timestamp + ".ts"
+	return "./recordings/feed_" + timestamp + ".ts"
 }
 
 // encode encodes a H264 access unit into MPEG-TS.
 func (e *mpegtsMuxer) encode(au [][]byte, pts time.Duration) error {
 
 	var err error
+	var shouldSplit bool = false
+	// Check if this Access Unit contains a keyframe and it's time to split
+	for _, nalu := range au {
+		typ := h264.NALUType(nalu[0] & 0x1F)
+		if typ == h264.NALUTypeIDR && time.Since(e.startTimestamp) > e.chunkDuration {
+			shouldSplit = true
+			break
+		}
+	}
 
-	if time.Since(e.startTimestamp) > e.chunkDuration {
+	if shouldSplit {
 		// Close the current resources
 		e.b.Flush()
 		e.f.Close()
@@ -83,7 +100,6 @@ func (e *mpegtsMuxer) encode(au [][]byte, pts time.Duration) error {
 		e.w = mpegts.NewWriter(e.b, []*mpegts.Track{e.track})
 		e.startTimestamp = time.Now()
 	}
-
 	// prepend an AUD. This is required by some players
 	filteredAU := [][]byte{
 		{byte(h264.NALUTypeAccessUnitDelimiter), 240},
