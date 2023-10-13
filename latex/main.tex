@@ -170,6 +170,7 @@ brazil]{facom-ufu-abntex2}
 
 	\item[SSCS] Self-Sovereign Camera System
 	\item[CAGR] Compound annual growth rate, ou taxa de crescimento anual.
+	\item[UML] Unified Modeling Language.
 	\item[API] Application Programming Interface
 	\item[REST] Representational State Transfer
 	\item[HSL] HTTP Live Streaming
@@ -485,6 +486,56 @@ RFC to protocolo RTSP aqui:
 
 Explicar aqui o porquê de servir o software no docker
 
+\section{Diagrama de Componentes}
+
+O diagrama de componentes é uma ferramenta da UML (Unified Modeling Language).
+Ele tem como objetivo visualizar a organização e as relações entre diferentes
+componentes em um sistema de software. Enquanto outros diagramas focam na
+funcionalidade do sistema, o diagrama de componentes se concentra no aspecto
+estrutural.
+
+Um diagrama de componentes representa partes modulares de um sistema, chamadas
+de componentes. Estes componentes podem ser físicos (como bibliotecas, módulos,
+arquivos) ou conceituais e estão conectados através de interfaces. Estas
+interfaces são os pontos de interação entre os componentes.
+
+Características dos diagramas de componentes:
+\begin{itemize}
+	\item Mostram as dependências entre os componentes.
+	\item Identificam as interfaces que conectam os componentes.
+	\item Auxiliam na modularização e reutilização de software.
+	\item Oferecem uma visão da arquitetura do sistema.
+\end{itemize}
+
+Ao trabalhar com diagramas de componentes, as equipes podem compreender melhor
+a estrutura do sistema e identificar áreas para atenção ou desenvolvimento.
+
+Abaixo, um exemplo de um componente e suas partes:
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\linewidth]{example_diagram.pdf}
+	\caption[Componente de exemplo]{Componente, provendo uma interface e com requerimento de outra}
+	\label{fig:graficosVariandoTamanhoRede}
+\end{figure}
+
+O componente é representado pela estrutura retangular. O ícone no topo direito
+do retângulo é opcional, sendo uma especificação do UML 1.4. Na Figura, a
+bolinha à esquerda com a legenda PublishStream indica uma interface provida, e
+o semi círculo indica uma interface requerida.
+
+Uma interface fornecida é aquela que é realizada diretamente pelo próprio
+componente, ou realizada por um dos classificadores que implementam o
+componente, ou ainda fornecida por uma porta pública do componente. Na notação
+de pirulito, temos a interface fornecida do componente. No exemplo, o
+componente de MediaServer fornece (implementa) a interface de PublishStream.
+
+Uma interface necessária é aquela designada por uma dependência de uso do
+próprio componente, ou designada por uma dependência de uso de um dos
+classificadores que implementam o componente, ou ainda é exigida por uma porta
+pública do componente. No exemplo, o componente MediaServer requer a interface
+ReadStream.
+
 \section{Daemon}
 
 Explicar o conceito de Daemon e o porquê de ser últil manter o software rodando
@@ -492,7 +543,8 @@ como um processo segundo plano
 
 \section{Liskov Substitution Principle}
 
-Falar um pouco aqui sobre o princípio de Liskov e como ele é usado por exemplo no recorder.
+Falar um pouco aqui sobre o princípio de Liskov e como ele é usado por exemplo
+no recorder.
 
 \section{Proxy}
 
@@ -733,9 +785,8 @@ vídeo para o servidor MediaMTX, criando assim um ambiente propício para a
 integração e operação eficiente com o SSCS.
 
 Como é muito comum que sistemas de vigilância possuam várias câmeras ao mesmo
-tempo, fazem sentido as duas arquiteturas nas figuras abaixo. Ambas as
-arquiteturas lidam exclusivamente com a parte da transmissão para o servidor de
-mídia SSCS.
+tempo, faz sentido a arquitetura abaixo, que lida exclusivamente com a parte da
+transmissão para o servidor de mídia SSCS.
 
 \begin{figure}[!ht]
 	\centering
@@ -744,22 +795,27 @@ mídia SSCS.
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[width=0.8\linewidth]{arch2.pdf}
-	\caption[Exemplo de arquiteutra de transmissão]{Arquitetura de transmissão, múltiplos servidores de mídia}
-	\label{fig:graficosVariandoTamanhoRede}
-\end{figure}
+% \begin{figure}[!ht]
+% 	\centering
+% 	\includegraphics[width=0.8\linewidth]{arch2.pdf}
+% 	\caption[Exemplo de arquiteutra de transmissão]{Arquitetura de transmissão, múltiplos servidores de mídia}
+% 	\label{fig:graficosVariandoTamanhoRede}
+% \end{figure}
 
-A descrição na Figura 3 ilustra um cenário onde câmeras ou outras fontes de
-streaming podem transmitir streams para um servidor intermediário singular. Por
-outro lado, a configuração na Figura 4 se distingue pela presença de múltiplos
-servidores de mídia, cada um recebendo transmissões de câmeras distintas. Em
-ambas as arquiteturas, os servidores intermediários desempenham o papel de
-proxies para o servidor que opera o SSCS. A utilização de um servidor de mídia
-como proxy apresenta diversas vantagens. Por exemplo, pode ser necessário
-converter o protocolo de transmissão de RTSP para WebRTC ou HLS, realizar
-balanceamento de carga, ou até mesmo implementar autenticação externa.
+A ilustração representa um cenário onde câmeras ou outras fontes de
+streaming multimídia podem transmitir streams para um servidor intermediário. O servidor
+de mídia intermediário provê uma interface PublishStream que permite o
+recebimento de streams de multimídia por várias fontes diferentes. O losango
+indica que o MediaServer é um agregador, o que significa que ele pode interagir
+com múltiplas aplicações do SSCS ao mesmo tempo. Porém, trata-se de uma
+associação fraca: o MediaServer pode funcionar sozinho sem o SSCS.
+
+Os servidores intermediários desempenham o papel de proxies para o servidor que
+opera o SSCS. A utilização de um servidor de mídia como proxy apresenta
+diversas vantagens. Por exemplo, pode ser necessário converter o protocolo de
+transmissão de RTSP para WebRTC ou HLS, realizar balanceamento de carga, ou até
+mesmo implementar autenticação externa.
+
 %TCC:
 %TCC:
 %TCC:

@@ -2,6 +2,7 @@ package recorder
 
 import (
 	"sync"
+	"time"
 
 	BaseLogger "sscs/logger"
 
@@ -12,6 +13,12 @@ import (
 	"github.com/pion/rtp"
 	"github.com/sirupsen/logrus"
 )
+
+type RecordingEvent struct {
+	VideoName string
+	EventType string // can be either "started" or "ended"
+	Timestamp time.Time
+}
 
 type RTSPRecorder struct {
 	rtspURL string
