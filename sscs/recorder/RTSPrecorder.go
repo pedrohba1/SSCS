@@ -1,7 +1,6 @@
 package recorder
 
 import (
-	"log"
 	"sync"
 
 	BaseLogger "sscs/logger"
@@ -73,7 +72,6 @@ func (r *RTSPRecorder) record(u *url.URL) error {
 	if err != nil {
 		return err
 	}
-	r.logger.Info("reached here")
 
 	// find the H264 media and format
 	var forma *format.H264
@@ -86,11 +84,13 @@ func (r *RTSPRecorder) record(u *url.URL) error {
 	// setup RTP/H264 -> H264 decoder
 	rtpDec, err := forma.CreateDecoder()
 	if err != nil {
+		r.logger.Error("%v", err)
 		return err
 	}
 	// Ensure the recordings directory exists
 	err = ensureDirectoryExists("./recordings")
 	if err != nil {
+		r.logger.Error("%v", err)
 		return err
 	}
 	// setup H264 -> MPEG-TS muxer
@@ -110,7 +110,6 @@ func (r *RTSPRecorder) record(u *url.URL) error {
 		// decode timestamp
 		pts, ok := r.client.PacketPTS(medi, pkt)
 		if !ok {
-			r.logger.Info("waiting for timestamp")
 			return
 		}
 
@@ -118,7 +117,7 @@ func (r *RTSPRecorder) record(u *url.URL) error {
 		au, err := rtpDec.Decode(pkt)
 		if err != nil {
 			if err != rtph264.ErrNonStartingPacketAndNoPrevious && err != rtph264.ErrMorePacketsNeeded {
-				log.Printf("ERR: %v", err)
+				r.logger.Error("%v", err)
 			}
 			return
 		}
@@ -126,11 +125,10 @@ func (r *RTSPRecorder) record(u *url.URL) error {
 		// encode the access unit into MPEG-TS
 		err = mpegtsMuxer.encode(au, pts)
 		if err != nil {
-			log.Printf("ERR: %v", err)
+			r.logger.Error("%v", err)
 			return
 		}
 
-		log.Printf("saved TS packet")
 	})
 
 	// start playing

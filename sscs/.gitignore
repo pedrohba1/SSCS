@@ -3,6 +3,7 @@ sscs
 samples/*
 !samples/.gitkeep
 
+mystream.ts
 
 recordings/*
 !recordings/.gitkeep

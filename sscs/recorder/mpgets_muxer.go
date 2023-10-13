@@ -77,6 +77,7 @@ func (e *mpegtsMuxer) encode(au [][]byte, pts time.Duration) error {
 
 	var err error
 	var shouldSplit bool = false
+
 	// Check if this Access Unit contains a keyframe and it's time to split
 	for _, nalu := range au {
 		typ := h264.NALUType(nalu[0] & 0x1F)

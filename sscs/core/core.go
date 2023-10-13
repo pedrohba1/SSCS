@@ -23,7 +23,7 @@ type Core struct {
 	done chan struct{}
 }
 
-//creates a new core. The basic functionalities are recording,
+//creates a new core
 func New(args []string) *Core {
 	// Extract the config path from the args or define a default
 	// This is just a placeholder; you might extract it differently
@@ -42,7 +42,6 @@ func New(args []string) *Core {
 	ctx, ctxCancel := context.WithCancel(context.Background())
 
 	// Create a new Core instance with the read configuration
-
 	p := &Core{
 		ctx:        ctx,
 		ctxCancel:  ctxCancel,
