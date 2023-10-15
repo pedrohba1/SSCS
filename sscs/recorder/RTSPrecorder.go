@@ -1,14 +1,15 @@
 package recorder
 
 import (
+	"os"
 	"sync"
 	"time"
 
 	BaseLogger "sscs/logger"
 
-	"github.com/aler9/gortsplib/pkg/rtpcodecs/rtph264"
 	"github.com/bluenviron/gortsplib/v4"
 	"github.com/bluenviron/gortsplib/v4/pkg/format"
+	"github.com/bluenviron/gortsplib/v4/pkg/format/rtph264"
 	"github.com/bluenviron/gortsplib/v4/pkg/url"
 	"github.com/pion/rtp"
 	"github.com/sirupsen/logrus"
@@ -26,6 +27,13 @@ type RTSPRecorder struct {
 	logger  *logrus.Entry
 	stopCh  chan struct{}
 	wg      sync.WaitGroup
+}
+
+func ensureDirectoryExists(dir string) error {
+	if _, err := os.Stat(dir); os.IsNotExist(err) {
+		return os.MkdirAll(dir, 0755) // 0755 means everyone can read, owner can write
+	}
+	return nil
 }
 
 func NewRTSPRecorder(rtspURL string) *RTSPRecorder {

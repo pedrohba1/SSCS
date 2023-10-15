@@ -3,10 +3,12 @@ package recorder
 import (
 	"bufio"
 	"os"
+	BaseLogger "sscs/logger"
 	"time"
 
 	"github.com/bluenviron/mediacommon/pkg/codecs/h264"
 	"github.com/bluenviron/mediacommon/pkg/formats/mpegts"
+	"github.com/sirupsen/logrus"
 )
 
 func durationGoToMPEGTS(v time.Duration) int64 {
@@ -25,17 +27,10 @@ type mpegtsMuxer struct {
 	chunkDuration  time.Duration
 	track          *mpegts.Track
 	dtsExtractor   *h264.DTSExtractor
+	logger         *logrus.Entry
 }
 
 // newMPEGTSMuxer allocates a mpegtsMuxer.
-
-func ensureDirectoryExists(dir string) error {
-	if _, err := os.Stat(dir); os.IsNotExist(err) {
-		return os.MkdirAll(dir, 0755) // 0755 means everyone can read, owner can write
-	}
-	return nil
-}
-
 func newMPEGTSMuxer(sps []byte, pps []byte) (*mpegtsMuxer, error) {
 	f, err := os.Create("mystream.ts")
 	if err != nil {
@@ -46,7 +41,6 @@ func newMPEGTSMuxer(sps []byte, pps []byte) (*mpegtsMuxer, error) {
 	track := &mpegts.Track{
 		Codec: &mpegts.CodecH264{},
 	}
-
 	w := mpegts.NewWriter(b, []*mpegts.Track{track})
 
 	return &mpegtsMuxer{
@@ -58,6 +52,7 @@ func newMPEGTSMuxer(sps []byte, pps []byte) (*mpegtsMuxer, error) {
 		startTimestamp: time.Now(),
 		chunkDuration:  8 * time.Second,
 		track:          track,
+		logger:         BaseLogger.BaseLogger.WithField("package", "recorder"),
 	}, nil
 }
 
@@ -89,6 +84,7 @@ func (e *mpegtsMuxer) encode(au [][]byte, pts time.Duration) error {
 
 	if shouldSplit {
 		// Close the current resources
+		e.logger.Info("saving content: " + e.f.Name())
 		e.b.Flush()
 		e.f.Close()
 
