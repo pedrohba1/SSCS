@@ -536,6 +536,32 @@ classificadores que implementam o componente, ou ainda é exigida por uma porta
 pública do componente. No exemplo, o componente MediaServer requer a interface
 ReadStream.
 
+\section{Versionamento Semântico (SEMVER)}
+
+O \textit{SEMVER}, abreviação de Versionamento Semântico, é uma convenção de
+nomenclatura usada para gerenciar e comunicar eficazmente as mudanças em
+versões de software. Ele cria uma maneira
+compreensível de representar as mudanças em software através do número de sua
+versão.
+
+A estrutura básica de um número de versão SEMVER é \textit{MAJOR.MINOR.PATCH},
+onde:
+
+\begin{itemize}
+	\item \textit{MAJOR} é incrementado para mudanças incompatíveis que requerem que o usuário faça algo diferente.
+	\item \textit{MINOR} é incrementado quando são feitas adições em um modo compatível, ou seja, quando funcionalidades são adicionadas sem alterar o comportamento das funcionalidades existentes.
+	\item \textit{PATCH} é incrementado após correções de bugs que são compatíveis e não afetam o funcionamento global do software de maneira significativa.
+\end{itemize}
+
+Além destes três números principais, o SEMVER também permite a adição de
+etiquetas pré-lançamento e de build, que podem ser usadas para representar
+versões alfa, beta, candidatas a lançamento, entre outros.
+
+O principal benefício de adotar o \textit{SEMVER} é a clareza. Ao olhar para o
+número de versão de um software, os desenvolvedores podem rapidamente entender
+a natureza e a magnitude das mudanças, facilitando decisões sobre a atualização
+ou integração de dependências.  \cite{semver}
+
 \section{Daemon}
 
 Explicar o conceito de Daemon e o porquê de ser últil manter o software rodando
@@ -802,8 +828,8 @@ transmissão para o servidor de mídia SSCS.
 % 	\label{fig:graficosVariandoTamanhoRede}
 % \end{figure}
 
-A ilustração representa um cenário onde câmeras ou outras fontes de
-streaming multimídia podem transmitir streams para um servidor intermediário. O servidor
+A ilustração representa um cenário onde câmeras ou outras fontes de streaming
+multimídia podem transmitir streams para um servidor intermediário. O servidor
 de mídia intermediário provê uma interface PublishStream que permite o
 recebimento de streams de multimídia por várias fontes diferentes. O losango
 indica que o MediaServer é um agregador, o que significa que ele pode interagir
