@@ -108,6 +108,7 @@ func (r *RTSPRecorder) record(u *url.URL) error {
 		r.logger.Error("%v", err)
 		return err
 	}
+
 	// setup H264 -> MPEG-TS muxer
 	mpegtsMuxer, err := newMPEGTSMuxer(forma.SPS, forma.PPS)
 	if err != nil {

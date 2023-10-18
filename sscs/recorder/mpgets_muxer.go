@@ -32,7 +32,7 @@ type mpegtsMuxer struct {
 
 // newMPEGTSMuxer allocates a mpegtsMuxer.
 func newMPEGTSMuxer(sps []byte, pps []byte) (*mpegtsMuxer, error) {
-	f, err := os.Create("mystream.ts")
+	f, err := os.Create(createChunkFileName())
 	if err != nil {
 		return nil, err
 	}
