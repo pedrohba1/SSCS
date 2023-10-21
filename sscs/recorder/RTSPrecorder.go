@@ -48,7 +48,6 @@ func (r *RTSPRecorder) SetupLogger() {
 }
 
 func (r *RTSPRecorder) Start() error {
-	// parse URL
 	u, err := url.Parse(r.rtspURL)
 	if err != nil {
 		r.logger.Error("failed to parse url: %w", err)
@@ -99,13 +98,14 @@ func (r *RTSPRecorder) record(u *url.URL) error {
 	// setup RTP/H264 -> H264 decoder
 	rtpDec, err := forma.CreateDecoder()
 	if err != nil {
-		r.logger.Error("%v", err)
+		r.logger.Errorf("%v", err)
 		return err
 	}
+
 	// Ensure the recordings directory exists
 	err = ensureDirectoryExists("./recordings")
 	if err != nil {
-		r.logger.Error("%v", err)
+		r.logger.Errorf("%v", err)
 		return err
 	}
 
@@ -133,7 +133,7 @@ func (r *RTSPRecorder) record(u *url.URL) error {
 		au, err := rtpDec.Decode(pkt)
 		if err != nil {
 			if err != rtph264.ErrNonStartingPacketAndNoPrevious && err != rtph264.ErrMorePacketsNeeded {
-				r.logger.Error("%v", err)
+				r.logger.Errorf("%v", err)
 			}
 			return
 		}
@@ -141,7 +141,7 @@ func (r *RTSPRecorder) record(u *url.URL) error {
 		// encode the access unit into MPEG-TS
 		err = mpegtsMuxer.encode(au, pts)
 		if err != nil {
-			r.logger.Error("%v", err)
+			r.logger.Errorf("%v", err)
 			return
 		}
 

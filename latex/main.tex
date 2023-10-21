@@ -319,140 +319,85 @@ relacionados à arquitetura do sistema que será desenvolvido, aos protocolos,
 técnicas de reconhecimento de imagem, compressão, técnicas de software e demais
 elementos necessários para a materialização da solução proposta.
 
-\section{Arquitetura de transmissão em tempo real}
+% \section{Arquitetura de transmissão em tempo real}
 
-A figura abaixo mostra um sistema de cliente-servidor para trocar de dados de
-multimídia. Na origem, tem-se a gravação comprimida, codificada e armazenada no
-dispositivo de armazenamento, como um disco rígido, por exemplo. Em seguida,
-por meio de algum software de tratamento de mídia que será produzido, esses
-arquivos são requisitados por usuários e entregues de acordo. Um protocolo de
-transferência é utilizado para entregar os dados de multimídia para o cliente
-(tais como RTMP ou HLS), onde eles são primeiramente armazenados na memória
-principal e eventualmente decodificados e apresentados ao usuário.
-\cite{lee2005scalable}
+% A figura abaixo mostra um sistema de cliente-servidor para trocar de dados de
+% multimídia. Na origem, tem-se a gravação comprimida, codificada e armazenada no
+% dispositivo de armazenamento, como um disco rígido, por exemplo. Em seguida,
+% por meio de algum software de tratamento de mídia que será produzido, esses
+% arquivos são requisitados por usuários e entregues de acordo. Um protocolo de
+% transferência é utilizado para entregar os dados de multimídia para o cliente
+% (tais como RTMP ou HLS), onde eles são primeiramente armazenados na memória
+% principal e eventualmente decodificados e apresentados ao usuário.
+% \cite{lee2005scalable}
 
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[width=1\linewidth]{Capturar.PNG}
-	\caption[Representação de um arquitetura de tempo real genérica]{Arquitetura genérica de transmissão em tempo real}
-	\label{fig:graficosVariandoTamanhoRede}
-\end{figure}
+% \begin{figure}[!ht]
+% 	\centering
+% 	\includegraphics[width=1\linewidth]{Capturar.PNG}
+% 	\caption[Representação de um arquitetura de tempo real genérica]{Arquitetura genérica de transmissão em tempo real}
+% 	\label{fig:graficosVariandoTamanhoRede}
+% \end{figure}
 
-\section{Sistema distribuído aberto}
+% \section{Sistema distribuído aberto}
 
-Esta arquitetura é a que levarei em consideração na implementação do projeto. O
-servidor que será implementado utilizando um microcomputador contem a câmera e
-sistema operacional para realizar o processamento e transmissão dos dados de
-multimídia. Outra alternativa seria o microcomputador apenas enviar os fluxo de
-vídeo para um terceiro servidor que faria o processamento da imagem caso a
-capacidade daquele não seja suficiente, resultando em um sistema distribuído.
-Essa outra abordagem também respeita a arquitetura citada acima.
+% Esta arquitetura é a que levarei em consideração na implementação do projeto. O
+% servidor que será implementado utilizando um microcomputador contem a câmera e
+% sistema operacional para realizar o processamento e transmissão dos dados de
+% multimídia. Outra alternativa seria o microcomputador apenas enviar os fluxo de
+% vídeo para um terceiro servidor que faria o processamento da imagem caso a
+% capacidade daquele não seja suficiente, resultando em um sistema distribuído.
+% Essa outra abordagem também respeita a arquitetura citada acima.
 
-\section{Framework de desenvolvimento front end}
+% \section{Framework de desenvolvimento front end}
 
-Como é de se esperar, um sistema que permite a visualização em tempo real
-necessitará de um meio para apresentar ao usuário as saídas e o resultado do
-processamento delas. Como se trata de um sistema de segurança, o mais viavel é
-que o usuário sempre tenha em mãos o dispositivo que fornece a imagem, ou seja,
-o \emph{smartphone}. Portanto, faz sentido utilizar um \emph{framework} que
-permita a criação de um front end mobile. Além disso, a aplicação resultante
-deverá ser replicável em múltiplos dispositivos, para que o usuário não seja
-tolhido por não ter o meio adequado. Dadas essas condições, o \emph{framework}
-que satisfaz elas é o \emph{React Native}
+% Como é de se esperar, um sistema que permite a visualização em tempo real
+% necessitará de um meio para apresentar ao usuário as saídas e o resultado do
+% processamento delas. Como se trata de um sistema de segurança, o mais viavel é
+% que o usuário sempre tenha em mãos o dispositivo que fornece a imagem, ou seja,
+% o \emph{smartphone}. Portanto, faz sentido utilizar um \emph{framework} que
+% permita a criação de um front end mobile. Além disso, a aplicação resultante
+% deverá ser replicável em múltiplos dispositivos, para que o usuário não seja
+% tolhido por não ter o meio adequado. Dadas essas condições, o \emph{framework}
+% que satisfaz elas é o \emph{React Native}
 
-O React Native é um framework de desenvolvimento mobile híbrido (iOS e Android
-simultâneamente) voltado para a construção de interfaces de usuário criado pelo
-facebook, utilizando \emph{javascript} com a linguagem de programação e
-compilando-o de forma que seja executável pela plataforma nativa. Vale lembrar
-que o React Native não é uma solução \emph{full-stack} que vai lidar com tudo
-desde o banco de dados à atualizações em tempo real de \emph{web sockets}. Ele
-é simplesmente a \emph{View layer} da aplicação. \cite{boduch2017react}
+% O React Native é um framework de desenvolvimento mobile híbrido (iOS e Android
+% simultâneamente) voltado para a construção de interfaces de usuário criado pelo
+% facebook, utilizando \emph{javascript} com a linguagem de programação e
+% compilando-o de forma que seja executável pela plataforma nativa. Vale lembrar
+% que o React Native não é uma solução \emph{full-stack} que vai lidar com tudo
+% desde o banco de dados à atualizações em tempo real de \emph{web sockets}. Ele
+% é simplesmente a \emph{View layer} da aplicação. \cite{boduch2017react}
 
-\section{Tecnologias de desenvolvimento back end}
+\section{Linguagem Go}
 
-O back end é a parte do sistema que realizará o processamento da imagem que
-consiste de um servidor contendo o banco de dados e uma aplicação que fornece
-os \emph{endpoints} responsáveis pela comunicação com o front end. Nesses
-\emph{endpoints}, o usuário consegue fazer o envio, requisição e alteração de
-dados por meio da abstração fornecida pelo front end.
+A linguagem de programação Go, também chamada de Golang, foi desenvolvida pelo
+Google e lançada em 2009. Ao ser concebida, a linguagem Go foi meticulosamente
+projetada para ser eficiente, simples e confiável, com um foco na criação de
+sistemas escaláveis e de alto desempenho.
 
-% Neste trabalho, o back end é responsável pelo processamento da imagem assim como pela criação do 
-% canal de transmissão em tempo real dela. Além disso, existirá um \emph{endpoint} que permite
-% o cadastro de um rosto específico, evitando que o sistema emita um alerta para essa pessoa.
+Uma das características distintivas do Go é sua capacidade de lidar com a
+concorrência de maneira eficiente. O Go introduz as "goroutines", que são
+threads leves que facilitam a criação de programas concorrentes. Isso permite
+que os desenvolvedores escrevam código concorrente de forma mais simples e
+eficaz, tornando-o adequado para aplicações que exigem alta concorrência, como
+servidores web e sistemas distribuídos.
 
-Neste trabalho, a aplicação do \emph{back end} será feita utilizando o
-\emph{NodeJS}, que é um ambiente de execução de javascript no servidor baseado
-em \emph{event-driven architecture} capaz de entrada e saída assíncrona, muito
-utilizado em aplicações de comunicação em tempo real. \cite{aboutnodejs} Além
-disso, Em Node.js, HTTP é um cidadão de primeira classe, projetado para que
-tenha um alta taxa de fluxo e baixa latência. Isso torna o Node.js uma ótima
-escolha para servir como base para uma biblioteca web ou para um framework.
-\cite{NodeJSaboutoriginal}. Mais um motivo para a utilização de Node.js, é a
-grande quantidade de módulos disponíveis no npm. Este projeto particularmente
-utilizará vários deles, sendo os principais o Express e o node-media-server. O
-primeiro facilita a criação da aplicação web no servidor, e o segundo servirá
-para utilizar o protocolo RTMP, que é o ideal para transmissão de vídeo e áudio
-em alta performance.
+O sistema de coleta de lixo (garbage collection) do Go é altamente eficiente e
+automatizado, eliminando a necessidade de que os desenvolvedores gerenciem
+manualmente a alocação e desalocação de memória. Isso contribui para a
+segurança e estabilidade dos programas escritos em Go, reduzindo a
+probabilidade de vazamentos de memória.
 
-Também é necessária a implementação de um banco de dados que se comunicará com
-a aplicação do servidor. Para este projeto, foi escolhido o PostgreSQL, sendo
-ele um banco de dados relacional de código aberto. Este sistema de banco de
-dados foi escolhido por possuir \emph{Write-ahead Logging},
-\emph{point-in-time-recovery}. Essas duas características são importantes para
-garantir a confiabilidade e a possível recuperação dos dados em caso de perda.
-Além disso, a comunidade ativa do PostgreSQL é responsável por criar diversas
-extensões e alguma delas podem ajudar no desenvolvimento do projeto. O último
-aspecto importante dessa escolha, é que esse sistema de banco de dados também
-permite \emph{multi-factor authentication}. \cite{aboutPostgre}
+A linguagem também é conhecida por sua integração eficiente com bibliotecas
+escritas em outras linguagens, como C e C++, o que a torna uma escolha versátil
+e amplamente adotada em uma variedade de aplicativos e serviços.
 
-Uma última camada de segurança da aplicação é necessária, de forma que tanto as
-informações do usuário quanto o servidor em si estejam protegidos de possíveis
-ataques. Para proteger o servidor de acesso indevido aos \emph{endpoints} vou
-utilizar o JSON Web Token (JWT). O JSON Web Token é um meio de representar
-reivindicações à serem transferidas entre duas partes. Os dados são codificados
-com um JSON que é usado como o \emph{payload} de uma estrutura JSON Web
-Encryption (JWE), permitindo que essas reivindicações sejam assinadas
-digitalmente ou a integridade protegida com \emph{Message Authentication Code}
-ou criptografada. \cite{jsonwebtoken}
+\section{openCV}
 
-\section{Algoritmo de reconhecimento facial}
+ (escrver sobre o openCV)
 
- (Separe isso em openCV e Haar Cascade.)
-
-Para a funcionalidade de reconhecimento facial da câmera, usarei uma biblioteca
-de código aberto de \emph{computer vision} chamada \emph{OpenCV}. Essa
-biblioteca possui mais de 2500 algoritmos otimizados, incluindo os clássicos e
-os mais recentes do estado da arte. Eles podem ser utilizados para detectar e
-reconhecer faces, identificar objetos classificar ações humanas em vídeo e
-mais. \cite{opencv}. Ela suporta múltiplas linguagens incluindo Java, C++ e
-Python. para este trabalho, será usada a biblioteca em Python.
-
-Para realizar o reconhecimento facial, é preciso conseguir antes reconhecer que
-há um rosto em vídeo. O método que utilizarei, facilitado pelo \emph{OpenCV}, é
-o chamado \emph{Haar Cascades} \cite{viola2001rapid}. Este algoritmo é baseado
-em \emph{machine learning} onde a função de cascata é treinada por meio de
-muitas imagens positivas e negativas. No caso, as imagens positivas são várias
-fotos com rostos e as negativas são fotos sem rosto. O conceito de
-classificadores em cascata desse algoritmo por sua vez, vem do fato de que no
-lugar de aplicar as características encontradas numa única etapa, elas são
-agrupadas em diferentes estágios de classificação uma a uma. Se um desses
-estágios falhar, então a imagem é descartada, desconsiderando as
-características remanescentes nela. Assim sendo, a foto que passar por todos os
-estágios é uma região de um rosto.
-
-A próxima parte do processo envolve usar o algoritmo que reconhece que existe
-um rosto no vídeo junto com um outro algoritmo que reconhecerá à quem pertence
-este rosto. Para o algoritmo classificador reconhecedor que será usado agora,
-são necessárias varias imagens do rosto a ser reconhecido, que serão
-convertidas para \emph{grayscale}, dessa forma mantendo o plano de luminância e
-separando o de crominância de cada imagem o que por sua vez reduz a quantidade
-de informação desnecessária presente e, por isso, facilita a identificação das
-características importantes para classificação. Em seguida, será usado o
-algoritmo Local Binary Patterns Histogram (LBPH) para realizar o treinamento do
-modelo que reconhecerá os rostos usando as imagens preparadas anteriormente. O
-LBPH foi escolhido por funcionar bem com as imagens em \emph{grayscale} e ser
-capaz de desconsiderar a luminosidade como característica importante, como
-mostra a figura abaixo:
+\section{Haar Cascade}
+ (escrever sobre o fuuncionamento da Haar Cascade)
 
 \begin{figure}[!ht]
 	\centering
@@ -486,7 +431,7 @@ RFC to protocolo RTSP aqui:
 
 Explicar aqui o porquê de servir o software no docker
 
-\section{Diagrama de Componentes}
+\section{Diagrama UML de Componentes}
 
 O diagrama de componentes é uma ferramenta da UML (Unified Modeling Language).
 Ele tem como objetivo visualizar a organização e as relações entre diferentes
@@ -540,9 +485,8 @@ ReadStream.
 
 O \textit{SEMVER}, abreviação de Versionamento Semântico, é uma convenção de
 nomenclatura usada para gerenciar e comunicar eficazmente as mudanças em
-versões de software. Ele cria uma maneira
-compreensível de representar as mudanças em software através do número de sua
-versão.
+versões de software. Ele cria uma maneira compreensível de representar as
+mudanças em software através do número de sua versão.
 
 A estrutura básica de um número de versão SEMVER é \textit{MAJOR.MINOR.PATCH},
 onde:
@@ -560,7 +504,7 @@ versões alfa, beta, candidatas a lançamento, entre outros.
 O principal benefício de adotar o \textit{SEMVER} é a clareza. Ao olhar para o
 número de versão de um software, os desenvolvedores podem rapidamente entender
 a natureza e a magnitude das mudanças, facilitando decisões sobre a atualização
-ou integração de dependências.  \cite{semver}
+ou integração de dependências. \cite{semver}
 
 \section{Daemon}
 
@@ -589,25 +533,64 @@ mundo que já estava usando um software específico.
 
 \section{Encodings de vídeo e som}
 
-Tenho que citar alguns encodings usados.
+Encodings de vídeo, também conhecidos simplesmente como codecs de vídeo, são
+algoritmos e padrões que comprimem e codificam dados de vídeo, removendo
+redundâncias e detalhes visuais não perceptíveis, para reduzir o tamanho dos
+arquivos e permitir sua transmissão, armazenamento e reprodução eficientes.
+Eles desempenham um papel fundamental na compressão de vídeo e na manutenção da
+qualidade do conteúdo visual.
+
+Existem vários padrões de codecs de vídeo, como H.264, H.265 (HEVC), VP9, AV1,
+entre outros. A escolha do codec pode afetar a compatibilidade entre
+dispositivos e aplicativos, bem como a eficiência da compressão. No caso, dada
+a natureza desse projeto, veremos aqui apenas aqueles que fazem sentido em um
+ambiente de transmissão em tempo real.
 
 \subsection{H.264}
 
-O que acontece nesse tipo de encoding? Em quais cenários ele é usado? Quais os
-problemas dele?
+O H.264, também conhecido como MPEG-4 Part 10 ou Advanced Video Coding (AVC), é
+um dos padrões de compressão de vídeo mais amplamente utilizados e eficientes
+em termos de taxa de bits disponíveis atualmente. Foi desenvolvido pelo ITU-T
+Video Coding Experts Group (VCEG) e pelo Moving Picture Experts Group (MPEG).
 
-Essa informação aqui é importante para o streaming com WebRTC
+Um dos pontos fundamentais do seu funcionamento, é a divisão de quadros. Isto
+é, O vídeo é dividido em quadros individuais, que são imagens estáticas em uma
+sequência de vídeo. Existem três tipos de quadros no H.264:
 
-WebRTC doesn't support H264 streams with B-frames: H264 is a video compression
-codec. In H264 encoding, three types of frames are used: I-frames (Intra
-frames), P-frames (Predictive frames), and B-frames (Bidirectional predictive
-frames). The error message is stating that WebRTC does not support H264 streams
-that include B-frames.
+\begin{itemize}
+	\item Quadros I (Intra): São quadros-chave que não dependem de nenhum quadro
+	      anterior. Eles são codificados de forma independente e contêm informações
+	      completas da imagem.
+	\item Quadros P (Predictive): São quadros que dependem do quadro I anterior e/ou de
+	      outros quadros P. Eles contêm apenas as diferenças entre o quadro atual e os
+	      quadros de referência.
+	\item Quadros B (Bidirectional): Dependem tanto dos quadros anteriores quanto dos
+	      futuros. Eles também contêm apenas as diferenças em relação aos quadros de
+	      referência.
+\end{itemize}
 
-B-frames depend on both previous and future frames to derive their data, and
-this can cause issues in real-time streaming scenarios like those handled by
-WebRTC, where latency and real-time performance are crucial. Therefore, WebRTC
-doesn't support H264 streams with B-frames.
+Para manter a qualidade da imagem, o H.264 opera em um "ciclo de quadros", onde
+os quadros de referência são periodicamente atualizados. Isso assegura que
+quadros-chave (I-frames) sejam inseridos regularmente para preservar a
+qualidade visual durante a transmissão de vídeo. Também utilizam-se várias
+técnicas avançadas de compressão de vídeo para eficientemente codificar quadros
+P (Predictive) e B (Bidirectional). Uma dessas técnicas é a "predição de
+movimento", que identifica padrões de movimento nos quadros de referência e
+registra apenas as diferenças entre o quadro atual e as previsões de movimento
+dos quadros de referência. Isso economiza espaço de armazenamento e largura de
+banda, eliminando informações redundantes.
+
+Outra técnica crucial é a "transformada de blocos", onde os blocos de pixels em
+um quadro são convertidos em coeficientes de frequência por meio da Discrete
+cosine transform (DCT). Essa conversão permite a compactação de informações, e
+os coeficientes de alta frequência, que contêm menos detalhes visíveis, podem
+ser quantizados ou eliminados com perda mínima de qualidade. \cite{1626286}
+
+Em resumo, esse codec é amplamente utilizado em aplicações em tempo real, como
+videoconferência, streaming ao vivo e videochamadas, devido à sua eficiência de
+compressão e baixa latência. Ele oferece uma boa qualidade de vídeo com taxas
+de bits relativamente baixas e é compatível com uma ampla variedade de
+dispositivos e aplicativos.
 
 \section{Tecnologia de Hardware}
 
@@ -788,35 +771,45 @@ Um ou mais capítulos (por exemplo, se há duas linhas de trabalhos
 relacionados).
 
 \chapter{Desenvolvimento}
-Inicialmente, é vantajoso estabelecer um meio de simular um fluxo de vídeo para
-o SSCS processar. Esta abordagem facilita os testes e proporciona um ambiente
-de desenvolvimento que replica com fidelidade as condições sob as quais o
-sistema operará quando implementado em um ambiente de produção. É importante
-esclarecer que, ao referir-se a "sistema em produção", estamos discutindo a
-aplicação prática do software em ambientes comerciais, residenciais, ou outros
-contextos reais onde a vigilância é empregada para segurança e monitoramento.
 
-No desenvolvimento do sistema, foi empregado o MediaMTX \cite{mediamtx}, um
-servidor de mídia em tempo real de código aberto que facilita a publicação,
-leitura, gravação e roteamento de streams de vídeo. Este software foi
-originalmente concebido para funcionar como um roteador de mídia de ponta a
-ponta, proporcionando uma plataforma robusta a partir da qual o SSCS pode
-acessar e consumir streams de vídeo. Entretanto, para que o servidor seja
-operacional, é necessário que a mídia seja publicada nele. Conforme indicado na
-documentação do MediaMTX, uma das abordagens recomendadas para isso é a
-utilização do ffmpeg, um framework de multimídia que permite a codificação,
-decodificação, transcodificação, muxing, demuxing, streaming e reprodução de
-dados de mídia. Através do ffmpeg \cite{ffmpeg}, é possível enviar streams de
-vídeo para o servidor MediaMTX, criando assim um ambiente propício para a
-integração e operação eficiente com o SSCS.
+Nesta seção, apresentaremos uma análise detalhada do processo de construção do
+SSCS. O sistema foi projetado com uma arquitetura modular, composta por
+componentes independentes, o que justifica a escolha de representá-los por meio
+de diagramas de componentes do UML.
 
-Como é muito comum que sistemas de vigilância possuam várias câmeras ao mesmo
-tempo, faz sentido a arquitetura abaixo, que lida exclusivamente com a parte da
-transmissão para o servidor de mídia SSCS.
+Para possibilitar testes e criar um ambiente de desenvolvimento que reproduza
+fielmente as condições em que o sistema operará quando implantado em um
+ambiente de produção, faz sentido criar uma forma de simular um fluxo de vídeo.
+É importante esclarecer que, ao mencionar o "sistema em produção", está sendo
+feita uma referência à aplicação prática do software em contextos comerciais,
+residenciais ou outras situações reais onde a vigilância é utilizada para fins
+de segurança e monitoramento.
+
+Para criar esse ambiente de simulação, utilizamos o MediaMTX \cite{mediamtx},
+um servidor de mídia em tempo real de código aberto. O MediaMTX facilita a
+publicação, leitura, gravação e roteamento de fluxos de vídeo. Embora tenha
+sido originalmente projetado como um roteador de mídia de ponta a ponta, ele
+oferece uma plataforma robusta que permite ao SSCS acessar e consumir fluxos de
+vídeo. No entanto, para tornar o servidor operacional, é necessário publicar a
+mídia nele.
+
+De acordo com a documentação do MediaMTX, uma das abordagens recomendadas para
+isso é o uso do ffmpeg, um framework de multimídia que oferece funcionalidades
+como codificação, decodificação, transcodificação, muxing, demuxing, streaming
+e reprodução de dados de mídia. Utilizando o ffmpeg \cite{ffmpeg}, é possível
+enviar fluxos de vídeo para o servidor MediaMTX, criando assim um ambiente
+adequado para a integração e operação eficiente com o SSCS. É importante
+ressaltar que essas duas ferramentas são plenamente capazes de lidar não apenas
+com ambientes de simulação, mas também com ambientes de produção.
+
+Em uma perspectiva ampla, o sistema assume uma configuração que envolve dois
+componentes: um encarregado da transferência das imagens da câmera para um
+servidor intermediário e outro, o servidor intermediário, que cria uma corrente
+de multimídia destinada ao SSCS.
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[width=0.8\linewidth]{arch1.pdf}
+	\includegraphics[width=1\linewidth]{arch1.pdf}
 	\caption[Exemplo de arquiteutra de transmissão]{Arquitetura de transmissão, múltiplas fontes para um servidor de mídia}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
@@ -828,19 +821,38 @@ transmissão para o servidor de mídia SSCS.
 % 	\label{fig:graficosVariandoTamanhoRede}
 % \end{figure}
 
-A ilustração representa um cenário onde câmeras ou outras fontes de streaming
-multimídia podem transmitir streams para um servidor intermediário. O servidor
-de mídia intermediário provê uma interface PublishStream que permite o
-recebimento de streams de multimídia por várias fontes diferentes. O losango
-indica que o MediaServer é um agregador, o que significa que ele pode interagir
-com múltiplas aplicações do SSCS ao mesmo tempo. Porém, trata-se de uma
-associação fraca: o MediaServer pode funcionar sozinho sem o SSCS.
+A ilusutração mostra a configuração básica do SSCS, onde câmeras ou
+outras fontes de transmissão de multimídia podem encaminhar fluxos para um
+servidor intermediário. Esse servidor de mídia intermediário disponibiliza uma
+interface chamada PublishStream, que possibilita a recepção de fluxos de
+multimídia de diversas origens distintas. O símbolo em forma de losango indica
+que o MediaServer age como um agregador, o que significa que ele pode interagir
+simultaneamente com várias aplicações do SSCS. Contudo, é importante observar
+que essa conexão é de natureza flexível: o MediaServer pode operar de forma
+independente, sem depender do SSCS.
 
 Os servidores intermediários desempenham o papel de proxies para o servidor que
 opera o SSCS. A utilização de um servidor de mídia como proxy apresenta
 diversas vantagens. Por exemplo, pode ser necessário converter o protocolo de
 transmissão de RTSP para WebRTC ou HLS, realizar balanceamento de carga, ou até
 mesmo implementar autenticação externa.
+
+\section{Gravador}
+
+Esse é o componente principal do sistema. Sua função é claramente definida,
+consistindo em receber pacotes da corrente de vídeo por meio de um protocolo de
+rede, concatená-los e convertê-los em um arquivo único, com subsequente
+armazenamento no disco em segmentos de arquivos. Estes arquivos são registrados
+com um carimbo de data e hora, refletindo o instante de criação do arquivo de
+gravação.
+
+Além disso, há a possibilidade de vincular o gravador a um indexador,
+responsável por arquivar os vídeos em um banco de dados SQL. Posteriormente,
+exploraremos como essa funcionalidade pode ser vantajosa na criação de uma API
+que simplifica o processo de busca e recuperação de transmissões de vídeo
+anteriores. No entanto, é importante salientar que a implementação do indexador
+não se torna mandatória, a menos que corresponda a uma necessidade específica
+do usuário.
 
 %TCC:
 %TCC:
