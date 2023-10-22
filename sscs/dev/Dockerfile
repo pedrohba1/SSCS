@@ -1,12 +1,12 @@
-FROM bluenviron/mediamtx
+# Start from the mediamtx image with ffmpeg included
+FROM bluenviron/mediamtx:1.2.0-ffmpeg
 
-# Install ffmpeg if it's not already in the image (optional, only if the base image doesn't have ffmpeg)
-RUN apt-get update && apt-get install -y bash ffmpeg
+# Copy your media files into the container
+COPY ./samples /samples
 
-# Copy necessary files
-COPY  ./samples/sp1.mp4 /sscs/samples/sp1.mp4
-COPY ./mediamtx.yml /sscs/mediamtx.yml
+# Copy the start script into the container
+COPY ./start.sh /start.sh
+RUN chmod +x /start.sh
 
-
-# Set the entry point to ffmpeg command
-# CMD ["ffmpeg", "-re", "-stream_loop", "-1", "-i", "./samples/sp1.mp4", "-c", "copy", "-f", "rtsp", "rtsp://localhost:8554/mystream"]
+# # Use the start script as the entry point
+ENTRYPOINT ["/start.sh"]

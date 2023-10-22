@@ -22,7 +22,7 @@ If there is no sound in the stream, you can transcode the audio.
 
 ```
 #run in root
-ffmpeg -re -stream_loop -1 -i ./sscs/samples/sp1_no_bf.mp4 \
+ffmpeg -re -stream_loop -1 -i ./sscs/dev/samples/sp1_no_bf.mp4 \
  -vcodec copy -c:a libopus  \
  -f rtsp rtsp://localhost:8554/mystream
 ```
