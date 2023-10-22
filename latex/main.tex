@@ -370,27 +370,36 @@ elementos necessários para a materialização da solução proposta.
 
 \section{Linguagem Go}
 
-A linguagem de programação Go, também chamada de Golang, foi desenvolvida pelo
-Google e lançada em 2009. Ao ser concebida, a linguagem Go foi meticulosamente
-projetada para ser eficiente, simples e confiável, com um foco na criação de
-sistemas escaláveis e de alto desempenho.
+O Go foi concebido em setembro de 2007 por Robert Griesemer, Rob Pike e Ken
+Thompson, todos do Google, e foi anunciado em novembro de 2009. Os objetivos da
+linguagem e suas ferramentas acompanhantes eram ser expressivos, eficientes
+tanto na compilação quanto na execução e eficazes na escrita de programas
+confiáveis e robustos.
 
-Uma das características distintivas do Go é sua capacidade de lidar com a
-concorrência de maneira eficiente. O Go introduz as "goroutines", que são
-threads leves que facilitam a criação de programas concorrentes \cite{donovan2015go}. Isso permite
-que os desenvolvedores escrevam código concorrente de forma mais simples e
-eficaz, tornando-o adequado para aplicações que exigem alta concorrência, como
-servidores web e sistemas distribuídos.
+A linguagem tem uma semelhança superficial com C e, como C, é uma ferramenta
+para programadores profissionais, alcançando o máximo efeito com meios mínimos.
+Mas é muito mais do que uma versão atualizada de C. Ele empresta e adapta boas
+ideias de muitas outras linguagens, enquanto evita características que levaram
+à complexidade e código não confiável. Suas facilidades para concorrência são
+novas e eficientes, e sua abordagem para abstração de dados e programação
+orientada a objetos é incomumente flexível. Ele possui gerenciamento automático
+de memória ou coleta de lixo.
 
-O sistema de coleta de lixo (garbage collection) do Go é altamente eficiente e
-automatizado, eliminando a necessidade de que os desenvolvedores gerenciem
-manualmente a alocação e desalocação de memória. Isso contribui para a
-segurança e estabilidade dos programas escritos em Go, reduzindo a
-probabilidade de vazamentos de memória.
+Go é especialmente adequado para construir infraestrutura, como servidores em
+rede, e ferramentas e sistemas para programadores, mas é verdadeiramente uma
+linguagem de propósito geral e encontra uso em domínios tão diversos quanto
+gráficos, aplicativos móveis e aprendizado de máquina. Tornou-se popular como
+um substituto para linguagens de script não tipadas porque equilibra
+expressividade com segurança: programas Go geralmente são executados mais
+rápido do que programas escritos em linguagens dinâmicas e sofrem muito menos
+falhas devido a erros de tipo inesperados.
 
-A linguagem também é conhecida por sua integração eficiente com bibliotecas
-escritas em outras linguagens, como C e C++, o que a torna uma escolha versátil
-e amplamente adotada em uma variedade de aplicativos e serviços.
+Go é um projeto de código aberto, portanto, o código-fonte de seu compilador,
+bibliotecas e ferramentas está disponível gratuitamente para qualquer pessoa.
+Contribuições para o projeto vêm de uma comunidade mundial ativa. Go funciona
+em sistemas semelhantes ao Unix - Linux, FreeBSD, OpenBSD, Mac OS X - e em
+Plan9 e Microsoft Windows. Programas escritos em um desses ambientes geralmente
+funcionam sem modificações nos outros. \cite{donovan2015go}
 
 \section{openCV}
 
@@ -429,7 +438,33 @@ RFC to protocolo RTSP aqui:
 
 \section{Conteinerização}
 
-Explicar aqui o porquê de servir o software no docker
+A conteinerização emergiu como uma solução inovadora para os desafios
+associados ao desenvolvimento, implantação e gestão de aplicações de maneira
+uniforme em diversos ambientes. Diferentemente das máquinas virtuais, que
+necessitam de um sistema operacional dedicado por instância, os contêineres
+funcionam de forma isolada, aproveitando o sistema operacional do host, o que
+impulsiona uma significativa eficiência e minimiza o consumo excessivo de
+recursos \cite{burns2018designing}.
+
+Em essência, o propósito de um contêiner é criar limites para recursos
+específicos (como uma aplicação que requer dois núcleos e 8 GB de memória),
+definir a propriedade dentro das equipes (identificando qual equipe é
+responsável por qual imagem) e promover a separação de preocupações
+(estipulando que cada imagem cumpre uma função específica). Estes fatores
+motivam a segmentação de uma aplicação em múltiplos contêineres dentro de uma
+única máquina \cite{burns2018designingpart1}.
+
+Com o advento da tecnologia de contêineres, o Docker se destacou como uma
+ferramenta primordial desde sua criação como projeto open-source no início de
+2013 \cite{merkel2014}. Ele permite que os desenvolvedores encapsulem
+aplicações e suas respectivas dependências em contêineres autossuficientes,
+aptos a operar em qualquer servidor, independentemente das configurações do
+ambiente host. Esta abordagem tem implicações substanciais para o
+desenvolvimento ágil, integrando-se perfeitamente com as práticas de Integração
+Contínua e Entrega Contínua (CI/CD). Em suma, a conteinerização facilita a
+replicação, portabilidade e escalabilidade, mitigando as inconsistências entre
+os ambientes de desenvolvimento, teste e produção, o que resulta em um ciclo de
+vida do desenvolvimento de software mais integrado e gerenciável.
 
 \section{Diagrama UML de Componentes}
 
@@ -526,10 +561,32 @@ de um acesso seguro para prover ao resto da rede.
 
 \section{Licenças de Software}
 
-Explciar o porquê de usar uma licença de software adequada. E como diferentes
-Licenças de Software podem afetar como esse sistema é construído e mantido.
-Citar aquela licença (Acho que é a BPD) que pode absolutamente obliterar todo
-mundo que já estava usando um software específico.
+Ao desenvolver software, a escolha de uma licença apropriada é crucial, pois
+ela dita como o software pode ser distribuído, utilizado, modificado e
+compartilhado. Licenças de software são instrumentos legais que protegem tanto
+o criador quanto os usuários finais, estabelecendo regras claras sobre o que
+pode e não pode ser feito com o software.
+
+A escolha da licença impacta diretamente a maneira como um sistema é construído
+e mantido. Por exemplo, licenças permissivas como a MIT
+\cite{OpenSourceInitiative} ou a Licença Apache \cite{ApacheLicense2004}
+permitem que o código seja utilizado em software proprietário, enquanto
+licenças copyleft, como a GNU GPL (General Public License) \cite{gnu_gpl},
+exigem que modificações ou trabalhos derivados também sejam de código aberto,
+mantendo o software livre e protegendo futuras modificações e redistribuições
+sob os mesmos termos.
+
+No entanto, licenças copyleft são por vezes rotuladas como "licenças virais",
+um termo pejorativo que surgiu em meados de 1990, um ano depois do lançamento
+da GPLv1. Devido à maneira como suas obrigações legais podem se estender aos
+projetos derivados. Essas licenças estipulam condições específicas, sob as
+quais os direitos de uso, cópia, modificação e distribuição são concedidos. O
+não cumprimento dessas condições pode revogar esses direitos, resultando em
+implicações legais para os usuários. Isso tem o potencial de criar um efeito
+cascata, onde as obrigações da licença se estendem não apenas ao projeto
+original, mas a todos os projetos derivados, exigindo que mantenham as mesmas
+liberdades para os usuários finais, sob pena de terem que interromper o uso ou
+distribuição do software. \cite{jargonfile}
 
 \section{Encodings de vídeo e som}
 
@@ -592,24 +649,9 @@ compressão e baixa latência. Ele oferece uma boa qualidade de vídeo com taxas
 de bits relativamente baixas e é compatível com uma ampla variedade de
 dispositivos e aplicativos.
 
-\section{Tecnologia de Hardware}
+\subsection{AV1}
 
-Todos os algoritmos que irão processar a imagem da câmera e aplicação do back
-end precisam ficar alocados num servidor. Assim sendo, foi escolhido um
-raspberry pi zero W 1.1 para ser usado como o dispositivo que funcionará como
-servidor. Além disso, o Camera Module V2 será responsável por captar a imagem.
-Se fizermos uma comparação com os dispositivos de monitoramento presentes no
-mercado, esses dispositivos não são muito potentes. A empresa força tarefa de
-Uberlândia que fornece serviços de segurança e portaria remota, por exemplo,
-utiliza câmeras IP da Intelbras, muitas delas com sensores de visibilidade
-noturna, como o modelo VIP 3230 B SL. Por meio de uma conexão de rede, a
-informação de vídeo dessas câmeras vai para os servidores da empresa que
-possuem alta capacidade de processamento. Entretanto, mesmo com a capacidade
-reduzida dos dispositivos que serão usados neste trabalho, os algoritmos de
-reconhecimento facial, a aplicação do servidor e o front end poderão ser
-transferidos para outros melhores.
-
-% raspberry pi zero W V 1.1
+\subsection{VP9}
 
 \chapter{Método de Desenvolvimento}
 
