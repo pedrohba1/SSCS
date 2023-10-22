@@ -3,7 +3,6 @@ package recorder
 import (
 	"os"
 	"sync"
-	"time"
 
 	BaseLogger "sscs/logger"
 
@@ -15,18 +14,13 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-type RecordingEvent struct {
-	VideoName string
-	EventType string // can be either "started" or "ended"
-	Timestamp time.Time
-}
-
 type RTSPRecorder struct {
-	rtspURL string
-	client  *gortsplib.Client
-	logger  *logrus.Entry
-	stopCh  chan struct{}
-	wg      sync.WaitGroup
+	rtspURL    string
+	client     *gortsplib.Client
+	logger     *logrus.Entry
+	recordChan chan RecordedEvent
+	stopCh     chan struct{}
+	wg         sync.WaitGroup
 }
 
 func ensureDirectoryExists(dir string) error {
@@ -36,10 +30,11 @@ func ensureDirectoryExists(dir string) error {
 	return nil
 }
 
-func NewRTSPRecorder(rtspURL string) *RTSPRecorder {
+func NewRTSPRecorder(rtspURL string, recordChan chan RecordedEvent) *RTSPRecorder {
 	return &RTSPRecorder{
-		rtspURL: rtspURL,
-		stopCh:  make(chan struct{}),
+		rtspURL:    rtspURL,
+		recordChan: recordChan,
+		stopCh:     make(chan struct{}),
 	}
 }
 
@@ -78,7 +73,6 @@ func (r *RTSPRecorder) Stop() error {
 
 func (r *RTSPRecorder) record(u *url.URL) error {
 	defer r.wg.Done()
-
 	r.logger.Info("recording...")
 
 	// find published medias
@@ -88,15 +82,15 @@ func (r *RTSPRecorder) record(u *url.URL) error {
 	}
 
 	// find the H264 media and format
-	var forma *format.H264
-	medi := desc.FindFormat(&forma)
+	var form *format.H264
+	medi := desc.FindFormat(&form)
 	if medi == nil {
 		r.logger.Warn("media not found")
 		return nil
 	}
 
 	// setup RTP/H264 -> H264 decoder
-	rtpDec, err := forma.CreateDecoder()
+	rtpDec, err := form.CreateDecoder()
 	if err != nil {
 		r.logger.Errorf("%v", err)
 		return err
@@ -110,7 +104,7 @@ func (r *RTSPRecorder) record(u *url.URL) error {
 	}
 
 	// setup H264 -> MPEG-TS muxer
-	mpegtsMuxer, err := newMPEGTSMuxer(forma.SPS, forma.PPS)
+	mpegtsMuxer, err := newMPEGTSMuxer(form.SPS, form.PPS)
 	if err != nil {
 		return err
 	}
@@ -122,7 +116,7 @@ func (r *RTSPRecorder) record(u *url.URL) error {
 	}
 
 	// called when a RTP packet arrives
-	r.client.OnPacketRTP(medi, forma, func(pkt *rtp.Packet) {
+	r.client.OnPacketRTP(medi, form, func(pkt *rtp.Packet) {
 		// decode timestamp
 		pts, ok := r.client.PacketPTS(medi, pkt)
 		if !ok {

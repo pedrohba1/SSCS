@@ -6,7 +6,7 @@ import "time"
 type Recorder interface {
 	Start() error // Starts the recording
 	Stop() error  // Stops the recording
-	SetupLogger() // each
+	SetupLogger()
 }
 
 type RecordedEvent struct {

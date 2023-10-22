@@ -798,9 +798,11 @@ isso é o uso do ffmpeg, um framework de multimídia que oferece funcionalidades
 como codificação, decodificação, transcodificação, muxing, demuxing, streaming
 e reprodução de dados de mídia. Utilizando o ffmpeg \cite{ffmpeg}, é possível
 enviar fluxos de vídeo para o servidor MediaMTX, criando assim um ambiente
-adequado para a integração e operação eficiente com o SSCS. É importante
-ressaltar que essas duas ferramentas são plenamente capazes de lidar não apenas
-com ambientes de simulação, mas também com ambientes de produção.
+adequado para a integração e operação eficiente com o SSCS. Observe também que
+essas duas ferramentas são plenamente capazes de lidar não apenas com ambientes
+de simulação, mas também com ambientes de produção. A intensificação aqui é
+minimizar a diferença entre esses dois cenários, facilitando a transição futura
+de uma simulação para a prática.
 
 Em uma perspectiva ampla, o sistema assume uma configuração que envolve dois
 componentes: um encarregado da transferência das imagens da câmera para um
@@ -821,12 +823,12 @@ de multimídia destinada ao SSCS.
 % 	\label{fig:graficosVariandoTamanhoRede}
 % \end{figure}
 
-A ilusutração mostra a configuração básica do SSCS, onde câmeras ou
-outras fontes de transmissão de multimídia podem encaminhar fluxos para um
-servidor intermediário. Esse servidor de mídia intermediário disponibiliza uma
-interface chamada PublishStream, que possibilita a recepção de fluxos de
-multimídia de diversas origens distintas. O símbolo em forma de losango indica
-que o MediaServer age como um agregador, o que significa que ele pode interagir
+A ilusutração mostra a configuração básica do SSCS, onde câmeras ou outras
+fontes de transmissão de multimídia podem encaminhar fluxos para um servidor
+intermediário. Esse servidor de mídia intermediário disponibiliza uma interface
+chamada PublishStream, que possibilita a recepção de fluxos de multimídia de
+diversas origens distintas. O símbolo em forma de losango indica que o
+MediaServer age como um agregador, o que significa que ele pode interagir
 simultaneamente com várias aplicações do SSCS. Contudo, é importante observar
 que essa conexão é de natureza flexível: o MediaServer pode operar de forma
 independente, sem depender do SSCS.
@@ -843,8 +845,7 @@ Esse é o componente principal do sistema. Sua função é claramente definida,
 consistindo em receber pacotes da corrente de vídeo por meio de um protocolo de
 rede, concatená-los e convertê-los em um arquivo único, com subsequente
 armazenamento no disco em segmentos de arquivos. Estes arquivos são registrados
-com um carimbo de data e hora, refletindo o instante de criação do arquivo de
-gravação.
+com uma timestamp, refletindo o instante de criação do arquivo de gravação.
 
 Além disso, há a possibilidade de vincular o gravador a um indexador,
 responsável por arquivar os vídeos em um banco de dados SQL. Posteriormente,

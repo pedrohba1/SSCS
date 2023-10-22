@@ -23,7 +23,7 @@ type Core struct {
 	done chan struct{}
 }
 
-//creates a new core
+// creates a new core
 func New(args []string) *Core {
 	// Extract the config path from the args or define a default
 	// This is just a placeholder; you might extract it differently
@@ -36,7 +36,8 @@ func New(args []string) *Core {
 	}
 
 	// start resources
-	r := recorder.NewRTSPRecorder(cfg.RTSP.Feeds[0])
+	recordChan := make(chan recorder.RecordedEvent)
+	r := recorder.NewRTSPRecorder(cfg.RTSP.Feeds[0], recordChan)
 	r.Start()
 
 	ctx, ctxCancel := context.WithCancel(context.Background())
