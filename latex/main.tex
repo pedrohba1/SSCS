@@ -546,10 +546,44 @@ ou integração de dependências. \cite{semver}
 Explicar o conceito de Daemon e o porquê de ser últil manter o software rodando
 como um processo segundo plano
 
-\section{Liskov Substitution Principle}
+\section{Princípios SOLID}
 
-Falar um pouco aqui sobre o princípio de Liskov e como ele é usado por exemplo
-no recorder.
+Os princípios SOLID, nos dizem como organizar nossas funções e estruturas de
+dados em classes e como essas classes devem estar interconectadas. O uso da
+palavra "classe" não implica que esses princípios se aplicam apenas ao software
+orientado a objetos. Uma classe é simplesmente um agrupamento acoplado de
+funções e dados. Todo sistema de software tem esses agrupamentos, quer sejam
+chamados de classes ou não. Os princípios SOLID se aplicam a esses
+agrupamentos. O objetivo dos princípios é a criação de estruturas de software
+de nível médio que são fáceis de entender, formam a base de componentes que
+podem ser usados em muitos sistemas software.
+
+A história dos princípios SOLID é longa. Comecei a montá-los no final dos anos
+1980, enquanto debatia princípios de design de software com outras pessoas no
+USENET (um tipo primitivo de Facebook). Ao longo dos anos, os princípios
+mudaram e evoluíram. Alguns foram excluídos. Outros foram mesclados. Ainda
+outros foram adicionados. O agrupamento final estabilizou-se no início dos anos
+2000, embora eu os tenha apresentado em uma ordem diferente.
+
+\begin{itemize}
+	\item \textbf{SRP: Princípio da Responsabilidade Única}\\
+	      Um corolário ativo da lei de Conway: A melhor estrutura para um sistema de software é fortemente influenciada pela estrutura social da organização que o utiliza, de forma que cada módulo de software tenha uma, e apenas uma, razão para mudar.
+
+	\item \textbf{OCP: Princípio Aberto-Fechado}\\
+	      Bertrand Meyer tornou este princípio famoso na década de 1980. Em essência, para que os sistemas de software sejam fáceis de alterar, eles devem ser projetados para permitir que o comportamento desses sistemas seja alterado pela adição de novo código, em vez de alterar o código existente.
+
+	\item \textbf{LSP: Princípio da Substituição de Liskov}\\
+	      A famosa definição de subtipos de Barbara Liskov, de 1988. Em resumo, este princípio diz que para construir sistemas de software a partir de peças intercambiáveis, essas peças devem aderir a um contrato que permita que sejam substituídas umas pelas outras.
+
+	\item \textbf{ISP: Princípio da Segregação da Interface}\\
+	      Este princípio aconselha os designers de software a evitar depender de coisas que eles não usam.
+
+	\item \textbf{DIP: Princípio da Inversão de Dependência}\\
+	      O código que implementa políticas de alto nível não deve depender do código que implementa detalhes de baixo nível. Pelo contrário, os detalhes devem depender das políticas.
+\end{itemize}
+
+Esses princípios, se aplicados em conjunto e habilmente, tornam o código mais
+limpo, legível, organizado e de fácil manutenção. \cite{martin2017clean}
 
 \section{Proxy}
 
@@ -909,6 +943,9 @@ opera o SSCS. A utilização de um servidor de mídia como proxy apresenta
 diversas vantagens. Por exemplo, pode ser necessário converter o protocolo de
 transmissão de RTSP para WebRTC ou HLS, realizar balanceamento de carga, ou até
 mesmo implementar autenticação externa.
+
+À seguir, será apresentada uma visão geral de cada componente do sistema, sua função, como ele interage
+com as outras partes do sistema, e alguns detalhes de implementação.
 
 \section{Gravador}
 
