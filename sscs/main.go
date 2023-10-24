@@ -87,8 +87,6 @@ func (service *Service) Manage() (string, error) {
 		}
 	}
 
-	// never happen, but need to complete code
-	return usage, nil
 }
 
 func init() {

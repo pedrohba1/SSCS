@@ -3,6 +3,7 @@ package indexer
 import (
 	BaseLogger "sscs/logger"
 	"sscs/recorder"
+	"sync"
 
 	"github.com/sirupsen/logrus"
 	"gorm.io/driver/postgres"
@@ -12,68 +13,82 @@ import (
 type RecordedEvent = recorder.RecordedEvent
 
 type PostgresIndexer struct {
+	dsn    string
 	db     *gorm.DB
 	logger *logrus.Entry
+
+	wg        sync.WaitGroup
+	recordOut <-chan RecordedEvent
+	stopCh    chan struct{}
 }
 
-func NewEventIndexer(dsn string) (*PostgresIndexer, error) {
-	p := &PostgresIndexer{}
+func NewEventIndexer(dsn string, recordOut <-chan RecordedEvent) (*PostgresIndexer, error) {
+	p := &PostgresIndexer{dsn: dsn, recordOut: recordOut, stopCh: make(chan struct{})}
 	p.setupLogger()
 
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-	if err != nil {
-		p.logger.Error("failed to parse url: %w", err)
-		return nil, err
-	}
-
-	p.db = db
 	return p, nil
 }
 
-// TODO: mover conexão com banco para o start para poder dar o stop sem matar o objeto
-func (indexer *PostgresIndexer) Start() error {
-	indexer.logger.Infof("starting server")
+func (p *PostgresIndexer) Stop() error {
+	p.logger.Info("shutting server")
+	close(p.stopCh)
+	p.wg.Wait() // Wait for the recording goroutine to finish
 	return nil
 }
 
-func (indexer *PostgresIndexer) Stop() error {
-	indexer.logger.Infof("shutting server")
-	return nil
-}
-func (indexer *PostgresIndexer) AutoMigrate() error {
-	return indexer.db.AutoMigrate(&recorder.RecordedEvent{})
+func (p *PostgresIndexer) AutoMigrate() error {
+	p.logger.Info("migrating tables...")
+	return p.db.AutoMigrate(&recorder.RecordedEvent{})
 }
 
-func (indexer *PostgresIndexer) SaveEvent(event RecordedEvent) error {
-	return indexer.db.Create(&event).Error
+func (p *PostgresIndexer) SaveRecord(event RecordedEvent) error {
+
+	err := p.db.Create(&event).Error
+	if err != nil {
+		p.logger.Info("error indexing record")
+	}
+	p.logger.Info("saved record: %w", event)
+	return err
 }
 
 func (p *PostgresIndexer) setupLogger() {
-	p.logger = BaseLogger.BaseLogger.WithField("package", "recorder")
+	p.logger = BaseLogger.BaseLogger.WithField("package", "indexer")
 }
 
-// a connection example here
-// func main() {
-// 	// Your PostgreSQL connection string.
-// 	dsn := "host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai"
-// 	indexer, err := NewEventIndexer(dsn)
-// 	if err != nil {
-// 		log.Fatalf("Failed to create indexer: %s", err)
-// 	}
+// TODO: mover conexão com banco para o start para poder dar o stop sem matar o objeto
+func (p *PostgresIndexer) Start() error {
 
-// 	// Automatically migrate your schema, to keep your schema update-to-date.
-// 	if err := indexer.AutoMigrate(); err != nil {
-// 		log.Fatalf("Failed to auto-migrate: %s", err)
-// 	}
+	p.logger.Infof("connecting postgres...")
+	db, err := gorm.Open(postgres.Open(p.dsn), &gorm.Config{})
+	if err != nil {
+		p.logger.Error("failed to parse url: %w", err)
+		return err
+	}
 
-// 	event := RecordedEvent{
-// 		VideoName: "sample_video.mp4",
-// 		Timestamp: time.Now(),
-// 	}
+	p.db = db
+	p.AutoMigrate()
+	p.wg.Add(1)
+	go p.listen()
 
-// 	if err := indexer.SaveEvent(event); err != nil {
-// 		log.Fatalf("Failed to save event: %s", err)
-// 	}
+	return nil
+}
 
-// 	fmt.Println("Event saved successfully!")
-// }
+func (p *PostgresIndexer) listen() error {
+	defer p.wg.Done()
+
+	p.logger.Info("listening to index events...")
+
+	for {
+		select {
+		case <-p.stopCh:
+			p.logger.Info("Received stop signal, stopping indexer.")
+			return nil // stop signal received, so we return from the function
+		case record := <-p.recordOut:
+			// New record received, we should save it
+			if err := p.SaveRecord(record); err != nil {
+				p.logger.Errorf("Failed to save record: %v", err)
+			}
+		}
+	}
+
+}

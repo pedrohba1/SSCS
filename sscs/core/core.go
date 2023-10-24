@@ -37,14 +37,15 @@ func New(args []string) *Core {
 	}
 
 	// start resources
-	recordChan := make(chan recorder.RecordedEvent)
+	recordChan := make(chan recorder.RecordedEvent, 1)
 	r := recorder.NewRTSPRecorder(cfg.RTSP.Feeds[0], recordChan)
 	r.Start()
 
-	dsn := "host=localhost user=gorm dbname=gorm port=5432 sslmode=disable TimeZone=Asia/Shanghai"
+	dsn := cfg.Indexer.DbUrl
 
-	i, err := indexer.NewEventIndexer(dsn)
+	i, err := indexer.NewEventIndexer(dsn, recordChan)
 	i.Start()
+
 	if err != nil {
 		panic(err) // or handle the error more gracefully, based on your application's needs
 	}
@@ -105,6 +106,7 @@ outer:
 func (p *Core) closeResources() {
 	if p.recorder != nil {
 		p.recorder.Stop()
+		p.indexer.Stop()
 	}
 
 }

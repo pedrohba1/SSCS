@@ -134,7 +134,7 @@ func (r *RTSPRecorder) record(u *url.URL) error {
 		}
 
 		// encode the access unit into MPEG-TS
-		err = mpegtsMuxer.encode(au, pts)
+		err = mpegtsMuxer.encode(au, pts, r.recordIn)
 		if err != nil {
 			r.logger.Errorf("%v", err)
 			return
@@ -165,5 +165,6 @@ func (r *RTSPRecorder) record(u *url.URL) error {
 			return err
 		}
 	}
+
 	return nil
 }

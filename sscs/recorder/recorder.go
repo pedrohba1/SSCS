@@ -11,5 +11,6 @@ type Recorder interface {
 
 type RecordedEvent struct {
 	VideoName string
-	Timestamp time.Time
+	StartTime time.Time
+	EndTime   time.Time
 }

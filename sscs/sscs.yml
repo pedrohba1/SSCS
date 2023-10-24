@@ -1,2 +1,6 @@
 rtsp:
   feeds: ["rtsp://localhost:8554/mystream"]
+
+
+indexer:
+  dbUrl: "host=localhost user=gorm dbname=gorm port=5432 sslmode=disable TimeZone=Asia/Shanghai"

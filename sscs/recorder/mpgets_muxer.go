@@ -69,7 +69,7 @@ func createChunkFileName() string {
 }
 
 // encode encodes a H264 access unit into MPEG-TS.
-func (mux *mpegtsMuxer) encode(au [][]byte, pts time.Duration) error {
+func (mux *mpegtsMuxer) encode(au [][]byte, pts time.Duration, recordIn chan<- RecordedEvent) error {
 
 	var err error
 	var shouldSplit bool = false
@@ -88,6 +88,8 @@ func (mux *mpegtsMuxer) encode(au [][]byte, pts time.Duration) error {
 	if shouldSplit {
 		// Close the current resources
 		mux.logger.Info("saving content: " + mux.f.Name())
+		recordIn <- RecordedEvent{VideoName: mux.f.Name(), EndTime: time.Now()}
+
 		mux.b.Flush()
 		mux.f.Close()
 
