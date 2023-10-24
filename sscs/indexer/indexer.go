@@ -1,15 +1,8 @@
-package recorder
-
-import "time"
+package indexer
 
 // Recorder is an interface for recording streams.
-type Recorder interface {
+type Indexer interface {
 	Start() error // Starts the recording
 	Stop() error  // Stops the recording
 	setupLogger()
-}
-
-type RecordedEvent struct {
-	VideoName string
-	Timestamp time.Time
 }

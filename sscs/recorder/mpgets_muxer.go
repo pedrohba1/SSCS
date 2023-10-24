@@ -28,6 +28,8 @@ type mpegtsMuxer struct {
 	track          *mpegts.Track
 	dtsExtractor   *h264.DTSExtractor
 	logger         *logrus.Entry
+
+	recordOut chan RecordedEvent
 }
 
 // newMPEGTSMuxer allocates a mpegtsMuxer.
@@ -37,7 +39,6 @@ func newMPEGTSMuxer(sps []byte, pps []byte) (*mpegtsMuxer, error) {
 		return nil, err
 	}
 	b := bufio.NewWriter(f)
-
 	track := &mpegts.Track{
 		Codec: &mpegts.CodecH264{},
 	}
@@ -68,7 +69,7 @@ func createChunkFileName() string {
 }
 
 // encode encodes a H264 access unit into MPEG-TS.
-func (e *mpegtsMuxer) encode(au [][]byte, pts time.Duration) error {
+func (mux *mpegtsMuxer) encode(au [][]byte, pts time.Duration) error {
 
 	var err error
 	var shouldSplit bool = false
@@ -76,7 +77,9 @@ func (e *mpegtsMuxer) encode(au [][]byte, pts time.Duration) error {
 	// Check if this Access Unit contains a keyframe and it's time to split
 	for _, nalu := range au {
 		typ := h264.NALUType(nalu[0] & 0x1F)
-		if typ == h264.NALUTypeIDR && time.Since(e.startTimestamp) > e.chunkDuration {
+		if typ == h264.NALUTypeIDR && time.Since(
+			mux.startTimestamp) >
+			mux.chunkDuration {
 			shouldSplit = true
 			break
 		}
@@ -84,18 +87,18 @@ func (e *mpegtsMuxer) encode(au [][]byte, pts time.Duration) error {
 
 	if shouldSplit {
 		// Close the current resources
-		e.logger.Info("saving content: " + e.f.Name())
-		e.b.Flush()
-		e.f.Close()
+		mux.logger.Info("saving content: " + mux.f.Name())
+		mux.b.Flush()
+		mux.f.Close()
 
 		// Start a new file
-		e.f, err = os.Create(createChunkFileName())
+		mux.f, err = os.Create(createChunkFileName())
 		if err != nil {
 			return err
 		}
-		e.b = bufio.NewWriter(e.f)
-		e.w = mpegts.NewWriter(e.b, []*mpegts.Track{e.track})
-		e.startTimestamp = time.Now()
+		mux.b = bufio.NewWriter(mux.f)
+		mux.w = mpegts.NewWriter(mux.b, []*mpegts.Track{mux.track})
+		mux.startTimestamp = time.Now()
 	}
 	// prepend an AUD. This is required by some players
 	filteredAU := [][]byte{
@@ -109,11 +112,11 @@ func (e *mpegtsMuxer) encode(au [][]byte, pts time.Duration) error {
 		typ := h264.NALUType(nalu[0] & 0x1F)
 		switch typ {
 		case h264.NALUTypeSPS:
-			e.sps = nalu
+			mux.sps = nalu
 			continue
 
 		case h264.NALUTypePPS:
-			e.pps = nalu
+			mux.pps = nalu
 			continue
 
 		case h264.NALUTypeAccessUnitDelimiter:
@@ -137,24 +140,24 @@ func (e *mpegtsMuxer) encode(au [][]byte, pts time.Duration) error {
 
 	// add SPS and PPS before every access unit that contains an IDR
 	if idrPresent {
-		au = append([][]byte{e.sps, e.pps}, au...)
+		au = append([][]byte{mux.sps, mux.pps}, au...)
 	}
 
 	var dts time.Duration
 
-	if e.dtsExtractor == nil {
+	if mux.dtsExtractor == nil {
 		// skip samples silently until we find one with a IDR
 		if !idrPresent {
 			return nil
 		}
-		e.dtsExtractor = h264.NewDTSExtractor()
+		mux.dtsExtractor = h264.NewDTSExtractor()
 	}
 
-	dts, err = e.dtsExtractor.Extract(au, pts)
+	dts, err = mux.dtsExtractor.Extract(au, pts)
 	if err != nil {
 		return err
 	}
 
 	// encode into MPEG-TS
-	return e.w.WriteH26x(e.track, durationGoToMPEGTS(pts), durationGoToMPEGTS(dts), idrPresent, au)
+	return mux.w.WriteH26x(mux.track, durationGoToMPEGTS(pts), durationGoToMPEGTS(dts), idrPresent, au)
 }

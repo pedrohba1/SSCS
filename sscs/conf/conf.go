@@ -1,7 +1,7 @@
 package conf
 
 import (
-	"io/ioutil"
+	"os"
 
 	"gopkg.in/yaml.v2"
 )
@@ -18,7 +18,7 @@ type RTSPConfig struct {
 func ReadConf(filename string) (Config, error) {
 	// Read the file
 	var cfg Config
-	fileBytes, err := ioutil.ReadFile(filename)
+	fileBytes, err := os.ReadFile(filename)
 	if err != nil {
 		return cfg, err
 	}

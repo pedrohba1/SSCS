@@ -15,12 +15,13 @@ import (
 )
 
 type RTSPRecorder struct {
-	rtspURL    string
-	client     *gortsplib.Client
-	logger     *logrus.Entry
-	recordChan chan RecordedEvent
-	stopCh     chan struct{}
-	wg         sync.WaitGroup
+	rtspURL string
+	client  *gortsplib.Client
+	logger  *logrus.Entry
+
+	wg       sync.WaitGroup
+	recordIn chan<- RecordedEvent
+	stopCh   chan struct{}
 }
 
 func ensureDirectoryExists(dir string) error {
@@ -32,13 +33,13 @@ func ensureDirectoryExists(dir string) error {
 
 func NewRTSPRecorder(rtspURL string, recordChan chan RecordedEvent) *RTSPRecorder {
 	return &RTSPRecorder{
-		rtspURL:    rtspURL,
-		recordChan: recordChan,
-		stopCh:     make(chan struct{}),
+		rtspURL:  rtspURL,
+		recordIn: recordChan,
+		stopCh:   make(chan struct{}),
 	}
 }
 
-func (r *RTSPRecorder) SetupLogger() {
+func (r *RTSPRecorder) setupLogger() {
 	r.logger = BaseLogger.BaseLogger.WithField("package", "recorder")
 }
 
@@ -50,7 +51,7 @@ func (r *RTSPRecorder) Start() error {
 	}
 
 	r.client = &gortsplib.Client{}
-	r.SetupLogger()
+	r.setupLogger()
 
 	// connect to the server
 	err = r.client.Start(u.Scheme, u.Host)

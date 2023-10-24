@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/signal"
 	"sscs/conf"
+	"sscs/indexer"
 	BaseLogger "sscs/logger"
 	"sscs/recorder"
 
@@ -18,8 +19,8 @@ type Core struct {
 	config     conf.Config
 	Logger     *logrus.Entry
 	recorder   recorder.Recorder
+	indexer    indexer.Indexer
 
-	// out
 	done chan struct{}
 }
 
@@ -40,6 +41,14 @@ func New(args []string) *Core {
 	r := recorder.NewRTSPRecorder(cfg.RTSP.Feeds[0], recordChan)
 	r.Start()
 
+	dsn := "host=localhost user=gorm dbname=gorm port=5432 sslmode=disable TimeZone=Asia/Shanghai"
+
+	i, err := indexer.NewEventIndexer(dsn)
+	i.Start()
+	if err != nil {
+		panic(err) // or handle the error more gracefully, based on your application's needs
+	}
+
 	ctx, ctxCancel := context.WithCancel(context.Background())
 
 	// Create a new Core instance with the read configuration
@@ -49,6 +58,7 @@ func New(args []string) *Core {
 		configPath: configPath,
 		config:     cfg,
 		recorder:   r,
+		indexer:    i,
 		Logger:     BaseLogger.BaseLogger.WithField("package", "core"),
 	}
 
