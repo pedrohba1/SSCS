@@ -1,12 +1,15 @@
 package recorder
 
-import "time"
+import (
+	"time"
+)
 
 // Recorder is an interface for recording streams.
 type Recorder interface {
 	Start() error // Starts the recording
 	Stop() error  // Stops the recording
 	setupLogger()
+	record() error
 }
 
 type RecordedEvent struct {

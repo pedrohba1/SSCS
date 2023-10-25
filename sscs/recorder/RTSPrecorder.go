@@ -32,11 +32,14 @@ func ensureDirectoryExists(dir string) error {
 }
 
 func NewRTSPRecorder(rtspURL string, recordChan chan RecordedEvent) *RTSPRecorder {
-	return &RTSPRecorder{
+	r := &RTSPRecorder{
 		rtspURL:  rtspURL,
 		recordIn: recordChan,
 		stopCh:   make(chan struct{}),
 	}
+	r.setupLogger()
+
+	return r
 }
 
 func (r *RTSPRecorder) setupLogger() {
@@ -45,13 +48,8 @@ func (r *RTSPRecorder) setupLogger() {
 
 func (r *RTSPRecorder) Start() error {
 	u, err := url.Parse(r.rtspURL)
-	if err != nil {
-		r.logger.Error("failed to parse url: %w", err)
-		return err
-	}
 
 	r.client = &gortsplib.Client{}
-	r.setupLogger()
 
 	// connect to the server
 	err = r.client.Start(u.Scheme, u.Host)
@@ -61,7 +59,7 @@ func (r *RTSPRecorder) Start() error {
 	}
 
 	r.wg.Add(1)
-	go r.record(u)
+	go r.record()
 	return nil
 }
 
@@ -72,8 +70,15 @@ func (r *RTSPRecorder) Stop() error {
 	return nil
 }
 
-func (r *RTSPRecorder) record(u *url.URL) error {
+func (r *RTSPRecorder) record() error {
 	defer r.wg.Done()
+
+	u, err := url.Parse(r.rtspURL)
+
+	if err != nil {
+		r.logger.Error("failed to parse url: %w", err)
+		return err
+	}
 	r.logger.Info("recording...")
 
 	// find published medias
