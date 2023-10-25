@@ -543,8 +543,13 @@ ou integração de dependências. \cite{semver}
 
 \section{Daemon}
 
-Explicar o conceito de Daemon e o porquê de ser últil manter o software rodando
-como um processo segundo plano
+Um daemon é um processo em segundo plano que normalmente é executado
+indefinidamente. O sistema operacional UNIX depende de muitos processos daemon
+para realizar tarefas rotineiras (e não tão rotineiras). No ambiente
+operacional Solaris, por exemplo, o daemon \texttt{pageout} gerencia a paginação para o gerenciamento
+de memória. O \texttt{in.rlogind} lida com solicitações de login remoto. Outros daemons
+lidam com correio, transferência de arquivos, estatísticas e solicitações de
+impressora, para citar alguns. \cite{kay2004unix}
 
 \section{Princípios SOLID}
 
