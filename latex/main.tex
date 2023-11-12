@@ -169,9 +169,14 @@ brazil]{facom-ufu-abntex2}
 \begin{siglas} %TCC: 
 
 	\item[SSCS] Self-Sovereign Camera System
-	\item[CAGR] Compound annual growth rate, ou taxa de crescimento anual.
-	\item[UML] Unified Modeling Language.
+	\item[CAGR] Compound Annual Growth Rate
+	\item[UML] Unified Modeling Language
+	\item[AVC] Advanced Video Coding
+	\item[HEVC] High Efficiency Video Coding
+	\item[VMS] Video surveillance Management System
 	\item[API] Application Programming Interface
+	\item[DVR] Digital Video Recorder
+	\item[NVR] Network Video Recorder
 	\item[REST] Representational State Transfer
 	\item[HSL] HTTP Live Streaming
 	\item[RTMP] Real Time Messaging Protocol
@@ -546,10 +551,11 @@ ou integração de dependências. \cite{semver}
 Um daemon é um processo em segundo plano que normalmente é executado
 indefinidamente. O sistema operacional UNIX depende de muitos processos daemon
 para realizar tarefas rotineiras (e não tão rotineiras). No ambiente
-operacional Solaris, por exemplo, o daemon \texttt{pageout} gerencia a paginação para o gerenciamento
-de memória. O \texttt{in.rlogind} lida com solicitações de login remoto. Outros daemons
-lidam com correio, transferência de arquivos, estatísticas e solicitações de
-impressora, para citar alguns. \cite{kay2004unix}
+operacional Solaris, por exemplo, o daemon \texttt{pageout} gerencia a
+paginação para o gerenciamento de memória. O \texttt{in.rlogind} lida com
+solicitações de login remoto. Outros daemons lidam com correio, transferência
+de arquivos, estatísticas e solicitações de impressora, para citar alguns.
+\cite{kay2004unix}
 
 \section{Princípios SOLID}
 
@@ -695,7 +701,7 @@ dispositivos e aplicativos.
 \chapter{Método de Desenvolvimento}
 
 A metodologia selecionada para o avanço deste projeto se baseia, inicialmente,
-em um exame das soluções de software atualmente presentes no mercado. O
+em um exame das soluções de hardware e software atualmente presentes no mercado. O
 objetivo é compreender suas características, funcionalidades e deficiências.
 Esse estudo, de caráter essencialmente qualitativo, procura identificar
 tendências, padrões e lacunas nas soluções existentes.
@@ -819,11 +825,64 @@ profundo podem requerer mais recursos e um conjunto de treinamento de dados,
 mas oferecem maior precisão e capacidade de generalização, tornando-se
 preferíveis em aplicações mais complexas ou quando a alta precisão é crucial.
 
-\subsection{armazenamento e compressão}
+\subsection{armazenamento, resolução e compressão}
+
+Uma das funções fundamentais presente em quase todos os sistemas de vigilância
+é o armazenamento do vídeo e sua leitura posterior. A maneira de como é feita
+esse armazenamento depende de vários fatores: volume de dados, período de
+retenção, velocidade de acesso, largura de banda (se houver interação com
+sistemas pela rede), escalabilidade, segurança, conformidade legal e outros. Em
+especial, a resolução da câmera tem uma forte relação com o volume de dados que
+por sua vez afeta muitos dos outros fatores também. A tabela a seguir detalha o
+espaço de armazenamento necessário, em Terabytes, para arquivar 30 dias de
+filmagem, capturada em diferentes resoluções de 12 câmeras, operando
+continuamente durante 24 horas por dia. \clearpage % Ends the current page and places the table at the top of the next page
+
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		Resolução         & MJPEG     & H.264    & H.265    \\ \hline
+		1MP (1280x720)    & 27,5 TB   & 3,97 TB  & 1,34 TB  \\ \hline
+		2MP  (1920x1080)  & 61 TB     & 8,9 TB   & 3,0 TB   \\ \hline
+		3MP  (2048x1536)  & 93 TB     & 13 TB    & 4 TB     \\ \hline
+		5MP  (2592x19044) & 150 TB    & 21,74 TB & 7,37 TB  \\ \hline
+		8MP  (4K)         & 464,38 TB & 67,10 TB & 22,76 TB \\ \hline
+
+	\end{tabular}
+	\caption{Tabela comparativa de resoluções e compressão versus tamanho, baseada em dados obtidos do Surveillance Capacity Calculator \cite{surveillancecalculator}.}
+	\label{table:example}
+\end{table}
+
+Essas resoluções na tabela são as mais comuns encontradas nas câmeras
+disponíveis no mercado para uso domiciliar e empresarial. As resoluções são
+medidas em megapixels (MP) e indicam o total de pixels existentes na imagem.
+Quanto mais pixels, maior a resolução e melhor a qualidade, porém, como é
+possível perceber pela tabela, mais espaço é necessário para armazenar o vídeo.
+
+A resolução adequada depende de qual vai ser o uso dessas câmeras. A resolução
+de 1 MP é uma boa escolha para domicílios, pequenas lojas e outros locais onde
+só é preciso detectar movimento de pessoas sem muito detalhes. Full HD (2 MP)
+já é capaz de fazer reconhecimento facial ou de texto, tornando-se uma opção
+adequada para locais que requerem um nível de detalhe intermediário. Para a
+monitoração de espaços amplos, resoluções de 4 MP e 5 MP são recomendadas,
+sendo que a última oferece uma qualidade superior na ampliação de imagens, com
+uma menor perda de detalhes. 4K é uma resolução comum em ambientes que exigem
+identificação precisa, como instituições financeiras no geral, cassinos e áreas
+de infraestrutura crítica como usinas de energia e estações de tratamento.
+
+Repare que além da resolução o tipo de compressão pode afetar drasticamente o
+tamanho. MJPEG, por ser um formato antigo usado pela primeira em meados de 1990,
+é bem menos eficiente mas amplamente adotado. H.264, também conhecido como AVC,
+é bem mais eficiente e não deixa de ser comum para compressão de vídeos em HD.
+Por último, o H.265, ou HEVC, é um dos métodos mais eficientes mas nem sempre
+suportado pelos equipamentos de NVR e DVR. Até mesmo alguns protocolos de
+transmissão de vídeo em rede como o WebRTC e RTMP não possuem suporte esse
+padrão.
 
 \subsection{vulnerabilidades de segurança}
 
-No quesito dos riscos de segurança, as câmeras IP apresentam várias
+Em relação aos riscos de segurança, as câmeras IP apresentam várias
 vulnerabilidades que podem expô-las a ameaças. Uma das falhas mais comuns é a
 utilização de credenciais de login padrão, que são facilmente acessíveis para
 qualquer pessoa com conhecimento básico em segurança de rede. Além disso,
@@ -835,6 +894,19 @@ interceptações e ataques. Como exemplo dessas falhas, em \cite{9116392} uma
 câmera smart identifica como Onvif YY HD passou por um teste de penetração.
 Nesse teste, um ataque do tipo man in the middle (MITM) foi capaz de visualizar
 em texto plano todos os dados transmitidos pela câmera, inclusive credenciais.
+
+O local onde o vídeo é armazenado e seu acesso também podem ser vetores para
+ataques. Se o VMS utilizar armazenamento em nuvem, por exemplo, como a conexão
+em rede é necessária praticamente o tempo todo existe a chance de ocorre um
+Denial Of Service (DoS). Por outro lado, sistemas que operam isoladamente da
+internet, utilizando DVR ou NVR em redes locais, embora menos suscetíveis a
+DoS, ainda requerem uma gestão do acesso por parte de usuários e do controle
+dos recursos. Portanto, mecanismos de controle de acesso técnicos, físicos e
+administrativos precisam ser implementados e documentados independente da
+escolha armazenamento, como forma de mitigar vulnerabilidades.
+
+\subsection{custos de operação}
+
 
 % TODO: verificar se essa parte toda aqui que eu falei sobre os protocolos faz sentido de estar aqui.
 % ao meu ver perdeu um pouco do sentido e parece mais fazer parte do desenvolvimento em si
@@ -952,21 +1024,30 @@ mesmo implementar autenticação externa.
 À seguir, será apresentada uma visão geral de cada componente do sistema, sua função, como ele interage
 com as outras partes do sistema, e alguns detalhes de implementação.
 
-\section{Gravador}
+\section{Gravador e indexador}
 
 Esse é o componente principal do sistema. Sua função é claramente definida,
-consistindo em receber pacotes da corrente de vídeo por meio de um protocolo de
-rede, concatená-los e convertê-los em um arquivo único, com subsequente
+consistindo em receber pacotes da corrente de vídeo por meio de algum protocolo
+de rede, concatená-los e convertê-los em um arquivo único, com subsequente
 armazenamento no disco em segmentos de arquivos. Estes arquivos são registrados
 com uma timestamp, refletindo o instante de criação do arquivo de gravação.
 
 Além disso, há a possibilidade de vincular o gravador a um indexador,
-responsável por arquivar os vídeos em um banco de dados SQL. Posteriormente,
+responsável por arquivar os vídeos em um banco de dados. Posteriormente,
 exploraremos como essa funcionalidade pode ser vantajosa na criação de uma API
 que simplifica o processo de busca e recuperação de transmissões de vídeo
 anteriores. No entanto, é importante salientar que a implementação do indexador
 não se torna mandatória, a menos que corresponda a uma necessidade específica
 do usuário.
+
+O indexador se integra com o gravador da seguinte maneira:
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.5\linewidth]{recorder_indexer.pdf}
+	\caption[Exemplo de arquiteutra de transmissão]{Interação do indexador com o gravador}
+	\label{fig:graficosVariandoTamanhoRede}
+\end{figure}
 
 %TCC:
 %TCC:
