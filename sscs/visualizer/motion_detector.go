@@ -4,6 +4,7 @@ import (
 	"image"
 	"sscs/helpers"
 	BaseLogger "sscs/logger"
+	"sync"
 
 	"github.com/sirupsen/logrus"
 	"gocv.io/x/gocv"
@@ -11,6 +12,7 @@ import (
 
 type MotionDetector struct {
 	logger *logrus.Entry
+	wg     sync.WaitGroup
 
 	frameChan <-chan image.Image
 	stopCh    chan struct{}
@@ -26,22 +28,27 @@ func NewMotionDetector(fchan chan image.Image) *MotionDetector {
 	return r
 }
 
-func (m *MotionDetector) Start() {
+func (m *MotionDetector) Start() error {
 	// Ensure the recordings directory exists
 	err := helpers.EnsureDirectoryExists("./thumbs")
 	if err != nil {
 		m.logger.Errorf("%v", err)
-		return
+		return err
 	}
-
-	go m.loop()
+	m.wg.Add(1)
+	go m.view()
+	return nil
 }
 
-func (m *MotionDetector) Stop() {
-	close(m.stopCh) // signal to stop the loop
+func (m *MotionDetector) Stop() error {
+	close(m.stopCh) // signal to stop the view
+	m.wg.Wait()     // Wait for the recording goroutine to finish
+	return nil
 }
 
-func (m *MotionDetector) loop() {
+func (m *MotionDetector) view() error {
+	defer m.wg.Done()
+
 	// Initialize gocv structures needed for motion detection.
 	mog2 := gocv.NewBackgroundSubtractorMOG2()
 
@@ -50,7 +57,7 @@ func (m *MotionDetector) loop() {
 		select {
 		case frame, ok := <-m.frameChan:
 			if !ok {
-				// channel was closed and drained, handle the closure, perhaps break the loop
+				// channel was closed and drained, handle the closure, perhaps break the view
 				break
 			}
 			if frame == nil {
@@ -80,7 +87,7 @@ func (m *MotionDetector) loop() {
 
 		case <-m.stopCh:
 			m.logger.Info("received stop signal")
-			return // Exit the loop when stop signal is received.
+			return nil // Exit the view when stop signal is received.
 		}
 	}
 }

@@ -44,14 +44,14 @@ func New(args []string) *Core {
 
 	dsn := cfg.Indexer.DbUrl
 	i, err := indexer.NewEventIndexer(dsn, recordChan)
-	i.Start()
-
-	v := visualizer.NewMotionDetector(frameChan)
-	v.Start()
 
 	if err != nil {
 		panic(err) // or handle the error more gracefully, based on your application's needs
 	}
+
+	i.Start()
+	v := visualizer.NewMotionDetector(frameChan)
+	v.Start()
 
 	ctx, ctxCancel := context.WithCancel(context.Background())
 
@@ -63,6 +63,7 @@ func New(args []string) *Core {
 		config:     cfg,
 		recorder:   r,
 		indexer:    i,
+		visualizer: v,
 		Logger:     BaseLogger.BaseLogger.WithField("package", "core"),
 	}
 
@@ -107,7 +108,13 @@ outer:
 }
 
 func (p *Core) closeResources() {
-	p.visualizer.Stop()
-	p.indexer.Stop()
-	p.recorder.Stop()
+	if p.visualizer != nil {
+		p.visualizer.Stop()
+	}
+	if p.indexer != nil {
+		p.indexer.Stop()
+	}
+	if p.recorder != nil {
+		p.recorder.Stop()
+	}
 }
