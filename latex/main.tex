@@ -174,11 +174,16 @@ brazil]{facom-ufu-abntex2}
 	\item[AVC] Advanced Video Coding
 	\item[HEVC] High Efficiency Video Coding
 	\item[VMS] Video surveillance Management System
+	\item[FPS] Frames Per Second
 	\item[API] Application Programming Interface
 	\item[DVR] Digital Video Recorder
 	\item[NVR] Network Video Recorder
 	\item[REST] Representational State Transfer
 	\item[HSL] HTTP Live Streaming
+	\item[RTSP] Real-time Streaming Protocol
+	\item[RTP] Real-time Transport Protocol
+	\item[WebRTC] Web Real-time Communication
+	\item[SRT] Secure Reliable Tranposrt
 	\item[RTMP] Real Time Messaging Protocol
 	\item[LBPH] Local Binary Patterns Histogram
 
@@ -324,24 +329,63 @@ relacionados à arquitetura do sistema que será desenvolvido, aos protocolos,
 técnicas de reconhecimento de imagem, compressão, técnicas de software e demais
 elementos necessários para a materialização da solução proposta.
 
-% \section{Arquitetura de transmissão em tempo real}
+\section{Elementos genéricos de um sistema de multimídia}
 
-% A figura abaixo mostra um sistema de cliente-servidor para trocar de dados de
-% multimídia. Na origem, tem-se a gravação comprimida, codificada e armazenada no
-% dispositivo de armazenamento, como um disco rígido, por exemplo. Em seguida,
-% por meio de algum software de tratamento de mídia que será produzido, esses
-% arquivos são requisitados por usuários e entregues de acordo. Um protocolo de
-% transferência é utilizado para entregar os dados de multimídia para o cliente
-% (tais como RTMP ou HLS), onde eles são primeiramente armazenados na memória
-% principal e eventualmente decodificados e apresentados ao usuário.
-% \cite{lee2005scalable}
+A figura abaixo mostra um sistema de cliente-servidor para transmissão de dados
+de multimídia. Na origem, tem-se a gravação comprimida, codificada e armazenada
+no dispositivo de armazenamento, como um disco rígido, por exemplo. Em seguida,
+por meio de algum software de mídia, esses arquivos são requisitados por
+usuários e entregues de acordo. Uma Network Interface Card (NIC na figura)
+então usa um protocolo de transmissão via rede para entregar os dados de
+multimídia para o cliente (tais como RTMP, HLS, RTSP, WebRTC), onde eles são
+primeiramente armazenados na memória principal ou disco e eventualmente
+decodificados e apresentados ao usuário.
 
-% \begin{figure}[!ht]
-% 	\centering
-% 	\includegraphics[width=1\linewidth]{Capturar.PNG}
-% 	\caption[Representação de um arquitetura de tempo real genérica]{Arquitetura genérica de transmissão em tempo real}
-% 	\label{fig:graficosVariandoTamanhoRede}
-% \end{figure}
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=1\linewidth]{Capturar.PNG}
+	\caption[Representação de um arquitetura de tempo real genérica]{Arquitetura genérica de transmissão em tempo real}
+	\label{fig:graficosVariandoTamanhoRede}
+\end{figure}
+
+Uma característica única deste modelo de sistema é que os componentes do
+sistema envolvidos trabalham em conjunto no processo de entrega de dados.
+Assim, um problema em qualquer um dos componentes do sistema pode degradar o
+desempenho de toda a cadeia.
+
+\subsection{Dados de mídia}
+
+O 'multi' em multimídia refere-se a múltiplos meios de comunicação do mesmo
+tipo ou de tipos diferentes que são criados, entregues e apresentados juntos.
+Existem muitos tipos diferentes de mídia, desde o texto simples mais básico,
+até texto formatado, gráficos, imagens, áudio, vídeo ou até mesmo informações
+táteis. Podemos classificar amplamente esses diversos tipos de mídia em duas
+categorias principais, especialmente no contexto da entrega de dados
+multimídia: mídias discreta ou contínuas.
+
+As discretas referem-se às que não possuem nenhum requerimento explícito de
+tempo de apresentação. Por exemplo, buscar na rede para exibi-la no navegador.
+Dependendo da largura de banda disponível, o navegador pode levar um tempo
+largamente variável até receber a imagem antes que ela seja decodificada e em
+seguida apresentada. Obviamente, é preferível que esse processo seja o mais
+breve o possível, mas desde que os dados da imagem sejam recebidos
+corretamente, renderizados e apresentados, a requisição é considerada bem
+sucedida. Em outras palavras, não há restrição inerente nos dados de mídia que
+exigem a apresentação em um prazo de tempo ou limite de atraso. É por isso que
+o tráfego de rede criado pela entrega de mídia discreta é chamado tráfego
+elástico. Esse nome refere-se à possibilidade de tolerar variações em tempo de
+atraso.
+
+As contínuas, em contrapartida, possuem um prazo de tempo para a apresentação
+embarcados nos seus dados de mídia. Por exemplo, dados de vídeo estão
+geralmente codificados em quadros que precisam ser apresentados sequencialmente
+em uma frequência específica como 25 FPS. Portanto, para apresentar o vídeo
+corretamente é necessário não só receber os dados corretamente como também
+sequenciar de acordo com os tempos especificados. Falhas no sequenciamento
+podem causar degradações perceptíveis na qualidade do vídeo (movimentação lenta
+ou fatiada) mesmo se a transmissão foi bem sucedida. Nesse sentido, tráfego de
+rede proveniente de mídia contínua também é conhecido como tráfego
+não-elástico, pois precisa manter o tempo íntegro. \cite{lee2005scalable}
 
 % \section{Sistema distribuído aberto}
 
@@ -437,9 +481,45 @@ e vantagens em relação ao microsserviço.
 
 \section{Protoclo RTSP}
 
-Explciar como o protocolo RTSP é usado para pegar o feed das imagens. Existe o
-RFC to protocolo RTSP aqui:
-% https://www.rfc-editor.org/rfc/rfc2326#page-71
+O Real-time Streaming Protocol (RTSP) é um protocolo da camada de aplicação
+projetado para controlar a entrega de dados de mídia (por exemplo, reproduzir,
+pausar e buscar) com informações de tempo embutidas, como áudio e vídeo. O
+protocolo é independente do protocolo de camada inferior. Assim, o RTSP pode
+ser transmitido por meio de TCP, UDP ou outros protocolos de transporte. A
+sintaxe do RTSP compartilha muitas semelhanças com o HTTP/1.1, simplificando
+assim a implementação e a implantação. No entanto, além das semelhanças de
+sintaxe, o RTSP difere do HTTP em muitos aspectos importantes. 
+
+Primeiro, ao contrário do HTTP, o RTSP é um protocolo com estado, exigindo que o host
+mantenha informações de estado de uma sessão de streaming em várias requisições
+RTSP. Segundo, tanto o servidor quanto o cliente RTSP podem emitir requisições
+RTSP. Finalmente, os dados de mídia devem ser entregues fora do canal
+principal, ou seja, usando um protocolo separado, como, mas não limitado a, o
+Protocolo de Transporte em Tempo Real (RTP). 
+
+Em uma aplicação de streaming típica (veja a figura abaixo), o cliente primeiro obterá um arquivo de descrição de
+apresentação usando métodos fora do canal principal (por exemplo, através da
+web usando HTTP). O arquivo de descrição de apresentação descreve uma ou mais
+apresentações, cada uma composta por uma ou mais transmissões de mídia
+sincronizadas. O arquivo de descrição de apresentação também contém
+propriedades das transmissões de mídia, como o formato de codificação, para
+permitir que o cliente selecione e se prepare para a reprodução da mídia. Cada
+transmissão de mídia controlável é identificada por uma URL RTSP separada, que
+é semelhante à URL HTTP no sentido de que identifica o servidor que hospeda a
+transmissão de mídia e o caminho lógico que identifica a transmissão de mídia.
+Observe que as transmissões de mídia em uma apresentação podem vir de vários
+servidores e cada transmissão é controlada por meio de uma sessão RTSP
+separada. \cite{rfc2326}
+
+\clearpage
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\linewidth]{rtsp.pdf}
+	\caption[Diagrama RTSP]{Transmissão de mídia usando o RTSP, início ao fim. }
+	\label{fig:rtspDiagram}
+\end{figure}
+
 
 \section{Conteinerização}
 
@@ -596,7 +676,7 @@ outros foram adicionados. O agrupamento final estabilizou-se no início dos anos
 Esses princípios, se aplicados em conjunto e habilmente, tornam o código mais
 limpo, legível, organizado e de fácil manutenção. \cite{martin2017clean}
 
-\section{Proxy}
+\section{Servidor Proxy}
 
 Explicar o porquê de às vezes usar um proxy. Às vezes queremos dar um feed de
 imagem, mas não tem como fazer uma conexão direta ao sistema que está provendo
@@ -1048,7 +1128,7 @@ O indexador se integra com o gravador da seguinte maneira:
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[width=0.8\linewidth]{recorder_indexer.pdf}
+	\includegraphics[width=0.7\linewidth]{recorder_indexer.pdf}
 	\caption[Exemplo de arquiteutra de transmissão]{Interação do indexador com o gravador}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
