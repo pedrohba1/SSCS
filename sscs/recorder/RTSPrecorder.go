@@ -88,7 +88,6 @@ func (r *RTSPRecorder) sendFrame(frame image.Image) error {
 		r.logger.Info("buffer is full")
 		return nil
 	}
-
 }
 
 func (r *RTSPRecorder) record() error {

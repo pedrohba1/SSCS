@@ -286,8 +286,8 @@ Os objetivos específicos envolvem:
 	      vários hardwares diferentes.
 	\item Implementar uma funcionalidade de visualização em tempo real de imagens
 	      provenientes de câmeras.
-	\item Incorporar algoritmos de visão computacional para análise e
-	      processamento das imagens em tempo real.
+	\item Incorporar algoritmos de visão computacional para análise e processamento das
+	      imagens em tempo real.
 	\item Projetar e desenvolver um módulo de armazenamento flexível, permitindo opções
 	      tanto locais quanto em nuvem.
 	\item Habilitar a busca de vídeos com critérios baseados nas identificações
@@ -676,11 +676,11 @@ os quadros de referência são periodicamente atualizados. Isso assegura que
 quadros-chave (I-frames) sejam inseridos regularmente para preservar a
 qualidade visual durante a transmissão de vídeo. Também utilizam-se várias
 técnicas avançadas de compressão de vídeo para eficientemente codificar quadros
-P e B. Uma dessas técnicas é a "predição de
-movimento", que identifica padrões de movimento nos quadros de referência e
-registra apenas as diferenças entre o quadro atual e as previsões de movimento
-dos quadros de referência. Isso economiza espaço de armazenamento e largura de
-banda, eliminando informações redundantes.
+P e B. Uma dessas técnicas é a "predição de movimento", que identifica padrões
+de movimento nos quadros de referência e registra apenas as diferenças entre o
+quadro atual e as previsões de movimento dos quadros de referência. Isso
+economiza espaço de armazenamento e largura de banda, eliminando informações
+redundantes.
 
 Outra técnica crucial é a "transformada de blocos", onde os blocos de pixels em
 um quadro são convertidos em coeficientes de frequência por meio da Discrete
@@ -701,10 +701,10 @@ dispositivos e aplicativos.
 \chapter{Método de Desenvolvimento}
 
 A metodologia selecionada para o avanço deste projeto se baseia, inicialmente,
-em um exame das soluções de hardware e software atualmente presentes no mercado. O
-objetivo é compreender suas características, funcionalidades e deficiências.
-Esse estudo, de caráter essencialmente qualitativo, procura identificar
-tendências, padrões e lacunas nas soluções existentes.
+em um exame das soluções de hardware e software atualmente presentes no
+mercado. O objetivo é compreender suas características, funcionalidades e
+deficiências. Esse estudo, de caráter essencialmente qualitativo, procura
+identificar tendências, padrões e lacunas nas soluções existentes.
 
 Em seguida, serão exploradas as tecnologias e técnicas comumente adotadas na
 indústria. Essa investigação abrange desde protocolos de transporte até
@@ -872,13 +872,13 @@ identificação precisa, como instituições financeiras no geral, cassinos e á
 de infraestrutura crítica como usinas de energia e estações de tratamento.
 
 Repare que além da resolução o tipo de compressão pode afetar drasticamente o
-tamanho. MJPEG, por ser um formato antigo usado pela primeira em meados de 1990,
-é bem menos eficiente mas amplamente adotado. H.264, também conhecido como AVC,
-é bem mais eficiente e não deixa de ser comum para compressão de vídeos em HD.
-Por último, o H.265, ou HEVC, é um dos métodos mais eficientes mas nem sempre
-suportado pelos equipamentos de NVR e DVR. Até mesmo alguns protocolos de
-transmissão de vídeo em rede como o WebRTC e RTMP não possuem suporte esse
-padrão.
+tamanho. MJPEG, por ser um formato antigo usado pela primeira em meados de
+1990, é bem menos eficiente mas amplamente adotado. H.264, também conhecido
+como AVC, é bem mais eficiente e não deixa de ser comum para compressão de
+vídeos em HD. Por último, o H.265, ou HEVC, é um dos métodos mais eficientes
+mas nem sempre suportado pelos equipamentos de NVR e DVR. Até mesmo alguns
+protocolos de transmissão de vídeo em rede como o WebRTC e RTMP não possuem
+suporte esse padrão.
 
 \subsection{vulnerabilidades de segurança}
 
@@ -907,7 +907,6 @@ escolha armazenamento, como forma de mitigar vulnerabilidades.
 
 \subsection{custos de operação}
 
-
 % TODO: verificar se essa parte toda aqui que eu falei sobre os protocolos faz sentido de estar aqui.
 % ao meu ver perdeu um pouco do sentido e parece mais fazer parte do desenvolvimento em si
 
@@ -928,7 +927,10 @@ relacionados).
 Nesta seção, apresentaremos uma análise detalhada do processo de construção do
 SSCS. O sistema foi projetado com uma arquitetura modular, composta por
 componentes independentes, o que justifica a escolha de representá-los por meio
-de diagramas de componentes do UML.
+de diagramas de componentes do UML. Os componentes são definidos por um
+conjunto de métodos essenciais que admitem várias implementações, adaptáveis às
+demandas do usuário. Contudo, é importante que essas implementações obedeçam a
+certos padrões para garantir que o sistema opere de forma coesa e integrada.
 
 Para possibilitar testes e criar um ambiente de desenvolvimento que reproduza
 fielmente as condições em que o sistema operará quando implantado em um
@@ -1022,7 +1024,9 @@ transmissão de RTSP para WebRTC ou HLS, realizar balanceamento de carga, ou at�
 mesmo implementar autenticação externa.
 
 À seguir, será apresentada uma visão geral de cada componente do sistema, sua função, como ele interage
-com as outras partes do sistema, e alguns detalhes de implementação.
+com as outras partes do sistema e detalhes de implementação. Note que cada componente é abstrato. Ou seja,
+é uma base que deve ser adaptada de acordo com os protocolos, formato de imagem, banco de dados e outros detalhes
+específicos de implementação.
 
 \section{Gravador e indexador}
 
@@ -1044,10 +1048,37 @@ O indexador se integra com o gravador da seguinte maneira:
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[width=0.5\linewidth]{recorder_indexer.pdf}
+	\includegraphics[width=0.8\linewidth]{recorder_indexer.pdf}
 	\caption[Exemplo de arquiteutra de transmissão]{Interação do indexador com o gravador}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
+
+No contexto do desenvolvimento em Go, o método \texttt{record} implementado
+pelo componente \texttt{Recorder} é privado, o que significa que sua
+acessibilidade se restringe ao pacote onde foi declarado. Este método é uma
+função por onde a funcionalidade de gravação é exposta ao servidor de mídia.
+Normalmente, uma entidade do tipo \texttt{MediaServer} forneceria uma interface
+para que o Recorder desempenhe suas operações de gravação. Porém, a
+implementação não é exclusiva a um componente específico. Qualquer sistema que
+tenha a capacidade de transmitir mídia utilizando os protocolos RTSP, WebRTC ou
+SRT pode ser integrado também, assumindo que o componente de gravador
+
+Para realizar a comunicação com o indexador de maneira eficiente, utiliza-se a
+interface provida \texttt{RecordedEvent}, que encapsula informações como o
+tempo de início e término da gravação. Esta estrutura compartilhada é
+transmitida através de um canal com buffer, permitindo assim que o gravador
+continue seu processo sem aguardar a finalização do indexador para cada evento
+de gravação. Em contraste, se um canal sem buffer fosse utilizado, o gravador
+necessitaria esperar pela conclusão da indexação de cada evento antes de
+iniciar a gravação subsequente, resultando em uma sincronização mais rígida e
+potencialmente uma latência maior no sistema, o que seria menos vantajoso.
+
+A interface \texttt{sendFrame} aloca quadros de vídeo em um canal. Em relação a
+comunicação com outros componentes, seu funcionamento é semelhante ao da
+interface anterior, utilizando também um canal com buffer. A diferença está
+apenas no tamanho do buffer do canal. A responsabilidade dessa interface é
+pegar quadros recebidos pelo gravador e enviá-los para a leitura por detectores
+de imagem.
 
 %TCC:
 %TCC:
