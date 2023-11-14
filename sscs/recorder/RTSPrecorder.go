@@ -20,11 +20,11 @@ type RTSPRecorder struct {
 	rtspURL string
 	client  *gortsplib.Client
 	logger  *logrus.Entry
-	feed    CameraFeed
 
-	wg       sync.WaitGroup
-	recordIn chan<- RecordedEvent
-	stopCh   chan struct{}
+	wg        sync.WaitGroup
+	recordIn  chan<- RecordedEvent
+	frameChan chan<- image.Image
+	stopCh    chan struct{}
 }
 
 func ensureDirectoryExists(dir string) error {
@@ -34,11 +34,12 @@ func ensureDirectoryExists(dir string) error {
 	return nil
 }
 
-func NewRTSPRecorder(rtspURL string, recordChan chan RecordedEvent) *RTSPRecorder {
+func NewRTSPRecorder(rtspURL string, recordChan chan RecordedEvent, fchan chan image.Image) *RTSPRecorder {
 	r := &RTSPRecorder{
-		rtspURL:  rtspURL,
-		recordIn: recordChan,
-		stopCh:   make(chan struct{}),
+		rtspURL:   rtspURL,
+		recordIn:  recordChan,
+		frameChan: fchan,
+		stopCh:    make(chan struct{}),
 	}
 	r.setupLogger()
 
@@ -67,20 +68,28 @@ func (r *RTSPRecorder) Start() error {
 }
 
 func (r *RTSPRecorder) Stop() error {
-	close(r.stopCh)  // Signal the recording goroutine to stop
+	close(r.stopCh) // Signal the recording goroutine to stop
+	close(r.frameChan)
 	r.wg.Wait()      // Wait for the recording goroutine to finish
 	r.client.Close() // Close the RTSP connection
 	return nil
 }
 
-// This example requires the FFmpeg libraries, that can be installed with this command:
+// This code requires the FFmpeg libraries, that can be installed with this command:
 // apt install -y libavformat-dev libswscale-dev gcc pkg-config
 
-func (r *RTSPRecorder) addToFeed(img image.Image) error {
-	r.feed.Lock()
-	r.feed.Frame = img
-	r.feed.Unlock()
-	return nil
+func (r *RTSPRecorder) sendFrame(frame image.Image) error {
+	select {
+	case r.frameChan <- frame:
+		// Frame sent successfully
+		return nil
+	case <-r.stopCh:
+		r.logger.Info("received stop signal")
+		return nil
+	default:
+		return nil
+	}
+
 }
 
 func (r *RTSPRecorder) record() error {
@@ -195,7 +204,7 @@ func (r *RTSPRecorder) record() error {
 			// You can now process, save, or stream this image as needed.
 			// For example, to save as a JPEG:
 			if iFrameReceived {
-				err = r.addToFeed(img) // Function from your first snippet.
+				err = r.sendFrame(img)
 			}
 			if err != nil {
 				r.logger.Errorf("Failed to save image: %v", err)

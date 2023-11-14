@@ -2,12 +2,14 @@ package core
 
 import (
 	"context"
+	"image"
 	"os"
 	"os/signal"
 	"sscs/conf"
 	"sscs/indexer"
 	BaseLogger "sscs/logger"
 	"sscs/recorder"
+	"sscs/visualizer"
 
 	"github.com/sirupsen/logrus"
 )
@@ -20,14 +22,12 @@ type Core struct {
 	Logger     *logrus.Entry
 	recorder   recorder.Recorder
 	indexer    indexer.Indexer
-
-	done chan struct{}
+	visualizer visualizer.Visualizer
+	done       chan struct{}
 }
 
 // creates a new core
 func New(args []string) *Core {
-	// Extract the config path from the args or define a default
-	// This is just a placeholder; you might extract it differently
 	configPath := args[0] // assumes args[0] has the config path
 
 	// Read the configuration using ReadConf
@@ -38,13 +38,16 @@ func New(args []string) *Core {
 
 	// start resources
 	recordChan := make(chan recorder.RecordedEvent, 1)
-	r := recorder.NewRTSPRecorder(cfg.RTSP.Feeds[0], recordChan)
+	frameChan := make(chan image.Image, 5)
+	r := recorder.NewRTSPRecorder(cfg.RTSP.Feeds[0], recordChan, frameChan)
 	r.Start()
 
 	dsn := cfg.Indexer.DbUrl
-
 	i, err := indexer.NewEventIndexer(dsn, recordChan)
 	i.Start()
+
+	v := visualizer.NewMotionDetector(frameChan)
+	v.Start()
 
 	if err != nil {
 		panic(err) // or handle the error more gracefully, based on your application's needs
@@ -107,6 +110,7 @@ func (p *Core) closeResources() {
 	if p.recorder != nil {
 		p.recorder.Stop()
 		p.indexer.Stop()
+
 	}
 
 }
