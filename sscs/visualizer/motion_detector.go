@@ -2,6 +2,7 @@ package visualizer
 
 import (
 	"image"
+	"sscs/helpers"
 	BaseLogger "sscs/logger"
 
 	"github.com/sirupsen/logrus"
@@ -26,7 +27,18 @@ func NewMotionDetector(fchan chan image.Image) *MotionDetector {
 }
 
 func (m *MotionDetector) Start() {
+	// Ensure the recordings directory exists
+	err := helpers.EnsureDirectoryExists("./thumbs")
+	if err != nil {
+		m.logger.Errorf("%v", err)
+		return
+	}
+
 	go m.loop()
+}
+
+func (m *MotionDetector) Stop() {
+	close(m.stopCh) // signal to stop the loop
 }
 
 func (m *MotionDetector) loop() {
@@ -36,7 +48,15 @@ func (m *MotionDetector) loop() {
 	// Loop to read frames and detect motion.
 	for {
 		select {
-		case frame := <-m.frameChan:
+		case frame, ok := <-m.frameChan:
+			if !ok {
+				// channel was closed and drained, handle the closure, perhaps break the loop
+				break
+			}
+			if frame == nil {
+				m.logger.Info("nil frame received, continuing...")
+				continue
+			}
 			// Convert image.Image to gocv.Mat.
 			mat, err := gocv.ImageToMatRGB(frame)
 			if err != nil {
@@ -51,10 +71,7 @@ func (m *MotionDetector) loop() {
 			// Check for motion in the foreground mask.
 			if gocv.CountNonZero(fgMask) > 0 {
 				// Motion detected, save the frame.
-				img, err := mat.ToImage()
-				if err == nil {
-					saveToFile(img)
-				}
+				saveToFile(frame)
 			}
 
 			// Clean up.
@@ -62,6 +79,7 @@ func (m *MotionDetector) loop() {
 			fgMask.Close()
 
 		case <-m.stopCh:
+			m.logger.Info("received stop signal")
 			return // Exit the loop when stop signal is received.
 		}
 	}

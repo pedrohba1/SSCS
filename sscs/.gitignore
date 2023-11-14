@@ -6,4 +6,7 @@ samples/*
 mystream.ts
 
 recordings/*
+thumbs/*
+
 !recordings/.gitkeep
+!thumbs/.gitkeep

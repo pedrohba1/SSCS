@@ -38,7 +38,7 @@ func New(args []string) *Core {
 
 	// start resources
 	recordChan := make(chan recorder.RecordedEvent, 1)
-	frameChan := make(chan image.Image, 5)
+	frameChan := make(chan image.Image, 1)
 	r := recorder.NewRTSPRecorder(cfg.RTSP.Feeds[0], recordChan, frameChan)
 	r.Start()
 
@@ -107,10 +107,7 @@ outer:
 }
 
 func (p *Core) closeResources() {
-	if p.recorder != nil {
-		p.recorder.Stop()
-		p.indexer.Stop()
-
-	}
-
+	p.visualizer.Stop()
+	p.indexer.Stop()
+	p.recorder.Stop()
 }

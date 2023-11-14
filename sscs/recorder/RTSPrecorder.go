@@ -2,9 +2,9 @@ package recorder
 
 import (
 	"image"
-	"os"
 	"sync"
 
+	"sscs/helpers"
 	BaseLogger "sscs/logger"
 
 	"github.com/aler9/gortsplib/pkg/h264"
@@ -25,13 +25,6 @@ type RTSPRecorder struct {
 	recordIn  chan<- RecordedEvent
 	frameChan chan<- image.Image
 	stopCh    chan struct{}
-}
-
-func ensureDirectoryExists(dir string) error {
-	if _, err := os.Stat(dir); os.IsNotExist(err) {
-		return os.MkdirAll(dir, 0755) // 0755 means everyone can read, owner can write
-	}
-	return nil
 }
 
 func NewRTSPRecorder(rtspURL string, recordChan chan RecordedEvent, fchan chan image.Image) *RTSPRecorder {
@@ -62,14 +55,20 @@ func (r *RTSPRecorder) Start() error {
 		return err
 	}
 
+	// Ensure the recordings directory exists
+	err = helpers.EnsureDirectoryExists("./recordings")
+	if err != nil {
+		r.logger.Errorf("%v", err)
+		return err
+	}
+
 	r.wg.Add(1)
 	go r.record()
 	return nil
 }
 
 func (r *RTSPRecorder) Stop() error {
-	close(r.stopCh) // Signal the recording goroutine to stop
-	close(r.frameChan)
+	close(r.stopCh)  // Signal the recording goroutine to stop
 	r.wg.Wait()      // Wait for the recording goroutine to finish
 	r.client.Close() // Close the RTSP connection
 	return nil
@@ -81,12 +80,12 @@ func (r *RTSPRecorder) Stop() error {
 func (r *RTSPRecorder) sendFrame(frame image.Image) error {
 	select {
 	case r.frameChan <- frame:
-		// Frame sent successfully
 		return nil
 	case <-r.stopCh:
 		r.logger.Info("received stop signal")
 		return nil
 	default:
+		r.logger.Info("buffer is full")
 		return nil
 	}
 
@@ -119,13 +118,6 @@ func (r *RTSPRecorder) record() error {
 
 	// setup RTP/H264 -> H264 decoder
 	rtpDec, err := forma.CreateDecoder()
-	if err != nil {
-		r.logger.Errorf("%v", err)
-		return err
-	}
-
-	// Ensure the recordings directory exists
-	err = ensureDirectoryExists("./recordings")
 	if err != nil {
 		r.logger.Errorf("%v", err)
 		return err
@@ -207,7 +199,7 @@ func (r *RTSPRecorder) record() error {
 				err = r.sendFrame(img)
 			}
 			if err != nil {
-				r.logger.Errorf("Failed to save image: %v", err)
+				r.logger.Errorf("Failed to send frame: %v", err)
 				// Handle error as needed.
 			}
 		}
