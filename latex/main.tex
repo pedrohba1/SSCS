@@ -666,7 +666,7 @@ sequência de vídeo. Existem três tipos de quadros no H.264:
 	\item Quadros P (Predictive): São quadros que dependem do quadro I anterior e/ou de
 	      outros quadros P. Eles contêm apenas as diferenças entre o quadro atual e os
 	      quadros de referência.
-	\item Quadros B (Bidirectional): Dependem tanto dos quadros anteriores quanto dos
+	\item Quadros B (Bi-predictive): Dependem tanto dos quadros anteriores quanto dos
 	      futuros. Eles também contêm apenas as diferenças em relação aos quadros de
 	      referência.
 \end{itemize}
@@ -676,7 +676,7 @@ os quadros de referência são periodicamente atualizados. Isso assegura que
 quadros-chave (I-frames) sejam inseridos regularmente para preservar a
 qualidade visual durante a transmissão de vídeo. Também utilizam-se várias
 técnicas avançadas de compressão de vídeo para eficientemente codificar quadros
-P (Predictive) e B (Bidirectional). Uma dessas técnicas é a "predição de
+P e B. Uma dessas técnicas é a "predição de
 movimento", que identifica padrões de movimento nos quadros de referência e
 registra apenas as diferenças entre o quadro atual e as previsões de movimento
 dos quadros de referência. Isso economiza espaço de armazenamento e largura de
@@ -684,7 +684,7 @@ banda, eliminando informações redundantes.
 
 Outra técnica crucial é a "transformada de blocos", onde os blocos de pixels em
 um quadro são convertidos em coeficientes de frequência por meio da Discrete
-cosine transform (DCT). Essa conversão permite a compactação de informações, e
+Cosine Transform (DCT). Essa conversão permite a compactação de informações, e
 os coeficientes de alta frequência, que contêm menos detalhes visíveis, podem
 ser quantizados ou eliminados com perda mínima de qualidade. \cite{1626286}
 
