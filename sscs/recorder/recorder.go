@@ -1,6 +1,8 @@
 package recorder
 
 import (
+	"image"
+	"sync"
 	"time"
 )
 
@@ -16,4 +18,9 @@ type RecordedEvent struct {
 	VideoName string
 	StartTime time.Time
 	EndTime   time.Time
+}
+
+type CameraFeed struct {
+	sync.RWMutex
+	Frame image.Image
 }

@@ -1,11 +1,13 @@
 package recorder
 
 import (
+	"image"
 	"os"
 	"sync"
 
 	BaseLogger "sscs/logger"
 
+	"github.com/aler9/gortsplib/pkg/h264"
 	"github.com/bluenviron/gortsplib/v4"
 	"github.com/bluenviron/gortsplib/v4/pkg/format"
 	"github.com/bluenviron/gortsplib/v4/pkg/format/rtph264"
@@ -18,6 +20,7 @@ type RTSPRecorder struct {
 	rtspURL string
 	client  *gortsplib.Client
 	logger  *logrus.Entry
+	feed    CameraFeed
 
 	wg       sync.WaitGroup
 	recordIn chan<- RecordedEvent
@@ -70,6 +73,16 @@ func (r *RTSPRecorder) Stop() error {
 	return nil
 }
 
+// This example requires the FFmpeg libraries, that can be installed with this command:
+// apt install -y libavformat-dev libswscale-dev gcc pkg-config
+
+func (r *RTSPRecorder) addToFeed(img image.Image) error {
+	r.feed.Lock()
+	r.feed.Frame = img
+	r.feed.Unlock()
+	return nil
+}
+
 func (r *RTSPRecorder) record() error {
 	defer r.wg.Done()
 
@@ -88,15 +101,15 @@ func (r *RTSPRecorder) record() error {
 	}
 
 	// find the H264 media and format
-	var form *format.H264
-	medi := desc.FindFormat(&form)
+	var forma *format.H264
+	medi := desc.FindFormat(&forma)
 	if medi == nil {
 		r.logger.Warn("media not found")
 		return nil
 	}
 
 	// setup RTP/H264 -> H264 decoder
-	rtpDec, err := form.CreateDecoder()
+	rtpDec, err := forma.CreateDecoder()
 	if err != nil {
 		r.logger.Errorf("%v", err)
 		return err
@@ -110,10 +123,28 @@ func (r *RTSPRecorder) record() error {
 	}
 
 	// setup H264 -> MPEG-TS muxer
-	mpegtsMuxer, err := newMPEGTSMuxer(form.SPS, form.PPS)
+	mpegtsMuxer, err := newMPEGTSMuxer(forma.SPS, forma.PPS)
 	if err != nil {
 		return err
 	}
+
+	// setup H264 -> jpeg muxer
+	frameDec, err := newH264Decoder()
+	if err != nil {
+		r.logger.Errorf("%v", err)
+		return err
+	}
+
+	// if SPS and PPS are present into the SDP, send them to the decoder
+	if forma.SPS != nil {
+		frameDec.decode(forma.SPS)
+	}
+	if forma.PPS != nil {
+		frameDec.decode(forma.PPS)
+	}
+
+	defer frameDec.close()
+	defer r.logger.Info("returning")
 
 	// setup a single media
 	_, err = r.client.Setup(desc.BaseURL, medi, 0, 0)
@@ -122,7 +153,7 @@ func (r *RTSPRecorder) record() error {
 	}
 
 	// called when a RTP packet arrives
-	r.client.OnPacketRTP(medi, form, func(pkt *rtp.Packet) {
+	r.client.OnPacketRTP(medi, forma, func(pkt *rtp.Packet) {
 		// decode timestamp
 		pts, ok := r.client.PacketPTS(medi, pkt)
 		if !ok {
@@ -136,6 +167,40 @@ func (r *RTSPRecorder) record() error {
 				r.logger.Errorf("%v", err)
 			}
 			return
+		}
+
+		// wait for an I-frame
+		iFrameReceived := false
+		if !iFrameReceived {
+			if !h264.IDRPresent(au) {
+				iFrameReceived = true
+			}
+		}
+
+		// Loop over the NALUs and decode to frames.
+		for _, nalu := range au {
+			if err != nil {
+				r.logger.Errorf("Failed to decode NALU: %v", err)
+				continue // Skip this NALU if there's an error.
+			}
+
+			img, err := frameDec.decode(nalu) // Decode NALU to an image.
+
+			// wait for a frame
+			if img == nil {
+				continue
+			}
+
+			// At this point, 'img' is an image.Image containing your frame.
+			// You can now process, save, or stream this image as needed.
+			// For example, to save as a JPEG:
+			if iFrameReceived {
+				err = r.addToFeed(img) // Function from your first snippet.
+			}
+			if err != nil {
+				r.logger.Errorf("Failed to save image: %v", err)
+				// Handle error as needed.
+			}
 		}
 
 		// encode the access unit into MPEG-TS
