@@ -488,28 +488,28 @@ protocolo é independente do protocolo de camada inferior. Assim, o RTSP pode
 ser transmitido por meio de TCP, UDP ou outros protocolos de transporte. A
 sintaxe do RTSP compartilha muitas semelhanças com o HTTP/1.1, simplificando
 assim a implementação e a implantação. No entanto, além das semelhanças de
-sintaxe, o RTSP difere do HTTP em muitos aspectos importantes. 
+sintaxe, o RTSP difere do HTTP em muitos aspectos importantes.
 
-Primeiro, ao contrário do HTTP, o RTSP é um protocolo com estado, exigindo que o host
-mantenha informações de estado de uma sessão de streaming em várias requisições
-RTSP. Segundo, tanto o servidor quanto o cliente RTSP podem emitir requisições
-RTSP. Finalmente, os dados de mídia devem ser entregues fora do canal
-principal, ou seja, usando um protocolo separado, como, mas não limitado a, o
-Protocolo de Transporte em Tempo Real (RTP). 
+Primeiro, ao contrário do HTTP, o RTSP é um protocolo com estado, exigindo que
+o host mantenha informações de estado de uma sessão de streaming em várias
+requisições RTSP. Segundo, tanto o servidor quanto o cliente RTSP podem emitir
+requisições RTSP. Finalmente, os dados de mídia devem ser entregues fora do
+canal principal, ou seja, usando um protocolo separado, como, mas não limitado
+a, o Protocolo de Transporte em Tempo Real (RTP).
 
-Em uma aplicação de streaming típica (veja a figura abaixo), o cliente primeiro obterá um arquivo de descrição de
-apresentação usando métodos fora do canal principal (por exemplo, através da
-web usando HTTP). O arquivo de descrição de apresentação descreve uma ou mais
-apresentações, cada uma composta por uma ou mais transmissões de mídia
-sincronizadas. O arquivo de descrição de apresentação também contém
-propriedades das transmissões de mídia, como o formato de codificação, para
-permitir que o cliente selecione e se prepare para a reprodução da mídia. Cada
-transmissão de mídia controlável é identificada por uma URL RTSP separada, que
-é semelhante à URL HTTP no sentido de que identifica o servidor que hospeda a
-transmissão de mídia e o caminho lógico que identifica a transmissão de mídia.
-Observe que as transmissões de mídia em uma apresentação podem vir de vários
-servidores e cada transmissão é controlada por meio de uma sessão RTSP
-separada. \cite{rfc2326}
+Em uma aplicação de streaming típica (veja a figura abaixo), o cliente primeiro
+obterá um arquivo de descrição de apresentação usando métodos fora do canal
+principal (por exemplo, através da web usando HTTP). O arquivo de descrição de
+apresentação descreve uma ou mais apresentações, cada uma composta por uma ou
+mais transmissões de mídia sincronizadas. O arquivo de descrição de
+apresentação também contém propriedades das transmissões de mídia, como o
+formato de codificação, para permitir que o cliente selecione e se prepare para
+a reprodução da mídia. Cada transmissão de mídia controlável é identificada por
+uma URL RTSP separada, que é semelhante à URL HTTP no sentido de que identifica
+o servidor que hospeda a transmissão de mídia e o caminho lógico que identifica
+a transmissão de mídia. Observe que as transmissões de mídia em uma
+apresentação podem vir de vários servidores e cada transmissão é controlada por
+meio de uma sessão RTSP separada. \cite{rfc2326}
 
 \clearpage
 
@@ -519,7 +519,6 @@ separada. \cite{rfc2326}
 	\caption[Diagrama RTSP]{Transmissão de mídia usando o RTSP, início ao fim. }
 	\label{fig:rtspDiagram}
 \end{figure}
-
 
 \section{Conteinerização}
 
@@ -1106,7 +1105,7 @@ mesmo implementar autenticação externa.
 À seguir, será apresentada uma visão geral de cada componente do sistema, sua função, como ele interage
 com as outras partes do sistema e detalhes de implementação. Note que cada componente é abstrato. Ou seja,
 é uma base que deve ser adaptada de acordo com os protocolos, formato de imagem, banco de dados e outros detalhes
-específicos de implementação.
+específicos de implementação. Em cada seção, há também exemplos de implementações acrescentando os detalhes.
 
 \section{Gravador e indexador}
 
@@ -1117,19 +1116,19 @@ armazenamento no disco em segmentos de arquivos. Estes arquivos são registrados
 com uma timestamp, refletindo o instante de criação do arquivo de gravação.
 
 Além disso, há a possibilidade de vincular o gravador a um indexador,
-responsável por arquivar os vídeos em um banco de dados. Posteriormente,
-exploraremos como essa funcionalidade pode ser vantajosa na criação de uma API
-que simplifica o processo de busca e recuperação de transmissões de vídeo
-anteriores. No entanto, é importante salientar que a implementação do indexador
-não se torna mandatória, a menos que corresponda a uma necessidade específica
-do usuário.
+responsável por fazer referências os vídeos em um banco de dados.
+Posteriormente, exploraremos como essa funcionalidade pode ser vantajosa na
+criação de uma API que simplifica o processo de busca e recuperação de
+transmissões de vídeo anteriores. No entanto, é importante salientar que a
+implementação do indexador não se torna mandatória, a menos que corresponda a
+uma necessidade específica do usuário.
 
 O indexador se integra com o gravador da seguinte maneira:
 
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.7\linewidth]{recorder_indexer.pdf}
-	\caption[Exemplo de arquiteutra de transmissão]{Interação do indexador com o gravador}
+	\caption[Interação do indexador com o gravador]{Interação do indexador com o gravador}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
@@ -1151,7 +1150,8 @@ continue seu processo sem aguardar a finalização do indexador para cada evento
 de gravação. Em contraste, se um canal sem buffer fosse utilizado, o gravador
 necessitaria esperar pela conclusão da indexação de cada evento antes de
 iniciar a gravação subsequente, resultando em uma sincronização mais rígida e
-potencialmente uma latência maior no sistema, o que seria menos vantajoso.
+potencialmente uma latência maior no sistema, o que seria menos vantajoso em
+questões de performance.
 
 A interface \texttt{sendFrame} aloca quadros de vídeo em um canal. Em relação a
 comunicação com outros componentes, seu funcionamento é semelhante ao da
