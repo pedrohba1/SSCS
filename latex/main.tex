@@ -8,6 +8,15 @@ brazil]{facom-ufu-abntex2}
 
 \usepackage[brazil]{babel}
 \usepackage{graphicx}
+\usepackage{minted}
+% coisas relacionadas às cores do código:
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+
+
 \graphicspath{{figuras/}{pictures/}{images/}{./}} % where to search for the images
 
 \newcommand{\blue}[1]{\textcolor{blue}{#1}}
@@ -28,6 +37,7 @@ brazil]{facom-ufu-abntex2}
 \hypersetup{pdfkeywords={palavra 1}{palavra 2}{palavra 4}{palavra 4}{palavra 5}} %TCC
 
 \begin{document}
+
 \frenchspacing
 
 % ----------------------------------------------------------
@@ -288,7 +298,7 @@ Os objetivos específicos envolvem:
 	\item Desenvolver todo o software com código aberto e mantê-lo publicamente
 	      disponível no Github.
 	\item Usar a conteinerização como estratégia para conseguir portabilidade entre
-	      vários hardwares diferentes.
+	      vários hardwares e sistemas operacionais diferentes.
 	\item Implementar uma funcionalidade de visualização em tempo real de imagens
 	      provenientes de câmeras.
 	\item Incorporar algoritmos de visão computacional para análise e processamento das
@@ -299,7 +309,7 @@ Os objetivos específicos envolvem:
 	      realizadas pelos algoritmos de visão.
 	\item Possibilitar a customização do sistema, incluindo a adição de novas
 	      funcionalidades como notificações de eventos.
-	\item Adaptar o sistema para permitir variações no processamento de reconhecimento de
+	\item Adaptar o sistema para permitir variações nos métodos de reconhecimento de
 	      imagens, seja em transmissões ao vivo ou em vídeos arquivados.
 	\item Escrever testes automatizados e \textit{\foreignlanguage{english}{benchmarks}}
 	      para manter a qualidade do software e das soluções em um nível aceitável.
@@ -851,22 +861,21 @@ requerimentos de processamento e compatibilidade com outros tipos de software.
 O \textit{\foreignlanguage{english}{Streaming}} tradicional requer um protocolo
 \textit{\foreignlanguage{english}{stateful}} que estabelece uma sessão entre o
 servidor e o cliente. Nesse último método, a mídia é transmitida como uma
-corrente constante de pacotes por UDP ou TCP.
-% Como exemplo o Real Time
-% Streaming Protocol (RTSP) , baseado no Real-time Transport Protocol (RTP), que
-% é o mais comum para a transmissão de vídeo nas câmeras por IP: a vasta maioria
-% delas o integram como padrão.
-Já no método do streaming por \textit{\foreignlanguage{english}{download}}
-progressivo, usa-se um servidor HTTP para transferir o vídeo entre o cliente e
-o servidor, de maneira \textit{\foreignlanguage{english}{stateless}}. Os
-clientes fazem requisições de multimídia, que é enviado progressivamente para
-um buffer local. Assim que ele tem informação o suficiente, o vídeo começa a
-tocar. Se a taxa de \textit{\foreignlanguage{english}{playback}} excede a taxa
-de transmissão de dados, então o vídeo é interrompido até que o buffer seja
-preenchido adequadamente. O \textit{\foreignlanguage{english}{streaming}}
-adaptativo por sua vez, consiste em detectar a largura de banda de rede e
-capacidade de CPU do cliente para ajustar a qualidade do vídeo transmitido
-buscando a melhor opção para as condições dadas. Isso requer um
+corrente constante de pacotes por UDP ou TCP. Como exemplo o Real Time
+Streaming Protocol (RTSP), baseado no Real-time Transport Protocol (RTP), que
+é o mais comum para a transmissão de vídeo nas câmeras por IP: a vasta maioria
+delas o integram como padrão. Já no método do streaming por
+\textit{\foreignlanguage{english}{download}} progressivo, usa-se um servidor
+HTTP para transferir o vídeo entre o cliente e o servidor, de maneira
+\textit{\foreignlanguage{english}{stateless}}. Os clientes fazem requisições de
+multimídia, que é enviado progressivamente para um buffer local. Assim que ele
+tem informação o suficiente, o vídeo começa a tocar. Se a taxa de
+\textit{\foreignlanguage{english}{playback}} excede a taxa de transmissão de
+dados, então o vídeo é interrompido até que o buffer seja preenchido
+adequadamente. O \textit{\foreignlanguage{english}{streaming}} adaptativo por
+sua vez, consiste em detectar a largura de banda de rede e capacidade de CPU do
+cliente para ajustar a qualidade do vídeo transmitido buscando a melhor opção
+para as condições dadas. Isso requer um
 \textit{\foreignlanguage{english}{encoder}} para prover vídeo em múltiplos
 \textit{\foreignlanguage{english}{bit rates}} diferentes, ou múltiplos
 \textit{\foreignlanguage{english}{encoders}} e pode ser usada uma Content
@@ -1003,13 +1012,15 @@ relacionados).
 
 \chapter{Desenvolvimento}
 
-Nesta seção, apresentaremos uma análise detalhada do processo de construção do
-SSCS. O sistema foi projetado com uma arquitetura modular, composta por
+Nesta seção, apresentaremos uma descrição detalhada do processo de construção
+do SSCS. O sistema foi projetado com uma arquitetura modular, composta por
 componentes independentes, o que justifica a escolha de representá-los por meio
 de diagramas de componentes do UML. Os componentes são definidos por um
 conjunto de métodos essenciais que admitem várias implementações, adaptáveis às
 demandas do usuário. Contudo, é importante que essas implementações obedeçam a
 certos padrões para garantir que o sistema opere de forma coesa e integrada.
+
+\section{Ambiente de desenvolvimento}
 
 Para possibilitar testes e criar um ambiente de desenvolvimento que reproduza
 fielmente as condições em que o sistema operará quando implantado em um
@@ -1051,11 +1062,46 @@ minimizando assim as discrepâncias que geralmente surgem quando se transita
 entre diferentes plataformas e infraestruturas. Além disso, o Docker facilita a
 automação e a replicação de contêineres, o que acelera significativamente o
 ciclo de desenvolvimento, permitindo que os desenvolvedores se concentrem mais
-na lógica de aplicação do que em questões operacionais. Em um contexto onde a
+na lógica de aplicação do que em questões operacionais. Em um cenário onde a
 agilidade, a escalabilidade e a estabilidade são indispensáveis, a utilização
 do Docker não apenas otimiza o uso dos recursos e melhora o desempenho, mas
 também simplifica o processo de integração e entrega contínua (CI/CD),
-fundamentais para a evolução consistente do SSCS.
+fundamentais para a evolução consistente do SSCS. A seguir, está um dos
+métodos, utilizando-se essa ferramenta com o terminal, para replicar localmente
+os sistemas externos básicos dos quais o SSCS depende.
+
+\begin{minted}
+[%
+ breaklines,
+ mathescape,
+ linenos,
+ numbersep=5pt,
+ frame=single,
+ numbersep=5pt,
+ xleftmargin=0pt,
+ ]{make}
+ docker build -t sscs-mtx ./dev
+
+ docker run -d --rm --network=host -p 8554:8554 -p 8889:8889 \
+ -v ./dev/mediamtx.yml --name sscs-mtx sscs-mtx
+
+ docker run -d --rm --network=host --name sscs-postgres \
+ -e POSTGRES_PASSWORD=gorm -e POSTGRES_USER=gorm -e \ 
+ POSTGRES_DB=gorm -p 5432:5432 postgres
+\end{minted}
+
+Esse script realiza as seguintes ações:  primeiro constrói uma imagem Docker
+chamada \texttt{sscs-mtx} a partir de um Dockerfile no diretório
+\texttt{./dev}. Esse arquivo tem como base uma imagem do \texttt{mediamtx} e 
+responsável por encapsular as amostras de mídia. Depois, ele cria e inicializa um
+contêiner a partir dessa imagem, mapeia portas de rede e monta o arquivo de
+configuração \texttt{mediamtx.yml} dentro do contêiner. A intenção nesse caso é
+recriar um servidor de mídia localmente que contenha alguns vídeos para testes
+que podem ser consumidos pelo SSCS.
+
+Em seguida, ele cria e inicia outro contêiner usando a imagem oficial do
+PostgreSQL, configurando-o com variáveis de ambiente e mapeando a porta 5432.
+Ambos os contêineres usam a rede do host para comunicação.
 
 No diretório \texttt{/sscs/dev}, presente no repositório de código do projeto,
 encontram-se todos os arquivos requeridos para a construção do contêiner que
@@ -1067,15 +1113,15 @@ os testes automatizados utilizam um contêiner similar, porém este inclui um
 executável do SSCS, garantindo que as funcionalidades sejam testadas num
 contexto que replica fielmente o ambiente de produção.
 
-Em uma perspectiva ampla, o sistema assume uma configuração que envolve dois
-componentes: um encarregado da transferência das imagens da câmera para um
-servidor intermediário e outro, o servidor intermediário, que cria uma corrente
-de multimídia destinada ao SSCS.
+Por alto nível, o sistema assume uma configuração que envolve a comunicação entre dois componentes:
+um encarregado da transferência das imagens da câmera para um servidor
+intermediário e outro, o servidor intermediário, que cria uma corrente de
+multimídia destinada ao SSCS.
 
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1\linewidth]{arch1.pdf}
-	\caption[Exemplo de arquiteutra de transmissão]{Arquitetura de transmissão, múltiplas fontes para um servidor de mídia}
+	\caption[Exemplo de arquitetura de transmissão]{Arquitetura de transmissão, múltiplas fontes para um servidor de mídia}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
@@ -1127,14 +1173,14 @@ O indexador se integra com o gravador da seguinte maneira:
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[width=0.7\linewidth]{recorder_indexer.pdf}
+	\includegraphics[width=0.6\linewidth]{recorder_indexer.pdf}
 	\caption[Interação do indexador com o gravador]{Interação do indexador com o gravador}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
-No contexto do desenvolvimento em Go, o método \texttt{record} implementado
-pelo componente \texttt{Recorder} é privado, o que significa que sua
-acessibilidade se restringe ao pacote onde foi declarado. Este método é uma
+No contexto do desenvolvimento em Go, o método \mintinline{golang}{record}
+implementado pelo componente \texttt{Recorder} é privado, o que significa que
+sua acessibilidade se restringe ao pacote onde foi declarado. Este método é uma
 função por onde a funcionalidade de gravação é exposta ao servidor de mídia.
 Normalmente, uma entidade do tipo \texttt{MediaServer} forneceria uma interface
 para que o Recorder desempenhe suas operações de gravação. Porém, a
@@ -1159,6 +1205,8 @@ interface anterior, utilizando também um canal com buffer. A diferença está
 apenas no tamanho do buffer do canal. A responsabilidade dessa interface é
 pegar quadros recebidos pelo gravador e enviá-los para a leitura por detectores
 de imagem.
+
+\subsection{Implementação de gravador com RTSP}
 
 %TCC:
 %TCC:
