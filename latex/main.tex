@@ -862,8 +862,8 @@ O \textit{\foreignlanguage{english}{Streaming}} tradicional requer um protocolo
 \textit{\foreignlanguage{english}{stateful}} que estabelece uma sessão entre o
 servidor e o cliente. Nesse último método, a mídia é transmitida como uma
 corrente constante de pacotes por UDP ou TCP. Como exemplo o Real Time
-Streaming Protocol (RTSP), baseado no Real-time Transport Protocol (RTP), que
-é o mais comum para a transmissão de vídeo nas câmeras por IP: a vasta maioria
+Streaming Protocol (RTSP), baseado no Real-time Transport Protocol (RTP), que é
+o mais comum para a transmissão de vídeo nas câmeras por IP: a vasta maioria
 delas o integram como padrão. Já no método do streaming por
 \textit{\foreignlanguage{english}{download}} progressivo, usa-se um servidor
 HTTP para transferir o vídeo entre o cliente e o servidor, de maneira
@@ -1090,11 +1090,11 @@ os sistemas externos básicos dos quais o SSCS depende.
  POSTGRES_DB=gorm -p 5432:5432 postgres
 \end{minted}
 
-Esse script realiza as seguintes ações:  primeiro constrói uma imagem Docker
+Esse script realiza as seguintes ações: primeiro constrói uma imagem Docker
 chamada \texttt{sscs-mtx} a partir de um Dockerfile no diretório
-\texttt{./dev}. Esse arquivo tem como base uma imagem do \texttt{mediamtx} e 
-responsável por encapsular as amostras de mídia. Depois, ele cria e inicializa um
-contêiner a partir dessa imagem, mapeia portas de rede e monta o arquivo de
+\texttt{./dev}. Esse arquivo tem como base uma imagem do \texttt{mediamtx} e
+responsável por encapsular as amostras de mídia. Depois, ele cria e inicializa
+um contêiner a partir dessa imagem, mapeia portas de rede e monta o arquivo de
 configuração \texttt{mediamtx.yml} dentro do contêiner. A intenção nesse caso é
 recriar um servidor de mídia localmente que contenha alguns vídeos para testes
 que podem ser consumidos pelo SSCS.
@@ -1113,10 +1113,10 @@ os testes automatizados utilizam um contêiner similar, porém este inclui um
 executável do SSCS, garantindo que as funcionalidades sejam testadas num
 contexto que replica fielmente o ambiente de produção.
 
-Por alto nível, o sistema assume uma configuração que envolve a comunicação entre dois componentes:
-um encarregado da transferência das imagens da câmera para um servidor
-intermediário e outro, o servidor intermediário, que cria uma corrente de
-multimídia destinada ao SSCS.
+Por alto nível, o sistema assume uma configuração que envolve a comunicação
+entre dois componentes: um encarregado da transferência das imagens da câmera
+para um servidor intermediário e outro, o servidor intermediário, que cria uma
+corrente de multimídia destinada ao SSCS.
 
 \begin{figure}[!ht]
 	\centering
@@ -1153,40 +1153,59 @@ com as outras partes do sistema e detalhes de implementação. Note que cada com
 é uma base que deve ser adaptada de acordo com os protocolos, formato de imagem, banco de dados e outros detalhes
 específicos de implementação. Em cada seção, há também exemplos de implementações acrescentando os detalhes.
 
-\section{Gravador e indexador}
+\section{Gravador}
 
 Esse é o componente principal do sistema. Sua função é claramente definida,
 consistindo em receber pacotes da corrente de vídeo por meio de algum protocolo
-de rede, concatená-los e convertê-los em um arquivo único, com subsequente
-armazenamento no disco em segmentos de arquivos. Estes arquivos são registrados
-com uma timestamp, refletindo o instante de criação do arquivo de gravação.
+de rede, concatená-los e codificá-los em um arquivo único, com subsequente
+armazenamento no disco ou nuvem em segmentos de arquivos. Estes arquivos são
+registrados com uma timestamp, refletindo o instante de criação do arquivo de
+gravação.
 
-Além disso, há a possibilidade de vincular o gravador a um indexador,
-responsável por fazer referências os vídeos em um banco de dados.
-Posteriormente, exploraremos como essa funcionalidade pode ser vantajosa na
-criação de uma API que simplifica o processo de busca e recuperação de
-transmissões de vídeo anteriores. No entanto, é importante salientar que a
-implementação do indexador não se torna mandatória, a menos que corresponda a
-uma necessidade específica do usuário.
+Assim como todos os outros componentes, o gravador precisa implementar todas as
+funções de uma interface padrão, à seguir. Os métodos \mintinline{go}{Start()},
+\mintinline{go}{Stop()} e \mintinline{go}{setupLogger()} fazem parte de
+qualquer componente. Os dois primeiros são evidentemente usados para iniciar e
+parar o serviço. O método \mintinline{go}{setupLoogger()} por sua vez cria um
+padrão de logs customizado para aquele componente. Isso facilita a depuração de
+problemas e performance. Os últimos dois ficam á critério da implementação.
 
-O indexador se integra com o gravador da seguinte maneira:
-
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[width=0.6\linewidth]{recorder_indexer.pdf}
-	\caption[Interação do indexador com o gravador]{Interação do indexador com o gravador}
-	\label{fig:graficosVariandoTamanhoRede}
-\end{figure}
+\begin{minted}
+	[%
+	 breaklines,
+	 mathescape,
+	 linenos,
+	 numbersep=5pt,
+	 frame=single,
+	 numbersep=5pt,
+	 xleftmargin=0pt,
+	 ]{go}
+// Recorder is an interface for recording streams.
+type Recorder interface {
+	Start() error // Starts the recording
+	Stop() error  // Stops the recording
+	setupLogger()
+	record() error
+	sendFrame(image.Image) error
+}
+\end{minted}
 
 No contexto do desenvolvimento em Go, o método \mintinline{golang}{record}
 implementado pelo componente \texttt{Recorder} é privado, o que significa que
-sua acessibilidade se restringe ao pacote onde foi declarado. Este método é uma
-função por onde a funcionalidade de gravação é exposta ao servidor de mídia.
-Normalmente, uma entidade do tipo \texttt{MediaServer} forneceria uma interface
-para que o Recorder desempenhe suas operações de gravação. Porém, a
-implementação não é exclusiva a um componente específico. Qualquer sistema que
-tenha a capacidade de transmitir mídia utilizando os protocolos RTSP, WebRTC ou
-SRT pode ser integrado também, assumindo que o componente de gravador
+sua acessibilidade se restringe ao pacote onde foi declarado. Esse método
+realiza o consumo de uma corrente de dados exposta por um servidor de mídia. Na
+prática, uma entidade do tipo \texttt{MediaServer} fornece uma interface para
+que o \texttt{Recorder} desempenhe suas operações. A gravação
+também não é exclusiva a um protocolo específico: qualquer sistema que tenha a
+capacidade de transmitir mídia utilizando os protocolos RTSP, WebRTC ou SRT
+pode ser integrado também, assumindo que o componente de gravador dê suporte.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.7\linewidth]{gravador.pdf}
+	\caption[Diagram isolado do gravador]{Diagram isolado do gravador}
+	\label{fig:graficosVariandoTamanhoRede}
+\end{figure}
 
 Para realizar a comunicação com o indexador de maneira eficiente, utiliza-se a
 interface provida \texttt{RecordedEvent}, que encapsula informações como o
@@ -1199,14 +1218,35 @@ iniciar a gravação subsequente, resultando em uma sincronização mais rígida
 potencialmente uma latência maior no sistema, o que seria menos vantajoso em
 questões de performance.
 
-A interface \texttt{sendFrame} aloca quadros de vídeo em um canal. Em relação a
+O método \texttt{sendFrame} aloca quadros de vídeo em um canal. Em relação a
 comunicação com outros componentes, seu funcionamento é semelhante ao da
 interface anterior, utilizando também um canal com buffer. A diferença está
-apenas no tamanho do buffer do canal. A responsabilidade dessa interface é
-pegar quadros recebidos pelo gravador e enviá-los para a leitura por detectores
-de imagem.
+apenas no tamanho do buffer do canal. A responsabilidade dessa função é pegar
+quadros recebidos pelo gravador e enviá-los para a leitura por detectores de
+imagem.
 
-\subsection{Implementação de gravador com RTSP}
+\subsection{Implementação de gravador com RTSP e compressão H.264}
+
+Considerando a prevalência do protocolo RTSP e do codec de compressão H.264 no
+universo das câmeras IP, é fundamental que o SSCS empregue essas tecnologias em
+seu gravador.
+
+\section{Indexador}
+
+É possível vincular o gravador a um indexador,
+responsável por fazer referências os vídeos em um banco de dados.
+Posteriormente, exploraremos como essa funcionalidade pode ser vantajosa na
+criação de uma API que simplifica o processo de busca e recuperação de
+transmissões de vídeo anteriores. É importante salientar também que a
+implementação do indexador não se torna mandatória, a menos que corresponda a
+uma necessidade específica do usuário. O indexador se integra com o gravador da seguinte maneira:
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.7\linewidth]{recorder_indexer.pdf}
+	\caption[Interação do indexador com o gravador]{Interação do indexador com o gravador}
+	\label{fig:graficosVariandoTamanhoRede}
+\end{figure}
 
 %TCC:
 %TCC:
