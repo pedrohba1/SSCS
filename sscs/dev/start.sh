@@ -1,9 +1,6 @@
 #!/bin/sh
 
-
-
 # Wait for mediamtx to start up. This is a very simple check.
-# Depending on how mediamtx works, you might need a more robust way to verify that it has started.
 /mediamtx &
 
 echo "Waiting for mediamtx to initialize..."
