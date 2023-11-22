@@ -191,9 +191,12 @@ brazil]{facom-ufu-abntex2}
 	\item[REST] Representational State Transfer
 	\item[HSL] HTTP Live Streaming
 	\item[RTSP] Real-time Streaming Protocol
+	\item[SDP] Session Description Protocol
 	\item[RTP] Real-time Transport Protocol
+	\item[AU] Access Unit
+	\item[NALU] Network Abstraction Layer Unit
 	\item[WebRTC] Web Real-time Communication
-	\item[SRT] Secure Reliable Tranposrt
+	\item[SRT] Secure Reliable Transport
 	\item[RTMP] Real Time Messaging Protocol
 	\item[LBPH] Local Binary Patterns Histogram
 
@@ -683,7 +686,7 @@ outros foram adicionados. O agrupamento final estabilizou-se no início dos anos
 \end{itemize}
 
 Esses princípios, se aplicados em conjunto e habilmente, tornam o código mais
-limpo, legível, organizado e de fácil manutenção. \cite{martin2017clean}
+limpo, legível, organizado e de fácil manutenção. \cite{martin2018clean3}
 
 \section{Servidor Proxy}
 
@@ -1155,12 +1158,11 @@ específicos de implementação. Em cada seção, há também exemplos de implem
 
 \section{Gravador}
 
-Esse é o componente principal do sistema. Sua função é claramente definida,
-consistindo em receber pacotes da corrente de vídeo por meio de algum protocolo
-de rede, concatená-los e codificá-los em um arquivo único, com subsequente
-armazenamento no disco ou nuvem em segmentos de arquivos. Estes arquivos são
-registrados com uma timestamp, refletindo o instante de criação do arquivo de
-gravação.
+Esse é o componente principal do sistema. Sua função básica consiste em em
+receber pacotes da corrente de vídeo por meio de algum protocolo de rede,
+concatená-los e codificá-los em um arquivo único, com subsequente armazenamento
+no disco ou nuvem em segmentos de arquivos. Estes arquivos são registrados com
+uma timestamp, refletindo o instante de criação do arquivo de gravação.
 
 Assim como todos os outros componentes, o gravador precisa implementar todas as
 funções de uma interface padrão, à seguir. Os métodos \mintinline{go}{Start()},
@@ -1195,10 +1197,10 @@ implementado pelo componente \texttt{Recorder} é privado, o que significa que
 sua acessibilidade se restringe ao pacote onde foi declarado. Esse método
 realiza o consumo de uma corrente de dados exposta por um servidor de mídia. Na
 prática, uma entidade do tipo \texttt{MediaServer} fornece uma interface para
-que o \texttt{Recorder} desempenhe suas operações. A gravação
-também não é exclusiva a um protocolo específico: qualquer sistema que tenha a
-capacidade de transmitir mídia utilizando os protocolos RTSP, WebRTC ou SRT
-pode ser integrado também, assumindo que o componente de gravador dê suporte.
+que o \texttt{Recorder} desempenhe suas operações. A gravação também não é
+exclusiva a um protocolo específico: qualquer sistema que tenha a capacidade de
+transmitir mídia utilizando os protocolos RTSP, WebRTC ou SRT pode ser
+integrado também, assumindo que o componente de gravador dê suporte.
 
 \begin{figure}[!ht]
 	\centering
@@ -1229,22 +1231,95 @@ imagem.
 
 Considerando a prevalência do protocolo RTSP e do codec de compressão H.264 no
 universo das câmeras IP, é fundamental que o SSCS empregue essas tecnologias em
-seu gravador.
-
-\section{Indexador}
-
-É possível vincular o gravador a um indexador,
-responsável por fazer referências os vídeos em um banco de dados.
-Posteriormente, exploraremos como essa funcionalidade pode ser vantajosa na
-criação de uma API que simplifica o processo de busca e recuperação de
-transmissões de vídeo anteriores. É importante salientar também que a
-implementação do indexador não se torna mandatória, a menos que corresponda a
-uma necessidade específica do usuário. O indexador se integra com o gravador da seguinte maneira:
+seu gravador. Essa implementação utiliza um cliente RTSP, um multiplexador para
+converter quadros H.264 em um arquivo MPEG-TS e um decodificador para extrair
+quadros de vídeo.
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[width=0.7\linewidth]{recorder_indexer.pdf}
-	\caption[Interação do indexador com o gravador]{Interação do indexador com o gravador}
+	\includegraphics[width=1\linewidth]{rtsp_h264recorder.pdf}
+	\caption[Diagrama isolado do gravador RTSP]{Diagrama isolado do gravador RTSP}
+	\label{fig:graficosVariandoTamanhoRede}
+\end{figure}
+
+O cliente RTSP primeiro emite um requisição do tipo DESCRIBE ao servidor de
+mídia, que por sua vez responde com a descrição dos dados da sessão, de acordo
+com o protocolo SDP. Essa descrição contém as informações necessárias para
+iniciar o streaming.
+
+Em seguida, o cliente processa cada pacote RTP recebido e extrai as Access
+Unities (AUs). Essas, são formadas por um conjunto de unidades de Network
+Abstraction Layer (NAL) sempre contendo uma imagem codificada primária,
+tipicamente um quadro do tipo I. Além da imagem codificada primária, uma AU
+também pode conter uma ou mais imagens codificadas redundantes ou outras
+unidades NAL que não contenham fatias ou partições de dados de fatias de uma
+imagem codificada. A decodificação de uma AU sempre resulta em uma imagem
+decodificada. Por isso, as AUs são passadas para o multiplexador que codifica
+elas e organiza as unidades NAL para formar um único segmento de vídeo e
+salvá-lo no disco.
+
+O decodificador que extrai quadros de vídeo faz isso iterando as unidades NAL
+até encontrar um Quadro I, que contém uma imagem completa. Quando encontrado,
+ele usa o método \mintinline{go}{sendFrame()} para comunicar a imagem à um
+canal com buffer. A intenção nisso é facilitar a comunicação com a parte do
+software que realiza o reconhecimento de imagem em tempo real.
+
+Por último, uma canal que recebe exclusivamente interface
+\mintinline{go}{RecordedEvent} será alimentado toda vez que uma gravação for
+concluída, contendo o nome do vídeo e uma timestamp do fim da gravação. Isso
+pode ser usado para comunicar o registro de cada arquivo à outros componente do
+sistema.
+
+\section{Indexador}
+
+O indexador é responsável por fazer referências aos vídeos em um banco de dados
+e salvar eventos de reconhecimento de imagem. Posteriormente, exploraremos como
+o indexador interage com uma API que simplifica e expande o processo de busca e
+recuperação de gravações. É importante salientar também que a implementação do
+indexador não se torna mandatória, a menos que corresponda a uma necessidade
+específica do usuário.
+
+A interface do indexador é bem mais simplificada. Ele requer apenas um método
+privado, chamado \mintinline{go}{listen()}. A única função desse método é
+esperar por eventos de indexação enviados pelos canais de outros componentes e
+encaminhá-los para as funções que lidam o registro da informação no banco de
+dados.
+
+\clearpage
+
+\begin{minted}
+	[%
+	 breaklines,
+	 mathescape,
+	 linenos,
+	 numbersep=5pt,
+	 frame=single,
+	 numbersep=5pt,
+	 xleftmargin=0pt,
+	 ]{go}
+// an interface for indexing data into a database
+type Indexer interface {
+	Start() error
+	Stop() error
+	setupLogger()
+	listen() error
+}
+
+\end{minted}
+
+No diagrama à seguir, o indexador não provê nenhuma interface, ele apenas
+requer algumas. Isso porque ele lida exclusivamente com a escrita das
+informações que recebe por meio dos eventos recebidos por meio dos canais. Um
+detalhe pertinente é o fato do indexador ser agnóstico quanto ao banco de dados
+usado. Do ponto de vista da arquitetura, o banco de dados é uma não-entidade. É
+um detalhe que não se eleva ao nível de um elemento arquitetônico. Ele é é uma
+utilidade que provê acesso aos dados. No mesmo ponto de vista, essa utilidade é
+irrelevante pois é um detalhe de baixo nível, ou seja, um mecanismo. \cite{martin2018clean}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.7\linewidth]{indexer.pdf}
+	\caption[Diagrama isolado do indexador]{Diagrama isolado do indexador}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
