@@ -16,7 +16,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-type RTSPRecorder struct {
+type RTSP_H264Recorder struct {
 	rtspURL string
 	client  *gortsplib.Client
 	logger  *logrus.Entry
@@ -27,8 +27,10 @@ type RTSPRecorder struct {
 	stopCh    chan struct{}
 }
 
-func NewRTSPRecorder(rtspURL string, recordChan chan RecordedEvent, fchan chan image.Image) *RTSPRecorder {
-	r := &RTSPRecorder{
+// This code requires the FFmpeg libraries, that can be installed with this command:
+// apt install -y libavformat-dev libswscale-dev gcc pkg-config
+func NewRTSP_H264Recorder(rtspURL string, recordChan chan RecordedEvent, fchan chan image.Image) *RTSP_H264Recorder {
+	r := &RTSP_H264Recorder{
 		rtspURL:   rtspURL,
 		recordIn:  recordChan,
 		frameChan: fchan,
@@ -39,11 +41,11 @@ func NewRTSPRecorder(rtspURL string, recordChan chan RecordedEvent, fchan chan i
 	return r
 }
 
-func (r *RTSPRecorder) setupLogger() {
+func (r *RTSP_H264Recorder) setupLogger() {
 	r.logger = BaseLogger.BaseLogger.WithField("package", "recorder")
 }
 
-func (r *RTSPRecorder) Start() error {
+func (r *RTSP_H264Recorder) Start() error {
 	u, err := url.Parse(r.rtspURL)
 
 	r.client = &gortsplib.Client{}
@@ -67,17 +69,14 @@ func (r *RTSPRecorder) Start() error {
 	return nil
 }
 
-func (r *RTSPRecorder) Stop() error {
+func (r *RTSP_H264Recorder) Stop() error {
 	close(r.stopCh)  // Signal the recording goroutine to stop
 	r.wg.Wait()      // Wait for the recording goroutine to finish
 	r.client.Close() // Close the RTSP connection
 	return nil
 }
 
-// This code requires the FFmpeg libraries, that can be installed with this command:
-// apt install -y libavformat-dev libswscale-dev gcc pkg-config
-
-func (r *RTSPRecorder) sendFrame(frame image.Image) error {
+func (r *RTSP_H264Recorder) sendFrame(frame image.Image) error {
 	select {
 	case r.frameChan <- frame:
 		return nil
@@ -90,8 +89,8 @@ func (r *RTSPRecorder) sendFrame(frame image.Image) error {
 	}
 }
 
-func (r *RTSPRecorder) record() error {
-	defer r.wg.Done()
+func (r *RTSP_H264Recorder) record() error {
+	r.wg.Done()
 
 	u, err := url.Parse(r.rtspURL)
 
@@ -111,7 +110,7 @@ func (r *RTSPRecorder) record() error {
 	var forma *format.H264
 	medi := desc.FindFormat(&forma)
 	if medi == nil {
-		r.logger.Warn("media not found")
+		r.logger.Error("media not found")
 		return nil
 	}
 
@@ -144,7 +143,6 @@ func (r *RTSPRecorder) record() error {
 	}
 
 	defer frameDec.close()
-	defer r.logger.Info("returning")
 
 	// setup a single media
 	_, err = r.client.Setup(desc.BaseURL, medi, 0, 0)

@@ -30,7 +30,7 @@ func NewEventIndexer(dsn string, recordOut <-chan RecordedEvent) (*PostgresIndex
 }
 
 func (p *PostgresIndexer) Stop() error {
-	p.logger.Info("shutting server")
+	p.logger.Info("shutting down...")
 	close(p.stopCh)
 	p.wg.Wait() // Wait for the recording goroutine to finish
 	return nil
@@ -41,7 +41,7 @@ func (p *PostgresIndexer) AutoMigrate() error {
 	return p.db.AutoMigrate(&recorder.RecordedEvent{})
 }
 
-func (p *PostgresIndexer) SaveRecord(event RecordedEvent) error {
+func (p *PostgresIndexer) saveRecord(event RecordedEvent) error {
 
 	err := p.db.Create(&event).Error
 	if err != nil {
@@ -55,7 +55,6 @@ func (p *PostgresIndexer) setupLogger() {
 	p.logger = BaseLogger.BaseLogger.WithField("package", "indexer")
 }
 
-// TODO: mover conexão com banco para o start para poder dar o stop sem matar o objeto
 func (p *PostgresIndexer) Start() error {
 
 	p.logger.Infof("connecting postgres...")
@@ -81,11 +80,11 @@ func (p *PostgresIndexer) listen() error {
 	for {
 		select {
 		case <-p.stopCh:
-			p.logger.Info("Received stop signal, stopping indexer.")
+			p.logger.Info("Received stop signal")
 			return nil // stop signal received, so we return from the function
 		case record := <-p.recordOut:
 			// New record received, we should save it
-			if err := p.SaveRecord(record); err != nil {
+			if err := p.saveRecord(record); err != nil {
 				p.logger.Errorf("Failed to save record: %v", err)
 			}
 		}

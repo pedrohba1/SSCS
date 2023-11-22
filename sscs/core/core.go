@@ -39,7 +39,7 @@ func New(args []string) *Core {
 	// start resources
 	recordChan := make(chan recorder.RecordedEvent, 1)
 	frameChan := make(chan image.Image, 1)
-	r := recorder.NewRTSPRecorder(cfg.RTSP.Feeds[0], recordChan, frameChan)
+	r := recorder.NewRTSP_H264Recorder(cfg.RTSP.Feeds[0], recordChan, frameChan)
 	r.Start()
 
 	dsn := cfg.Indexer.DbUrl

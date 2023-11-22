@@ -17,9 +17,9 @@ dev-env:
 	docker run -d --rm --network=host -p 8554:8554 -p 8889:8889 \
 	-v ./dev/mediamtx.yml --name sscs-mtx sscs-mtx
 
-	docker run -d --rm --network=host --name sscs-postgres \
-	-e POSTGRES_PASSWORD=gorm -e POSTGRES_USER=gorm -e \ 
-	POSTGRES_DB=gorm -p 5432:5432 postgres
+	docker run -d --rm --network=host  -p 5432:5432   \
+	-e POSTGRES_PASSWORD=gorm -e POSTGRES_USER=gorm  \
+	-e  POSTGRES_DB=gorm --name sscs-postgres postgres
 
 # it uses the openCV Makefile to install openCV in the system easily
 install-opencv:
