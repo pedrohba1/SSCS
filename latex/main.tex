@@ -186,6 +186,7 @@ brazil]{facom-ufu-abntex2}
 	\item[VMS] Video surveillance Management System
 	\item[FPS] Frames Per Second
 	\item[API] Application Programming Interface
+	\item[ORM] Object-Relational Mapping
 	\item[DVR] Digital Video Recorder
 	\item[NVR] Network Video Recorder
 	\item[REST] Representational State Transfer
@@ -356,7 +357,7 @@ decodificados e apresentados ao usuário.
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[width=1\linewidth]{Capturar.PNG}
+	\includegraphics[width=1\linewidth]{media_fundamentals.pdf}
 	\caption[Representação de um arquitetura de tempo real genérica]{Arquitetura genérica de transmissão em tempo real}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
@@ -1306,19 +1307,38 @@ type Indexer interface {
 }
 \end{minted}
 
-No diagrama à seguir, o indexador não provê nenhuma interface, ele apenas
-requer algumas. Isso porque ele lida exclusivamente com a escrita das
-informações que recebe por meio dos eventos recebidos por meio dos canais. Um
-detalhe pertinente é o fato do indexador ser agnóstico quanto ao banco de dados
-usado. Do ponto de vista da arquitetura, o banco de dados é uma não-entidade. É
-um detalhe que não se eleva ao nível de um elemento arquitetônico. Ele é é uma
-utilidade que provê acesso aos dados. No mesmo ponto de vista, essa utilidade é
-irrelevante pois é um detalhe de baixo nível, ou seja, um mecanismo. \cite{martin2018clean}
+No diagrama à seguir, mostra-se que o indexador não provê nenhuma interface,
+ele apenas requer algumas. Isso porque ele lida exclusivamente com a escrita
+das informações que recebe por meio dos eventos recebidos por meio dos canais.
+Um detalhe pertinente é o fato do indexador ser agnóstico quanto ao banco de
+dados usado. Do ponto de vista da arquitetura, o banco de dados é uma
+não-entidade. É um detalhe que não se eleva ao nível de um elemento
+arquitetônico. Ele é uma utilidade que provê acesso aos dados. No mesmo ponto
+de vista, essa utilidade é irrelevante pois é um detalhe de baixo nível, ou
+seja, um mecanismo. \cite{martin2018clean}
 
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.7\linewidth]{indexer.pdf}
 	\caption[Diagrama isolado do indexador]{Diagrama isolado do indexador}
+	\label{fig:graficosVariandoTamanhoRede}
+\end{figure}
+
+\subsection{Implementação do indexador com Postgres}
+
+Bancos de dados relacionais são comumente utilizados para indexação de dados, e
+nesta implementação optou-se pelo PostgreSQL. A interação com o banco é
+simplificada através do ORM GORM \cite{gorm}, que abstrai os eventos para
+persistência nas tabelas e facilita migrações automáticas. Essas migrações
+sincronizam a estrutura do banco com os modelos Go, agilizando o
+desenvolvimento ao dispensar scripts SQL. No entanto, em ambientes de produção,
+recomenda-se desativar as migrações automáticas para evitar alterações não
+testadas.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=1\linewidth]{postgres_indexer.pdf}
+	\caption[Diagrama isolado da implementação do indexador com PostgreSQL]{Diagrama isolado da implementação do indexador com PostgreSQL}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
