@@ -456,6 +456,8 @@ comparação em relação à uma monolito
 Explicar aqui como funciona uma arquitetura monolítica e quais as desvantagens
 e vantagens em relação ao microsserviço.
 
+\section{Banco de dados relacional}
+
 \section{Protoclo RTSP}
 
 O Real-time Streaming Protocol (RTSP) é um protocolo da camada de aplicação
@@ -543,11 +545,10 @@ Uma interface necessária é aquela designada por uma dependência de uso do
 próprio componente, ou designada por uma dependência de uso de um dos
 classificadores que implementam o componente, ou ainda é exigida por uma porta
 pública do componente. No exemplo, o componente MediaServer requer a interface
-ReadStream. 
+ReadStream.
 
-O pequeno quadrado na linha é uma porta, e ela indica que a
-interface faz parte não do componente em si mas de um de seus componentes
-internos encapsulados.
+O pequeno quadrado na linha é uma porta, e ela indica que a interface faz parte
+não do componente em si mas de um de seus componentes internos encapsulados.
 
 \section{Versionamento Semântico (SEMVER)}
 
@@ -833,7 +834,6 @@ Existem mais de 500 algoritmos e cerca de 10 vezes mais funções que compõem o
 suportam esses algoritmos. O OpenCV é escrito nativamente em C++ e possui uma
 interface com modelos que funciona perfeitamente com contêineres STL.
 \cite{opencvwebsite}
-
 
 \chapter{Método de Desenvolvimento}
 
@@ -1201,10 +1201,39 @@ com as outras partes do sistema e detalhes de implementação. Note que cada com
 é uma base que deve ser adaptada de acordo com os protocolos, formato de imagem, banco de dados e outros detalhes
 específicos de implementação. Em cada seção, há também exemplos de implementações acrescentando os detalhes.
 
-
 \section{Gerenciador de Configuração}
 
+O Gerenciador de Configuração atua na administração de variáveis de ambiente,
+essenciais para distinguir entre diferentes contextos operacionais, como
+desenvolvimento, teste e produção. Utilizando arquivos \texttt{.yaml} para
+definir estas variáveis, o sistema ganha em flexibilidade e segurança, pois
+permite a personalização do comportamento da aplicação sem alterações diretas
+no código-fonte. Assim, parâmetros sensíveis podem ser injetados no ambiente de
+execução, escondendo informações críticas e facilitando a adaptação do sistema
+a mudanças de requisitos ou infraestrutura.
 
+Essa função do software, embora não constitua um componente por si só, serve
+como um recurso reutilizável que pode ser importado por diferentes partes do
+sistema. Sua implementação é bem sucinta, como mostra o código à seguir. 
+Nele, o método \mintinline{go}{findConfig()} procura o arquivo \texttt{sscs.yml} em 
+algumas localizações comuns diferentes e devolve a primeira que encontrar. 
+
+\begin{minted}
+	[%
+	 breaklines,
+	 mathescape,
+	 linenos,
+	 numbersep=5pt,
+	 frame=single,
+	 numbersep=5pt,
+	 xleftmargin=0pt,
+	 ]{go}
+// ReadConf reads a YAML file and unmarshals it into a Go structure.
+func ReadConf() (Config, error) {
+	cfg, err := findConfig()
+	return cfg, err
+}
+\end{minted}
 
 
 \section{Gravador}
@@ -1215,13 +1244,14 @@ concatená-los e codificá-los em um arquivo único, com subsequente armazenamen
 no disco ou nuvem em segmentos de arquivos. Estes arquivos são registrados com
 uma timestamp, refletindo o instante de criação do arquivo de gravação.
 
-Assim como todos os outros componentes, o gravador precisa implementar todas as
-funções de uma interface padrão, à seguir. Os métodos \mintinline{go}{Start()},
-\mintinline{go}{Stop()} e \mintinline{go}{setupLogger()} fazem parte de
-qualquer componente. Os dois primeiros são evidentemente usados para iniciar e
-parar o serviço. O método \mintinline{go}{setupLoogger()} por sua vez cria um
-padrão de logs customizado para aquele componente. Isso facilita a depuração de
-problemas e performance. Os últimos dois ficam á critério da implementação.
+Assim como a maioria dos outros componentes desse sistema, o gravador precisa
+implementar todas as funções de uma interface padrão, à seguir. Os métodos
+\mintinline{go}{Start()}, \mintinline{go}{Stop()} e
+\mintinline{go}{setupLogger()} fazem parte de qualquer componente. Os dois
+primeiros são evidentemente usados para iniciar e parar o serviço. O método
+\mintinline{go}{setupLoogger()} por sua vez cria um padrão de logs customizado
+para aquele componente. Isso facilita a depuração de problemas e performance.
+Os últimos dois ficam á critério da implementação.
 
 \begin{minted}
 	[%
@@ -1336,8 +1366,6 @@ esperar por eventos de indexação enviados pelos canais de outros componentes e
 encaminhá-los para as funções que lidam o registro da informação no banco de
 dados.
 
-\clearpage
-
 \begin{minted}
 	[%
 	 breaklines,
@@ -1392,11 +1420,9 @@ testadas.
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
-
 \section{Reconhecedor}
 
 \section{Gerenciador de armazenamento}
-
 
 \section{API Web}
 
