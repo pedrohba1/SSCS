@@ -1,7 +1,7 @@
 // Recorder is an interface for recording streams.
-package visualizer
+package recorgnizer
 
-type Visualizer interface {
+type Recorgnizer interface {
 	Start() error // Starts the recording
 	Stop() error  // Stops the recording
 	setupLogger()

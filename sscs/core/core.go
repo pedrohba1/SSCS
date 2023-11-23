@@ -9,21 +9,21 @@ import (
 	"sscs/indexer"
 	BaseLogger "sscs/logger"
 	"sscs/recorder"
-	"sscs/visualizer"
+	"sscs/recorgnizer"
 
 	"github.com/sirupsen/logrus"
 )
 
 type Core struct {
-	ctx        context.Context
-	ctxCancel  func()
-	configPath string
-	config     conf.Config
-	Logger     *logrus.Entry
-	recorder   recorder.Recorder
-	indexer    indexer.Indexer
-	visualizer visualizer.Visualizer
-	done       chan struct{}
+	ctx         context.Context
+	ctxCancel   func()
+	configPath  string
+	config      conf.Config
+	Logger      *logrus.Entry
+	recorder    recorder.Recorder
+	indexer     indexer.Indexer
+	recorgnizer recorgnizer.Recorgnizer
+	done        chan struct{}
 }
 
 // creates a new core
@@ -31,7 +31,7 @@ func New(args []string) *Core {
 	configPath := args[0] // assumes args[0] has the config path
 
 	// Read the configuration using ReadConf
-	cfg, err := conf.ReadConf("./sscs.yml")
+	cfg, err := conf.ReadConf()
 	if err != nil {
 		panic(err) // or handle the error more gracefully, based on your application's needs
 	}
@@ -50,21 +50,21 @@ func New(args []string) *Core {
 	}
 
 	i.Start()
-	v := visualizer.NewMotionDetector(frameChan)
+	v := recorgnizer.MewCompositeRecorgnizer(frameChan)
 	v.Start()
 
 	ctx, ctxCancel := context.WithCancel(context.Background())
 
 	// Create a new Core instance with the read configuration
 	p := &Core{
-		ctx:        ctx,
-		ctxCancel:  ctxCancel,
-		configPath: configPath,
-		config:     cfg,
-		recorder:   r,
-		indexer:    i,
-		visualizer: v,
-		Logger:     BaseLogger.BaseLogger.WithField("package", "core"),
+		ctx:         ctx,
+		ctxCancel:   ctxCancel,
+		configPath:  configPath,
+		config:      cfg,
+		recorder:    r,
+		indexer:     i,
+		recorgnizer: v,
+		Logger:      BaseLogger.BaseLogger.WithField("package", "core"),
 	}
 
 	p.done = make(chan struct{})
@@ -108,8 +108,8 @@ outer:
 }
 
 func (p *Core) closeResources() {
-	if p.visualizer != nil {
-		p.visualizer.Stop()
+	if p.recorgnizer != nil {
+		p.recorgnizer.Stop()
 	}
 	if p.indexer != nil {
 		p.indexer.Stop()

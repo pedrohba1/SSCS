@@ -1,4 +1,4 @@
-package visualizer
+package helpers
 
 import (
 	"image"
@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-func saveToFile(img image.Image) error {
+func SaveToFile(img image.Image) error {
 	// create file
 	fname := strconv.FormatInt(time.Now().UnixNano()/int64(time.Millisecond), 10) + ".jpg"
 	f, err := os.Create("./thumbs/" + fname)

@@ -1,4 +1,4 @@
-package visualizer
+package recorgnizer
 
 import (
 	"image"
@@ -78,7 +78,7 @@ func (m *MotionDetector) view() error {
 			// Check for motion in the foreground mask.
 			if gocv.CountNonZero(fgMask) > 0 {
 				// Motion detected, save the frame.
-				saveToFile(frame)
+				helpers.SaveToFile(frame)
 			}
 
 			// Clean up.
