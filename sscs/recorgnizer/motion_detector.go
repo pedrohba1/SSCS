@@ -2,6 +2,7 @@ package recorgnizer
 
 import (
 	"image"
+	"sscs/conf"
 	"sscs/helpers"
 	BaseLogger "sscs/logger"
 	"sync"
@@ -29,8 +30,9 @@ func NewMotionDetector(fchan chan image.Image) *MotionDetector {
 }
 
 func (m *MotionDetector) Start() error {
-	// Ensure the recordings directory exists
-	err := helpers.EnsureDirectoryExists("./thumbs")
+	cfg, _ := conf.ReadConf()
+	err := helpers.EnsureDirectoryExists(cfg.Recorgnizer.ThumbsDir)
+
 	if err != nil {
 		m.logger.Errorf("%v", err)
 		return err
@@ -51,6 +53,7 @@ func (m *MotionDetector) view() error {
 
 	// Initialize gocv structures needed for motion detection.
 	mog2 := gocv.NewBackgroundSubtractorMOG2()
+	cfg, _ := conf.ReadConf()
 
 	// Loop to read frames and detect motion.
 	for {
@@ -78,7 +81,7 @@ func (m *MotionDetector) view() error {
 			// Check for motion in the foreground mask.
 			if gocv.CountNonZero(fgMask) > 0 {
 				// Motion detected, save the frame.
-				helpers.SaveToFile(frame)
+				helpers.SaveToFile(frame, cfg.Recorgnizer.ThumbsDir)
 			}
 
 			// Clean up.

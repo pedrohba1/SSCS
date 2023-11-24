@@ -3,13 +3,18 @@ package helpers
 import (
 	"fmt"
 	"path/filepath"
+	"strconv"
+	"time"
 
 	"gocv.io/x/gocv"
 )
 
 func SaveMatToFile(mat gocv.Mat, dir string) error {
 	// Create a complete file path
-	filePath := filepath.Join(dir, "saved_image.png")
+
+	fname := strconv.FormatInt(time.Now().UnixNano()/int64(time.Millisecond), 10) + ".jpg"
+
+	filePath := filepath.Join(dir, fname)
 
 	// Use IMWrite to save the image
 	if !gocv.IMWrite(filePath, mat) {

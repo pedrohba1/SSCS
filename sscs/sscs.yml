@@ -1,7 +1,11 @@
-rtsp:
-  feeds: ["rtsp://localhost:8554/mystream"]
-
-videoStoreFolder: "./recordings"
+recorder:
+  rtsp:
+    feeds: ["rtsp://localhost:8554/mystream"]
+  recordingsDir: "./recordings"
 
 indexer:
   dbUrl: "host=localhost user=gorm dbname=gorm port=5432 sslmode=disable TimeZone=Asia/Shanghai"
+
+recorgnizer:
+  faceHaarPath: "./data/haarcascade_frontalface_default.xml"
+  thumbsDir: "./thumbs"

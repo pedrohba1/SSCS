@@ -39,7 +39,7 @@ func New(args []string) *Core {
 	// start resources
 	recordChan := make(chan recorder.RecordedEvent, 1)
 	frameChan := make(chan image.Image, 1)
-	r := recorder.NewRTSP_H264Recorder(cfg.RTSP.Feeds[0], recordChan, frameChan)
+	r := recorder.NewRTSP_H264Recorder(cfg.Recorder.RTSP.Feeds[0], recordChan, frameChan)
 	r.Start()
 
 	dsn := cfg.Indexer.DbUrl
@@ -50,7 +50,7 @@ func New(args []string) *Core {
 	}
 
 	i.Start()
-	v := recorgnizer.MewCompositeRecorgnizer(frameChan)
+	v := recorgnizer.NewFaceDetector(frameChan)
 	v.Start()
 
 	ctx, ctxCancel := context.WithCancel(context.Background())

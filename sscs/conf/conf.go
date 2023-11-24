@@ -8,16 +8,27 @@ import (
 )
 
 type Config struct {
-	RTSP    RTSPConfig    `yaml:"rtsp"`
-	Indexer IndexerConfig `yaml:"indexer"`
+	Recorder    RecorderConfig    `yaml:"recorder"`
+	Indexer     IndexerConfig     `yaml:"indexer"`
+	Recorgnizer RecorgnizerConfig `yaml:"recorgnizer"`
 }
 
-type RTSPConfig struct {
-	Feeds []string `yaml:"feeds"`
+type RecorderConfig struct {
+	RTSP          RTSPConfig `yaml:"rtsp"`
+	RecordingsDir string     `yaml:"recordingsDir"`
 }
 
 type IndexerConfig struct {
 	DbUrl string `yaml:"dbUrl"`
+}
+
+type RecorgnizerConfig struct {
+	FaceHaarPath string `yaml:"faceHaarPath"`
+	ThumbsDir    string `yaml:"thumbsDir"`
+}
+
+type RTSPConfig struct {
+	Feeds []string `yaml:"feeds"`
 }
 
 // Looks for a config file a a few default locations.
@@ -60,7 +71,7 @@ func findConfig() (Config, error) {
 	return cfg, fmt.Errorf("no configuration file paths provided")
 }
 
-// ReadConf reads a YAML file and unmarshals it into a Go structure.
+// ReadConf reads the sscs.yml YAML file and unmarshals it into a Go structure.
 func ReadConf() (Config, error) {
 	cfg, err := findConfig()
 	return cfg, err
