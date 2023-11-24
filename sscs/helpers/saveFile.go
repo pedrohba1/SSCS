@@ -8,10 +8,10 @@ import (
 	"time"
 )
 
-func SaveToFile(img image.Image) error {
+func SaveToFile(img image.Image, folder string) error {
 	// create file
 	fname := strconv.FormatInt(time.Now().UnixNano()/int64(time.Millisecond), 10) + ".jpg"
-	f, err := os.Create("./thumbs/" + fname)
+	f, err := os.Create(folder + fname)
 	if err != nil {
 		panic(err)
 	}
