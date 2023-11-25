@@ -71,7 +71,7 @@ func findConfig() (Config, error) {
 	return cfg, fmt.Errorf("no configuration file paths provided")
 }
 
-// ReadConf reads the  github.com/pedrohba1/SSCS/sscs.yml YAML file and unmarshals it into a Go structure.
+// ReadConf reads the  github.com/pedrohba1/SSCS/services.yml YAML file and unmarshals it into a Go structure.
 func ReadConf() (Config, error) {
 	cfg, err := findConfig()
 	return cfg, err

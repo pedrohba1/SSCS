@@ -6,11 +6,11 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/pedrohba1/SSCS/sscs/conf"
-	"github.com/pedrohba1/SSCS/sscs/indexer"
-	BaseLogger "github.com/pedrohba1/SSCS/sscs/logger"
-	"github.com/pedrohba1/SSCS/sscs/recorder"
-	"github.com/pedrohba1/SSCS/sscs/recorgnizer"
+	"github.com/pedrohba1/SSCS/services/conf"
+	"github.com/pedrohba1/SSCS/services/indexer"
+	BaseLogger "github.com/pedrohba1/SSCS/services/logger"
+	"github.com/pedrohba1/SSCS/services/recorder"
+	"github.com/pedrohba1/SSCS/services/recorgnizer"
 
 	"github.com/sirupsen/logrus"
 )

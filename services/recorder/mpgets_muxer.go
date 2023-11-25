@@ -5,7 +5,7 @@ import (
 	"os"
 	"time"
 
-	BaseLogger "github.com/pedrohba1/SSCS/sscs/logger"
+	BaseLogger "github.com/pedrohba1/SSCS/services/logger"
 
 	"github.com/bluenviron/mediacommon/pkg/codecs/h264"
 	"github.com/bluenviron/mediacommon/pkg/formats/mpegts"

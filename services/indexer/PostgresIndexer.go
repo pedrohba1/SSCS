@@ -3,8 +3,8 @@ package indexer
 import (
 	"sync"
 
-	BaseLogger "github.com/pedrohba1/SSCS/sscs/logger"
-	"github.com/pedrohba1/SSCS/sscs/recorder"
+	BaseLogger "github.com/pedrohba1/SSCS/services/logger"
+	"github.com/pedrohba1/SSCS/services/recorder"
 
 	"github.com/sirupsen/logrus"
 	"gorm.io/driver/postgres"

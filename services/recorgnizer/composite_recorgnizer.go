@@ -3,9 +3,9 @@ package recorgnizer
 import (
 	"image"
 
-	"github.com/pedrohba1/SSCS/sscs/conf"
-	"github.com/pedrohba1/SSCS/sscs/helpers"
-	BaseLogger "github.com/pedrohba1/SSCS/sscs/logger"
+	"github.com/pedrohba1/SSCS/services/conf"
+	"github.com/pedrohba1/SSCS/services/helpers"
+	BaseLogger "github.com/pedrohba1/SSCS/services/logger"
 
 	"github.com/sirupsen/logrus"
 )
