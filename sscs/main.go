@@ -9,8 +9,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	"sscs/core"
-	BaseLogger "sscs/logger"
+	"github.com/pedrohba1/SSCS/sscs/core"
+	BaseLogger "github.com/pedrohba1/SSCS/sscs/logger"
 
 	"github.com/sirupsen/logrus"
 	"github.com/takama/daemon"

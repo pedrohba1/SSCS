@@ -4,8 +4,8 @@ import (
 	"image"
 	"sync"
 
-	"sscs/helpers"
-	BaseLogger "sscs/logger"
+	"github.com/pedrohba1/SSCS/sscs/helpers"
+	BaseLogger "github.com/pedrohba1/SSCS/sscs/logger"
 
 	"github.com/aler9/gortsplib/pkg/h264"
 	"github.com/bluenviron/gortsplib/v4"

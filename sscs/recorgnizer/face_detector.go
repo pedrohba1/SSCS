@@ -4,10 +4,11 @@ import (
 	"fmt"
 	"image"
 	"image/color"
-	"sscs/conf"
-	"sscs/helpers"
-	BaseLogger "sscs/logger"
 	"sync"
+
+	"github.com/pedrohba1/SSCS/sscs/conf"
+	"github.com/pedrohba1/SSCS/sscs/helpers"
+	BaseLogger "github.com/pedrohba1/SSCS/sscs/logger"
 
 	"github.com/sirupsen/logrus"
 	"gocv.io/x/gocv"

@@ -5,11 +5,12 @@ import (
 	"image"
 	"os"
 	"os/signal"
-	"sscs/conf"
-	"sscs/indexer"
-	BaseLogger "sscs/logger"
-	"sscs/recorder"
-	"sscs/recorgnizer"
+
+	"github.com/pedrohba1/SSCS/sscs/conf"
+	"github.com/pedrohba1/SSCS/sscs/indexer"
+	BaseLogger "github.com/pedrohba1/SSCS/sscs/logger"
+	"github.com/pedrohba1/SSCS/sscs/recorder"
+	"github.com/pedrohba1/SSCS/sscs/recorgnizer"
 
 	"github.com/sirupsen/logrus"
 )

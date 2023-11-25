@@ -3,8 +3,9 @@ package recorder
 import (
 	"bufio"
 	"os"
-	BaseLogger "sscs/logger"
 	"time"
+
+	BaseLogger "github.com/pedrohba1/SSCS/sscs/logger"
 
 	"github.com/bluenviron/mediacommon/pkg/codecs/h264"
 	"github.com/bluenviron/mediacommon/pkg/formats/mpegts"

@@ -2,9 +2,10 @@ package recorgnizer
 
 import (
 	"image"
-	"sscs/conf"
-	"sscs/helpers"
-	BaseLogger "sscs/logger"
+
+	"github.com/pedrohba1/SSCS/sscs/conf"
+	"github.com/pedrohba1/SSCS/sscs/helpers"
+	BaseLogger "github.com/pedrohba1/SSCS/sscs/logger"
 
 	"github.com/sirupsen/logrus"
 )

@@ -38,9 +38,9 @@ func findConfig() (Config, error) {
 	var cfg Config
 	// List of potential file paths, in order of precedence
 	paths := []string{
-		"./sscs.yml",         // current directory
-		"$HOME/.sscs.yml",    // home directory
-		"/etc/sscs/sscs.yml", // system-wide configuration
+		"./sscs.yml",     // current directory
+		"$HOME/sscs.yml", // home directory
+		"/etc/sscs.yml",  // system-wide configuration
 	}
 
 	var lastErr error
@@ -71,7 +71,7 @@ func findConfig() (Config, error) {
 	return cfg, fmt.Errorf("no configuration file paths provided")
 }
 
-// ReadConf reads the sscs.yml YAML file and unmarshals it into a Go structure.
+// ReadConf reads the  github.com/pedrohba1/SSCS/sscs.yml YAML file and unmarshals it into a Go structure.
 func ReadConf() (Config, error) {
 	cfg, err := findConfig()
 	return cfg, err

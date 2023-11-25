@@ -1,9 +1,10 @@
 package indexer
 
 import (
-	BaseLogger "sscs/logger"
-	"sscs/recorder"
 	"sync"
+
+	BaseLogger "github.com/pedrohba1/SSCS/sscs/logger"
+	"github.com/pedrohba1/SSCS/sscs/recorder"
 
 	"github.com/sirupsen/logrus"
 	"gorm.io/driver/postgres"
