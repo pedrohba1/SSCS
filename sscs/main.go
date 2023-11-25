@@ -1,4 +1,6 @@
-// Example of a daemon with echo service
+// Self-sovereign surveillance system.
+// it is capable of recording, indexing and recognizing
+// footage in video
 package main
 
 import (
