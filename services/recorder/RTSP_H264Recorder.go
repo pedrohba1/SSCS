@@ -9,9 +9,9 @@ import (
 
 	"github.com/aler9/gortsplib/pkg/h264"
 	"github.com/bluenviron/gortsplib/v4"
+	"github.com/bluenviron/gortsplib/v4/pkg/base"
 	"github.com/bluenviron/gortsplib/v4/pkg/format"
 	"github.com/bluenviron/gortsplib/v4/pkg/format/rtph264"
-	"github.com/bluenviron/gortsplib/v4/pkg/url"
 	"github.com/pion/rtp"
 	"github.com/sirupsen/logrus"
 )
@@ -46,7 +46,7 @@ func (r *RTSP_H264Recorder) setupLogger() {
 }
 
 func (r *RTSP_H264Recorder) Start() error {
-	u, err := url.Parse(r.rtspURL)
+	u, err := base.ParseURL(r.rtspURL)
 
 	r.client = &gortsplib.Client{}
 
@@ -92,7 +92,7 @@ func (r *RTSP_H264Recorder) sendFrame(frame image.Image) error {
 func (r *RTSP_H264Recorder) record() error {
 	r.wg.Done()
 
-	u, err := url.Parse(r.rtspURL)
+	u, err := base.ParseURL(r.rtspURL)
 
 	if err != nil {
 		r.logger.Error("failed to parse url: %w", err)

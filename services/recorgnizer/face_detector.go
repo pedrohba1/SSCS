@@ -89,7 +89,6 @@ func (m *FaceDetector) view() error {
 
 			// detect faces
 			rects := classifier.DetectMultiScale(mat)
-			fmt.Printf("found %d faces\n", len(rects))
 
 			// draw a rectangle around each face on the original image,
 			// along with text identifying as "Human"
