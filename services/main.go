@@ -1,6 +1,6 @@
 // Self-sovereign surveillance system.
 // it is capable of recording, indexing and recognizing
-// footage in video
+// footage in video.
 package main
 
 import (

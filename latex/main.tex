@@ -1214,9 +1214,9 @@ a mudanças de requisitos ou infraestrutura.
 
 Essa função do software, embora não constitua um componente por si só, serve
 como um recurso reutilizável que pode ser importado por diferentes partes do
-sistema. Sua implementação é bem sucinta, como mostra o código à seguir. 
-Nele, o método \mintinline{go}{findConfig()} procura o arquivo \texttt{sscs.yml} em 
-algumas localizações comuns diferentes e devolve a primeira que encontrar. 
+sistema. Sua implementação é bem sucinta, como mostra o código à seguir. Nele,
+o método \mintinline{go}{findConfig()} procura o arquivo \texttt{sscs.yml} em
+algumas localizações comuns diferentes e devolve a primeira que encontrar.
 
 \begin{minted}
 	[%
@@ -1234,7 +1234,6 @@ func ReadConf() (Config, error) {
 	return cfg, err
 }
 \end{minted}
-
 
 \section{Gravador}
 
@@ -1422,22 +1421,31 @@ testadas.
 
 \section{Reconhecedor}
 
-
-
-
-
-
-
 \section{Gerenciador de armazenamento}
 
 \section{API Web}
 
 \section{Interface gráfica}
 
-%TCC:
-%TCC:
-%TCC:
-%TCC:
+\section{Documentação}
+A documentação é essencial para tornar o software acessível e simplificar sua
+manutenção. Ela deve ser clara, precisa e fácil de gerar. Idealmente, deve
+estar integrada ao próprio código, para que a documentação evolua juntamente
+com ele. Quanto mais fácil for para os programadores produzirem uma boa
+documentação, melhor para todos.
+
+Nesse sentido, para o código do SSCS a melhor ferramenta documentativa é a
+\texttt{godoc}, que é uma parte inerente do toolchain do Go. A \texttt{godoc}
+examina os arquivos de código Go, extrai os comentários relevantes e
+organiza-os em uma documentação legível, seja como HTML ou como texto puro.
+Esta metodologia assegura que a documentação esteja fortemente acoplada com o
+código que ela descreve, refletindo as convenções de comentários do Go e
+simplificando a navegação e compreensão do código para outros desenvolvedores.
+
+As convenções de comentários do Go são simples também. Para comentar um tipo,
+variável, constante, função ou pacote, escreva o comentário diretamente antes
+de sua declaração, sem linhas em branco. A \texttt{godoc} então será capaz de
+apresentar o comentário junto com o item que está sendo documentado.
 
 % ---
 % Conclusão
