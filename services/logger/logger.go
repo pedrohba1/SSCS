@@ -1,5 +1,4 @@
-// logger/logger.go
-
+// Package logger contains a simple logger using logrus.
 package logger
 
 import (
