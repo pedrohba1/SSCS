@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/signal"
 
+	"github.com/pedrohba1/SSCS/services/cleaner"
 	"github.com/pedrohba1/SSCS/services/conf"
 	"github.com/pedrohba1/SSCS/services/indexer"
 	BaseLogger "github.com/pedrohba1/SSCS/services/logger"
@@ -23,6 +24,7 @@ type Core struct {
 	Logger      *logrus.Entry
 	recorder    recorder.Recorder
 	indexer     indexer.Indexer
+	cleaner     cleaner.Cleaner
 	recorgnizer recorgnizer.Recorgnizer
 	done        chan struct{}
 }
@@ -38,8 +40,8 @@ func New(args []string) *Core {
 	}
 
 	// start resources
-	recordChan := make(chan recorder.RecordedEvent, 1)
-	frameChan := make(chan image.Image, 1)
+	recordChan := make(chan recorder.RecordedEvent, 5)
+	frameChan := make(chan image.Image, 5)
 	r := recorder.NewRTSP_H264Recorder(cfg.Recorder.RTSP.Feeds[0], recordChan, frameChan)
 	r.Start()
 
@@ -56,6 +58,9 @@ func New(args []string) *Core {
 
 	ctx, ctxCancel := context.WithCancel(context.Background())
 
+	c := cleaner.NewOSCleaner()
+	c.Start()
+
 	// Create a new Core instance with the read configuration
 	p := &Core{
 		ctx:         ctx,
@@ -65,6 +70,7 @@ func New(args []string) *Core {
 		recorder:    r,
 		indexer:     i,
 		recorgnizer: v,
+		cleaner:     c,
 		Logger:      BaseLogger.BaseLogger.WithField("package", "core"),
 	}
 
@@ -96,7 +102,6 @@ func (p *Core) run() {
 outer:
 	for {
 		select {
-
 		case <-interrupt:
 			p.Logger.Info("shutting down gracefully")
 			break outer
@@ -117,5 +122,8 @@ func (p *Core) closeResources() {
 	}
 	if p.recorder != nil {
 		p.recorder.Stop()
+	}
+	if p.cleaner != nil {
+		p.cleaner.Stop()
 	}
 }
