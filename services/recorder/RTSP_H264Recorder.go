@@ -22,20 +22,20 @@ type RTSP_H264Recorder struct {
 	client  *gortsplib.Client
 	logger  *logrus.Entry
 
-	wg        sync.WaitGroup
-	recordIn  chan<- RecordedEvent
-	frameChan chan<- image.Image
-	stopCh    chan struct{}
+	wg         sync.WaitGroup
+	RecordChan chan<- RecordedEvent
+	FrameChan  chan<- image.Image
+	stopCh     chan struct{}
 }
 
 // This code requires the FFmpeg libraries, that can be installed with this command:
 // apt install -y libavformat-dev libswscale-dev gcc pkg-config
 func NewRTSP_H264Recorder(rtspURL string, recordChan chan RecordedEvent, fchan chan image.Image) *RTSP_H264Recorder {
 	r := &RTSP_H264Recorder{
-		rtspURL:   rtspURL,
-		recordIn:  recordChan,
-		frameChan: fchan,
-		stopCh:    make(chan struct{}),
+		rtspURL:    rtspURL,
+		RecordChan: recordChan,
+		FrameChan:  fchan,
+		stopCh:     make(chan struct{}),
 	}
 	r.setupLogger()
 
@@ -80,7 +80,7 @@ func (r *RTSP_H264Recorder) Stop() error {
 
 func (r *RTSP_H264Recorder) sendFrame(frame image.Image) error {
 	select {
-	case r.frameChan <- frame:
+	case r.FrameChan <- frame:
 		return nil
 	case <-r.stopCh:
 		r.logger.Info("received stop signal")
@@ -204,7 +204,7 @@ func (r *RTSP_H264Recorder) record() error {
 		}
 
 		// encode the access unit into MPEG-TS
-		err = mpegtsMuxer.encode(au, pts, r.recordIn)
+		err = mpegtsMuxer.encode(au, pts, r.RecordChan)
 		if err != nil {
 			r.logger.Errorf("%v", err)
 			return
