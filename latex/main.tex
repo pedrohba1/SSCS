@@ -9,6 +9,9 @@ brazil]{facom-ufu-abntex2}
 \usepackage[brazil]{babel}
 \usepackage{graphicx}
 \usepackage{minted}
+\usepackage{hyperref}
+
+
 % coisas relacionadas às cores do código:
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
@@ -1435,17 +1438,74 @@ com ele. Quanto mais fácil for para os programadores produzirem uma boa
 documentação, melhor para todos.
 
 Nesse sentido, para o código do SSCS a melhor ferramenta documentativa é a
-\texttt{godoc}, que é uma parte inerente do toolchain do Go. A \texttt{godoc}
-examina os arquivos de código Go, extrai os comentários relevantes e
+\texttt{godoc}, que já vem integrada do toolchain do Go. A \texttt{godoc}
+examina os arquivos de código Go, extrai os comentários e
 organiza-os em uma documentação legível, seja como HTML ou como texto puro.
-Esta metodologia assegura que a documentação esteja fortemente acoplada com o
+Essa abordagem assegura que a documentação esteja fortemente acoplada com o
 código que ela descreve, refletindo as convenções de comentários do Go e
 simplificando a navegação e compreensão do código para outros desenvolvedores.
 
-As convenções de comentários do Go são simples também. Para comentar um tipo,
-variável, constante, função ou pacote, escreva o comentário diretamente antes
-de sua declaração, sem linhas em branco. A \texttt{godoc} então será capaz de
-apresentar o comentário junto com o item que está sendo documentado.
+As convenções de comentários do Go são fáceis de lembrar também. Para comentar
+um tipo, variável, constante, função ou pacote, escreva o comentário
+diretamente antes de sua declaração, sem linhas em branco. A \texttt{godoc}
+então será capaz de apresentar o comentário junto com o item que está sendo
+documentado. Veja como exemplo um comentário do pacote \texttt{recorgnizer} do
+SSCS:
+
+\begin{minted}
+	[%
+	 breaklines,
+	 mathescape,
+	 linenos,
+	 numbersep=5pt,
+	 frame=single,
+	 numbersep=5pt,
+	 xleftmargin=0pt,
+	 ]{go}
+// Package recorgnizer provides implementations
+// for multiple image recognition algorithms.
+package recorgnizer
+\end{minted}
+
+Note que o comentário começa com o nome do elemento que está descrevendo. É
+essa convenção simples que permite gerar documentos em uma vários formatos,
+como páginas web, texto plano ou páginas \texttt{man} do UNIX. Ou seja, se for
+preciso visualizar a documentação de um módulo direto no terminal, uma das
+maneiras é usar o comando \texttt{go doc}, da seguinte maneira:
+
+\begin{minted}
+	[%
+	 breaklines,
+	 mathescape,
+	 linenos,
+	 numbersep=5pt,
+	 frame=single,
+	 numbersep=5pt,
+	 xleftmargin=0pt,
+	 ]{bash}
+$  go doc  github.com/pedrohba1/SSCS/services/recorgnizer  	 
+package recorgnizer // import "github.com/pedrohba1/SSCS/services/recorgnizer"
+
+Package recorgnizer provides implementations for multiple image recognition algorithms.
+
+
+type CompositeRecorgnizer struct{ ... }
+    func MewCompositeRecorgnizer(fchan chan image.Image) *CompositeRecorgnizer
+type FaceDetector struct{ ... }
+    func NewFaceDetector(fchan chan image.Image) *FaceDetector
+type MotionDetector struct{ ... }
+    func NewMotionDetector(fchan chan image.Image) *MotionDetector
+type Recorgnizer interface{ ... }
+\end{minted}
+
+Analogamente, se for preferível páginas web para navegar pela documentação, uma
+instância de servidor web local da \texttt{godoc} pode ser iniciada localmente
+por meio da execução do comando \mintinline{bash}{ godoc -http=:6060} na raiz
+do módulo. Além disso, a documentação pode ser publica online no domínio da central de documentações do Go,
+\texttt{pkg.go.dev}, desde que as tags de versão sejam usadas no repositório contendo o código. 
+pacotes da linguagem Go. Inclusive, o SSCS tem sua documentação toda disponível em
+\url{https://pkg.go.dev/github.com/pedrohba1/SSCS/services}. 
+
 
 % ---
 % Conclusão

@@ -1,3 +1,6 @@
+// Package recorder contains all the implementations
+// for receiving and recording media streams.
+// It's implementations support RTSP and H.264 encoding.
 package recorder
 
 import (
@@ -7,8 +10,8 @@ import (
 
 // Recorder is an interface for recording streams.
 type Recorder interface {
-	Start() error // Starts the recording
-	Stop() error  // Stops the recording
+	Start() error
+	Stop() error
 	setupLogger()
 	record() error
 	sendFrame(image.Image) error

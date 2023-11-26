@@ -14,6 +14,8 @@ import (
 	"gocv.io/x/gocv"
 )
 
+// FaceDetector is a type representing
+// the face detector component
 type FaceDetector struct {
 	logger *logrus.Entry
 	wg     sync.WaitGroup

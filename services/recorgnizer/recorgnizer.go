@@ -1,4 +1,5 @@
-// Recorder is an interface for recording streams.
+// Package recorgnizer provides implementations
+// for multiple image recognition algorithms.
 package recorgnizer
 
 type Recorgnizer interface {
