@@ -1,11 +1,33 @@
+# Configuration for the recorder service.
 recorder:
+  # RTSP (Real Time Streaming Protocol) configuration.
   rtsp:
+    # List of RTSP feed URLs to be recorded.
     feeds: ["rtsp://localhost:8554/mystream"]
+
+  # Directory where the recordings will be stored.
   recordingsDir: "./recordings"
 
+# Configuration for the indexer service.
 indexer:
+  # Database connection URL for the indexer, containing host, user, database name,
+  # port, SSL mode, and time zone settings.
   dbUrl: "host=localhost user=gorm dbname=gorm port=5432 sslmode=disable TimeZone=Asia/Shanghai"
 
+# Configuration for the recognizer service.
 recorgnizer:
+  # Path to the Haar Cascade XML file used for face recognition.
   faceHaarPath: "./data/haarcascade_frontalface_default.xml"
+
+  # Directory where thumbnail images from the recognition process will be stored.
   thumbsDir: "./thumbs"
+
+# Configuration for the cleaner service.
+cleaner:
+  # The maximum allowed size of the recordings directory in bytes.
+  # If the limit is exceeded, the cleaner will delete the oldest files first.
+  sizeLimit: 5242880 # size limit is written in bytes
+
+  # The frequency, in minutes, with which the cleaner service will check the recordings
+  # directory size and perform cleaning if necessary.
+  checkPeriod: 10 # time in seconds
