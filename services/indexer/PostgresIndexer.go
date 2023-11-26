@@ -31,7 +31,6 @@ func NewEventIndexer(dsn string, recordOut <-chan RecordedEvent) (*PostgresIndex
 }
 
 func (p *PostgresIndexer) Stop() error {
-	p.logger.Info("shutting down...")
 	close(p.stopCh)
 	p.wg.Wait() // Wait for the recording goroutine to finish
 	return nil
