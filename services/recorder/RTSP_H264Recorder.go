@@ -4,6 +4,7 @@ import (
 	"image"
 	"sync"
 
+	"github.com/pedrohba1/SSCS/services/conf"
 	"github.com/pedrohba1/SSCS/services/helpers"
 	BaseLogger "github.com/pedrohba1/SSCS/services/logger"
 
@@ -58,7 +59,8 @@ func (r *RTSP_H264Recorder) Start() error {
 	}
 
 	// Ensure the recordings directory exists
-	err = helpers.EnsureDirectoryExists("./recordings")
+	cfg, _ := conf.ReadConf()
+	err = helpers.EnsureDirectoryExists(cfg.Recorder.RecordingsDir)
 	if err != nil {
 		r.logger.Errorf("%v", err)
 		return err
