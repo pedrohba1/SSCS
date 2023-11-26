@@ -1,12 +1,4 @@
-// What it does:
-//
-// 	This program outputs the current OpenCV library version to the console.
-//
-// How to run:
-//
-// 		go run ./cmd/version/main.go
-//
-
+// This command outputs the version of opencv and gocv of the operating system
 package main
 
 import (
