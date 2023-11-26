@@ -5,6 +5,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/pedrohba1/SSCS/services/conf"
 	BaseLogger "github.com/pedrohba1/SSCS/services/logger"
 
 	"github.com/bluenviron/mediacommon/pkg/codecs/h264"
@@ -65,8 +66,9 @@ func (e *mpegtsMuxer) close() {
 }
 
 func createChunkFileName() string {
+	cfg, _ := conf.ReadConf()
 	timestamp := time.Now().Format("2006-01-02_15-04-05")
-	return "./recordings/feed_" + timestamp + ".ts"
+	return cfg.Recorder.RecordingsDir + "/feed_" + timestamp + ".ts"
 }
 
 // encode encodes a H264 access unit into MPEG-TS.
