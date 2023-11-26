@@ -20,7 +20,9 @@ type OSCleaner struct {
 	folderPath  string
 	logger      *logrus.Entry
 
-	wg     sync.WaitGroup
+	wg             sync.WaitGroup
+	CleanEventChan chan<- CleanEvent
+
 	stopCh chan struct{}
 }
 
@@ -128,6 +130,10 @@ func (c *OSCleaner) checkAndCleanFolder() error {
 		}
 		deletedSize += info.Size()
 		totalSize -= info.Size()
+		c.CleanEventChan <- CleanEvent{
+			filename: info.Name(),
+			fileSize: int(info.Size()),
+		}
 	}
 
 	c.logger.Infof("deleted files size: %.2f MB ", float64(deletedSize)/1024/1024)
