@@ -11,6 +11,7 @@ type Config struct {
 	Recorder    RecorderConfig    `yaml:"recorder"`
 	Indexer     IndexerConfig     `yaml:"indexer"`
 	Recorgnizer RecorgnizerConfig `yaml:"recorgnizer"`
+	Cleaner     CleanerConfig     `yaml:"cleaner"`
 }
 
 type RecorderConfig struct {
@@ -25,6 +26,11 @@ type IndexerConfig struct {
 type RecorgnizerConfig struct {
 	FaceHaarPath string `yaml:"faceHaarPath"`
 	ThumbsDir    string `yaml:"thumbsDir"`
+}
+
+type CleanerConfig struct {
+	SizeLimit   int `yaml:"sizeLimit"`
+	CheckPeriod int `yaml:"checkPeriod"`
 }
 
 type RTSPConfig struct {
