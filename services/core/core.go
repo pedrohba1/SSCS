@@ -9,24 +9,24 @@ import (
 	"github.com/pedrohba1/SSCS/services/conf"
 	"github.com/pedrohba1/SSCS/services/indexer"
 	BaseLogger "github.com/pedrohba1/SSCS/services/logger"
+	"github.com/pedrohba1/SSCS/services/recognizer"
 	"github.com/pedrohba1/SSCS/services/recorder"
-	"github.com/pedrohba1/SSCS/services/recorgnizer"
 	"github.com/pedrohba1/SSCS/services/storer"
 
 	"github.com/sirupsen/logrus"
 )
 
 type Core struct {
-	ctx         context.Context
-	ctxCancel   func()
-	configPath  string
-	config      conf.Config
-	Logger      *logrus.Entry
-	recorder    recorder.Recorder
-	indexer     indexer.Indexer
-	storer      storer.Storer
-	recorgnizer recorgnizer.Recorgnizer
-	done        chan struct{}
+	ctx        context.Context
+	ctxCancel  func()
+	configPath string
+	config     conf.Config
+	Logger     *logrus.Entry
+	recorder   recorder.Recorder
+	indexer    indexer.Indexer
+	storer     storer.Storer
+	recognizer recognizer.Recognizer
+	done       chan struct{}
 }
 
 // creates a new core
@@ -36,42 +36,57 @@ func New(args []string) *Core {
 	// Read the configuration using ReadConf
 	cfg, err := conf.ReadConf()
 	if err != nil {
-		panic(err) // or handle the error more gracefully, based on your application's needs
+		panic(err)
 	}
 
 	// start resources
 	recordChan := make(chan recorder.RecordedEvent, 5)
-	frameChan := make(chan image.Image, 5)
-	r := recorder.NewRTSP_H264Recorder(cfg.Recorder.RTSP.Feeds[0], recordChan, frameChan)
+	frameChan := make(chan image.Image, 50)
+	//starts the recorder
+	r := recorder.NewRTSP_H264Recorder(cfg.Recorder.RTSP.Feeds[0], recorder.EventChannels{
+		RecordOut: recordChan,
+		FrameOut:  frameChan,
+	})
 	r.Start()
 
-	dsn := cfg.Indexer.DbUrl
-	i, err := indexer.NewEventIndexer(dsn, recordChan)
-
-	if err != nil {
-		panic(err) // or handle the error more gracefully, based on your application's needs
-	}
-
-	i.Start()
-	v := recorgnizer.NewFaceDetector(frameChan)
+	// starts the recognizer
+	recogChan := make(chan recognizer.RecognizedEvent, 5)
+	v := recognizer.NewFaceDetector(recognizer.EventChannels{
+		FrameIn: frameChan,
+	})
 	v.Start()
 
 	ctx, ctxCancel := context.WithCancel(context.Background())
 
-	s := storer.NewOSStorer()
+	// starts the cleaner
+	cleanChan := make(chan storer.CleanedEvent)
+	s := storer.NewOSStorer(cleanChan)
 	s.Start()
+
+	// starts the indexer
+	dsn := cfg.Indexer.DbUrl
+	i, err := indexer.NewEventIndexer(dsn, indexer.EventChannels{
+		RecordOut: recordChan,
+		RecogOut:  recogChan,
+		CleanOut:  cleanChan,
+	})
+
+	if err != nil {
+		panic(err)
+	}
+	i.Start()
 
 	// Create a new Core instance with the read configuration
 	p := &Core{
-		ctx:         ctx,
-		ctxCancel:   ctxCancel,
-		configPath:  configPath,
-		config:      cfg,
-		recorder:    r,
-		indexer:     i,
-		recorgnizer: v,
-		storer:      s,
-		Logger:      BaseLogger.BaseLogger.WithField("package", "core"),
+		ctx:        ctx,
+		ctxCancel:  ctxCancel,
+		configPath: configPath,
+		config:     cfg,
+		recorder:   r,
+		indexer:    i,
+		recognizer: v,
+		storer:     s,
+		Logger:     BaseLogger.BaseLogger.WithField("package", "core"),
 	}
 
 	p.done = make(chan struct{})
@@ -114,8 +129,8 @@ outer:
 }
 
 func (p *Core) closeResources() {
-	if p.recorgnizer != nil {
-		p.recorgnizer.Stop()
+	if p.recognizer != nil {
+		p.recognizer.Stop()
 	}
 	if p.indexer != nil {
 		p.indexer.Stop()

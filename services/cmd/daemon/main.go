@@ -1,6 +1,6 @@
-// Self-sovereign surveillance system.
+// Self-sovereign surveillance system Daemon.
 // it is capable of recording, indexing and recognizing
-// footage in video
+// footage in video, and in this case it runs it as a Daemon
 package main
 
 import (
