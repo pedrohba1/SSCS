@@ -1,4 +1,4 @@
-package recorgnizer
+package recognizer
 
 import (
 	"fmt"
@@ -20,14 +20,14 @@ type FaceDetector struct {
 	logger *logrus.Entry
 	wg     sync.WaitGroup
 
-	frameChan <-chan image.Image
-	stopCh    chan struct{}
+	eChans EventChannels
+	stopCh chan struct{}
 }
 
-func NewFaceDetector(fchan chan image.Image) *FaceDetector {
+func NewFaceDetector(eChans EventChannels) *FaceDetector {
 	r := &FaceDetector{
-		frameChan: fchan,
-		stopCh:    make(chan struct{}),
+		eChans: eChans,
+		stopCh: make(chan struct{}),
 	}
 	r.setupLogger()
 
@@ -37,7 +37,7 @@ func NewFaceDetector(fchan chan image.Image) *FaceDetector {
 func (fd *FaceDetector) Start() error {
 	// Ensure the recordings directory exists
 	cfg, _ := conf.ReadConf()
-	err := helpers.EnsureDirectoryExists(cfg.Recorgnizer.ThumbsDir)
+	err := helpers.EnsureDirectoryExists(cfg.Recognizer.ThumbsDir)
 	if err != nil {
 		fd.logger.Errorf("%v", err)
 		return err
@@ -61,8 +61,8 @@ func (m *FaceDetector) view() error {
 	defer classifier.Close()
 
 	cfg, _ := conf.ReadConf()
-	if !classifier.Load(cfg.Recorgnizer.FaceHaarPath) {
-		fmt.Printf("Error reading cascade file: %v\n", cfg.Recorgnizer.FaceHaarPath)
+	if !classifier.Load(cfg.Recognizer.FaceHaarPath) {
+		fmt.Printf("Error reading cascade file: %v\n", cfg.Recognizer.FaceHaarPath)
 		return fmt.Errorf("couldn't read haar cascading file")
 	}
 	blue := color.RGBA{0, 0, 255, 0}
@@ -70,7 +70,7 @@ func (m *FaceDetector) view() error {
 	// Loop to read frames and detect motion.
 	for {
 		select {
-		case frame, ok := <-m.frameChan:
+		case frame, ok := <-m.eChans.FrameIn:
 			if !ok {
 				// channel was closed and drained, handle the closure, perhaps break the view
 				break
@@ -99,7 +99,7 @@ func (m *FaceDetector) view() error {
 				gocv.PutText(&mat, "Human", pt, gocv.FontHersheyPlain, 1.2, blue, 2)
 			}
 
-			helpers.SaveMatToFile(mat, cfg.Recorgnizer.ThumbsDir)
+			helpers.SaveMatToFile(mat, cfg.Recognizer.ThumbsDir)
 			mat.Close()
 
 		case <-m.stopCh:

@@ -1,4 +1,4 @@
-package recorgnizer
+package recognizer
 
 import (
 	"image"
@@ -32,7 +32,7 @@ func NewMotionDetector(fchan chan image.Image) *MotionDetector {
 
 func (m *MotionDetector) Start() error {
 	cfg, _ := conf.ReadConf()
-	err := helpers.EnsureDirectoryExists(cfg.Recorgnizer.ThumbsDir)
+	err := helpers.EnsureDirectoryExists(cfg.Recognizer.ThumbsDir)
 
 	if err != nil {
 		m.logger.Errorf("%v", err)
@@ -82,7 +82,7 @@ func (m *MotionDetector) view() error {
 			// Check for motion in the foreground mask.
 			if gocv.CountNonZero(fgMask) > 0 {
 				// Motion detected, save the frame.
-				helpers.SaveToFile(frame, cfg.Recorgnizer.ThumbsDir)
+				helpers.SaveToFile(frame, cfg.Recognizer.ThumbsDir)
 			}
 
 			// Clean up.
