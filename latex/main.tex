@@ -1231,7 +1231,6 @@ algumas localizações comuns diferentes e devolve a primeira que encontrar.
 	 numbersep=5pt,
 	 xleftmargin=0pt,
 	 ]{go}
-// ReadConf reads a YAML file and unmarshals it into a Go structure.
 func ReadConf() (Config, error) {
 	cfg, err := findConfig()
 	return cfg, err
@@ -1265,7 +1264,6 @@ Os últimos dois ficam á critério da implementação.
 	 numbersep=5pt,
 	 xleftmargin=0pt,
 	 ]{go}
-// Recorder is an interface for recording streams.
 type Recorder interface {
 	Start() error // Starts the recording
 	Stop() error  // Stops the recording
@@ -1378,7 +1376,6 @@ dados.
 	 numbersep=5pt,
 	 xleftmargin=0pt,
 	 ]{go}
-// an interface for indexing data into a database
 type Indexer interface {
 	Start() error
 	Stop() error
@@ -1399,12 +1396,12 @@ seja, um mecanismo. \cite{martin2018clean}
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[width=0.7\linewidth]{indexer.pdf}
+	\includegraphics[width=0.8\linewidth]{indexer.pdf}
 	\caption[Diagrama isolado do indexador]{Diagrama isolado do indexador}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
-\subsection{Implementação do indexador com Postgres}
+\subsection{Implementação do indexador com PostgreSQL}
 
 Bancos de dados relacionais são comumente utilizados para indexação de dados, e
 nesta implementação optou-se pelo PostgreSQL. A interação com o banco é
@@ -1425,6 +1422,66 @@ testadas.
 \section{Reconhecedor}
 
 \section{Gerenciador de armazenamento}
+As câmeras de segurança geralmente operam em vigilância contínua, o que
+significa que elas podem produzir uma quantidade significativa de dados de
+mídia. Dado que o espaço de armazenamento é um recurso custeado e limitado,
+seja em dispositivos locais ou em soluções baseadas em nuvem, é crucial
+implementar estratégias eficazes de gerenciamento de armazenamento.
+
+Nesse sentido, foi criado o componente \texttt{Storer}. Sua função é justamente
+monitorar o armazenamento em períodos de tempo definidos em segundos, apagando
+ou movendo os arquivos mais antigos para que um limite do armazenamento
+primário não seja excedido. Ao deletar ou mover para o armazenamento
+secundário, ele também provê um evento, por meio de um canal, que descreve os
+arquivos e a ação para que componentes como o indexador possam deletar as
+referências aos arquivos.
+
+\begin{minted}
+	[%
+	 breaklines,
+	 mathescape,
+	 linenos,
+	 numbersep=5pt,
+	 frame=single,
+	 numbersep=5pt,
+	 xleftmargin=0pt,
+	 ]{go}
+	 type Storer interface {
+		Start() error
+		Stop() error
+		setupLogger()
+		monitor() error
+		OpenFiles(filenames []string) ([]*os.File, error)
+	}	
+\end{minted}
+
+Por meio dos método \texttt{monitor} demonstrado na interface acima, é ativada
+a rotina periódica do \texttt{Storer} descrita no parágrafo anterior. Além
+desse método e dos outros métodos padrões de componente, há o método
+\mintinline{go}{OpenFiles} que lida com a busca e abertura dos arquivos por
+meio de seus nomes. Isso é útil para outros componentes ou aplicações que
+precisem filtrar arquivos de mídia específicos.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.3\linewidth]{cleaner.pdf}
+	\caption[Diagrama isolado da implementação do gerenciador de armazenamento]{Diagrama isolado da implementação do gerenciador de armazenamento }
+	\label{fig:graficosVariandoTamanhoRede}
+\end{figure}
+
+\subsection{Implementação de gerenciador de armazenamento sobre espaço em disco}
+Nesta implementação, são usados comandos do sistema operacional para mover ou
+deletar os arquivos. Checa-se primeiro o espaço acumulado de todos os arquivos
+do diretório primário escolhido para armazenamento das gravações. Em seguida, eles são
+ordenados por data de criação e os mais antigos podem ser movidos ou apagados,
+dependendo de como o componente foi configurado.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.8\linewidth]{cleaneros.pdf}
+	\caption[Diagrama da implementação do gerenciador de armazenamento usando o sistema operacional]{Diagrama da implementação do gerenciador de armazenamento usando o sistema operacional }
+	\label{fig:graficosVariandoTamanhoRede}
+\end{figure}
 
 \section{API Web}
 
@@ -1439,11 +1496,11 @@ documentação, melhor para todos.
 
 Nesse sentido, para o código do SSCS a melhor ferramenta documentativa é a
 \texttt{godoc}, que já vem integrada do toolchain do Go. A \texttt{godoc}
-examina os arquivos de código Go, extrai os comentários e
-organiza-os em uma documentação legível, seja como HTML ou como texto puro.
-Essa abordagem assegura que a documentação esteja fortemente acoplada com o
-código que ela descreve, refletindo as convenções de comentários do Go e
-simplificando a navegação e compreensão do código para outros desenvolvedores.
+examina os arquivos de código Go, extrai os comentários e organiza-os em uma
+documentação legível, seja como HTML ou como texto puro. Essa abordagem
+assegura que a documentação esteja fortemente acoplada com o código que ela
+descreve, refletindo as convenções de comentários do Go e simplificando a
+navegação e compreensão do código para outros desenvolvedores.
 
 As convenções de comentários do Go são fáceis de lembrar também. Para comentar
 um tipo, variável, constante, função ou pacote, escreva o comentário
@@ -1501,11 +1558,11 @@ type Recorgnizer interface{ ... }
 Analogamente, se for preferível páginas web para navegar pela documentação, uma
 instância de servidor web local da \texttt{godoc} pode ser iniciada localmente
 por meio da execução do comando \mintinline{bash}{ godoc -http=:6060} na raiz
-do módulo. Além disso, a documentação pode ser publica online no domínio da central de documentações do Go,
-\texttt{pkg.go.dev}, desde que as tags de versão sejam usadas no repositório contendo o código. 
-pacotes da linguagem Go. Inclusive, o SSCS tem sua documentação toda disponível em
-\url{https://pkg.go.dev/github.com/pedrohba1/SSCS/services}. 
-
+do módulo. Além disso, a documentação pode ser publica online no domínio da
+central de documentações do Go, \texttt{pkg.go.dev}, desde que as tags de
+versão sejam usadas no repositório contendo o código. pacotes da linguagem Go.
+Inclusive, o SSCS tem sua documentação toda disponível em
+\url{https://pkg.go.dev/github.com/pedrohba1/SSCS/services}.
 
 % ---
 % Conclusão
