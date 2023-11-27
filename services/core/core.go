@@ -60,15 +60,15 @@ func New(args []string) *Core {
 
 	// starts the cleaner
 	cleanChan := make(chan storer.CleanedEvent)
-	s := storer.NewOSStorer(cleanChan)
+	s := storer.NewOSStorer(storer.EventChannels{CleanOut: cleanChan})
 	s.Start()
 
 	// starts the indexer
 	dsn := cfg.Indexer.DbUrl
 	i, err := indexer.NewEventIndexer(dsn, indexer.EventChannels{
-		RecordOut: recordChan,
-		RecogOut:  recogChan,
-		CleanOut:  cleanChan,
+		RecordIn: recordChan,
+		RecogIn:  recogChan,
+		CleanIn:  cleanChan,
 	})
 
 	if err != nil {
