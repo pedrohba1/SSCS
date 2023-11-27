@@ -1,4 +1,4 @@
-package cleaner
+package storer
 
 import (
 	"io/fs"
@@ -14,7 +14,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-type OSCleaner struct {
+type OSStorer struct {
 	sizeLimit   int
 	checkPeriod int
 	folderPath  string
@@ -26,70 +26,70 @@ type OSCleaner struct {
 	stopCh chan struct{}
 }
 
-func NewOSCleaner() *OSCleaner {
+func NewOSStorer() *OSStorer {
 
 	cfg, _ := conf.ReadConf()
 
-	c := &OSCleaner{
-		sizeLimit:   cfg.Cleaner.SizeLimit,
-		checkPeriod: cfg.Cleaner.CheckPeriod,
+	s := &OSStorer{
+		sizeLimit:   cfg.Storer.SizeLimit,
+		checkPeriod: cfg.Storer.CheckPeriod,
 		folderPath:  cfg.Recorder.RecordingsDir,
 		stopCh:      make(chan struct{}),
 	}
-	c.setupLogger()
+	s.setupLogger()
 
-	return c
+	return s
 }
 
-func (c *OSCleaner) setupLogger() {
-	c.logger = BaseLogger.BaseLogger.WithField("package", "cleaner")
+func (s *OSStorer) setupLogger() {
+	s.logger = BaseLogger.BaseLogger.WithField("package", "Storer")
 }
 
-func (c *OSCleaner) Start() error {
-	c.logger.Info("starting cleaning service...")
-	err := helpers.EnsureDirectoryExists(c.folderPath)
+func (s *OSStorer) Start() error {
+	s.logger.Info("starting cleaning service...")
+	err := helpers.EnsureDirectoryExists(s.folderPath)
 
 	if err != nil {
-		c.logger.Errorf("%v", err)
+		s.logger.Errorf("%v", err)
 		return err
 	}
 
-	c.wg.Add(1)
-	go c.listen()
+	s.wg.Add(1)
+	go s.monitor()
 	return nil
 }
 
-func (r *OSCleaner) Stop() error {
+func (r *OSStorer) Stop() error {
 	close(r.stopCh)
 	r.wg.Wait()
 	return nil
 }
 
-func (c *OSCleaner) listen() error {
-	defer c.wg.Done()
+func (s *OSStorer) monitor() error {
+	defer s.wg.Done()
 
-	ticker := time.NewTicker(time.Duration(c.checkPeriod) * time.Second)
+	ticker := time.NewTicker(time.Duration(s.checkPeriod) * time.Second)
 	defer ticker.Stop()
 
 	for {
 		select {
 		case <-ticker.C:
-			c.logger.Info("cleaning storage limit...")
-			err := c.checkAndCleanFolder()
+			s.logger.Info("cleaning storage limit...")
+			err := s.checkAndCleanFolder()
 			if err != nil {
-				c.logger.Error("Error: ", err)
+				s.logger.Error("Error: ", err)
 			}
 
-		case <-c.stopCh:
-			c.logger.Info("received stop signal")
+		case <-s.stopCh:
+			s.logger.Info("received stop signal")
 			return nil
 		}
 	}
 }
 
-func (c *OSCleaner) checkAndCleanFolder() error {
+func (s *OSStorer) checkAndCleanFolder() error {
 
-	entries, err := os.ReadDir(c.folderPath)
+	entries, err := os.ReadDir(s.folderPath)
 	if err != nil {
 		return err
 
@@ -111,32 +111,32 @@ func (c *OSCleaner) checkAndCleanFolder() error {
 	for _, info := range infos {
 		totalSize += info.Size()
 	}
-	c.logger.Infof("Folder size before deletion: %.2f MB ", float64(totalSize)/1024/1024)
+	s.logger.Infof("Folder size before deletion: %.2f MB ", float64(totalSize)/1024/1024)
 
 	// Delete the oldest files if the total size exceeds the limit
 	var deletedSize int64 = 0
 	for _, info := range infos {
 		// when the limit is reached, break the loop
-		if totalSize <= int64(c.sizeLimit) {
+		if totalSize <= int64(s.sizeLimit) {
 			break
 		}
 
-		oldestFilePath := filepath.Join(c.folderPath, info.Name())
+		oldestFilePath := filepath.Join(s.folderPath, info.Name())
 
 		err := os.Remove(oldestFilePath)
 		if err != nil {
-			c.logger.Error("Error removing file: ", err)
+			s.logger.Error("Error removing file: ", err)
 			continue
 		}
 		deletedSize += info.Size()
 		totalSize -= info.Size()
-		c.CleanEventChan <- CleanEvent{
+		s.CleanEventChan <- CleanEvent{
 			filename: info.Name(),
 			fileSize: int(info.Size()),
 		}
 	}
 
-	c.logger.Infof("deleted files size: %.2f MB ", float64(deletedSize)/1024/1024)
+	s.logger.Infof("deleted files size: %.2f MB ", float64(deletedSize)/1024/1024)
 
 	return nil
 }

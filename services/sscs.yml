@@ -22,8 +22,8 @@ recorgnizer:
   # Directory where thumbnail images from the recognition process will be stored.
   thumbsDir: "./thumbs"
 
-# Configuration for the cleaner service.
-cleaner:
+# Configuration for the storer service.
+storer:
   # The maximum allowed size of the recordings directory in bytes.
   # If the limit is exceeded, the cleaner will delete the oldest files first.
   sizeLimit: 5242880 # size limit is written in bytes

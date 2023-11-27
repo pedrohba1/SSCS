@@ -11,7 +11,7 @@ type Config struct {
 	Recorder    RecorderConfig    `yaml:"recorder"`
 	Indexer     IndexerConfig     `yaml:"indexer"`
 	Recorgnizer RecorgnizerConfig `yaml:"recorgnizer"`
-	Cleaner     CleanerConfig     `yaml:"cleaner"`
+	Storer      StorerConfig      `yaml:"storer"`
 }
 
 type RecorderConfig struct {
@@ -28,7 +28,7 @@ type RecorgnizerConfig struct {
 	ThumbsDir    string `yaml:"thumbsDir"`
 }
 
-type CleanerConfig struct {
+type StorerConfig struct {
 	SizeLimit   int `yaml:"sizeLimit"`
 	CheckPeriod int `yaml:"checkPeriod"`
 }
