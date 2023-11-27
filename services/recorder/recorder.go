@@ -21,6 +21,11 @@ type Recorder interface {
 	sendFrame(image.Image) error
 }
 
+type EventChannels struct {
+	RecordOut chan<- RecordedEvent
+	FrameOut  chan<- image.Image
+}
+
 // RecordedEvent is used to communicate via channels
 // when a recording is saved.
 type RecordedEvent struct {
