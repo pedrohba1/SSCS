@@ -16,10 +16,21 @@ type Storer interface {
 	monitor() error
 }
 
+// used to indicate if a file was moved or deleted
+// in the CleanEvent
+type FileStatus int
+
+const (
+	FileUnchanged FileStatus = iota // File remains unchanged
+	FileMoved                       // File was moved
+	FileErased                      // File was erased
+)
+
 // CleantEvent is useful to emit events to
 // other components (such as the indexer)
 // after deletion or replacement of some file
-type CleanEvent struct {
-	filename string
-	fileSize int
+type CleanedEvent struct {
+	filename   string
+	fileSize   int
+	fileStatus FileStatus
 }

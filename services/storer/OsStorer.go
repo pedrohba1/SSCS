@@ -18,23 +18,28 @@ type OSStorer struct {
 	sizeLimit   int
 	checkPeriod int
 	folderPath  string
+	backupPath  string
 	logger      *logrus.Entry
 
 	wg             sync.WaitGroup
-	CleanEventChan chan<- CleanEvent
+	CleanEventChan chan<- CleanedEvent
 
 	stopCh chan struct{}
 }
 
-func NewOSStorer() *OSStorer {
+// creates a new Storer. Notice that
+// if no event channel
+func NewOSStorer(cChan chan CleanedEvent) *OSStorer {
 
 	cfg, _ := conf.ReadConf()
 
 	s := &OSStorer{
-		sizeLimit:   cfg.Storer.SizeLimit,
-		checkPeriod: cfg.Storer.CheckPeriod,
-		folderPath:  cfg.Recorder.RecordingsDir,
-		stopCh:      make(chan struct{}),
+		sizeLimit:      cfg.Storer.SizeLimit,
+		checkPeriod:    cfg.Storer.CheckPeriod,
+		folderPath:     cfg.Recorder.RecordingsDir,
+		backupPath:     cfg.Storer.BackupPath,
+		CleanEventChan: cChan,
+		stopCh:         make(chan struct{}),
 	}
 	s.setupLogger()
 
@@ -42,11 +47,20 @@ func NewOSStorer() *OSStorer {
 }
 
 func (s *OSStorer) setupLogger() {
-	s.logger = BaseLogger.BaseLogger.WithField("package", "Storer")
+	s.logger = BaseLogger.BaseLogger.WithField("package", "storer")
 }
 
 func (s *OSStorer) Start() error {
-	s.logger.Info("starting cleaning service...")
+	s.logger.Info("starting storer service...")
+
+	if s.backupPath == "" {
+		s.logger.Warn("backupPath is not defined in configuration. Files will be erased by default")
+	} else {
+		err := helpers.EnsureDirectoryExists(s.backupPath)
+		if err != nil {
+			s.logger.Errorf("failed to ensure that backup directory exists: %v", err)
+		}
+	}
 	err := helpers.EnsureDirectoryExists(s.folderPath)
 
 	if err != nil {
@@ -123,16 +137,30 @@ func (s *OSStorer) checkAndCleanFolder() error {
 
 		oldestFilePath := filepath.Join(s.folderPath, info.Name())
 
-		err := os.Remove(oldestFilePath)
-		if err != nil {
-			s.logger.Error("Error removing file: ", err)
-			continue
+		// If backupPath is defined, move the file there, otherwise remove the file.
+		if s.backupPath != "" {
+			backupFilePath := filepath.Join(s.backupPath, info.Name())
+			err := os.Rename(oldestFilePath, backupFilePath)
+			if err != nil {
+				s.logger.Error("Error moving file to backup directory: ", err)
+				continue
+			}
+			s.logger.Infof("File moved to backup directory: %s", backupFilePath)
+		} else {
+			err := os.Remove(oldestFilePath)
+			if err != nil {
+				s.logger.Error("Error removing file: ", err)
+				continue
+			}
+			s.logger.Infof("File removed: %s", oldestFilePath)
 		}
+
 		deletedSize += info.Size()
 		totalSize -= info.Size()
-		s.CleanEventChan <- CleanEvent{
-			filename: info.Name(),
-			fileSize: int(info.Size()),
+		s.CleanEventChan <- CleanedEvent{
+			filename:   info.Name(),
+			fileSize:   int(info.Size()),
+			fileStatus: FileErased,
 		}
 	}
 
