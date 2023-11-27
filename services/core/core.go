@@ -41,7 +41,7 @@ func New(args []string) *Core {
 
 	// start resources
 	recordChan := make(chan recorder.RecordedEvent, 5)
-	frameChan := make(chan image.Image, 50)
+	frameChan := make(chan image.Image, 10)
 	//starts the recorder
 	r := recorder.NewRTSP_H264Recorder(cfg.Recorder.RTSP.Feeds[0], recorder.EventChannels{
 		RecordOut: recordChan,
