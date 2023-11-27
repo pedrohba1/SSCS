@@ -17,8 +17,8 @@ type Recognizer interface {
 
 // Available channels for communicating with this service.
 type EventChannels struct {
-	FrameIn <-chan image.Image
-	RecogIn <-chan RecognizedEvent
+	FrameIn  <-chan image.Image
+	RecogOut chan<- RecognizedEvent
 }
 
 // RecognizedEvent is useful to emit events to

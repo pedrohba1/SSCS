@@ -21,7 +21,7 @@ type CompositeRecognizer struct {
 func MewCompositeRecognizer(echan EventChannels) *CompositeRecognizer {
 	r := &CompositeRecognizer{
 		stopCh: make(chan struct{}),
-		fr:     NewFaceDetector(EventChannels{FrameIn: echan.FrameIn, RecogIn: echan.RecogIn}),
+		fr:     NewFaceDetector(EventChannels{FrameIn: echan.FrameIn, RecogOut: echan.RecogOut}),
 	}
 
 	r.setupLogger()
