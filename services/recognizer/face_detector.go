@@ -67,6 +67,9 @@ func (m *FaceDetector) view() error {
 	}
 	blue := color.RGBA{0, 0, 255, 0}
 
+	img := gocv.NewMat()
+	defer img.Close()
+
 	// Loop to read frames and detect motion.
 	for {
 		select {
@@ -80,7 +83,7 @@ func (m *FaceDetector) view() error {
 				continue
 			}
 			// Convert image.Image to gocv.Mat.
-			mat, err := gocv.ImageToMatRGB(frame)
+			img, err := gocv.ImageToMatRGB(frame)
 
 			if err != nil {
 				m.logger.Errorf("Error converting image to Mat: %v", err)
@@ -88,20 +91,19 @@ func (m *FaceDetector) view() error {
 			}
 
 			// detect faces
-			rects := classifier.DetectMultiScale(mat)
+			rects := classifier.DetectMultiScale(img)
 			// m.logger.Info("detected faces amount: ", len(rects))
 
 			// draw a rectangle around each face on the original image,
 			// along with text identifying as "Human"
 			for _, r := range rects {
-				gocv.Rectangle(&mat, r, blue, 3)
+				gocv.Rectangle(&img, r, blue, 3)
 				size := gocv.GetTextSize("Human", gocv.FontHersheyPlain, 1.2, 2)
 				pt := image.Pt(r.Min.X+(r.Min.X/2)-(size.X/2), r.Min.Y-2)
-				gocv.PutText(&mat, "Human", pt, gocv.FontHersheyPlain, 1.2, blue, 2)
+				gocv.PutText(&img, "Human", pt, gocv.FontHersheyPlain, 1.2, blue, 2)
 			}
 
-			helpers.SaveMatToFile(mat, cfg.Recognizer.ThumbsDir)
-			mat.Close()
+			helpers.SaveMatToFile(img, cfg.Recognizer.ThumbsDir)
 
 		case <-m.stopCh:
 			m.logger.Info("received stop signal")
