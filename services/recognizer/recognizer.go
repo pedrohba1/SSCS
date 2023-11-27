@@ -15,10 +15,16 @@ type Recognizer interface {
 	view() error
 }
 
-// Available channels for communicating with this service.
+// EventChannels are channels for communicating with this service.
 type EventChannels struct {
 	FrameIn  <-chan image.Image
 	RecogOut chan<- RecognizedEvent
+}
+
+// Config contains all parameters that can be customized
+// via the sscs.yml file.
+type Config struct {
+	ThumbsDir string
 }
 
 // RecognizedEvent is useful to emit events to

@@ -2,6 +2,7 @@ package recognizer
 
 import (
 	"image"
+	"image/color"
 	"sync"
 
 	"github.com/pedrohba1/SSCS/services/conf"
@@ -16,14 +17,22 @@ type MotionDetector struct {
 	logger *logrus.Entry
 	wg     sync.WaitGroup
 
-	frameChan <-chan image.Image
-	stopCh    chan struct{}
+	MinimumArea int
+	frameChan   <-chan image.Image
+	config      Config
+	stopCh      chan struct{}
 }
 
 func NewMotionDetector(fchan chan image.Image) *MotionDetector {
+
+	cfg, _ := conf.ReadConf()
 	r := &MotionDetector{
-		frameChan: fchan,
-		stopCh:    make(chan struct{}),
+		frameChan:   fchan,
+		MinimumArea: 3000,
+		config: Config{
+			ThumbsDir: cfg.Recognizer.ThumbsDir,
+		},
+		stopCh: make(chan struct{}),
 	}
 	r.setupLogger()
 
@@ -31,6 +40,7 @@ func NewMotionDetector(fchan chan image.Image) *MotionDetector {
 }
 
 func (m *MotionDetector) Start() error {
+	m.logger.Info("starting motion detector...")
 	cfg, _ := conf.ReadConf()
 	err := helpers.EnsureDirectoryExists(cfg.Recognizer.ThumbsDir)
 
@@ -53,10 +63,23 @@ func (m *MotionDetector) view() error {
 	defer m.wg.Done()
 
 	// Initialize gocv structures needed for motion detection.
+	img := gocv.NewMat()
+	defer img.Close()
+
+	imgDelta := gocv.NewMat()
+	defer imgDelta.Close()
+
+	imgThresh := gocv.NewMat()
+	defer imgThresh.Close()
+
 	mog2 := gocv.NewBackgroundSubtractorMOG2()
-	cfg, _ := conf.ReadConf()
+	defer mog2.Close()
+
+	status := "Ready"
+	statusColor := color.RGBA{0, 255, 0, 0}
 
 	// Loop to read frames and detect motion.
+
 	for {
 		select {
 		case frame, ok := <-m.frameChan:
@@ -65,29 +88,48 @@ func (m *MotionDetector) view() error {
 				break
 			}
 			if frame == nil {
-				m.logger.Info("nil frame received, continuing...")
+				m.logger.Warn("nil frame received, continuing...")
 				continue
 			}
 			// Convert image.Image to gocv.Mat.
-			mat, err := gocv.ImageToMatRGB(frame)
+			img, err := gocv.ImageToMatRGB(frame)
 			if err != nil {
 				m.logger.Errorf("Error converting image to Mat: %v", err)
 				continue
 			}
 
-			// Apply the background subtractor to detect motion.
-			fgMask := gocv.NewMat()
-			mog2.Apply(mat, &fgMask)
+			// first phase of cleaning up image, obtain foreground only
+			mog2.Apply(img, &imgDelta)
 
-			// Check for motion in the foreground mask.
-			if gocv.CountNonZero(fgMask) > 0 {
-				// Motion detected, save the frame.
-				helpers.SaveToFile(frame, cfg.Recognizer.ThumbsDir)
+			// remaining cleanup of the image to use for finding contours.
+			// first use threshold
+			gocv.Threshold(imgDelta, &imgThresh, 25, 255, gocv.ThresholdBinary)
+
+			// then dilate
+			kernel := gocv.GetStructuringElement(gocv.MorphRect, image.Pt(3, 3))
+			gocv.Dilate(imgThresh, &imgThresh, kernel)
+			kernel.Close()
+
+			// now find contours
+			contours := gocv.FindContours(imgThresh, gocv.RetrievalExternal, gocv.ChainApproxSimple)
+			for i := 0; i < contours.Size(); i++ {
+				area := gocv.ContourArea(contours.At(i))
+				if area < float64(m.MinimumArea) {
+					continue
+				}
+
+				status = "Motion detected"
+				statusColor = color.RGBA{255, 0, 0, 0}
+				gocv.DrawContours(&img, contours, i, statusColor, 2)
+
+				rect := gocv.BoundingRect(contours.At(i))
+				gocv.Rectangle(&img, rect, color.RGBA{0, 0, 255, 0}, 2)
 			}
 
-			// Clean up.
-			mat.Close()
-			fgMask.Close()
+			contours.Close()
+
+			gocv.PutText(&img, status, image.Pt(10, 20), gocv.FontHersheyPlain, 1.2, statusColor, 2)
+			helpers.SaveMatToFile(img, m.config.ThumbsDir)
 
 		case <-m.stopCh:
 			m.logger.Info("received stop signal")
