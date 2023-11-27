@@ -8,10 +8,10 @@ import (
 )
 
 type Config struct {
-	Recorder    RecorderConfig    `yaml:"recorder"`
-	Indexer     IndexerConfig     `yaml:"indexer"`
-	Recorgnizer RecorgnizerConfig `yaml:"recorgnizer"`
-	Storer      StorerConfig      `yaml:"storer"`
+	Recorder   RecorderConfig   `yaml:"recorder"`
+	Indexer    IndexerConfig    `yaml:"indexer"`
+	Recognizer RecognizerConfig `yaml:"recognizer"`
+	Storer     StorerConfig     `yaml:"storer"`
 }
 
 type RecorderConfig struct {
@@ -23,14 +23,15 @@ type IndexerConfig struct {
 	DbUrl string `yaml:"dbUrl"`
 }
 
-type RecorgnizerConfig struct {
+type RecognizerConfig struct {
 	FaceHaarPath string `yaml:"faceHaarPath"`
 	ThumbsDir    string `yaml:"thumbsDir"`
 }
 
 type StorerConfig struct {
-	SizeLimit   int `yaml:"sizeLimit"`
-	CheckPeriod int `yaml:"checkPeriod"`
+	SizeLimit   int    `yaml:"sizeLimit"`
+	CheckPeriod int    `yaml:"checkPeriod"`
+	BackupPath  string `yaml:"backupPath"`
 }
 
 type RTSPConfig struct {
