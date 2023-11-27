@@ -18,18 +18,18 @@ type MotionDetector struct {
 	wg     sync.WaitGroup
 
 	MinimumArea int
-	frameChan   <-chan image.Image
-	config      Config
+	cfg         Config
+	eChans      EventChannels
 	stopCh      chan struct{}
 }
 
-func NewMotionDetector(fchan chan image.Image) *MotionDetector {
+func NewMotionDetector(eChans EventChannels) *MotionDetector {
 
 	cfg, _ := conf.ReadConf()
 	r := &MotionDetector{
-		frameChan:   fchan,
+		eChans:      eChans,
 		MinimumArea: 3000,
-		config: Config{
+		cfg: Config{
 			ThumbsDir: cfg.Recognizer.ThumbsDir,
 		},
 		stopCh: make(chan struct{}),
@@ -82,7 +82,7 @@ func (m *MotionDetector) view() error {
 
 	for {
 		select {
-		case frame, ok := <-m.frameChan:
+		case frame, ok := <-m.eChans.FrameIn:
 			if !ok {
 				// channel was closed and drained, handle the closure, perhaps break the view
 				break
@@ -129,7 +129,7 @@ func (m *MotionDetector) view() error {
 			contours.Close()
 
 			gocv.PutText(&img, status, image.Pt(10, 20), gocv.FontHersheyPlain, 1.2, statusColor, 2)
-			helpers.SaveMatToFile(img, m.config.ThumbsDir)
+			helpers.SaveMatToFile(img, m.cfg.ThumbsDir)
 
 		case <-m.stopCh:
 			m.logger.Info("received stop signal")

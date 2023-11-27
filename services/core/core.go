@@ -51,7 +51,7 @@ func New(args []string) *Core {
 
 	// starts the recognizer
 	recogChan := make(chan recognizer.RecognizedEvent, 5)
-	v := recognizer.NewFaceDetector(recognizer.EventChannels{
+	v := recognizer.NewMotionDetector(recognizer.EventChannels{
 		FrameIn: frameChan,
 	})
 	v.Start()
