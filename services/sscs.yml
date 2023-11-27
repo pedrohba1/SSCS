@@ -15,7 +15,7 @@ indexer:
   dbUrl: "host=localhost user=gorm dbname=gorm port=5432 sslmode=disable TimeZone=Asia/Shanghai"
 
 # Configuration for the recognizer service.
-recorgnizer:
+recognizer:
   # Path to the Haar Cascade XML file used for face recognition.
   faceHaarPath: "./data/haarcascade_frontalface_default.xml"
 
@@ -24,6 +24,11 @@ recorgnizer:
 
 # Configuration for the storer service.
 storer:
+  # the folder of a secondary storage to move files that
+  # could've been deleted. It should be located in a bigger but cheaper
+  # type of storage.
+  backupPath: ""
+
   # The maximum allowed size of the recordings directory in bytes.
   # If the limit is exceeded, the cleaner will delete the oldest files first.
   sizeLimit: 5242880 # size limit is written in bytes
