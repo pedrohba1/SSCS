@@ -21,25 +21,25 @@ type OSStorer struct {
 	backupPath  string
 	logger      *logrus.Entry
 
-	wg             sync.WaitGroup
-	CleanEventChan chan<- CleanedEvent
+	wg sync.WaitGroup
 
+	eChans EventChannels
 	stopCh chan struct{}
 }
 
 // creates a new Storer. Notice that
 // if no event channel
-func NewOSStorer(cChan chan CleanedEvent) *OSStorer {
+func NewOSStorer(eChans EventChannels) *OSStorer {
 
 	cfg, _ := conf.ReadConf()
 
 	s := &OSStorer{
-		sizeLimit:      cfg.Storer.SizeLimit,
-		checkPeriod:    cfg.Storer.CheckPeriod,
-		folderPath:     cfg.Recorder.RecordingsDir,
-		backupPath:     cfg.Storer.BackupPath,
-		CleanEventChan: cChan,
-		stopCh:         make(chan struct{}),
+		sizeLimit:   cfg.Storer.SizeLimit,
+		checkPeriod: cfg.Storer.CheckPeriod,
+		folderPath:  cfg.Recorder.RecordingsDir,
+		backupPath:  cfg.Storer.BackupPath,
+		eChans:      eChans,
+		stopCh:      make(chan struct{}),
 	}
 	s.setupLogger()
 
@@ -157,7 +157,7 @@ func (s *OSStorer) checkAndCleanFolder() error {
 
 		deletedSize += info.Size()
 		totalSize -= info.Size()
-		s.CleanEventChan <- CleanedEvent{
+		s.eChans.CleanOut <- CleanedEvent{
 			filename:   info.Name(),
 			fileSize:   int(info.Size()),
 			fileStatus: FileErased,

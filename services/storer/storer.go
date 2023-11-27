@@ -19,6 +19,10 @@ type Storer interface {
 	OpenFiles(filenames []string) ([]*os.File, error)
 }
 
+type EventChannels struct {
+	CleanOut chan<- CleanedEvent
+}
+
 // used to indicate if a file was moved or deleted
 // in the CleanEvent
 type FileStatus int
