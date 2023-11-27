@@ -168,3 +168,21 @@ func (s *OSStorer) checkAndCleanFolder() error {
 
 	return nil
 }
+
+// OpenFiles takes a slice of filenames and attempts to open each one.
+// It returns a slice of *os.File and any error encountered.
+func (s *OSStorer) OpenFiles(filenames []string) ([]*os.File, error) {
+	var files []*os.File
+	for _, filename := range filenames {
+		file, err := os.Open(filename) // For read access.
+		if err != nil {
+			// Close all opened files before returning the error
+			for _, f := range files {
+				f.Close()
+			}
+			return nil, err
+		}
+		files = append(files, file)
+	}
+	return files, nil
+}

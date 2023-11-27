@@ -5,6 +5,8 @@
 // up on some external storage.
 package storer
 
+import "os"
+
 // Storer is an interface for a Storer component
 //
 // As per definition of SSCS components, a Storer
@@ -14,6 +16,7 @@ type Storer interface {
 	Stop() error
 	setupLogger()
 	monitor() error
+	OpenFiles(filenames []string) ([]*os.File, error)
 }
 
 // used to indicate if a file was moved or deleted
