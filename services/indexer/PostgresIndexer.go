@@ -4,27 +4,29 @@ import (
 	"sync"
 
 	BaseLogger "github.com/pedrohba1/SSCS/services/logger"
+	"github.com/pedrohba1/SSCS/services/recognizer"
 	"github.com/pedrohba1/SSCS/services/recorder"
+	"github.com/pedrohba1/SSCS/services/storer"
 
 	"github.com/sirupsen/logrus"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
-type RecordedEvent = recorder.RecordedEvent
-
 type PostgresIndexer struct {
 	dsn    string
 	db     *gorm.DB
 	logger *logrus.Entry
 
-	wg        sync.WaitGroup
-	recordOut <-chan RecordedEvent
-	stopCh    chan struct{}
+	wg     sync.WaitGroup
+	eChans EventChannels
+	stopCh chan struct{}
 }
 
-func NewEventIndexer(dsn string, recordOut <-chan RecordedEvent) (*PostgresIndexer, error) {
-	p := &PostgresIndexer{dsn: dsn, recordOut: recordOut, stopCh: make(chan struct{})}
+func NewEventIndexer(dsn string, eChans EventChannels) (*PostgresIndexer, error) {
+	p := &PostgresIndexer{dsn: dsn,
+		eChans: eChans,
+		stopCh: make(chan struct{})}
 	p.setupLogger()
 
 	return p, nil
@@ -38,11 +40,31 @@ func (p *PostgresIndexer) Stop() error {
 
 func (p *PostgresIndexer) AutoMigrate() error {
 	p.logger.Info("migrating tables...")
-	return p.db.AutoMigrate(&recorder.RecordedEvent{})
+	p.db.AutoMigrate(&recorder.RecordedEvent{})
+	p.db.AutoMigrate(&recognizer.RecognizedEvent{})
+	p.db.AutoMigrate(&storer.CleanedEvent{})
+	return nil
 }
 
-func (p *PostgresIndexer) saveRecord(event RecordedEvent) error {
+func (p *PostgresIndexer) saveRecord(event recorder.RecordedEvent) error {
+	err := p.db.Create(&event).Error
+	if err != nil {
+		p.logger.Info("error indexing record")
+	}
+	p.logger.Info("saved record: %w", event)
+	return err
+}
 
+func (p *PostgresIndexer) saveRecognition(event recognizer.RecognizedEvent) error {
+	err := p.db.Create(&event).Error
+	if err != nil {
+		p.logger.Info("error indexing record")
+	}
+	p.logger.Info("saved record: %w", event)
+	return err
+}
+
+func (p *PostgresIndexer) modifyCleaned(event storer.CleanedEvent) error {
 	err := p.db.Create(&event).Error
 	if err != nil {
 		p.logger.Info("error indexing record")
@@ -81,10 +103,18 @@ func (p *PostgresIndexer) listen() error {
 		select {
 		case <-p.stopCh:
 			p.logger.Info("Received stop signal")
-			return nil // stop signal received, so we return from the function
-		case record := <-p.recordOut:
-			// New record received, we should save it
+			return nil
+		case record := <-p.eChans.RecordOut:
 			if err := p.saveRecord(record); err != nil {
+				p.logger.Errorf("Failed to save record: %v", err)
+			}
+
+		case recog := <-p.eChans.RecogOut:
+			if err := p.saveRecognition(recog); err != nil {
+				p.logger.Errorf("Failed to save record: %v", err)
+			}
+		case clean := <-p.eChans.CleanOut:
+			if err := p.modifyCleaned(clean); err != nil {
 				p.logger.Errorf("Failed to save record: %v", err)
 			}
 		}
