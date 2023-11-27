@@ -104,16 +104,16 @@ func (p *PostgresIndexer) listen() error {
 		case <-p.stopCh:
 			p.logger.Info("Received stop signal")
 			return nil
-		case record := <-p.eChans.RecordOut:
+		case record := <-p.eChans.RecordIn:
 			if err := p.saveRecord(record); err != nil {
 				p.logger.Errorf("Failed to save record: %v", err)
 			}
 
-		case recog := <-p.eChans.RecogOut:
+		case recog := <-p.eChans.RecogIn:
 			if err := p.saveRecognition(recog); err != nil {
 				p.logger.Errorf("Failed to save record: %v", err)
 			}
-		case clean := <-p.eChans.CleanOut:
+		case clean := <-p.eChans.CleanIn:
 			if err := p.modifyCleaned(clean); err != nil {
 				p.logger.Errorf("Failed to save record: %v", err)
 			}

@@ -25,7 +25,7 @@ type Indexer interface {
 // data. The indexer is only supposed to receive information
 // from these sources.
 type EventChannels struct {
-	RecordOut <-chan recorder.RecordedEvent
-	RecogOut  <-chan recognizer.RecognizedEvent
-	CleanOut  <-chan storer.CleanedEvent
+	RecordIn <-chan recorder.RecordedEvent
+	RecogIn  <-chan recognizer.RecognizedEvent
+	CleanIn  <-chan storer.CleanedEvent
 }
