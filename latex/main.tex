@@ -434,8 +434,56 @@ não-elástico, pois precisa manter o tempo íntegro. \cite{lee2005scalable}
 % desde o banco de dados à atualizações em tempo real de \emph{web sockets}. Ele
 % é simplesmente a \emph{View layer} da aplicação. \cite{boduch2017react}
 
-\section{Haar Cascade}
- (escrever sobre o fuuncionamento da Haar Cascade)
+\section{Técnicas de reconhecimento de imagem}
+
+\subsection{Subtração de Fundo baseada em Modelos de Mistura Gaussiana}
+
+A subtração de fundo desempenha um papel crucial no pré-processamento de muitas
+aplicações de visão computacional. Por exemplo, em um contador de visitantes,
+onde uma câmera estática registra a entrada e saída de pessoas em uma sala, ou
+em uma câmera de tráfego que extrai informações dos veículos, há a necessidade
+de isolar com precisão as pessoas ou veículos em movimento do fundo estático.
+Nesses cenários, é necessário encontrar as imagens dinâmicas, separando-as das
+estáticas.
+
+Se no cenário houver uma imagem apenas do fundo, ou seja, de uma sala sem
+visitantes ou uma estrada sem veículos, o reconhecimento é tecnicamente mais
+fácil. Basta subtrair a nova imagem do fundo. Porém, na maioria dos casos, a
+imagem não é regular, então é preciso extrair o fundo das imagens existentes.
+Essa tarefa fica mais complicada quando há sombras nos objetos em movimento,
+pois a sombra se move junto com o objeto e algoritmos que não levam isso em
+consideração marcam a sombra como plano primário. \cite{opencv_bgsubtraction}
+
+Nesse sentido, como a maioria dos algoritmos de subtração de fundo têm sua
+performance afetada pela disposição da iluminação do cenário, pesquisadores
+desenvolveram um método baseado na mistura de Gaussianos para lidar com esse
+problema. Nesse método, no lugar de modelar os valores de todos os pixels em um
+tipo particular de distribuição, os valores de um pixel em particular são
+modelados como uma mistura de Gaussianos. Baseado na persistência e variância
+de cada um dos Gaussianos da mistura, é possível determinar quais Gaussianos
+correspondem à cores do fundo. Valores de pixel que não se encaixam nas
+distribuições do fundo são considerados como primeiro plano, até que um
+Gaussiano inclua-as con evidências consistentes e suficientes.
+
+Assim, essa técnica se adapta para lidar com robustez à mudanças na iluminação,
+movimentos repetitivos de elementos em cena, rastreamento através de regiões
+desordenadas, objetos de movimento lento e introdução ou remoção de objetos da
+cena. Objetos que se movem lentamente levam mais tempo para serem incorporados
+ao fundo, porque a cor deles tem uma variação maior do que a do fundo. Além
+disso, variações repetitivas são aprendidas, e um modelo para a distribuição de
+fundo é geralmente mantido, mesmo que temporariamente substituído por outra
+distribuição, o que leva a uma recuperação mais rápida quando os objetos são
+removidos. \cite{784637}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.7\linewidth]{background_subtraction.jpeg}
+	\caption[Aplicação da técnica de subtração de fundo baseada em modelos de Mistura Gaussiana]{Aplicação da técnica de subtração de fundo baseada em modelos de Mistura Gaussiana}
+	\label{fig:graficosVariandoTamanhoRede}
+\end{figure}
+
+\subsection{Haar Cascade}
+(escrever sobre o fuuncionamento da Haar Cascade)
 
 \begin{figure}[!ht]
 	\centering
@@ -776,8 +824,8 @@ Mas é muito mais do que uma versão atualizada de C. Ele empresta e adapta boas
 ideias de muitas outras linguagens, enquanto evita características que levaram
 à complexidade e código não confiável. Suas facilidades para concorrência são
 novas e eficientes, e sua abordagem para abstração de dados e programação
-orientada a objetos é incomumente flexível. Ele possui gerenciamento automático
-de memória ou coleta de lixo.
+orientada a objetos é flexível. Ele possui gerenciamento automático de memória
+ou coleta de lixo.
 
 Go é especialmente adequado para construir infraestrutura, como servidores em
 rede, e ferramentas e sistemas para programadores, mas é verdadeiramente uma
@@ -1402,8 +1450,8 @@ seja, um mecanismo. \cite{martin2018clean}
 \end{figure}
 
 \subsection{Implementação do indexador com PostgreSQL}
-Bancos de dados relacionais são comumente utilizados para indexação de dados, e
-nesta implementação optou-se pelo PostgreSQL. A interação com o banco é
+Bancos de dados relacionais são normalmente utilizados para indexação de dados,
+e nesta implementação optou-se pelo PostgreSQL. A interação com o banco é
 simplificada através do ORM GORM \cite{gorm}, que abstrai os eventos para
 persistência nas tabelas e facilita migrações automáticas. Essas migrações
 sincronizam a estrutura do banco com os modelos Go, agilizando o
@@ -1419,8 +1467,53 @@ testadas.
 \end{figure}
 
 \section{Reconhecedor}
-Uma 
+Esse componente tem como responsabilidade analisar as correntes de vídeo
+recebidas e identificar padrões ou objetos específicos. Após a captura dos
+pacotes de vídeo através de um protocolo de rede, o reconhecedor processa cada
+quadro individualmente, aplicando modelos de inteligência artificial ou
+aprendizado de máquina.
 
+A informação adquirida pelo reconhecedor pode ser utilizada para diversas
+finalidades, como análise comportamental, detecção de intrusos, reconhecimento
+facial, entre outros. A saída processada normalmente inclui metadados
+associados a cada imagem reconhecida, tais como categoria do evento
+reconhecido, timestamp e enquadramento da figura reconhecida.
+
+\begin{minted}
+	[%
+	 breaklines,
+	 mathescape,
+	 linenos,
+	 numbersep=5pt,
+	 frame=single,
+	 numbersep=5pt,
+	 xleftmargin=0pt,
+	 ]{go}
+type Recognizer interface {
+	Start() error
+	Stop() error
+	setupLogger()
+	view() error
+}
+\end{minted}
+
+Assim como o indexador, essa interface é simplificada. Há apenas um método
+privado, o \texttt{view}, que lida com o processamento de cada imagem. As
+imagens são consumidas em um canal que pode ser alimentado por outros
+componentes como o gravador. Por alto nível, o componente reconhecedor se
+assemelha com o diagrama seguinte, onde ele provê a interface que emite eventos
+de reconhecimento e necessita a integração de uma interface para ler quadros.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.4\linewidth]{recognizer.pdf}
+	\caption[Diagrama isolado da implementação do reconhecedor de imagens]{Diagrama isolado da implementação do reconhecedor de imagens}
+	\label{fig:graficosVariandoTamanhoRede}
+\end{figure}
+
+\subsection{Implementação de reconhecedor de movimento}
+Essa implementação utiliza o método de subtração de fundo baseada em modelos de
+mistura gaussiana.
 
 \section{Gerenciador de armazenamento}
 As câmeras de segurança geralmente operam em vigilância contínua, o que
@@ -1473,9 +1566,9 @@ precisem filtrar arquivos de mídia específicos.
 \subsection{Implementação de gerenciador de armazenamento sobre espaço em disco}
 Nesta implementação, são usados comandos do sistema operacional para mover ou
 deletar os arquivos. Checa-se primeiro o espaço acumulado de todos os arquivos
-do diretório primário escolhido para armazenamento das gravações. Em seguida, eles são
-ordenados por data de criação e os mais antigos podem ser movidos ou apagados,
-dependendo de como o componente foi configurado.
+do diretório primário escolhido para armazenamento das gravações. Em seguida,
+eles são ordenados por data de criação e os mais antigos podem ser movidos ou
+apagados, dependendo de como o componente foi configurado.
 
 \begin{figure}[!ht]
 	\centering
@@ -1489,7 +1582,7 @@ dependendo de como o componente foi configurado.
 \section{Interface gráfica}
 
 \section{Documentação}
-A documentação é essencial para tornar o software acessível e simplificar sua
+A documentação é fundamental para tornar o software acessível e simplificar sua
 manutenção. Ela deve ser clara, precisa e fácil de gerar. Idealmente, deve
 estar integrada ao próprio código, para que a documentação evolua juntamente
 com ele. Quanto mais fácil for para os programadores produzirem uma boa
