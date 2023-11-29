@@ -1521,9 +1521,9 @@ testadas.
 \section{Reconhecedor}
 Esse componente tem como responsabilidade analisar as correntes de vídeo
 recebidas e identificar padrões ou objetos específicos. Após a captura dos
-pacotes de vídeo através de um protocolo de rede, o reconhecedor processa cada
-quadro individualmente, aplicando modelos de inteligência artificial ou
-aprendizado de máquina.
+pacotes de vídeo através de um protocolo de rede pelo gravador, o reconhecedor
+processa cada quadro individualmente, aplicando modelos de inteligência
+artificial ou aprendizado de máquina.
 
 A informação adquirida pelo reconhecedor pode ser utilizada para diversas
 finalidades, como análise comportamental, detecção de intrusos, reconhecimento
@@ -1547,14 +1547,42 @@ type Recognizer interface {
 	setupLogger()
 	view() error
 }
+
+type EventChannels struct {
+	FrameIn  <-chan image.Image
+	FrameOut chan<- image.Image
+	RecogOut chan<- RecognizedEvent
+}
+
+
+type Config struct {
+	ThumbsDir string
+}
+
+type RecognizedEvent struct {
+	name      string
+	timestamp int
+}
 \end{minted}
 
 Assim como o indexador, essa interface é simplificada. Há apenas um método
 privado, o \texttt{view}, que lida com o processamento de cada imagem. As
 imagens são consumidas em um canal que pode ser alimentado por outros
-componentes como o gravador. Por alto nível, o componente reconhecedor se
-assemelha com o diagrama seguinte, onde ele provê a interface que emite eventos
-de reconhecimento e necessita a integração de uma interface para ler quadros.
+componentes como o gravador. Nos canais desse componente, tem-se o
+\texttt{FrameIn} que retorna todos os quadros inseridos pelo gravador e o
+\texttt{RecogOut} que devolve eventos de reconhecimento. O canal
+\texttt{FrameOut} é opcional, porque a responsabilidade dele é redirecionar
+imagens processadas para outras reconhecedores e nem sempre isso é um
+requisito. Mas é uma possibilidade quando há um problema de reconhecimento mais
+complexo que pode ser realizado em etapas.
+
+O reconhecedor também pode ser configurado quanto ao diretório de thumbnails.
+Nesse diretório, são salvas as imagens contornadas que demonstram o que foi
+detectado pelos algoritmos de visão computacional.
+
+Por alto nível, o componente reconhecedor se assemelha com o diagrama seguinte,
+onde ele provê a interface que emite eventos de reconhecimento e necessita a
+integração de uma interface para ler quadros.
 
 \begin{figure}[!ht]
 	\centering
@@ -1570,8 +1598,8 @@ mistura gaussiana da biblioteca OpenCV, definido na classe
 Go, foi usado o pacote gocv, que encapsula o OpenCV para facilitar a interação
 \cite{gocv_package}.
 
-De maneira resumida, essa implementação primeiro diferencia o plano de fundo do
-primeiro plano usando o algoritmo citado anteriormente. Após a separação,
+De maneira resumida, essa primeiro computa-se a diferença do plano de fundo para o
+primeiro plano usando o algoritmo citado anteriormente. Feito isso,
 ocorre uma limpeza utilizando a técnica de limiarização (thresholding) na
 imagem resultante da diferenciação. O resultado disso é uma imagem binária,
 onde todos os pixels acima de um valor de limiar são definidos para um valor
@@ -1579,6 +1607,20 @@ máximo e todos os outro para zero. Em seguida, ocorre a dilatação, que expand
 as áreas brancas (também chamadas de áreas de movimento) da imagem conectando
 regiões próximas e preenchendo lacunas, o que simplifica a próxima etapa, que é
 inserção de contornos.
+
+\clearpage
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=1.0\linewidth]{motion_detector.pdf}
+	\caption[Diagrama da implementação do reconhecedor de movimento]{Diagrama da implementação do reconhecedor de movimento}
+	\label{fig:graficosVariandoTamanhoRede}
+\end{figure}
+
+\section{Implementação do detector facial}
+Essa implementação utiliza 
+
+
 
 \section{Gerenciador de armazenamento}
 As câmeras de segurança geralmente operam em vigilância contínua, o que
@@ -1627,9 +1669,9 @@ type Config struct {
 type FileStatus int
 
 const (
-	FileUnchanged FileStatus = iota // File remains unchanged
-	FileMoved                       // File was moved
-	FileErased                      // File was erased
+	FileUnchanged FileStatus = iota 
+	FileMoved                      
+	FileErased                    
 )
 
 type CleanedEvent struct {
@@ -1674,9 +1716,9 @@ apagados, dependendo de como o componente foi configurado.
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
-\section{API Web}
+% \section{API Web}
 
-\section{Interface gráfica}
+% \section{Interface gráfica}
 
 \section{Documentação}
 A documentação é fundamental para tornar o software acessível e simplificar sua
@@ -1760,8 +1802,7 @@ Inclusive, o SSCS tem sua documentação toda disponível em
 % ---
 \chapter[Conclusão]{Conclusão}
 %TCC:
-Esse trabalho detalhou o processo de desenvolvimento do SSCS, suas qualidades
-
+Esse trabalho detalhou o processo de desenvolvimento do SSCS, suas qualidades e
 % ----------------------------------------------------------
 % ELEMENTOS PÓS-TEXTUAIS
 % ----------------------------------------------------------
