@@ -1598,15 +1598,15 @@ mistura gaussiana da biblioteca OpenCV, definido na classe
 Go, foi usado o pacote gocv, que encapsula o OpenCV para facilitar a interação
 \cite{gocv_package}.
 
-De maneira resumida, essa primeiro computa-se a diferença do plano de fundo para o
-primeiro plano usando o algoritmo citado anteriormente. Feito isso,
-ocorre uma limpeza utilizando a técnica de limiarização (thresholding) na
-imagem resultante da diferenciação. O resultado disso é uma imagem binária,
-onde todos os pixels acima de um valor de limiar são definidos para um valor
-máximo e todos os outro para zero. Em seguida, ocorre a dilatação, que expande
-as áreas brancas (também chamadas de áreas de movimento) da imagem conectando
-regiões próximas e preenchendo lacunas, o que simplifica a próxima etapa, que é
-inserção de contornos.
+De maneira resumida, para cada quadro lido do canal \texttt{FrameIn},
+computa-se a diferença do plano de fundo para o primeiro plano usando o
+algoritmo citado anteriormente. Feito isso, ocorre uma limpeza utilizando a
+técnica de limiarização (thresholding) na imagem resultante da diferenciação. O
+resultado disso é uma imagem binária, onde todos os pixels acima de um valor de
+limiar são definidos para um valor máximo e todos os outro para zero. Em
+seguida, ocorre a dilatação, que expande as áreas brancas (também chamadas de
+áreas de movimento) da imagem conectando regiões próximas e preenchendo
+lacunas, o que simplifica a próxima etapa, que é inserção de contornos.
 
 \clearpage
 
@@ -1617,10 +1617,18 @@ inserção de contornos.
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
-\section{Implementação do detector facial}
-Essa implementação utiliza 
+\section{Implementação do detector usando cascata Haar}
+Essa implementação utiliza o classificador em cascata
+\texttt{CascadeClassifier} também da biblioteca OpenCV, nas mesma condições que
+a implementação anterior. A diferença principal está no arquivo de cascata Haar
+que precisa ser gerado previamente, específico para o objeto a ser detectado.
 
-
+Resumidamente, antes mesmo de receber quadros o processo se inicia com a
+importação do arquivo de cascata Haar. Em seguida, para cada quadro o
+classificador aplica-se um detector em várias escalas de tamanho de imagem.
+Isso significa que o algoritmo pode detectar objetos de diferentes tamanhos, o
+que é útil para câmeras de segurança já que o tamanho do objeto varia
+dependendo da distância.
 
 \section{Gerenciador de armazenamento}
 As câmeras de segurança geralmente operam em vigilância contínua, o que
