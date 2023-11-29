@@ -482,20 +482,48 @@ removidos. \cite{784637}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
-\subsection{Haar Cascade}
-(escrever sobre o fuuncionamento da Haar Cascade)
+\subsection{Detecção de objetos usando classificadores em cacata baseados em características de haar}
+
+Neste método, utiliza-se aprendizado de máquina, onde uma função de cascata é
+treinada a partir de um grande número de imagens positivas (contendo o objeto
+de interesse) e negativas (sem o objeto de interesse). Nisso, as
+características Haar, inspiradas nas wavelets de Haar, são usadas para
+encontrar padrões visuais que diferenciam o objeto de interesse do restante da
+imagem.
+
+Essas características haar são simples retângulos de 3 tipos. A de dois
+retângulos, onde o valor dessa é atribuído calculando-se a diferença entre a
+soma dos pixels dentro de duas regiões retangulares de mesmo tamanho e forma,
+adjacentes horizontalmente ou verticalmente. A de três retângulos calcula a
+soma dentro de dois retângulos externos subtraindo a soma em um retângulo
+central. Por último, uma característica de quatro retângulos calcula a
+diferença entre pares de retângulos diagonais.
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[width=0.7\linewidth]{grayscale.PNG}
-	\caption[De \emph{grayscale} para LBP
-	]{Imagens resultantes do algoritmo LBP abaixo, geradas à partir da imagem em \emph{grayscale} acima.}
+	\includegraphics[width=0.7\linewidth]{haar_features.jpeg}
+	\caption[Exemplos de características Haar mostradas em uma janela de detecção]{Exemplos de características Haar mostradas em uma janela de detecção}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
-% é o proposto por Paul Viola e Michael Jones no 
-% artigo  "Rapid Object Detection using a Boosted Cascade of Simple Features" em 2001. É uma abordagem
-% baseada em Machine Learning em que uma função \emph{cascade} é treinada com o uso de muitas imagens
-% positivas e negativas.
+
+As características Haar também podem ser calculadas rapidamente graças ao uso
+de uma representação intermediária para a imagem chamada de imagem integral,
+que permite a soma de valores de intensidade em áreas retangulares da imagem de
+forma eficiente. Estas características são simples, mas extremamente eficazes
+na captura de bordas, linhas e mudanças de textura em imagens.
+
+A arquitetura em cascata do classificador também acrescenta na velocidade do
+método. Cada estágio da cascata utiliza um conjunto de características Haar
+para determinar se uma determinada região da imagem deve continuar sendo
+processada pelas etapas subsequentes. As regiões que são prontamente
+identificadas como não contendo o objeto são descartadas, reduzindo
+significativamente o volume de cálculos necessários para a detecção.
+
+Este método mostrou-se particularmente eficaz na detecção de rostos em tempo
+real, mas também pode ser adaptado para a detecção de outros tipos de objetos.
+A capacidade de operar em tempo real e com precisão tornou essa técnica um
+marco na área de visão computacional, abrindo caminho para aplicações práticas
+em segurança, interação humano-computador e outras áreas. \cite{990517}
 
 \section{Arquitetura de microsserviços}
 
