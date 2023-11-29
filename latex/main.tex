@@ -1399,7 +1399,7 @@ responsabilidade dessa função é pegar quadros recebidos pelo gravador e
 enviá-los para a leitura por detectores de imagem.
 
 Esse componente aceita como configuração uma URL de um servidor de mídia que
-utiliza o protocolo RTSP para transmissão de dados de mídia. 
+utiliza o protocolo RTSP para transmissão de dados de mídia.
 
 \begin{figure}[!ht]
 	\centering
@@ -1565,7 +1565,12 @@ de reconhecimento e necessita a integração de uma interface para ler quadros.
 
 \subsection{Implementação de reconhecedor de movimento}
 Essa implementação utiliza o algoritmo de segmentação de fundo baseado em
-mistura gaussiana da biblioteca openCV, definido na classe
+mistura gaussiana da biblioteca OpenCV, definido na classe
+\texttt{BackgroundSubtractorMOG2}. Como o projeto está codificado na linguagem
+Go, foi usado o pacote gocv, que encapsula o OpenCV para facilitar a interação
+\cite{gocv_package}.
+
+De grosso modo, essa implementação extrai primeiro
 
 \section{Gerenciador de armazenamento}
 As câmeras de segurança geralmente operam em vigilância contínua, o que
@@ -1578,9 +1583,9 @@ Nesse sentido, foi criado o componente \texttt{Storer}. Sua função é justamen
 monitorar o armazenamento em períodos de tempo definidos em segundos, apagando
 ou movendo os arquivos mais antigos para que um limite do armazenamento
 primário não seja excedido. Ao deletar ou mover para o armazenamento
-secundário, ele também provê um evento, por meio de um canal, que descreve os
-arquivos e a ação para que componentes como o indexador possam deletar as
-referências aos arquivos.
+secundário, ele também provê o evento \texttt{CleanedEvent}, por meio de um
+canal \texttt{CleanOut}, que descreve os arquivos e a ação para que componentes
+como o indexador possam deletar as referências aos arquivos.
 
 \begin{minted}
 	[%
@@ -1592,13 +1597,31 @@ referências aos arquivos.
 	 numbersep=5pt,
 	 xleftmargin=0pt,
 	 ]{go}
-	 type Storer interface {
-		Start() error
-		Stop() error
-		setupLogger()
-		monitor() error
-		OpenFiles(filenames []string) ([]*os.File, error)
-	}	
+type Storer interface {
+	Start() error
+	Stop() error
+	setupLogger()
+	monitor() error
+	OpenFiles(filenames []string) ([]*os.File, error)
+}	
+
+type EventChannels struct {
+	CleanOut chan<- CleanedEvent
+}
+
+type FileStatus int
+
+const (
+	FileUnchanged FileStatus = iota // File remains unchanged
+	FileMoved                       // File was moved
+	FileErased                      // File was erased
+)
+
+type CleanedEvent struct {
+	filename   string
+	fileSize   int
+	fileStatus FileStatus
+}
 \end{minted}
 
 Por meio dos método \texttt{monitor} demonstrado na interface acima, é ativada
