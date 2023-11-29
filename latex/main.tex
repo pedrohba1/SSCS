@@ -1351,11 +1351,20 @@ Os últimos dois ficam á critério da implementação.
 	 xleftmargin=0pt,
 	 ]{go}
 type Recorder interface {
-	Start() error // Starts the recording
-	Stop() error  // Stops the recording
+	Start() error 
+	Stop() error 
 	setupLogger()
 	record() error
 	sendFrame(image.Image) error
+}
+
+type EventChannels struct {
+	RecordOut chan<- RecordedEvent
+	FrameOut  chan<- image.Image
+}	
+
+type Config struct {
+	rtspFeed string
 }
 \end{minted}
 
@@ -1369,30 +1378,35 @@ exclusiva a um protocolo específico: qualquer sistema que tenha a capacidade de
 transmitir mídia utilizando os protocolos RTSP, WebRTC ou SRT pode ser
 integrado também, assumindo que o componente de gravador dê suporte.
 
+Para comunicar aos outros componentes que um segmento foi gravado no
+armazenamento, utiliza-se a interface provida \texttt{RecordedEvent}, que
+encapsula informações como o tempo de início e término da gravação. Esta
+estrutura compartilhada é transmitida através do canal com buffer
+\texttt{RecordOut}, permitindo assim que o gravador continue seu processo sem
+aguardar a finalização do indexador para cada evento de gravação. Em contraste,
+se um canal sem buffer fosse utilizado, o gravador necessitaria esperar pela
+conclusão da indexação de cada evento antes de iniciar a gravação subsequente,
+resultando em uma sincronização mais rígida e potencialmente uma latência maior
+no sistema, o que seria menos vantajoso em questões de performance. O canal
+\texttt{FrameOut}, por sua vez, recebe quadros individuais. Isso é útil para os
+componentes reconhecedores de imagem que podem processar esses quadros.
+
+O método \texttt{sendFrame} é usado para alocar quadros no canal
+\texttt{FrameOut}. Em relação a comunicação com outros componentes, seu
+funcionamento é semelhante ao da interface anterior, utilizando também um canal
+com buffer. A diferença está apenas no tamanho do buffer do canal. A
+responsabilidade dessa função é pegar quadros recebidos pelo gravador e
+enviá-los para a leitura por detectores de imagem.
+
+Esse componente aceita como configuração uma URL de um servidor de mídia que
+utiliza o protocolo RTSP para transmissão de dados de mídia. 
+
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.7\linewidth]{gravador.pdf}
 	\caption[Diagram isolado do gravador]{Diagram isolado do gravador}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
-
-Para realizar a comunicação com o indexador de maneira eficiente, utiliza-se a
-interface provida \texttt{RecordedEvent}, que encapsula informações como o
-tempo de início e término da gravação. Esta estrutura compartilhada é
-transmitida através de um canal com buffer, permitindo assim que o gravador
-continue seu processo sem aguardar a finalização do indexador para cada evento
-de gravação. Em contraste, se um canal sem buffer fosse utilizado, o gravador
-necessitaria esperar pela conclusão da indexação de cada evento antes de
-iniciar a gravação subsequente, resultando em uma sincronização mais rígida e
-potencialmente uma latência maior no sistema, o que seria menos vantajoso em
-questões de performance.
-
-O método \texttt{sendFrame} aloca quadros de vídeo em um canal. Em relação a
-comunicação com outros componentes, seu funcionamento é semelhante ao da
-interface anterior, utilizando também um canal com buffer. A diferença está
-apenas no tamanho do buffer do canal. A responsabilidade dessa função é pegar
-quadros recebidos pelo gravador e enviá-los para a leitura por detectores de
-imagem.
 
 \subsection{Implementação de gravador com RTSP e compressão H.264}
 
