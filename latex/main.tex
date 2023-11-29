@@ -1133,9 +1133,19 @@ escolha armazenamento, como forma de mitigar vulnerabilidades.
 % https://www.wowza.com/blog/hls-vs-webrtc#delivery-method
 
 \chapter{Revisão Bibliográfica}
-%TCC:
-Um ou mais capítulos (por exemplo, se há duas linhas de trabalhos
-relacionados).
+\cite{Valera2005IntelligentDS} apresenta uma revisão generalizada do estado da arte
+no desenvolvimento de sistemas de vigilância automatizados com a intenção de identificar lacunas
+que requerem pequisa aprofundada. Esse estudo está repleto de definições das técnicas
+comuns da indústria como reconhecimento, detecção e monitoramento de objetos, análise comportamental,
+e integração com bancos de dados. Em particular, ele conclui que em alguns aspectos pode ser vantajoso
+dedicar mais atenção ao desenvolvimento de sistemas distribuídos de vigilância no futuro. Isso inclui
+a distribuição de tarefas de processamento, o use de novas tecnologias e a criação de padrões de metadados
+ou novos protocolos para lidar com limitações de banda.
+
+% No campo de gerenciamento de alarmes, uma parte importante da vigilância
+% automatizada, no artigo __  as especificações de requisitos sistema definem a
+% necessidade ligar para um número de emergência automaticamente se um alarme em
+% particular for detectado.
 
 \chapter{Desenvolvimento}
 
@@ -1540,8 +1550,8 @@ de reconhecimento e necessita a integração de uma interface para ler quadros.
 \end{figure}
 
 \subsection{Implementação de reconhecedor de movimento}
-Essa implementação utiliza o método de subtração de fundo baseada em modelos de
-mistura gaussiana.
+Essa implementação utiliza o algoritmo de segmentação de fundo baseado em
+mistura gaussiana da biblioteca openCV, definido na classe
 
 \section{Gerenciador de armazenamento}
 As câmeras de segurança geralmente operam em vigilância contínua, o que
@@ -1691,7 +1701,7 @@ Inclusive, o SSCS tem sua documentação toda disponível em
 % ---
 \chapter[Conclusão]{Conclusão}
 %TCC:
-E daí?
+Esse trabalho detalhou o processo de desenvolvimento do SSCS, suas qualidades
 
 % ----------------------------------------------------------
 % ELEMENTOS PÓS-TEXTUAIS
@@ -1710,23 +1720,23 @@ E daí?
 % ---
 % Inicia os apêndices
 % ---
-\begin{apendicesenv}
+% \begin{apendicesenv}
 
-	% Imprime uma página indicando o início dos apêndices
-	\partapendices
+% 	% Imprime uma página indicando o início dos apêndices
+% 	\partapendices
 
-	% ----------------------------------------------------------
-	\chapter{Quisque libero justo}
-	% ----------------------------------------------------------
+% 	% ----------------------------------------------------------
+% 	\chapter{Quisque libero justo}
+% 	% ----------------------------------------------------------
 
-	\lipsum[50]
+% 	\lipsum[50]
 
-	% ----------------------------------------------------------
-	\chapter{Coisas que fiz e que achei interessante mas não tanto para entrar no corpo do texto}
-	% ----------------------------------------------------------
-	\lipsum[55-57]
+% 	% ----------------------------------------------------------
+% 	\chapter{Coisas que fiz e que achei interessante mas não tanto para entrar no corpo do texto}
+% 	% ----------------------------------------------------------
+% 	\lipsum[55-57]
 
-\end{apendicesenv}
+% \end{apendicesenv}
 % ---
 
 % ----------------------------------------------------------
@@ -1736,29 +1746,29 @@ E daí?
 % ---
 % Inicia os anexos
 % ---
-\begin{anexosenv}
+% \begin{anexosenv}
 
-	% Imprime uma página indicando o início dos anexos
-	\partanexos
+% 	% Imprime uma página indicando o início dos anexos
+% 	\partanexos
 
-	% ---
-	\chapter{Eu sempre quis aprender latim}
-	% ---
-	\lipsum[30]
+% 	% ---
+% 	\chapter{Eu sempre quis aprender latim}
+% 	% ---
+% 	\lipsum[30]
 
-	% ---
-	\chapter{Coisas que eu não fiz mas que achei interessante o suficiente para colocar aqui}
-	% ---
+% 	% ---
+% 	\chapter{Coisas que eu não fiz mas que achei interessante o suficiente para colocar aqui}
+% 	% ---
 
-	\lipsum[31]
+% 	\lipsum[31]
 
-	% ---
-	\chapter{Fusce facilisis lacinia dui}
-	% ---
+% 	% ---
+% 	\chapter{Fusce facilisis lacinia dui}
+% 	% ---
 
-	\lipsum[32]
+% 	\lipsum[32]
 
-\end{anexosenv}
+% \end{anexosenv}
 
 %---------------------------------------------------------------------
 % INDICE REMISSIVO
