@@ -1570,7 +1570,15 @@ mistura gaussiana da biblioteca OpenCV, definido na classe
 Go, foi usado o pacote gocv, que encapsula o OpenCV para facilitar a interação
 \cite{gocv_package}.
 
-De grosso modo, essa implementação extrai primeiro
+De maneira resumida, essa implementação primeiro diferencia o plano de fundo do
+primeiro plano usando o algoritmo citado anteriormente. Após a separação,
+ocorre uma limpeza utilizando a técnica de limiarização (thresholding) na
+imagem resultante da diferenciação. O resultado disso é uma imagem binária,
+onde todos os pixels acima de um valor de limiar são definidos para um valor
+máximo e todos os outro para zero. Em seguida, ocorre a dilatação, que expande
+as áreas brancas (também chamadas de áreas de movimento) da imagem conectando
+regiões próximas e preenchendo lacunas, o que simplifica a próxima etapa, que é
+inserção de contornos.
 
 \section{Gerenciador de armazenamento}
 As câmeras de segurança geralmente operam em vigilância contínua, o que
@@ -1580,12 +1588,12 @@ seja em dispositivos locais ou em soluções baseadas em nuvem, é crucial
 implementar estratégias eficazes de gerenciamento de armazenamento.
 
 Nesse sentido, foi criado o componente \texttt{Storer}. Sua função é justamente
-monitorar o armazenamento em períodos de tempo definidos em segundos, apagando
-ou movendo os arquivos mais antigos para que um limite do armazenamento
-primário não seja excedido. Ao deletar ou mover para o armazenamento
-secundário, ele também provê o evento \texttt{CleanedEvent}, por meio de um
-canal \texttt{CleanOut}, que descreve os arquivos e a ação para que componentes
-como o indexador possam deletar as referências aos arquivos.
+monitorar o armazenamento em períodos de tempo, apagando ou movendo os arquivos
+mais antigos para que um limite do armazenamento primário não seja excedido. Ao
+deletar ou mover para o armazenamento secundário, ele também provê o evento
+\texttt{CleanedEvent}, por meio de um canal \texttt{CleanOut}, que descreve os
+arquivos e a ação para que componentes como o indexador possam deletar as
+referências aos arquivos.
 
 \begin{minted}
 	[%
@@ -1609,6 +1617,13 @@ type EventChannels struct {
 	CleanOut chan<- CleanedEvent
 }
 
+type Config struct {
+	sizeLimit   int
+	checkPeriod int
+	folderPath  string
+	backupPath  string
+}
+
 type FileStatus int
 
 const (
@@ -1630,6 +1645,13 @@ desse método e dos outros métodos padrões de componente, há o método
 \mintinline{go}{OpenFiles} que lida com a busca e abertura dos arquivos por
 meio de seus nomes. Isso é útil para outros componentes ou aplicações que
 precisem filtrar arquivos de mídia específicos.
+
+Existem quatro configurações disponíveis para o \texttt{Storer}. um inteiro que
+representa o limite do tamanho do diretório em bytes, \texttt{sizeLimit}. Um
+outro inteiro que representa o período de checagem do tamanho do armazenamento
+em segundos, \texttt{checkPeriod}. Por último, duas strings que representam
+respectivamente os diretórios de armazenamento primário e backup,
+\texttt{folderPath} e \texttt{backupPath}.
 
 \begin{figure}[!ht]
 	\centering
