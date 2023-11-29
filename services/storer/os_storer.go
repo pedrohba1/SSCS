@@ -15,15 +15,12 @@ import (
 )
 
 type OSStorer struct {
-	sizeLimit   int
-	checkPeriod int
-	folderPath  string
-	backupPath  string
-	logger      *logrus.Entry
+	logger *logrus.Entry
 
 	wg sync.WaitGroup
 
 	eChans EventChannels
+	cfg    Config
 	stopCh chan struct{}
 }
 
@@ -34,12 +31,14 @@ func NewOSStorer(eChans EventChannels) *OSStorer {
 	cfg, _ := conf.ReadConf()
 
 	s := &OSStorer{
-		sizeLimit:   cfg.Storer.SizeLimit,
-		checkPeriod: cfg.Storer.CheckPeriod,
-		folderPath:  cfg.Recorder.RecordingsDir,
-		backupPath:  cfg.Storer.BackupPath,
-		eChans:      eChans,
-		stopCh:      make(chan struct{}),
+		cfg: Config{
+			sizeLimit:   cfg.Storer.SizeLimit,
+			checkPeriod: cfg.Storer.CheckPeriod,
+			folderPath:  cfg.Recorder.RecordingsDir,
+			backupPath:  cfg.Storer.BackupPath,
+		},
+		eChans: eChans,
+		stopCh: make(chan struct{}),
 	}
 	s.setupLogger()
 
@@ -53,15 +52,15 @@ func (s *OSStorer) setupLogger() {
 func (s *OSStorer) Start() error {
 	s.logger.Info("starting storer service...")
 
-	if s.backupPath == "" {
+	if s.cfg.backupPath == "" {
 		s.logger.Warn("backupPath is not defined in configuration. Files will be erased by default")
 	} else {
-		err := helpers.EnsureDirectoryExists(s.backupPath)
+		err := helpers.EnsureDirectoryExists(s.cfg.backupPath)
 		if err != nil {
 			s.logger.Errorf("failed to ensure that backup directory exists: %v", err)
 		}
 	}
-	err := helpers.EnsureDirectoryExists(s.folderPath)
+	err := helpers.EnsureDirectoryExists(s.cfg.folderPath)
 
 	if err != nil {
 		s.logger.Errorf("%v", err)
@@ -82,7 +81,7 @@ func (r *OSStorer) Stop() error {
 func (s *OSStorer) monitor() error {
 	defer s.wg.Done()
 
-	ticker := time.NewTicker(time.Duration(s.checkPeriod) * time.Second)
+	ticker := time.NewTicker(time.Duration(s.cfg.checkPeriod) * time.Second)
 	defer ticker.Stop()
 
 	for {
@@ -103,7 +102,7 @@ func (s *OSStorer) monitor() error {
 
 func (s *OSStorer) checkAndCleanFolder() error {
 
-	entries, err := os.ReadDir(s.folderPath)
+	entries, err := os.ReadDir(s.cfg.folderPath)
 	if err != nil {
 		return err
 
@@ -131,15 +130,15 @@ func (s *OSStorer) checkAndCleanFolder() error {
 	var deletedSize int64 = 0
 	for _, info := range infos {
 		// when the limit is reached, break the loop
-		if totalSize <= int64(s.sizeLimit) {
+		if totalSize <= int64(s.cfg.sizeLimit) {
 			break
 		}
 
-		oldestFilePath := filepath.Join(s.folderPath, info.Name())
+		oldestFilePath := filepath.Join(s.cfg.folderPath, info.Name())
 
 		// If backupPath is defined, move the file there, otherwise remove the file.
-		if s.backupPath != "" {
-			backupFilePath := filepath.Join(s.backupPath, info.Name())
+		if s.cfg.backupPath != "" {
+			backupFilePath := filepath.Join(s.cfg.backupPath, info.Name())
 			err := os.Rename(oldestFilePath, backupFilePath)
 			if err != nil {
 				s.logger.Error("Error moving file to backup directory: ", err)

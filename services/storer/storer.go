@@ -23,6 +23,15 @@ type EventChannels struct {
 	CleanOut chan<- CleanedEvent
 }
 
+// Config contains all parameters that can be customized
+// via the sscs.yml file.
+type Config struct {
+	sizeLimit   int
+	checkPeriod int
+	folderPath  string
+	backupPath  string
+}
+
 // used to indicate if a file was moved or deleted
 // in the CleanEvent
 type FileStatus int
