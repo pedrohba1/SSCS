@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <a href="https://pkg.go.dev/github.com/pedrohba1/SSCS/services"><img src="https://pkg.go.dev/badge/github.com/pedrohba1/SSCS/services.svg" alt="Go Reference"></a>
 
-The Self-Sovereign Camera System (SSCS) is an open-source, decentralized camera surveillance solution with integrated facial and human detection capabilities.
+The Self-Sovereign Camera System (SSCS) is an open-source, distributed camera surveillance solution with integrated facial and human detection capabilities.
 
 ## Table of Contents
 - [Features](#features)
