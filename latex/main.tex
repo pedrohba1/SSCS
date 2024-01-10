@@ -453,7 +453,7 @@ fácil. Basta subtrair a nova imagem do fundo. Porém, na maioria dos casos, a
 imagem não é regular, então é preciso extrair o fundo das imagens existentes.
 Essa tarefa fica mais complicada quando há sombras nos objetos em movimento,
 pois a sombra se move junto com o objeto e algoritmos que não levam isso em
-consideração marcam a sombra como plano primário. \cite{opencv_bgsubtraction}
+consideração marcam a sombra como plano primário \cite{opencv_bgsubtraction}.
 
 Nesse sentido, como a maioria dos algoritmos de subtração de fundo têm sua
 performance afetada pela disposição da iluminação do cenário, pesquisadores
@@ -476,11 +476,20 @@ fundo é geralmente mantido, mesmo que temporariamente substituído por outra
 distribuição, o que leva a uma recuperação mais rápida quando os objetos são
 removidos. \cite{784637}
 
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[width=0.7\linewidth]{background_subtraction.jpeg}
-	\caption[Aplicação da técnica de subtração de fundo baseada em modelos de Mistura Gaussiana]{Aplicação da técnica de subtração de fundo baseada em modelos de Mistura Gaussiana}
-	\label{fig:graficosVariandoTamanhoRede}
+% \begin{figure}[!ht]
+% 	\centering
+% 	\includegraphics[width=0.7\linewidth]{background_subtraction.jpeg}
+% 	\caption[Aplicação da técnica de subtração de fundo baseada em modelos de Mistura Gaussiana]{Aplicação da técnica de subtração de fundo baseada em modelos de Mistura Gaussiana}
+% 	\label{fig:graficosVariandoTamanhoRede}
+% \end{figure}
+
+
+\begin{figure}[ht]
+	\begin{center}
+		\includegraphics[width=0.7\linewidth]{background_subtraction.jpeg}
+	\end{center}
+	\caption{Aplicação da técnica de subtração de fundo baseada em modelos de Mistura Gaussiana}
+    \legend{Fonte: \href{https://docs.opencv.org/3.4/de/df4/tutorial_js_bg_subtraction.html}{Subtração de fundo no OpenCV} }
 \end{figure}
 
 \subsection{Detecção de objetos usando classificadores em cacata baseados em características de haar}
@@ -500,12 +509,23 @@ soma dentro de dois retângulos externos subtraindo a soma em um retângulo
 central. Por último, uma característica de quatro retângulos calcula a
 diferença entre pares de retângulos diagonais.
 
+% \begin{figure}[ht]
+% 	\begin{center}
+% 	    \includegraphics[scale=0.45]{figs/usabilidadeBoaRuim.png}
+% 	\end{center}
+% 	\caption{\label{Formulários}Exemplo de formulários mal elaborados ou confusos.}
+%     \legend{Fonte: \href{https://i.pinimg.com/564x/5d/66/ce/5d66ce69f103e876c90ab8076c433494.jpg}{https://i.pinimg.com/564x/5d/66/ce/5d66ce69f103e876c90ab8076c433494.jpg}}
+% \end{figure}
+
+
+% TODO: colocar um \legend nessa citação, igual a da subtração de fundo na citação de imagem anterior
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.7\linewidth]{haar_features.jpeg}
 	\caption[Exemplos de características Haar mostradas em uma janela de detecção]{Exemplos de características Haar mostradas em uma janela de detecção}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
+
 
 As características Haar também podem ser calculadas rapidamente graças ao uso
 de uma representação intermediária para a imagem chamada de imagem integral,
@@ -524,7 +544,7 @@ Este método mostrou-se particularmente eficaz na detecção de rostos em tempo
 real, mas também pode ser adaptado para a detecção de outros tipos de objetos.
 A capacidade de operar em tempo real e com precisão tornou essa técnica um
 marco na área de visão computacional, abrindo caminho para aplicações práticas
-em segurança, interação humano-computador e outras áreas. \cite{990517}
+em segurança, interação humano-computador e outras áreas \cite{990517}.
 
 \section{Arquitetura de microsserviços}
 
@@ -602,6 +622,9 @@ Ao trabalhar com diagramas de componentes, as equipes podem compreender melhor
 a estrutura do sistema e identificar áreas para atenção ou desenvolvimento.
 
 Abaixo, um exemplo de um componente e suas partes:
+
+% TODO: como essa imagem foi uma tradução, colocar na legenda dela a origem da imagem (o livro)
+% e avisar que foi uma tradução da imagem
 
 \begin{figure}[!ht]
 	\centering
@@ -917,7 +940,7 @@ interface com modelos que funciona perfeitamente com contêineres STL.
 
 \section{Trabalhos Correlatos}
 
-\cite{Valera2005IntelligentDS} apresenta uma revisão generalizada do estado da arte
+\citeonline{Valera2005IntelligentDS} apresentam uma revisão generalizada do estado da arte
 no desenvolvimento de sistemas de vigilância automatizados com a intenção de identificar lacunas
 que requerem pequisa aprofundada. Esse contêm definições das técnicas
 comuns da indústria como reconhecimento, detecção e monitoramento de objetos, análise comportamental,
@@ -926,7 +949,7 @@ dedicar mais atenção ao desenvolvimento de sistemas distribuídos de vigilânc
 a distribuição de tarefas de processamento e a criação de padrões de metadados
 ou novos protocolos para lidar com limitações de banda.
 
-Em \cite{780272} os autores demonstram um sistema de vigilância baseado em
+Em \citeonline{780272}, os autores demonstram um sistema de vigilância baseado em
 vídeo para monitorar atividades em um estacionamento à ceu aberto,
 categorizando eventos e interações. A arquitetura desenvolvida consiste em três
 componentes: um (\textit{\foreignlanguage{english}{tracker}}) adaptativo que
@@ -936,7 +959,7 @@ conjunto de eventos discretos pré-determinados e um
 segmentação e rotulagem do vídeo de vigilância para identificar interações
 entre pessoas e veículos, tais como ingresso e despache.
 
-Em \cite{Neal_2012} o uso de tecnologias de computação em nuvem são analisados
+Em \citeonline{Neal_2012} o uso de tecnologias de computação em nuvem são analisados
 para a construção de um sistema de gerenciamento de vigilância. Após comparar e
 investigar vários (\textit{\foreignlanguage{english}{Software as a Servcice}})
 (SaaS), (\textit{\foreignlanguage{english}{Platform as a Service}}) (PaaS) e
@@ -1136,7 +1159,7 @@ políticas de autenticação fracas frequentemente permitem a seleção de senha
 simples e fáceis de adivinhar. A criptografia inadequada de informações
 confidenciais é outro ponto de preocupação, pois muitas vezes os dados são
 transmitidos sem qualquer processo de criptografia, tornando-os suscetíveis a
-interceptações e ataques. Como exemplo dessas falhas, em \cite{9116392} uma
+interceptações e ataques. Como exemplo dessas falhas, em \citeonline{9116392} uma
 câmera smart identifica como Onvif YY HD passou por um teste de penetração.
 Nesse teste, um ataque do tipo man in the middle (MITM) foi capaz de visualizar
 em texto plano todos os dados transmitidos pela câmera, inclusive credenciais.
