@@ -182,6 +182,7 @@ brazil]{facom-ufu-abntex2}
 \begin{siglas} %TCC: 
 
 	\item[SSCS] Self-Sovereign Camera System
+	\item[SaaS] Software as a Service
 	\item[CAGR] Compound Annual Growth Rate
 	\item[UML] Unified Modeling Language
 	\item[AVC] Advanced Video Coding
@@ -914,6 +915,35 @@ suportam esses algoritmos. O OpenCV é escrito nativamente em C++ e possui uma
 interface com modelos que funciona perfeitamente com contêineres STL.
 \cite{opencvwebsite}
 
+\section{Trabalhos Correlatos}
+\cite{Valera2005IntelligentDS} apresenta uma revisão generalizada do estado da arte
+no desenvolvimento de sistemas de vigilância automatizados com a intenção de identificar lacunas
+que requerem pequisa aprofundada. Esse contêm definições das técnicas
+comuns da indústria como reconhecimento, detecção e monitoramento de objetos, análise comportamental,
+e integração com bancos de dados. Em particular, ele conclui que em alguns aspectos pode ser vantajoso
+dedicar mais atenção ao desenvolvimento de sistemas distribuídos de vigilância no futuro. Isso inclui
+a distribuição de tarefas de processamento e a criação de padrões de metadados
+ou novos protocolos para lidar com limitações de banda.
+
+Em \cite{780272} os autores demonstram um sistema de vigilância baseado em
+vídeo para monitorar atividades em um estacionamento à ceu aberto,
+categorizando eventos e interações. A arquitetura desenvolvida consiste em três
+componentes: um (\textit{\foreignlanguage{english}{tracker}}) adaptativo que
+captura a imagem, um gerador de eventos que mapeia os objetos encontrados em um
+conjunto de eventos discretos pré-determinados e um
+(\textit{\foreignlanguage{english}{parser}}) estocástico. O sistema então faz a
+segmentação e rotulagem do vídeo de vigilância para identificar interações
+entre pessoas e veículos, tais como ingresso e despache.
+
+Em \cite{Neal_2012} o uso de tecnologias de computação em nuvem são analisados
+para a construção de um sistema de gerenciamento de vigilância. Após comparar e
+investigar vários (\textit{\foreignlanguage{english}{Software as a Servcice}})
+(SaaS), (\textit{\foreignlanguage{english}{Platform as a Service}}) (PaaS) e
+(\textit{\foreignlanguage{english}{Infrastructure as a Service}}) (IaaS)
+percebeu-se que é possível arquitetar um sistema do tipo, porém em larga escala
+se torna mais caro e requer mais atenção às implicações legais e ameaças de
+segurança.
+
 \chapter{Método de Desenvolvimento}
 
 A metodologia selecionada para o avanço deste projeto se baseia, inicialmente,
@@ -1131,16 +1161,6 @@ escolha armazenamento, como forma de mitigar vulnerabilidades.
 % E esse aqui tem um report visual ! com informações de quais protocolos estão sendo usados:
 
 % https://www.wowza.com/blog/hls-vs-webrtc#delivery-method
-
-\chapter{Revisão Bibliográfica}
-\cite{Valera2005IntelligentDS} apresenta uma revisão generalizada do estado da arte
-no desenvolvimento de sistemas de vigilância automatizados com a intenção de identificar lacunas
-que requerem pequisa aprofundada. Esse estudo está repleto de definições das técnicas
-comuns da indústria como reconhecimento, detecção e monitoramento de objetos, análise comportamental,
-e integração com bancos de dados. Em particular, ele conclui que em alguns aspectos pode ser vantajoso
-dedicar mais atenção ao desenvolvimento de sistemas distribuídos de vigilância no futuro. Isso inclui
-a distribuição de tarefas de processamento, o use de novas tecnologias e a criação de padrões de metadados
-ou novos protocolos para lidar com limitações de banda.
 
 % No campo de gerenciamento de alarmes, uma parte importante da vigilância
 % automatizada, no artigo __  as especificações de requisitos sistema definem a

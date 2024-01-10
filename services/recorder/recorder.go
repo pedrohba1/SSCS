@@ -31,6 +31,12 @@ type EventChannels struct {
 	FrameOut  chan<- image.Image
 }
 
+// Config contains all parameters that can be customized
+// via the sscs.yml file.
+type Config struct {
+	rtspFeed string
+}
+
 // RecordedEvent is used to communicate via channels
 // when a recording is saved.
 type RecordedEvent struct {

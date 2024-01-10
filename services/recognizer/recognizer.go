@@ -18,6 +18,7 @@ type Recognizer interface {
 // EventChannels are channels for communicating with this service.
 type EventChannels struct {
 	FrameIn  <-chan image.Image
+	FrameOut chan<- image.Image
 	RecogOut chan<- RecognizedEvent
 }
 
@@ -31,6 +32,6 @@ type Config struct {
 // other components (such as the indexer)
 // after something was detected by the recognition algorithms
 type RecognizedEvent struct {
-	eventName string
+	name      string
 	timestamp int
 }
