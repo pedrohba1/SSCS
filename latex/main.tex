@@ -543,15 +543,46 @@ A capacidade de operar em tempo real e com precisão tornou essa técnica um
 marco na área de visão computacional, abrindo caminho para aplicações práticas
 em segurança, interação humano-computador e outras áreas \cite{990517}.
 
-\section{Arquitetura de microsserviços}
+\section{Sistema distribuído}
 
-Explicar aqui o que são microsseviços e como eles funcionam. Fazer talvez uma
-comparação em relação à uma monolito
+Um sistema distribuído é um sistema em que os componentes de hardware ou
+software conectados em rede se comunicam e coordenam suas operações
+exclusivamente por meio da troca de mensagens. Essa descrição destaca as
+seguintes características cruciais dos sistemas distribuídos:
 
-\section{Arquitetura Monolítica}
+\begin{itemize}
+	\item Concorrência: em uma rede de computadores, a execução concorrente de programas
+	      é comum. É possível que um usuário realize uma tarefa em um computador,
+	      enquanto outro faz suas tarefas em outra máquina, compartilhando recursos como
+	      páginas Web ou arquivos, quando necessário. A capacidade do sistema de
+	      manipular recursos compartilhados pode ser ampliada pela adição de mais
+	      recursos (por exemplo, computadores) na rede.
+	\item Inexistência de relógio global: a coordenação frequentemente depende de uma
+	      noção compartilhada do tempo em que as ações dos programas ocorrem. Entretanto,
+	      verifica-se que existem limites para a precisão com a qual os computadores
+	      podem sincronizar seus relógios em uma rede: não existe uma noção global única
+	      do tempo correto. Essa é uma consequência direta do fato de que a única
+	      comunicação se dá por meio do envio de mensagens em uma rede.
+	\item Falhas independentes: todos os sistemas de computador podem falhar, e é
+	      responsabilidade dos projetistas de sistema pensar nas consequências das
+	      possíveis falhas. Nos sistemas distribuídos, as falhas são diferentes. Falhas
+	      na rede resultam no isolamento dos computadores que estão conectados a ela, mas
+	      isso não significa que eles param de funcionar. Na verdade, os programas neles
+	      existentes talvez não consigam detectar se a rede falhou ou se ficou
+	      demasiadamente lenta. Analogamente, a falha de um computador ou o término
+	      inesperado de um programa em algum lugar no sistema (um colapso no sistema) não
+	      é imediatamente percebida pelos outros componentes com os quais ele se
+	      comunica. Cada componente do sistema pode falhar independentemente, deixando os
+	      outros ainda em funcionamento.
+\end{itemize}
 
-Explicar aqui como funciona uma arquitetura monolítica e quais as desvantagens
-e vantagens em relação ao microsserviço.
+A principal motivação para construir e usar sistemas distribuídos é proveniente
+do desejo de compartilhar recursos. O termo “recurso” caracteriza o conjunto de
+componentes que podem ser compartilhadas de maneira útil em um sistema de
+computadores interligados em rede. Esses componentes podem ser tanto em
+hardware, como discos, impressoras, câmeras, quanto em software, como arquivos,
+bancos de dados e objetos de dados de todos os tipos. \cite{coulouris2013sistemas}
+
 
 \section{Banco de dados relacional}
 
