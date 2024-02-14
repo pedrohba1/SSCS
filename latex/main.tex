@@ -335,9 +335,9 @@ que seja possível integrar, ele não tem as funcionalidades desejadas. Portanto
 faz sentido um software customizável que possa se adaptar as necessidades do
 usuário e que crie uma fundação para criar novas funções de vigilância.
 
-\section{Resultados esperados}
+% \section{Resultados esperados}
 
- (não sei se é necessária essa parte, já que temos todos os objetivos específicos postulados logo acima)
+%  (não sei se é necessária essa parte, já que temos todos os objetivos específicos postulados logo acima)
 
 \chapter{Fundamentação Teórica}
 
@@ -483,13 +483,12 @@ removidos. \cite{784637}
 % 	\label{fig:graficosVariandoTamanhoRede}
 % \end{figure}
 
-
 \begin{figure}[ht]
 	\begin{center}
 		\includegraphics[width=0.7\linewidth]{background_subtraction.jpeg}
 	\end{center}
 	\caption{Aplicação da técnica de subtração de fundo baseada em modelos de Mistura Gaussiana}
-    \legend{Fonte: \href{https://docs.opencv.org/3.4/de/df4/tutorial_js_bg_subtraction.html}{Subtração de fundo no OpenCV} }
+	\legend{Fonte: \href{https://docs.opencv.org/3.4/de/df4/tutorial_js_bg_subtraction.html}{Subtração de fundo no OpenCV} }
 \end{figure}
 
 \subsection{Detecção de objetos usando classificadores em cacata baseados em características de haar}
@@ -517,7 +516,6 @@ diferença entre pares de retângulos diagonais.
 %     \legend{Fonte: \href{https://i.pinimg.com/564x/5d/66/ce/5d66ce69f103e876c90ab8076c433494.jpg}{https://i.pinimg.com/564x/5d/66/ce/5d66ce69f103e876c90ab8076c433494.jpg}}
 % \end{figure}
 
-
 % TODO: colocar um \legend nessa citação, igual a da subtração de fundo na citação de imagem anterior
 \begin{figure}[!ht]
 	\centering
@@ -525,7 +523,6 @@ diferença entre pares de retângulos diagonais.
 	\caption[Exemplos de características Haar mostradas em uma janela de detecção]{Exemplos de características Haar mostradas em uma janela de detecção}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
-
 
 As características Haar também podem ser calculadas rapidamente graças ao uso
 de uma representação intermediária para a imagem chamada de imagem integral,
@@ -594,6 +591,8 @@ meio de uma sessão RTSP separada. \cite{rfc2326}
 	\centering
 	\includegraphics[width=0.8\linewidth]{rtsp.pdf}
 	\caption[Diagrama RTSP]{Transmissão de mídia usando o RTSP, início ao fim. }
+	\legend{Figura traduzida.\cite{lee2005scalableRTSP} }
+
 	\label{fig:rtspDiagram}
 \end{figure}
 
@@ -949,8 +948,8 @@ dedicar mais atenção ao desenvolvimento de sistemas distribuídos de vigilânc
 a distribuição de tarefas de processamento e a criação de padrões de metadados
 ou novos protocolos para lidar com limitações de banda.
 
-Em \citeonline{780272}, os autores demonstram um sistema de vigilância baseado em
-vídeo para monitorar atividades em um estacionamento à ceu aberto,
+Em \citeonline{780272}, os autores demonstram um sistema de vigilância baseado
+em vídeo para monitorar atividades em um estacionamento à ceu aberto,
 categorizando eventos e interações. A arquitetura desenvolvida consiste em três
 componentes: um (\textit{\foreignlanguage{english}{tracker}}) adaptativo que
 captura a imagem, um gerador de eventos que mapeia os objetos encontrados em um
@@ -959,14 +958,14 @@ conjunto de eventos discretos pré-determinados e um
 segmentação e rotulagem do vídeo de vigilância para identificar interações
 entre pessoas e veículos, tais como ingresso e despache.
 
-Em \citeonline{Neal_2012} o uso de tecnologias de computação em nuvem são analisados
-para a construção de um sistema de gerenciamento de vigilância. Após comparar e
-investigar vários (\textit{\foreignlanguage{english}{Software as a Servcice}})
-(SaaS), (\textit{\foreignlanguage{english}{Platform as a Service}}) (PaaS) e
-(\textit{\foreignlanguage{english}{Infrastructure as a Service}}) (IaaS)
-percebeu-se que é possível arquitetar um sistema do tipo, porém em larga escala
-se torna mais caro e requer mais atenção às implicações legais e ameaças de
-segurança.
+Em \citeonline{Neal_2012} o uso de tecnologias de computação em nuvem são
+analisados para a construção de um sistema de gerenciamento de vigilância. Após
+comparar e investigar vários (\textit{\foreignlanguage{english}{Software as a
+		Servcice}}) (SaaS), (\textit{\foreignlanguage{english}{Platform as a Service}})
+(PaaS) e (\textit{\foreignlanguage{english}{Infrastructure as a Service}})
+(IaaS) percebeu-se que é possível arquitetar um sistema do tipo, porém em larga
+escala se torna mais caro e requer mais atenção às implicações legais e ameaças
+de segurança.
 
 \chapter{Método de Desenvolvimento}
 
@@ -1159,8 +1158,8 @@ políticas de autenticação fracas frequentemente permitem a seleção de senha
 simples e fáceis de adivinhar. A criptografia inadequada de informações
 confidenciais é outro ponto de preocupação, pois muitas vezes os dados são
 transmitidos sem qualquer processo de criptografia, tornando-os suscetíveis a
-interceptações e ataques. Como exemplo dessas falhas, em \citeonline{9116392} uma
-câmera smart identifica como Onvif YY HD passou por um teste de penetração.
+interceptações e ataques. Como exemplo dessas falhas, em \citeonline{9116392}
+uma câmera smart identifica como Onvif YY HD passou por um teste de penetração.
 Nesse teste, um ataque do tipo man in the middle (MITM) foi capaz de visualizar
 em texto plano todos os dados transmitidos pela câmera, inclusive credenciais.
 
