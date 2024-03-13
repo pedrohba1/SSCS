@@ -1280,7 +1280,10 @@ O custo total do SSCS é composto por dois elementos principais: o investimento
 inicial na aquisição das câmeras e a opção de hospedagem do serviço. Para a
 hospedagem, existem duas alternativas: o aluguel de um servidor na nuvem, ou a
 aquisição de hardware que funcione como servidor, tais como uma Next Unit of
-Computing (NUC) ou um Single board computers (SBC).
+Computing (NUC) ou um Single board computers (SBC). Foram desconsiderados
+custos com rede e armazenamento externo, porque assume-se que a largura de
+banda já existente será suficiente e que o armazenamento é barato o suficiente
+ou já estava disponível.
 
 O investimento inicial em câmeras IP varia de acordo com o tipo e as
 especificações necessárias para cada aplicação. No caso do SSCS, não precisamos
@@ -1297,7 +1300,7 @@ em fevereiro de 2024:
 	      \begin{center}
 		      \begin{tabular}{|l|l|l|}
 			      \hline
-			      Modelo                    & faixa de preço &
+			      Modelo                    & Faixa de preço &
 			      Resolução
 			      \\ \hline
 			      Intelbras iM5+ Full Color & R\$ 500-550    & 2MP
@@ -1314,7 +1317,7 @@ em fevereiro de 2024:
 	      \begin{center}
 		      \begin{tabular}{|l|l|l|}
 			      \hline
-			      Modelo                    & faixa de preço &
+			      Modelo                    & Faixa de preço &
 			      Resolução
 			      \\ \hline
 			      Ds-2cd1143g1e-i Hikvision & R\$ 650-700    & 4MP
@@ -1337,7 +1340,7 @@ recomenda-se os seguintes equipamentos:
 \begin{center}
 	\begin{tabular}{|l|l|}
 		\hline
-		Modelo         & faixa de preço
+		Modelo         & Faixa de preço
 		\\ \hline
 		Raspberry Pi 4 & R\$ 150-840
 		\\ \hline
@@ -1370,6 +1373,44 @@ construídos na arquitetura x86/x64 é possível que algumas aplicações funcio
 melhor ou sem erros inesperados. A maioria deles tem suporte para SATA. Em
 particular, o modelo NUC5i5RYH possui todos os requisitos para ser capaz de
 gerenciar várias câmeras.
+
+Por último, ainda há a alternativa de utilizar servidores alugados remotamente:
+como as câmeras podem transmitir a imagem por IP, servidores remotos em
+provedores como AWS, Google Cloud, Azure, DigitalOcean e similares podem ser
+usados para todas as funções. Entretanto, deve-se considerar que esses
+servidores possuem custo por hora e que alugar GPUs  traz um acréscimo
+considerável no preço. Nesse sentido, qualquer máquina desses provedores com ao
+menos 2 vCPUs e 2 GB de RAM é suficiente para um sistema com uma câmera. Na
+tabela abaixo, uma comparação da estimativa do custo mensal para o aluguel de
+máquinas com essas características em instâncias dedicadas em regiões dos
+Estados Unidos.
+
+\begin{center}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		Provedor     & Nome da instância   & Custo mensal
+		\\ \hline
+		AWS          & c7g.medium          & USD\$ 28.31
+		\\ \hline
+		AWS          & c6g.medium          & USD\$ 26.28
+		\\ \hline
+		Google Cloud & N1                  & USD\$ 54.95
+		\\ \hline
+		Azure        & D2ads v5            & USD\$ 75.19
+		\\ \hline
+		DigitalOcean & Droplet Regular CPU & USD\$ 63.00
+		\\ \hline
+
+	\end{tabular}
+\end{center}
+
+Todos esses provedores possuem planos de economia para contratos de longo
+prazo, reduzindo entre 30\% e 50\% desses custos mensais.
+
+Vale ressaltar que apesar dos custos de armazenamento estarem desconsiderados
+nessas estimativas, eles não podem ser subestimados para os servidores em
+nuvem. Se essa abordagem for escolhida, é possível optar por armazenamento
+object-based como o S3, Azure Blob Storage, ou Google Storage bucket.
 
 \chapter{Desenvolvimento}
 
