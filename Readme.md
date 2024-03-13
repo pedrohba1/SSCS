@@ -32,6 +32,11 @@ The Self-Sovereign Camera System (SSCS) is an open-source, distributed camera su
 
 To quickly install openCV, just clone this repo and run `make install-opencv`. It will attempt to install all dependencies required and setup openCV properly.
 
+Some other libraries might be needed to install run some components:
+```
+apt install -y libavformat-dev libswscale-dev gcc pkg-config
+```
+
 ## Contribution
 Fork the project.
 Create a new branch (git checkout -b feature/YourFeature).
