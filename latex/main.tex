@@ -20,7 +20,8 @@ brazil]{facom-ufu-abntex2}
 
 
 
-\graphicspath{{figuras/}{pictures/}{images/}{./}} % where to search for the images
+\graphicspath{{figuras/}{pictures/}{images/}{./}}
+% where to search for the images
 
 \newcommand{\blue}[1]{\textcolor{blue}{#1}}
 \newcommand{\red}[1]{\textcolor{red}{#1}}
@@ -35,9 +36,11 @@ brazil]{facom-ufu-abntex2}
 % Informações de dados para CAPA e FOLHA DE ROSTO
 % ---
 
-\titulo{Sistema de vigilância \textit{\foreignlanguage{english}{open source}} e customizável} %TCC
+\titulo{Sistema de vigilância \textit{\foreignlanguage{english}{open source}} e
+customizável} %TCC
 
-\hypersetup{pdfkeywords={palavra 1}{palavra 2}{palavra 4}{palavra 4}{palavra 5}} %TCC
+\hypersetup{pdfkeywords={palavra 1}{palavra 2}{palavra 4}{palavra 4}{palavra
+5}} %TCC
 
 \begin{document}
 
@@ -72,7 +75,8 @@ brazil]{facom-ufu-abntex2}
 		\vspace*{\fill}
 	\end{center}
 
-	Trabalho aprovado. \imprimirlocal, 01 de novembro de 2016: %TCC:
+	Trabalho aprovado. \imprimirlocal, 01 de novembro de 2016:
+	%TCC:
 
 	\assinatura{\textbf{\imprimirorientador} \\ Orientador}
 	\assinatura{\textbf{Professor}}% \\ Convidado 1} %TCC:
@@ -126,26 +130,31 @@ brazil]{facom-ufu-abntex2}
 % ---
 
 \begin{resumo} %TCC:
-	Os sistemas de vigilância carecem de soluções
-	que sejam customizáveis. Apesar de existirem no mercado câmeras que fazem a gravação e o armazenamento de
-	imagem, elas o fazem com com baixa resolução e limitações de espaço de memória severas. Mesmo os equipamentos
-	de monitoramento mais sofisticados, como os que possuem reconhecimento de imagem, limitam o usuário de aprimorar
-	essas funções por ter o \textit{\foreignlanguage{english}{software}} como \textit{\foreignlanguage{english}{closed source}}.
-	Além disso, as soluções providas pela segurança pública ou privada, quando existem, podem usar as imagens
-	coletadas para seus próprios benefícios, o que afeta a privacidade do indivíduo. Este trabalho propõe uma solução que seja
-	fácil de implementar, com ferramentas prontas para uso e completamente customizável por ser \textit{\foreignlanguage{english}{open source}}.
-	Dadas essas características, surge o chamado \textit{\foreignlanguage{english}{Self-Sovereign Camera System}} (SSCS)
-	\vspace{\onelineskip}
+	Os sistemas de vigilância carecem de soluções que sejam customizáveis.
+	Apesar de existirem no mercado câmeras que fazem a gravação e o armazenamento
+	de imagem, elas o fazem com com baixa resolução e limitações de espaço de
+	memória severas. Mesmo os equipamentos de monitoramento mais sofisticados, como
+	os que possuem reconhecimento de imagem, limitam o usuário de aprimorar essas
+	funções por ter o \textit{\foreignlanguage{english}{software}} como
+	\textit{\foreignlanguage{english}{closed source}}. Além disso, as soluções
+	providas pela segurança pública ou privada, quando existem, podem usar as
+	imagens coletadas para seus próprios benefícios, o que afeta a privacidade do
+	indivíduo. Este trabalho propõe uma solução que seja fácil de implementar, com
+	ferramentas prontas para uso e completamente customizável por ser
+	\textit{\foreignlanguage{english}{open source}}. Dadas essas características,
+	surge o chamado \textit{\foreignlanguage{english}{Self-Sovereign Camera
+			System}} (SSCS) \vspace{\onelineskip}
 
 	\noindent
-	\textbf{Palavras-chave}: código  aberto, visão computacional, IP câmera, streaming multimídia.  %TCC:
+	\textbf{Palavras-chave}: código  aberto, visão computacional, IP
+	câmera, streaming multimídia.  %TCC:
 \end{resumo}
 
 \begin{resumo}[Abstract]
 
-	Surveillance systems lack customizable solutions. Despite the existence of
-	cameras on the market that handle both recording and storage of images, they do
-	so at low resolution and with severe memory space limitations. Even the most
+	Surveillance systems lack customizable solutions. Despite the existence
+	of cameras on the market that handle both recording and storage of images, they
+	do so at low resolution and with severe memory space limitations. Even the most
 	sophisticated monitoring equipment, such as those with image recognition
 	capabilities, restrict the user from enhancing these features due to the
 	software being closed source. Furthermore, solutions provided by public or
@@ -157,7 +166,8 @@ brazil]{facom-ufu-abntex2}
 
 	\vspace{\onelineskip}
 	\noindent
-	\textbf{Keywords}: open source, computer vision, IP camera, multimedia streaming.
+	\textbf{Keywords}: open source, computer vision, IP camera, multimedia
+	streaming.
 \end{resumo}
 
 % ---
@@ -204,9 +214,10 @@ brazil]{facom-ufu-abntex2}
 	\item[SRT] Secure Reliable Transport
 	\item[RTMP] Real Time Messaging Protocol
 	\item[LBPH] Local Binary Patterns Histogram
-	\item[NUC]  Next Unit of Computing
-	\item[SBC] Single Board Computer  
-	
+	\item[NUC] Next Unit of Computing
+	\item[SBC] Single Board Computer
+	\item[SATA] Serial AT Attachment
+
 \end{siglas}
 % ---
 
@@ -263,14 +274,14 @@ mas também sua trajetória ascendente, realçando a importância de abordar
 questões de privacidade e segurança em um contexto tão amplo e em rápido
 crescimento.
 
-À medida que o mercado de vigilância por vídeo se expande,
-os sistemas associados também se tornam progressivamente mais complexos e de maior alcance.
+À medida que o mercado de vigilância por vídeo se expande, os sistemas
+associados também se tornam progressivamente mais complexos e de maior alcance.
 Isso demonstra a necessidade de infraestruturas mais robustas e eficientes.
-Nesse contexto, é intrigante observar que as complicações técnicas enfrentadas pelos
-sistemas de vigilância têm muitas semelhanças com aquelas encontradas em plataformas de
-streaming de vídeo. Ambos os tipos de
-sistemas têm uma dependência substancial de infraestruturas distribuídas para
-assegurar a prestação de serviços em tempo real, de maneira eficaz e confiável.
+Nesse contexto, é intrigante observar que as complicações técnicas enfrentadas
+pelos sistemas de vigilância têm muitas semelhanças com aquelas encontradas em
+plataformas de streaming de vídeo. Ambos os tipos de sistemas têm uma
+dependência substancial de infraestruturas distribuídas para assegurar a
+prestação de serviços em tempo real, de maneira eficaz e confiável.
 
 Entretanto, a privacidade dos indivíduos não é uma preocupação primária dos
 principais provedores desse tipo de serviço. Nesse contexto, tecnologias de
@@ -305,26 +316,28 @@ distintas necessidades dos usuários.
 Os objetivos específicos envolvem:
 
 \begin{itemize}
-	\item Desenvolver todo o software com código aberto e mantê-lo publicamente
-	      disponível no Github.
-	\item Usar a conteinerização como estratégia para conseguir portabilidade entre
-	      vários hardwares e sistemas operacionais diferentes.
-	\item Implementar uma funcionalidade de visualização em tempo real de imagens
-	      provenientes de câmeras.
-	\item Incorporar algoritmos de visão computacional para análise e processamento das
-	      imagens em tempo real.
-	\item Projetar e desenvolver um módulo de armazenamento flexível, permitindo opções
-	      tanto locais quanto em nuvem.
-	\item Habilitar a busca de vídeos com critérios baseados nas identificações
-	      realizadas pelos algoritmos de visão.
-	\item Possibilitar a customização do sistema, incluindo a adição de novas
-	      funcionalidades como notificações de eventos.
-	\item Adaptar o sistema para permitir variações nos métodos de reconhecimento de
-	      imagens, seja em transmissões ao vivo ou em vídeos arquivados.
-	\item Escrever testes automatizados e \textit{\foreignlanguage{english}{benchmarks}}
-	      para manter a qualidade do software e das soluções em um nível aceitável.
-	\item Produzir uma documentação detalhada e abrangente, facilitando a implementação,
-	      personalização e manutenção do sistema por parte dos usuários.
+	\item Desenvolver todo o software com código aberto e mantê-lo
+	      publicamente disponível no Github.
+	\item Usar a conteinerização como estratégia para conseguir
+	      portabilidade entre vários hardwares e sistemas operacionais diferentes.
+	\item Implementar uma funcionalidade de visualização em tempo real de
+	      imagens provenientes de câmeras.
+	\item Incorporar algoritmos de visão computacional para análise e
+	      processamento das imagens em tempo real.
+	\item Projetar e desenvolver um módulo de armazenamento flexível,
+	      permitindo opções tanto locais quanto em nuvem.
+	\item Habilitar a busca de vídeos com critérios baseados nas
+	      identificações realizadas pelos algoritmos de visão.
+	\item Possibilitar a customização do sistema, incluindo a adição de
+	      novas funcionalidades como notificações de eventos.
+	\item Adaptar o sistema para permitir variações nos métodos de
+	      reconhecimento de imagens, seja em transmissões ao vivo ou em vídeos
+	      arquivados.
+	\item Escrever testes automatizados e
+	      \textit{\foreignlanguage{english}{benchmarks}} para manter a qualidade do
+	      software e das soluções em um nível aceitável.
+	\item Produzir uma documentação detalhada e abrangente, facilitando a
+	      implementação, personalização e manutenção do sistema por parte dos usuários.
 \end{itemize}
 
 \section{Justificativa}
@@ -364,7 +377,8 @@ decodificados e apresentados ao usuário.
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1\linewidth]{media_fundamentals.pdf}
-	\caption[Representação de um arquitetura de tempo real genérica]{Arquitetura genérica de transmissão em tempo real}
+	\caption[Representação de um arquitetura de tempo real
+		genérica]{Arquitetura genérica de transmissão em tempo real}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
@@ -487,13 +501,18 @@ removidos. \cite{784637}
 
 \begin{figure}[ht]
 	\begin{center}
+
 		\includegraphics[width=0.7\linewidth]{background_subtraction.jpeg}
 	\end{center}
-	\caption{Aplicação da técnica de subtração de fundo baseada em modelos de Mistura Gaussiana}
-	\legend{Fonte: \href{https://docs.opencv.org/3.4/de/df4/tutorial_js_bg_subtraction.html}{Subtração de fundo no OpenCV} }
+	\caption{Aplicação da técnica de subtração de fundo baseada em modelos
+		de Mistura Gaussiana}
+	\legend{Fonte:
+		\href{https://docs.opencv.org/3.4/de/df4/tutorial_js_bg_subtraction.html}{Subtração
+			de fundo no OpenCV} }
 \end{figure}
 
-\subsection{Detecção de objetos usando classificadores em cacata baseados em características de haar}
+\subsection{Detecção de objetos usando classificadores em cacata baseados em
+	características de haar}
 
 Neste método, utiliza-se aprendizado de máquina, onde uma função de cascata é
 treinada a partir de um grande número de imagens positivas (contendo o objeto
@@ -522,7 +541,8 @@ diferença entre pares de retângulos diagonais.
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.7\linewidth]{haar_features.jpeg}
-	\caption[Exemplos de características Haar mostradas em uma janela de detecção]{Exemplos de características Haar mostradas em uma janela de detecção}
+	\caption[Exemplos de características Haar mostradas em uma janela de
+		detecção]{Exemplos de características Haar mostradas em uma janela de detecção}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
@@ -553,29 +573,29 @@ exclusivamente por meio da troca de mensagens. Essa descrição destaca as
 seguintes características cruciais dos sistemas distribuídos:
 
 \begin{itemize}
-	\item Concorrência: em uma rede de computadores, a execução concorrente de programas
-	      é comum. É possível que um usuário realize uma tarefa em um computador,
-	      enquanto outro faz suas tarefas em outra máquina, compartilhando recursos como
-	      páginas Web ou arquivos, quando necessário. A capacidade do sistema de
-	      manipular recursos compartilhados pode ser ampliada pela adição de mais
-	      recursos (por exemplo, computadores) na rede.
-	\item Inexistência de relógio global: a coordenação frequentemente depende de uma
-	      noção compartilhada do tempo em que as ações dos programas ocorrem. Entretanto,
-	      verifica-se que existem limites para a precisão com a qual os computadores
-	      podem sincronizar seus relógios em uma rede: não existe uma noção global única
-	      do tempo correto. Essa é uma consequência direta do fato de que a única
-	      comunicação se dá por meio do envio de mensagens em uma rede.
-	\item Falhas independentes: todos os sistemas de computador podem falhar, e é
-	      responsabilidade dos projetistas de sistema pensar nas consequências das
-	      possíveis falhas. Nos sistemas distribuídos, as falhas são diferentes. Falhas
-	      na rede resultam no isolamento dos computadores que estão conectados a ela, mas
-	      isso não significa que eles param de funcionar. Na verdade, os programas neles
-	      existentes talvez não consigam detectar se a rede falhou ou se ficou
-	      demasiadamente lenta. Analogamente, a falha de um computador ou o término
-	      inesperado de um programa em algum lugar no sistema (um colapso no sistema) não
-	      é imediatamente percebida pelos outros componentes com os quais ele se
-	      comunica. Cada componente do sistema pode falhar independentemente, deixando os
-	      outros ainda em funcionamento.
+	\item Concorrência: em uma rede de computadores, a execução concorrente
+	      de programas é comum. É possível que um usuário realize uma tarefa em um
+	      computador, enquanto outro faz suas tarefas em outra máquina, compartilhando
+	      recursos como páginas Web ou arquivos, quando necessário. A capacidade do
+	      sistema de manipular recursos compartilhados pode ser ampliada pela adição de
+	      mais recursos (por exemplo, computadores) na rede.
+	\item Inexistência de relógio global: a coordenação frequentemente
+	      depende de uma noção compartilhada do tempo em que as ações dos programas
+	      ocorrem. Entretanto, verifica-se que existem limites para a precisão com a qual
+	      os computadores podem sincronizar seus relógios em uma rede: não existe uma
+	      noção global única do tempo correto. Essa é uma consequência direta do fato de
+	      que a única comunicação se dá por meio do envio de mensagens em uma rede.
+	\item Falhas independentes: todos os sistemas de computador podem
+	      falhar, e é responsabilidade dos projetistas de sistema pensar nas
+	      consequências das possíveis falhas. Nos sistemas distribuídos, as falhas são
+	      diferentes. Falhas na rede resultam no isolamento dos computadores que estão
+	      conectados a ela, mas isso não significa que eles param de funcionar. Na
+	      verdade, os programas neles existentes talvez não consigam detectar se a rede
+	      falhou ou se ficou demasiadamente lenta. Analogamente, a falha de um computador
+	      ou o término inesperado de um programa em algum lugar no sistema (um colapso no
+	      sistema) não é imediatamente percebida pelos outros componentes com os quais
+	      ele se comunica. Cada componente do sistema pode falhar independentemente,
+	      deixando os outros ainda em funcionamento.
 \end{itemize}
 
 A principal motivação para construir e usar sistemas distribuídos é proveniente
@@ -648,7 +668,8 @@ meio de uma sessão RTSP separada. \cite{rfc2326}
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.8\linewidth]{rtsp.pdf}
-	\caption[Diagrama RTSP]{Transmissão de mídia usando o RTSP, início ao fim. }
+	\caption[Diagrama RTSP]{Transmissão de mídia usando o RTSP, início ao
+		fim. }
 	\legend{Figura traduzida.\cite{lee2005scalableRTSP} }
 
 	\label{fig:rtspDiagram}
@@ -686,7 +707,8 @@ Abaixo, um exemplo de um componente e suas partes:
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.8\linewidth]{example_diagram.pdf}
-	\caption[Componente de exemplo]{Componente, provendo uma interface e com requerimento de outra}
+	\caption[Componente de exemplo]{Componente, provendo uma interface e
+		com requerimento de outra}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
@@ -721,9 +743,14 @@ A estrutura básica de um número de versão SEMVER é \textit{MAJOR.MINOR.PATCH
 onde:
 
 \begin{itemize}
-	\item \textit{MAJOR} é incrementado para mudanças incompatíveis que requerem que o usuário faça algo diferente.
-	\item \textit{MINOR} é incrementado quando são feitas adições em um modo compatível, ou seja, quando funcionalidades são adicionadas sem alterar o comportamento das funcionalidades existentes.
-	\item \textit{PATCH} é incrementado após correções de bugs que são compatíveis e não afetam o funcionamento global do software de maneira significativa.
+	\item \textit{MAJOR} é incrementado para mudanças incompatíveis que
+	      requerem que o usuário faça algo diferente.
+	\item \textit{MINOR} é incrementado quando são feitas adições em um
+	      modo compatível, ou seja, quando funcionalidades são adicionadas
+	      sem alterar o comportamento das funcionalidades existentes.
+	\item \textit{PATCH} é incrementado após correções de bugs que são
+	      compatíveis e não afetam o funcionamento global do software de
+	      maneira significativa.
 \end{itemize}
 
 Além destes três números principais, o SEMVER também permite a adição de
@@ -767,19 +794,31 @@ outros foram adicionados. O agrupamento final estabilizou-se no início dos anos
 
 \begin{itemize}
 	\item \textbf{SRP: Princípio da Responsabilidade Única}\\
-	      Um corolário ativo da lei de Conway: A melhor estrutura para um sistema de software é fortemente influenciada pela estrutura social da organização que o utiliza, de forma que cada módulo de software tenha uma, e apenas uma, razão para mudar.
+	      Um corolário ativo da lei de Conway: A melhor estrutura para um
+	      sistema de software é fortemente influenciada pela estrutura social da
+	      organização que o utiliza, de forma que cada módulo de software tenha uma, e
+	      apenas uma, razão para mudar.
 
 	\item \textbf{OCP: Princípio Aberto-Fechado}\\
-	      Bertrand Meyer tornou este princípio famoso na década de 1980. Em essência, para que os sistemas de software sejam fáceis de alterar, eles devem ser projetados para permitir que o comportamento desses sistemas seja alterado pela adição de novo código, em vez de alterar o código existente.
+	      Bertrand Meyer tornou este princípio famoso na década de 1980. Em
+	      essência, para que os sistemas de software sejam fáceis de alterar, eles devem
+	      ser projetados para permitir que o comportamento desses sistemas seja alterado
+	      pela adição de novo código, em vez de alterar o código existente.
 
 	\item \textbf{LSP: Princípio da Substituição de Liskov}\\
-	      A famosa definição de subtipos de Barbara Liskov, de 1988. Em resumo, este princípio diz que para construir sistemas de software a partir de peças intercambiáveis, essas peças devem aderir a um contrato que permita que sejam substituídas umas pelas outras.
+	      A famosa definição de subtipos de Barbara Liskov, de 1988. Em
+	      resumo, este princípio diz que para construir sistemas de software a partir de
+	      peças intercambiáveis, essas peças devem aderir a um contrato que permita que
+	      sejam substituídas umas pelas outras.
 
 	\item \textbf{ISP: Princípio da Segregação da Interface}\\
-	      Este princípio aconselha os designers de software a evitar depender de coisas que eles não usam.
+	      Este princípio aconselha os designers de software a evitar
+	      depender de coisas que eles não usam.
 
 	\item \textbf{DIP: Princípio da Inversão de Dependência}\\
-	      O código que implementa políticas de alto nível não deve depender do código que implementa detalhes de baixo nível. Pelo contrário, os detalhes devem depender das políticas.
+	      O código que implementa políticas de alto nível não deve depender
+	      do código que implementa detalhes de baixo nível. Pelo contrário, os detalhes
+	      devem depender das políticas.
 \end{itemize}
 
 Esses princípios, se aplicados em conjunto e habilmente, tornam o código mais
@@ -849,15 +888,15 @@ Um dos pontos fundamentais do seu funcionamento, é a divisão de quadros. Isto
 sequência de vídeo. Existem três tipos de quadros no H.264:
 
 \begin{itemize}
-	\item Quadros I (Intra): São quadros-chave que não dependem de nenhum quadro
-	      anterior. Eles são codificados de forma independente e contêm informações
-	      completas da imagem.
-	\item Quadros P (Predictive): São quadros que dependem do quadro I anterior e/ou de
-	      outros quadros P. Eles contêm apenas as diferenças entre o quadro atual e os
+	\item Quadros I (Intra): São quadros-chave que não dependem de nenhum
+	      quadro anterior. Eles são codificados de forma independente e contêm
+	      informações completas da imagem.
+	\item Quadros P (Predictive): São quadros que dependem do quadro I
+	      anterior e/ou de outros quadros P. Eles contêm apenas as diferenças entre o
+	      quadro atual e os quadros de referência.
+	\item Quadros B (Bi-predictive): Dependem tanto dos quadros anteriores
+	      quanto dos futuros. Eles também contêm apenas as diferenças em relação aos
 	      quadros de referência.
-	\item Quadros B (Bi-predictive): Dependem tanto dos quadros anteriores quanto dos
-	      futuros. Eles também contêm apenas as diferenças em relação aos quadros de
-	      referência.
 \end{itemize}
 
 Para manter a qualidade da imagem, o H.264 opera em um "ciclo de quadros", onde
@@ -997,14 +1036,15 @@ interface com modelos que funciona perfeitamente com contêineres STL.
 
 \section{Trabalhos Correlatos}
 
-\citeonline{Valera2005IntelligentDS} apresentam uma revisão generalizada do estado da arte
-no desenvolvimento de sistemas de vigilância automatizados com a intenção de identificar lacunas
-que requerem pequisa aprofundada. Esse contêm definições das técnicas
-comuns da indústria como reconhecimento, detecção e monitoramento de objetos, análise comportamental,
-e integração com bancos de dados. Em particular, ele conclui que em alguns aspectos pode ser vantajoso
-dedicar mais atenção ao desenvolvimento de sistemas distribuídos de vigilância no futuro. Isso inclui
-a distribuição de tarefas de processamento e a criação de padrões de metadados
-ou novos protocolos para lidar com limitações de banda.
+\citeonline{Valera2005IntelligentDS} apresentam uma revisão generalizada do
+estado da arte no desenvolvimento de sistemas de vigilância automatizados com a
+intenção de identificar lacunas que requerem pequisa aprofundada. Esse contêm
+definições das técnicas comuns da indústria como reconhecimento, detecção e
+monitoramento de objetos, análise comportamental, e integração com bancos de
+dados. Em particular, ele conclui que em alguns aspectos pode ser vantajoso
+dedicar mais atenção ao desenvolvimento de sistemas distribuídos de vigilância
+no futuro. Isso inclui a distribuição de tarefas de processamento e a criação
+de padrões de metadados ou novos protocolos para lidar com limitações de banda.
 
 Em \citeonline{780272}, os autores demonstram um sistema de vigilância baseado
 em vídeo para monitorar atividades em um estacionamento à ceu aberto,
@@ -1162,7 +1202,8 @@ especial, a resolução da câmera tem uma forte relação com o volume de dados
 por sua vez afeta muitos dos outros fatores também. A tabela a seguir detalha o
 espaço de armazenamento necessário, em Terabytes, para arquivar 30 dias de
 filmagem, capturada em diferentes resoluções de 12 câmeras, operando
-continuamente durante 24 horas por dia. \clearpage % Ends the current page and places the table at the top of the next page
+continuamente durante 24 horas por dia. \clearpage
+% Ends the current page and places the table at the top of the next page
 
 \begin{table}[ht]
 	\centering
@@ -1176,7 +1217,9 @@ continuamente durante 24 horas por dia. \clearpage % Ends the current page and p
 		8MP  (4K)         & 464,38 TB & 67,10 TB & 22,76 TB \\ \hline
 
 	\end{tabular}
-	\caption{Tabela comparativa de resoluções e compressão versus tamanho, baseada em dados obtidos do Surveillance Capacity Calculator \cite{surveillancecalculator}.}
+	\caption{Tabela comparativa de resoluções e compressão versus tamanho,
+		baseada em dados obtidos do Surveillance Capacity Calculator
+		\cite{surveillancecalculator}.}
 	\label{table:example}
 \end{table}
 
@@ -1239,22 +1282,94 @@ hospedagem, existem duas alternativas: o aluguel de um servidor na nuvem, ou a
 aquisição de hardware que funcione como servidor, tais como uma Next Unit of
 Computing (NUC) ou um Single board computers (SBC).
 
+O investimento inicial em câmeras IP varia de acordo com o tipo e as
+especificações necessárias para cada aplicação. No caso do SSCS, não precisamos
+de câmeras com funcionalidades de reconhecimento ou armazenamento embutidas, e
+todas precisam pelo menos suportar algum protocolo para transmissão em rede
+como RTSP. Abaixo estão alguns dos tipos mais comuns de câmeras IP disponíveis
+no mercado seguindo essas necessidades, juntamente com seus preços aproximados
+em fevereiro de 2024:
 
+\begin{itemize}
+	\item Câmera IP Bullet: caracterizadas por seu formato alongado, são de
+	      fácil instalação, normalmente instaladas no exterior e resistentes às condições
+	      do ambiente.
+	      \begin{center}
+		      \begin{tabular}{|l|l|l|}
+			      \hline
+			      Modelo                    & faixa de preço &
+			      Resolução
+			      \\ \hline
+			      Intelbras iM5+ Full Color & R\$ 500-550    & 2MP
+			      \\ \hline
+			      Intelbras IM5 SC          & R\$ 400-425    & 2MP
+			      \\ \hline
+			      Ezviz C3N                 & R\$ 350-400    & 2MP
+			      \\ \hline
+		      \end{tabular}
+	      \end{center}
 
-% TODO: verificar se essa parte toda aqui que eu falei sobre os protocolos faz sentido de estar aqui.
-% ao meu ver perdeu um pouco do sentido e parece mais fazer parte do desenvolvimento em si
+	\item Câmera IP Dome: de design discreto, são mais utilizadas em
+	      ambientes internos, como escritórios e lojas.
+	      \begin{center}
+		      \begin{tabular}{|l|l|l|}
+			      \hline
+			      Modelo                    & faixa de preço &
+			      Resolução
+			      \\ \hline
+			      Ds-2cd1143g1e-i Hikvision & R\$ 650-700    & 4MP
+			      \\ \hline
+			      Ezviz C8w Pro             & R\$ 460-500    & 3MP
+			      \\ \hline
+			      Im7 Full Color Intelbras  & R\$ 530-600    & 2MP
+			      \\ \hline
+		      \end{tabular}
+	      \end{center}
+\end{itemize}
 
-% Usar esse link como referência pode ser bom:
-% https://stackoverflow.com/questions/35697778/what-streaming-protocols-can-publish-video-audio?rq=2
+Algumas câmeras dessas ainda possuem ferramentas adicionais como visão noturna,
+saídas e entradas de áudio e zoom digital. Elas continuam sendo viáveis pois
+não acrescentam substancialmente ao preço e essas funções podem ser
+aproveitadas no SSCS. Tendo o acervo de câmeras escolhido e adquirido, sobra
+escolher como processar e  armazenar as imagens. Para uma solução local,
+recomenda-se os seguintes equipamentos:
 
-% E esse aqui tem um report visual ! com informações de quais protocolos estão sendo usados:
+\begin{center}
+	\begin{tabular}{|l|l|}
+		\hline
+		Modelo         & faixa de preço
+		\\ \hline
+		Raspberry Pi 4 & R\$ 150-840
+		\\ \hline
+		Odroid N2+     & R\$ 800-1400
+		\\ \hline
+		Intel NUC      & R\$ 810-400
+		\\ \hline
+	\end{tabular}
+\end{center}
 
-% https://www.wowza.com/blog/hls-vs-webrtc#delivery-method
+O Raspberry Pi 4 contém o processador ARM1176JZFS e a GPU Videocore 4. Essa GPU
+é capaz de reprodução de qualidade BluRay, usando H.264 a 40MBits/s. Essas
+características tornam o dispositivo perfeitamente capaz de transmitir e
+processar o vídeo recebido das câmeras, além de executar reconhecimento de
+imagem. A desvantagem é que não há entradas SATA para esse modelo, apenas USB,
+então pode haver um gargalo ao executar as tarefas de armazenamento e
+transmissão.
 
-% No campo de gerenciamento de alarmes, uma parte importante da vigilância
-% automatizada, no artigo __  as especificações de requisitos sistema definem a
-% necessidade ligar para um número de emergência automaticamente se um alarme em
-% particular for detectado.
+O Odroid N2+ tem uma CPU baseada na arquitetura big.Little, que integra um
+cluster de CPU ARM Cortex-A73  de quatro núcleos e um cluster Cortex-A53 de
+dois núcleos com uma GPU Mali-G52. Assim como o Raspberry pi 4, esse SBC não
+tem entradas para SATA. Porém, O Odroid-HC4 tem uma configuração similar e
+entradas SATA. Ele poderia ser usado para evitar os gargalos citados
+anteriormente.
+
+Os Intel NUC podem ser alternativas bem interessantes também. Apesar de serem
+potencialmente mais caros e variarem muito em capacidade hardware, eles possuem
+no geral mais oportunidades de customização e atualização. Por serem
+construídos na arquitetura x86/x64 é possível que algumas aplicações funcionem
+melhor ou sem erros inesperados. A maioria deles tem suporte para SATA. Em
+particular, o modelo NUC5i5RYH possui todos os requisitos para ser capaz de
+gerenciar várias câmeras.
 
 \chapter{Desenvolvimento}
 
@@ -1367,7 +1482,8 @@ corrente de multimídia destinada ao SSCS.
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1\linewidth]{arch1.pdf}
-	\caption[Exemplo de arquitetura de transmissão]{Arquitetura de transmissão, múltiplas fontes para um servidor de mídia}
+	\caption[Exemplo de arquitetura de transmissão]{Arquitetura de
+		transmissão, múltiplas fontes para um servidor de mídia}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
@@ -1394,10 +1510,12 @@ diversas vantagens. Por exemplo, pode ser necessário converter o protocolo de
 transmissão de RTSP para WebRTC ou HLS, realizar balanceamento de carga, ou até
 mesmo implementar autenticação externa.
 
-À seguir, será apresentada uma visão geral de cada componente do sistema, sua função, como ele interage
-com as outras partes do sistema e detalhes de implementação. Note que cada componente é abstrato. Ou seja,
-é uma base que deve ser adaptada de acordo com os protocolos, formato de imagem, banco de dados e outros detalhes
-específicos de implementação. Em cada seção, há também exemplos de implementações acrescentando os detalhes.
+À seguir, será apresentada uma visão geral de cada componente do sistema, sua
+função, como ele interage com as outras partes do sistema e detalhes de
+implementação. Note que cada componente é abstrato. Ou seja, é uma base que
+deve ser adaptada de acordo com os protocolos, formato de imagem, banco de
+dados e outros detalhes específicos de implementação. Em cada seção, há também
+exemplos de implementações acrescentando os detalhes.
 
 \section{Gerenciador de Configuração}
 
@@ -1528,7 +1646,8 @@ quadros de vídeo.
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1\linewidth]{rtsp_h264recorder.pdf}
-	\caption[Diagrama isolado do gravador RTSP]{Diagrama isolado do gravador RTSP}
+	\caption[Diagrama isolado do gravador RTSP]{Diagrama isolado do
+		gravador RTSP}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
@@ -1623,7 +1742,8 @@ testadas.
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1\linewidth]{postgres_indexer.pdf}
-	\caption[Diagrama isolado da implementação do indexador com PostgreSQL]{Diagrama isolado da implementação do indexador com PostgreSQL}
+	\caption[Diagrama isolado da implementação do indexador com
+		PostgreSQL]{Diagrama isolado da implementação do indexador com PostgreSQL}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
@@ -1696,7 +1816,8 @@ integração de uma interface para ler quadros.
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.4\linewidth]{recognizer.pdf}
-	\caption[Diagrama isolado da implementação do reconhecedor de imagens]{Diagrama isolado da implementação do reconhecedor de imagens}
+	\caption[Diagrama isolado da implementação do reconhecedor de
+		imagens]{Diagrama isolado da implementação do reconhecedor de imagens}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
@@ -1722,7 +1843,8 @@ lacunas, o que simplifica a próxima etapa, que é inserção de contornos.
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1.0\linewidth]{motion_detector.pdf}
-	\caption[Diagrama da implementação do reconhecedor de movimento]{Diagrama da implementação do reconhecedor de movimento}
+	\caption[Diagrama da implementação do reconhecedor de
+		movimento]{Diagrama da implementação do reconhecedor de movimento}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
@@ -1815,11 +1937,14 @@ respectivamente os diretórios de armazenamento primário e backup,
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.3\linewidth]{storer.pdf}
-	\caption[Diagrama isolado da implementação do gerenciador de armazenamento]{Diagrama isolado da implementação do gerenciador de armazenamento }
+	\caption[Diagrama isolado da implementação do gerenciador de
+		armazenamento]{Diagrama isolado da implementação do gerenciador de
+		armazenamento }
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
-\subsection{Implementação de gerenciador de armazenamento sobre espaço em disco}
+\subsection{Implementação de gerenciador de armazenamento sobre espaço em
+	disco}
 Nesta implementação, são usados comandos do sistema operacional para mover ou
 deletar os arquivos. Checa-se primeiro o espaço acumulado de todos os arquivos
 do diretório primário escolhido para armazenamento das gravações. Em seguida,
@@ -1829,7 +1954,9 @@ apagados, dependendo de como o componente foi configurado.
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.8\linewidth]{storer_os.pdf}
-	\caption[Diagrama da implementação do gerenciador de armazenamento usando o sistema operacional]{Diagrama da implementação do gerenciador de armazenamento usando o sistema operacional }
+	\caption[Diagrama da implementação do gerenciador de armazenamento
+		usando o sistema operacional]{Diagrama da implementação do gerenciador de
+		armazenamento usando o sistema operacional }
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
@@ -1920,10 +2047,7 @@ Inclusive, o SSCS tem sua documentação toda disponível em
 \chapter[Conclusão]{Conclusão}
 %TCC:
 Esse trabalho detalhou o processo de desenvolvimento do SSCS, suas qualidades e
-% ----------------------------------------------------------
-% ELEMENTOS PÓS-TEXTUAIS
-% ----------------------------------------------------------
-\postextual
+\postextual% ----------------------------------------------------------% ELEMENTOS PÓS-TEXTUAIS% ----------------------------------------------------------
 
 % ----------------------------------------------------------
 % Referências bibliográficas
