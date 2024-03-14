@@ -31,16 +31,10 @@ type EventChannels struct {
 	FrameOut  chan<- image.Image
 }
 
-// Config contains all parameters that can be customized
-// via the sscs.yml file.
-type Config struct {
-	rtspFeed string
-}
-
 // RecordedEvent is used to communicate via channels
 // when a recording is saved.
 type RecordedEvent struct {
-	VideoName string
-	StartTime time.Time
-	EndTime   time.Time
+	Path      string    `gorm:"type:text"` 
+    StartTime  time.Time `gorm:"default:CURRENT_TIMESTAMP"`
+    EndTime  time.Time `gorm:"default:CURRENT_TIMESTAMP"`
 }

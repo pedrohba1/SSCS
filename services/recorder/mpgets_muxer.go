@@ -94,7 +94,7 @@ func (mux *mpegtsMuxer) encode(au [][]byte, pts time.Duration, recordIn chan<- R
 	if shouldSplit {
 		// Close the current resources
 		mux.logger.Info("saving content: " + mux.f.Name())
-		recordIn <- RecordedEvent{VideoName: mux.f.Name(), EndTime: time.Now()}
+		recordIn <- RecordedEvent{Path: mux.f.Name(), EndTime: time.Now()}
 
 		mux.b.Flush()
 		mux.f.Close()
