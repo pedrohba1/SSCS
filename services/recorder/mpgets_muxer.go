@@ -30,13 +30,16 @@ type mpegtsMuxer struct {
 	track          *mpegts.Track
 	dtsExtractor   *h264.DTSExtractor
 	logger         *logrus.Entry
+	recordingsDir string
 
 	recordOut chan RecordedEvent
 }
 
 // newMPEGTSMuxer allocates a mpegtsMuxer.
 func newMPEGTSMuxer(sps []byte, pps []byte) (*mpegtsMuxer, error) {
-	f, err := os.Create(createChunkFileName())
+	 
+	cfg, _ := conf.ReadConf()
+	f, err := os.Create(createChunkFileName(cfg.Recorder.RecordingsDir))
 	if err != nil {
 		return nil, err
 	}
@@ -55,6 +58,7 @@ func newMPEGTSMuxer(sps []byte, pps []byte) (*mpegtsMuxer, error) {
 		startTimestamp: time.Now(),
 		chunkDuration:  8 * time.Second,
 		track:          track,
+		recordingsDir: cfg.Recorder.RecordingsDir,
 		logger:         BaseLogger.BaseLogger.WithField("package", "recorder"),
 	}, nil
 }
@@ -65,10 +69,9 @@ func (e *mpegtsMuxer) close() {
 	e.f.Close()
 }
 
-func createChunkFileName() string {
-	cfg, _ := conf.ReadConf()
+func createChunkFileName(recordingsDir string) string {
 	timestamp := time.Now().Format("2006-01-02_15-04-05")
-	return cfg.Recorder.RecordingsDir + "/feed_" + timestamp + ".ts"
+	return recordingsDir + "/feed_" + timestamp + ".ts"
 }
 
 // encode encodes a H264 access unit into MPEG-TS.
@@ -97,7 +100,7 @@ func (mux *mpegtsMuxer) encode(au [][]byte, pts time.Duration, recordIn chan<- R
 		mux.f.Close()
 
 		// Start a new file
-		mux.f, err = os.Create(createChunkFileName())
+		mux.f, err = os.Create(createChunkFileName(mux.recordingsDir))
 		if err != nil {
 			return err
 		}
