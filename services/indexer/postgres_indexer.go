@@ -77,6 +77,21 @@ func (p *PostgresIndexer) setupLogger() {
 	p.logger = BaseLogger.BaseLogger.WithField("package", "indexer")
 }
 
+
+func (p *PostgresIndexer) StartAsDB() error {
+	p.logger.Infof("connecting postgres...")
+	db, err := gorm.Open(postgres.Open(p.dsn), &gorm.Config{})
+	if err != nil {
+		p.logger.Error("failed to parse url: %w", err)
+		return err
+	}
+
+	p.db = db
+	p.AutoMigrate()
+	return nil
+}
+
+
 func (p *PostgresIndexer) Start() error {
 
 	p.logger.Infof("connecting postgres...")
