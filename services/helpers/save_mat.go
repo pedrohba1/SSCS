@@ -9,7 +9,7 @@ import (
 	"gocv.io/x/gocv"
 )
 
-func SaveMatToFile(mat gocv.Mat, dir string) error {
+func SaveMatToFile(mat gocv.Mat, dir string) (string, error) {
 	// Create a complete file path
 
 	fname := strconv.FormatInt(time.Now().UnixNano()/int64(time.Millisecond), 10) + ".jpg"
@@ -18,8 +18,8 @@ func SaveMatToFile(mat gocv.Mat, dir string) error {
 
 	// Use IMWrite to save the image
 	if !gocv.IMWrite(filePath, mat) {
-		return fmt.Errorf("failed to write image to file: %s", filePath)
+		return "", fmt.Errorf("failed to write image to file: %s", filePath)
 	}
 
-	return nil
+	return filePath, nil
 }
