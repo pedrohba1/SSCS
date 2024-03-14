@@ -47,3 +47,11 @@ We welcome contributions! Please read our CONTRIBUTING.md for more information o
 
 License
 This project is licensed under the MIT License - see the LICENSE.md file for details.
+
+## Testing 
+
+###  Dev environment
+Running a development environment can be done via `make dev-env`. All functionalities from `/cmd/daemon/main.go` 
+should run normally after that. 
+
+

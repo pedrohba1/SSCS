@@ -8,6 +8,9 @@ default: build
 build: 
 	go build
 
+dev-api:
+	go run ./cmd/api
+
 
 # Build the Media MTX Docker image for the test environment
 # and run it locally	
