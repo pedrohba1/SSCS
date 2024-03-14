@@ -9,11 +9,10 @@ import (
 func main() {
 	r := gin.Default()
 
-    models.ConnectDatabase() // new
+	models.ConnectDatabase() // new
 
-    
-    r.GET("/recognitions", controllers.FindRecogs) 
-    r.GET("/recordings", controllers.FindRecordings) 
+	r.GET("/recognitions", controllers.FindRecogs)
+	r.GET("/recordings", controllers.FindRecordings)
 
 	// Start the server
 	r.Run(":8080")

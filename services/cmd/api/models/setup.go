@@ -17,15 +17,14 @@ func ConnectDatabase() {
 
 	cfg, _ := conf.ReadConf()
 
-        dsn := cfg.Indexer.DbUrl
+	dsn := cfg.Indexer.DbUrl
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-        if  (err != nil) {
-                panic("error connecting to database")
-        }
-        db.AutoMigrate(&recorder.RecordedEvent{})
-        db.AutoMigrate(&recognizer.RecognizedEvent{})
+	if err != nil {
+		panic("error connecting to database")
+	}
+	db.AutoMigrate(&recorder.RecordedEvent{})
+	db.AutoMigrate(&recognizer.RecognizedEvent{})
 	db.AutoMigrate(&storer.CleanedEvent{})
-
-        DB = db       
+	DB = db
 }
