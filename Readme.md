@@ -51,5 +51,7 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 ## Testing 
 
 ###  Dev environment
-Running a development environment can be done via `make dev-env`. Running all functionalities from ` go run ./cmd/daemon/main.go` 
-should run normally after that. 
+Running a development environment can be done via `make dev-env`. This will create a postgres instance and 
+a MediaMTX instance running with some video feed to simulate a RTSP connection.
+
+ Running all core functionalities with ` go run ./cmd/daemon/main.go` should run normally after that. 
