@@ -21,6 +21,8 @@ type FaceDetector struct {
 	wg     sync.WaitGroup
 
 	eChans EventChannels
+	haarPath string
+	thumbsDir  string
 	stopCh chan struct{}
 }
 
@@ -37,6 +39,8 @@ func NewFaceDetector(eChans EventChannels) *FaceDetector {
 func (fd *FaceDetector) Start() error {
 	// Ensure the recordings directory exists
 	cfg, _ := conf.ReadConf()
+	fd.haarPath = cfg.Recognizer.FaceHaarPath
+	fd.thumbsDir = cfg.Recognizer.ThumbsDir
 	err := helpers.EnsureDirectoryExists(cfg.Recognizer.ThumbsDir)
 	if err != nil {
 		fd.logger.Errorf("%v", err)
@@ -47,22 +51,21 @@ func (fd *FaceDetector) Start() error {
 	return nil
 }
 
-func (m *FaceDetector) Stop() error {
-	close(m.stopCh) // signal to stop the view
-	m.wg.Wait()     // Wait for the recording goroutine to finish
+func (r *FaceDetector) Stop() error {
+	close(r.stopCh) // signal to stop the view
+	r.wg.Wait()     // Wait for the recording goroutine to finish
 	return nil
 }
 
-func (m *FaceDetector) view() error {
-	defer m.wg.Done()
+func (r *FaceDetector) view() error {
+	defer r.wg.Done()
 
 	// load classifier to recognize faces
 	classifier := gocv.NewCascadeClassifier()
 	defer classifier.Close()
 
-	cfg, _ := conf.ReadConf()
-	if !classifier.Load(cfg.Recognizer.FaceHaarPath) {
-		fmt.Printf("Error reading cascade file: %v\n", cfg.Recognizer.FaceHaarPath)
+	if !classifier.Load(r.haarPath) {
+		fmt.Printf("Error reading cascade file: %v\n", r.haarPath)
 		return fmt.Errorf("couldn't read haar cascading file")
 	}
 	blue := color.RGBA{0, 0, 255, 0}
@@ -73,20 +76,20 @@ func (m *FaceDetector) view() error {
 	// Loop to read frames and detect motion.
 	for {
 		select {
-		case frame, ok := <-m.eChans.FrameIn:
+		case frame, ok := <-r.eChans.FrameIn:
 			if !ok {
 				// channel was closed and drained, handle the closure, perhaps break the view
 				break
 			}
 			if frame == nil {
-				m.logger.Info("nil frame received, continuing...")
+				r.logger.Info("nil frame received, continuing...")
 				continue
 			}
 			// Convert image.Image to gocv.Mat.
 			img, err := gocv.ImageToMatRGB(frame)
 
 			if err != nil {
-				m.logger.Errorf("Error converting image to Mat: %v", err)
+				r.logger.Errorf("Error converting image to Mat: %v", err)
 				continue
 			}
 
@@ -96,17 +99,17 @@ func (m *FaceDetector) view() error {
 
 			// draw a rectangle around each face on the original image,
 			// along with text identifying as "Human"
-			for _, r := range rects {
-				gocv.Rectangle(&img, r, blue, 3)
+			for _, rect := range rects {
+				gocv.Rectangle(&img, rect, blue, 3)
 				size := gocv.GetTextSize("Human", gocv.FontHersheyPlain, 1.2, 2)
-				pt := image.Pt(r.Min.X+(r.Min.X/2)-(size.X/2), r.Min.Y-2)
+				pt := image.Pt(rect.Min.X+(rect.Min.X/2)-(size.X/2), rect.Min.Y-2)
 				gocv.PutText(&img, "Human", pt, gocv.FontHersheyPlain, 1.2, blue, 2)
 			}
 
-			helpers.SaveMatToFile(img, cfg.Recognizer.ThumbsDir)
+			helpers.SaveMatToFile(img, r.thumbsDir)
 
-		case <-m.stopCh:
-			m.logger.Info("received stop signal")
+		case <-r.stopCh:
+			r.logger.Info("received stop signal")
 			return nil // Exit the view when stop signal is received.
 		}
 	}
