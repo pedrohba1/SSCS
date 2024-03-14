@@ -56,6 +56,20 @@ func (m *MotionDetector) Stop() error {
 	return nil
 }
 
+func (m *MotionDetector) sendRecog(recog RecognizedEvent) error {
+	select {
+	case m.eChans.RecogOut <- recog:
+		return nil
+	case <-m.stopCh:
+		m.logger.Info("received stop signal")
+		return nil
+	default:
+		m.logger.Info("buffer is full")
+		return nil
+	}
+}
+
+
 func (m *MotionDetector) view() error {
 	defer m.wg.Done()
 
@@ -126,7 +140,16 @@ func (m *MotionDetector) view() error {
 			contours.Close()
 
 			gocv.PutText(&img, status, image.Pt(10, 20), gocv.FontHersheyPlain, 1.2, statusColor, 2)
-			helpers.SaveMatToFile(img, m.thumbsDir)
+			fname, err:= helpers.SaveMatToFile(img, m.thumbsDir)
+			if err != nil {
+				m.logger.Errorf("Error saving file: %v", err)
+				continue
+			}
+			m.sendRecog(RecognizedEvent{
+				Path: fname,
+				Context: "motion detected",
+			})
+		
 
 		case <-m.stopCh:
 			m.logger.Info("received stop signal")

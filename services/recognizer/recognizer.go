@@ -2,7 +2,10 @@
 // for multiple image recognition algorithms.
 package recognizer
 
-import "image"
+import (
+	"image"
+	"time"
+)
 
 // Recognizer is an interface for a recognizer component.
 //
@@ -32,6 +35,7 @@ type Config struct {
 // other components (such as the indexer)
 // after something was detected by the recognition algorithms
 type RecognizedEvent struct {
-	name      string
-	timestamp int
+	Path      string    `gorm:"type:text"` // Thumbnail saved path
+	Context      string    `gorm:"type:text"` // Exported by starting with an uppercase letter
+    CreatedAt  time.Time `gorm:"default:CURRENT_TIMESTAMP"`
 }
