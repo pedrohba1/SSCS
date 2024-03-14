@@ -51,7 +51,7 @@ func (p *PostgresIndexer) saveRecord(event recorder.RecordedEvent) error {
 	if err != nil {
 		p.logger.Info("error indexing record")
 	}
-	p.logger.Info("saved record: %w", event)
+	p.logger.Info("saved record: ", event)
 	return err
 }
 
@@ -60,7 +60,7 @@ func (p *PostgresIndexer) saveRecognition(event recognizer.RecognizedEvent) erro
 	if err != nil {
 		p.logger.Info("error indexing record")
 	}
-	p.logger.Info("saved record: %w", event)
+	p.logger.Info("saved record:", event)
 	return err
 }
 
@@ -69,7 +69,7 @@ func (p *PostgresIndexer) modifyCleaned(event storer.CleanedEvent) error {
 	if err != nil {
 		p.logger.Info("error indexing record")
 	}
-	p.logger.Info("saved record: %w", event)
+	p.logger.Info("saved record:", event)
 	return err
 }
 
@@ -78,22 +78,8 @@ func (p *PostgresIndexer) setupLogger() {
 }
 
 
-func (p *PostgresIndexer) StartAsDB() error {
-	p.logger.Infof("connecting postgres...")
-	db, err := gorm.Open(postgres.Open(p.dsn), &gorm.Config{})
-	if err != nil {
-		p.logger.Error("failed to parse url: %w", err)
-		return err
-	}
-
-	p.db = db
-	p.AutoMigrate()
-	return nil
-}
-
 
 func (p *PostgresIndexer) Start() error {
-
 	p.logger.Infof("connecting postgres...")
 	db, err := gorm.Open(postgres.Open(p.dsn), &gorm.Config{})
 	if err != nil {
