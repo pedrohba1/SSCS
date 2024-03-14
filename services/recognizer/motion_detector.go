@@ -18,7 +18,7 @@ type MotionDetector struct {
 	wg     sync.WaitGroup
 
 	MinimumArea int
-	cfg         Config
+	thumbsDir string
 	eChans      EventChannels
 	stopCh      chan struct{}
 }
@@ -29,9 +29,7 @@ func NewMotionDetector(eChans EventChannels) *MotionDetector {
 	r := &MotionDetector{
 		eChans:      eChans,
 		MinimumArea: 3000,
-		cfg: Config{
-			ThumbsDir: cfg.Recognizer.ThumbsDir,
-		},
+		thumbsDir: cfg.Recognizer.ThumbsDir,
 		stopCh: make(chan struct{}),
 	}
 	r.setupLogger()
@@ -41,8 +39,7 @@ func NewMotionDetector(eChans EventChannels) *MotionDetector {
 
 func (m *MotionDetector) Start() error {
 	m.logger.Info("starting motion detector...")
-	cfg, _ := conf.ReadConf()
-	err := helpers.EnsureDirectoryExists(cfg.Recognizer.ThumbsDir)
+	err := helpers.EnsureDirectoryExists(m.thumbsDir)
 
 	if err != nil {
 		m.logger.Errorf("%v", err)
@@ -129,7 +126,7 @@ func (m *MotionDetector) view() error {
 			contours.Close()
 
 			gocv.PutText(&img, status, image.Pt(10, 20), gocv.FontHersheyPlain, 1.2, statusColor, 2)
-			helpers.SaveMatToFile(img, m.cfg.ThumbsDir)
+			helpers.SaveMatToFile(img, m.thumbsDir)
 
 		case <-m.stopCh:
 			m.logger.Info("received stop signal")
