@@ -39,7 +39,7 @@ func (r *CompositeRecognizer) Start() error {
 		return err
 	}
 
-	r.view()
+	go r.view()
 
 	return nil
 }
