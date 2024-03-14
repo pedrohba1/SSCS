@@ -94,7 +94,7 @@ func (r *RTSP_H264Recorder) sendFrame(frame image.Image) error {
 }
 
 func (r *RTSP_H264Recorder) record() error {
-	r.wg.Done()
+	defer r.wg.Done()
 
 	u, err := base.ParseURL(r.rtspURL)
 
