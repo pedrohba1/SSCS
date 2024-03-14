@@ -9,6 +9,7 @@ import (
 func main() {
 	r := gin.Default()
 
+	
 	models.ConnectDatabase() // new
 
 	r.GET("/recognitions", controllers.FindRecogs)

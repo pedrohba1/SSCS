@@ -54,6 +54,7 @@ func New(args []string) *Core {
 	recogChan := make(chan recognizer.RecognizedEvent, 5)
 	v := recognizer.NewMotionDetector(recognizer.EventChannels{
 		FrameIn: frameChan,
+		RecogOut: recogChan,
 	})
 
 	ctx, ctxCancel := context.WithCancel(context.Background())
@@ -109,12 +110,13 @@ func (p *Core) Wait() {
 
 func (p *Core) Start() {
 	defer close(p.done)
+	// Start your components
 	p.recorder.Start()
 	p.recognizer.Start()
 	p.storer.Start()
 	p.indexer.Start()
 
-
+	// Handle interrupts or context cancellation
 	interrupt := make(chan os.Signal, 1)
 	signal.Notify(interrupt, os.Interrupt)
 
@@ -130,6 +132,15 @@ outer:
 		}
 	}
 
+	// // Now that the components have run, capture the heap profile here
+	// f, err := os.Create("heap.prof")
+	// if err != nil {
+	// 	log.Fatal("could not create memory profile: ", err)
+	// }
+	// defer f.Close()
+	// if err := pprof.WriteHeapProfile(f); err != nil {
+	// 	log.Fatal("could not write memory profile: ", err)
+	// }
 }
 
 func (p *Core) closeResources() {
