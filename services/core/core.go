@@ -132,7 +132,7 @@ outer:
 		}
 	}
 
-	// // Now that the components have run, capture the heap profile here
+	// Now that the components have run, capture the heap profile here
 	// f, err := os.Create("heap.prof")
 	// if err != nil {
 	// 	log.Fatal("could not create memory profile: ", err)

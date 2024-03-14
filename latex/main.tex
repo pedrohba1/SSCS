@@ -2138,7 +2138,7 @@ foram levantados os objetivos gerais e disso surgiram as funcionalidades
 componentes.
 
 O código está disponível sob a licença de código aberto do MIT, resolvendo o
-objetivo 1.  A documentação tmabém está pública e pode ser visualizada
+objetivo 1. A documentação tmabém está pública e pode ser visualizada
 facilmente tanto na ferramenta de documentação do golang quanto no site
 oficial, resolvendo o objetivo 9. Ambos também contribuem para o objetivo 7
 indiretamente, além do código limpo da estrutura de componentes do código.
@@ -2157,6 +2157,41 @@ Por último, a API HTTP construída resolve o objetivo 6. Buscas filtradas por
 datas, por tipo de evento de reconhecimento, download de arquivos e paginação
 foram adicionados para criar uma API funcional.
 
+Espera-se que esse trabalho possa contribuir com o desenvolvimento de projetos
+de reconhecimento de imagem, dando uma fundação para a aplicação das técnicas
+em cenários reais. Além disso, por se tratar de um projeto de código aberto, o
+uso de todo ou partes do SSCS também é esperado por parte de outros
+desenvolvedores.
+
+Entretanto, ainda existem melhorias a serem feitas no sistema: apesar de ter
+uma API para servir o consumidor final anida é necessário que sejam construídas
+interface para facitilar o uso. Uma interface web e outra mobile seriam o
+ideal. Também é possível expĺorar implementações de gravador em outros
+protocolos além do RTSP, como WebRTC, HLS e RTMP, e outros encodings, como VP9,
+H.265 e AV1. A inmplementação de algum algoritmo de compressão nas imagens e
+vídeos gerados poderia ser benéfica para quem utilizar o sistema em máquinas
+com armazenamento limitado.
+
+Na versão ao fim deste estudo, o SSCS também carece de testes unitários, de
+integração e de performance. Isso dificulta a ampliação e manutenção de suas
+ferramentas além de indiretamente tornar o entedimento do código mais difícil,
+já que muitas vezes os testes conseguem exemplificar o uso esperado. Outro
+aspecto que pode ser desenvolvido futuramente é mudança do meio de comunicação
+entre os componentes: as implementações do gravador, reconhecedor, gerenciador
+de armazenamento e indexador se comunicam por meio de canais de mensagens
+intra-processo. Nisso, protocolos para comunicação inter-processual, como o
+gRPC, poderiam ser implementados. Isso permitiria executar componentes em
+máquians diferentes e ainda manter a comunicação, o que vantajoso especialmente
+para o reconhedor, que pode precisar de um poder computacional desproporcional
+dependendo da tarefa de reconhecimento.
+
+Em resumo,  o SSCS representa um passo significativo na direção de um sistema
+de reconhecimento de imagem abrangente e versátil. Ele oferece uma estrutura
+sobre a qual construções futuras podem ser baseadas, tanto para aprimoramentos
+diretos do sistema quanto para a exploração de novas aplicações em domínios
+diferentes. A modularidade e a abertura do código facilitam a customização e a
+extensão por parte de outros desenvolvedores, promovendo uma comunidade ativa e
+colaborativa ao redor do projeto.
 \postextual% ----------------------------------------------------------% ELEMENTOS PÓS-TEXTUAIS% ----------------------------------------------------------
 
 % ----------------------------------------------------------
