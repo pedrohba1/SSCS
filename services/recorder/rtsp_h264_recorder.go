@@ -47,7 +47,10 @@ func (r *RTSP_H264Recorder) setupLogger() {
 
 func (r *RTSP_H264Recorder) Start() error {
 	u, err := base.ParseURL(r.rtspURL)
-
+	if err != nil {
+		r.logger.Error("failed to parse url: %w", err)
+		return err
+	}
 	r.client = &gortsplib.Client{}
 
 	// connect to the server

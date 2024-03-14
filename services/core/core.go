@@ -43,25 +43,24 @@ func New(args []string) *Core {
 	recordChan := make(chan recorder.RecordedEvent, 5)
 	frameChan := make(chan image.Image, 10)
 	//starts the recorder
+
+
 	r := recorder.NewRTSP_H264Recorder(cfg.Recorder.RTSP.Feeds[0], recorder.EventChannels{
 		RecordOut: recordChan,
 		FrameOut:  frameChan,
 	})
-	r.Start()
 
 	// starts the recognizer
 	recogChan := make(chan recognizer.RecognizedEvent, 5)
 	v := recognizer.NewMotionDetector(recognizer.EventChannels{
 		FrameIn: frameChan,
 	})
-	v.Start()
 
 	ctx, ctxCancel := context.WithCancel(context.Background())
 
 	// starts the cleaner
 	cleanChan := make(chan storer.CleanedEvent)
 	s := storer.NewOSStorer(storer.EventChannels{CleanOut: cleanChan})
-	s.Start()
 
 	// starts the indexer
 	dsn := cfg.Indexer.DbUrl
@@ -74,7 +73,6 @@ func New(args []string) *Core {
 	if err != nil {
 		panic(err)
 	}
-	i.Start()
 
 	// Create a new Core instance with the read configuration
 	p := &Core{
@@ -91,7 +89,7 @@ func New(args []string) *Core {
 
 	p.done = make(chan struct{})
 
-	go p.run()
+	go p.Start()
 
 	return p
 }
@@ -100,6 +98,7 @@ func New(args []string) *Core {
 func (p *Core) Close() {
 	p.closeResources()
 	p.ctxCancel()
+	
 	<-p.done
 }
 
@@ -108,8 +107,13 @@ func (p *Core) Wait() {
 	<-p.done
 }
 
-func (p *Core) run() {
+func (p *Core) Start() {
 	defer close(p.done)
+	p.recorder.Start()
+	p.recognizer.Start()
+	p.storer.Start()
+	p.indexer.Start()
+
 
 	interrupt := make(chan os.Signal, 1)
 	signal.Notify(interrupt, os.Interrupt)
