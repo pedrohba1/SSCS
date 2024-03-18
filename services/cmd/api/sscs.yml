@@ -36,3 +36,11 @@ storer:
   # The frequency, in minutes, with which the cleaner service will check the recordings
   # directory size and perform cleaning if necessary.
   checkPeriod: 10 # time in seconds
+
+# Configuration for the HTTP Rest API
+api:
+  # url of the API
+  baseUrl: "http://localhost:8080"
+    
+  # a path where to search files from
+  basePath: "/home/bufulin/Desktop/TCC/services"

@@ -12,6 +12,7 @@ type Config struct {
 	Indexer    IndexerConfig    `yaml:"indexer"`
 	Recognizer RecognizerConfig `yaml:"recognizer"`
 	Storer     StorerConfig     `yaml:"storer"`
+	API  APIConfig  `yaml:"api"`
 }
 
 type RecorderConfig struct {
@@ -37,6 +38,14 @@ type StorerConfig struct {
 type RTSPConfig struct {
 	Feeds []string `yaml:"feeds"`
 }
+
+type APIConfig struct {
+	BaseUrl string `yaml:"baseUrl"`
+	BasePath string `yaml:"basePath"`
+}
+
+var CachedConfig *Config = nil
+
 
 // Looks for a config file a a few default locations.
 // If it doesn't exist in a location, look for the others,
@@ -81,5 +90,6 @@ func findConfig() (Config, error) {
 // ReadConf reads the  github.com/pedrohba1/SSCS/services.yml YAML file and unmarshals it into a Go structure.
 func ReadConf() (Config, error) {
 	cfg, err := findConfig()
+	CachedConfig = &cfg
 	return cfg, err
 }

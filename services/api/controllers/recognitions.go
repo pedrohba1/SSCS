@@ -5,7 +5,8 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/pedrohba1/SSCS/services/cmd/api/models"
+	"github.com/pedrohba1/SSCS/services/api/models"
+	"github.com/pedrohba1/SSCS/services/conf"
 	"github.com/pedrohba1/SSCS/services/recognizer"
 )
 
@@ -20,7 +21,7 @@ func FindRecogs(c *gin.Context) {
 	query := models.DB.Model(&recognizer.RecognizedEvent{})
 
 	// Check if both start and end dates are provided
-	if startDateQuery != "" && endDateQuery != "" {
+	if startDateQuery != "" || endDateQuery != "" {
 		startDate, err := time.Parse(time.RFC3339, startDateQuery)
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid start date format. Use RFC3339."})
@@ -41,6 +42,14 @@ func FindRecogs(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
+
+
+	// appends BaseUrl to the recognitions so it can access via links
+	baseUrl := conf.CachedConfig.API.BaseUrl
+
+	for i := range recognitions {
+        recognitions[i].Path = baseUrl + "/file/" + recognitions[i].Path
+    }
 
 	c.JSON(http.StatusOK, gin.H{"data": recognitions})
 }
