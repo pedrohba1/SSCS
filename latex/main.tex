@@ -209,6 +209,7 @@ customizável} %TCC
 	\item[SDP] Session Description Protocol
 	\item[RTP] Real-time Transport Protocol
 	\item[AU] Access Unit
+	\item[URL] Unique Resource Locator
 	\item[NALU] Network Abstraction Layer Unit
 	\item[WebRTC] Web Real-time Communication
 	\item[SRT] Secure Reliable Transport
@@ -830,6 +831,61 @@ imagem, mas não tem como fazer uma conexão direta ao sistema que está provend
 diretamente a imagem com RTSP. Tanto porque o sistema não consegue lidar com
 muitas requisições ao mesmo tempo, ou porque ele está numa intranet que precisa
 de um acesso seguro para prover ao resto da rede.
+
+\section{REST}
+
+REST (Representational State Transfer) é um estilo de arquitetura para sistemas
+distribuídos de hipermídia proposto pela primeira vez por Roy Thomas Fielding
+em \citeonline{Fielding2000}.
+
+Esse estilo de arquitetura ignora os detalhes de implementação dos componentes
+e sintaxe de protocolos para focar no papel dos componentes. Nisso, os dados
+nunca são acessados diretamente, mas são transferidos por meio de
+representações.
+
+REST é definido pelo conjunto de restrições arquiteturais à seguir:
+
+\begin{itemize}
+	\item \textbf{Interface Uniforme}\\
+	      Cada recurso é tratado como uma fonte de informação, identificado
+	      unicamente com uma URL. Os clientes manipulam esses recursos por meio de
+	      representações em hipermídia contendo hyperlinks para outros recursos. Uma
+	      representação consiste em dados e metadados serializados, contendo toda a
+	      informação necessária para o processamento correto. Opcionalmente, negociação
+	      de conteúdo pode ser usada pelo cliente para adquirir a representação desejada.
+	\item \textbf{Cliente-servidor}\\
+	      Separação das responsabilidades do cliente (que solicita
+	      recursos) do servidor (que fornece recursos), permitindo que ambos evoluam
+	      independentemente e uma grande variedade de tipos de clientes.
+	\item \textbf{Stateless}\\
+	      Cada requisição de um cliente para um servidor deve conter todas
+	      as informações necessárias para o servidor entender e responder à requisição. O
+	      servidor não armazena nenhum estado do cliente entre as requisições (não há
+	      sessões). O cliente pode usar o servidor sem uma sequência de requisições
+	      específica.
+	\item \textbf{Cache}\\
+	      Os dados em uma resposta de uma requisição devem ser
+	      implicitamente ou explicitamente rotulados como cacheáveis ou não-cacheáveis.
+	      Se um dado for cacheável, o cliente tem o direito de reutilizar esse dado em
+	      respostas futuras, o que reduz a interação cliente-servidor e melhora a
+	      eficiência e a escalabilidade do sistema.
+	\item \textbf{Layered system}\\
+	      Um sistema arquitetado em camadas permite a construção de uma
+	      arquitetura composta por camadas hierárquicas, onde cada camada tem uma função
+	      específica. O cliente não consegue normalmente ver além da camada com a qual
+	      está interagindo, o que significa que qualquer intermediário (como um
+	      balanceador de carga ou um gateway de API) pode ser inserido entre o cliente e
+	      o servidor para mediar a interação, melhorar o desempenho, aumentar a
+	      segurança, ou para agregar outras funcionalidades.
+	\item \textbf{Code on demand (opcional)}\\
+	      Permissão para que o servidor estenda ou personalize a
+	      funcionalidade de um cliente enviando código executável sob demanda. Por
+	      exemplo, um servidor pode enviar código JavaScript ao cliente para ser
+	      executado no contexto da aplicação. Esta é a única restrição opcional do REST
+	      e, quando implementada, pode reduzir a visibilidade da comunicação, mas aumenta
+	      a flexibilidade ao permitir que os clientes se adaptem a novas funcionalidades
+	      dinamicamente.
+\end{itemize}
 
 \section{Licenças de Software}
 
