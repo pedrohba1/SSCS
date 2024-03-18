@@ -57,6 +57,20 @@ func (r *FaceDetector) Stop() error {
 	return nil
 }
 
+
+func (m *FaceDetector) sendRecog(recog RecognizedEvent) error {
+	select {
+	case m.eChans.RecogOut <- recog:
+		return nil
+	case <-m.stopCh:
+		m.logger.Info("received stop signal")
+		return nil
+	default:
+		m.logger.Info("buffer is full")
+		return nil
+	}
+}
+
 func (r *FaceDetector) view() error {
 	defer r.wg.Done()
 
@@ -107,6 +121,17 @@ func (r *FaceDetector) view() error {
 			}
 
 			helpers.SaveMatToFile(img, r.thumbsDir)
+
+			fname, err:= helpers.SaveMatToFile(img, r.thumbsDir);
+			if err != nil {
+				r.logger.Errorf("Error saving file: %v", err)
+				continue
+			}
+			r.sendRecog(RecognizedEvent{
+				Path: fname,
+				Context: "face detected",
+			})
+		
 
 		case <-r.stopCh:
 			r.logger.Info("received stop signal")
