@@ -846,45 +846,42 @@ representações.
 REST é definido pelo conjunto de restrições arquiteturais à seguir:
 
 \begin{itemize}
-	\item \textbf{Interface Uniforme}\\
-	      Cada recurso é tratado como uma fonte de informação, identificado
-	      unicamente com uma URL. Os clientes manipulam esses recursos por meio de
-	      representações em hipermídia contendo hyperlinks para outros recursos. Uma
-	      representação consiste em dados e metadados serializados, contendo toda a
-	      informação necessária para o processamento correto. Opcionalmente, negociação
-	      de conteúdo pode ser usada pelo cliente para adquirir a representação desejada.
-	\item \textbf{Cliente-servidor}\\
-	      Separação das responsabilidades do cliente (que solicita
-	      recursos) do servidor (que fornece recursos), permitindo que ambos evoluam
-	      independentemente e uma grande variedade de tipos de clientes.
-	\item \textbf{Stateless}\\
-	      Cada requisição de um cliente para um servidor deve conter todas
-	      as informações necessárias para o servidor entender e responder à requisição. O
-	      servidor não armazena nenhum estado do cliente entre as requisições (não há
-	      sessões). O cliente pode usar o servidor sem uma sequência de requisições
-	      específica.
-	\item \textbf{Cache}\\
-	      Os dados em uma resposta de uma requisição devem ser
-	      implicitamente ou explicitamente rotulados como cacheáveis ou não-cacheáveis.
-	      Se um dado for cacheável, o cliente tem o direito de reutilizar esse dado em
-	      respostas futuras, o que reduz a interação cliente-servidor e melhora a
-	      eficiência e a escalabilidade do sistema.
-	\item \textbf{Layered system}\\
-	      Um sistema arquitetado em camadas permite a construção de uma
-	      arquitetura composta por camadas hierárquicas, onde cada camada tem uma função
-	      específica. O cliente não consegue normalmente ver além da camada com a qual
-	      está interagindo, o que significa que qualquer intermediário (como um
-	      balanceador de carga ou um gateway de API) pode ser inserido entre o cliente e
-	      o servidor para mediar a interação, melhorar o desempenho, aumentar a
-	      segurança, ou para agregar outras funcionalidades.
-	\item \textbf{Code on demand (opcional)}\\
-	      Permissão para que o servidor estenda ou personalize a
-	      funcionalidade de um cliente enviando código executável sob demanda. Por
-	      exemplo, um servidor pode enviar código JavaScript ao cliente para ser
-	      executado no contexto da aplicação. Esta é a única restrição opcional do REST
-	      e, quando implementada, pode reduzir a visibilidade da comunicação, mas aumenta
-	      a flexibilidade ao permitir que os clientes se adaptem a novas funcionalidades
-	      dinamicamente.
+	\item \textbf{Interface Uniforme:} Cada recurso é tratado como uma
+	      fonte de informação, identificado unicamente com uma URL. Os
+	      clientes manipulam esses recursos por meio de representações em hipermídia
+	      contendo hyperlinks para outros recursos. Uma representação consiste em dados e
+	      metadados serializados, contendo toda a informação necessária para o
+	      processamento correto. Opcionalmente, negociação de conteúdo pode ser usada
+	      pelo cliente para adquirir a representação desejada.
+	\item \textbf{Cliente-servidor:} Separação das responsabilidades do
+	      cliente (que solicita recursos) do servidor (que fornece
+	      recursos), permitindo que ambos evoluam independentemente e uma grande
+	      variedade de tipos de clientes.
+	\item \textbf{Stateless:} Cada requisição de um cliente para um
+	      servidor deve conter todas as informações necessárias para o
+	      servidor entender e responder à requisição. O servidor não armazena nenhum
+	      estado do cliente entre as requisições (não há sessões). O cliente pode usar o
+	      servidor sem uma sequência de requisições específica.
+	\item \textbf{Cache:} Os dados em uma resposta de uma requisição devem
+	      ser implicitamente ou explicitamente rotulados como cacheáveis ou
+	      não-cacheáveis. Se um dado for cacheável, o cliente tem o direito de reutilizar
+	      esse dado em respostas futuras, o que reduz a interação cliente-servidor e
+	      melhora a eficiência e a escalabilidade do sistema.
+	\item \textbf{Layered system:} Um sistema arquitetado em camadas
+	      permite a construção de uma arquitetura composta por camadas
+	      hierárquicas, onde cada camada tem uma função específica. O cliente não
+	      consegue normalmente ver além da camada com a qual está interagindo, o que
+	      significa que qualquer intermediário (como um balanceador de carga ou um
+	      gateway de API) pode ser inserido entre o cliente e o servidor para mediar a
+	      interação, melhorar o desempenho, aumentar a segurança, ou para agregar outras
+	      funcionalidades.
+	\item \textbf{Code on demand (opcional):} Permissão para que o servidor
+	      estenda ou personalize a funcionalidade de um cliente enviando
+	      código executável sob demanda. Por exemplo, um servidor pode enviar código
+	      JavaScript ao cliente para ser executado no contexto da aplicação. Esta é a
+	      única restrição opcional do REST e, quando implementada, pode reduzir a
+	      visibilidade da comunicação, mas aumenta a flexibilidade ao permitir que os
+	      clientes se adaptem a novas funcionalidades dinamicamente.
 \end{itemize}
 
 \section{Licenças de Software}
@@ -1560,6 +1557,30 @@ Em seguida, ele cria e inicia outro contêiner usando a imagem oficial do
 PostgreSQL, configurando-o com variáveis de ambiente e mapeando a porta 5432.
 Ambos os contêineres usam a rede do host para comunicação.
 
+Opcionalmente, para testar a autenticação se for necessário, é possível rodar o
+Keycloak em um contêiner:
+
+\begin{minted}
+	[%
+	 breaklines,
+	 mathescape,
+	 linenos,
+	 numbersep=5pt,
+	 frame=single,
+	 numbersep=5pt,
+	 xleftmargin=0pt,
+	 ]{make}
+	 docker run --name=keycloak -p 8080:8080 -e KEYCLOAK_ADMIN=admin \
+	 -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:23.0.7 \
+	 start-dev	
+\end{minted}
+
+Esse container pode ser usado para configurar um servidor de identidade que usa
+tokens JWT, permitindo autenticação tanto no MediaMTX quanto an API. Essa etapa
+não é necessária se for desabilitada a autenticação no arquivo de configuração
+\texttt{sscs.yml} sendo lido pela API e no \texttt{mediamtx.yml} usado no
+contêiner.
+
 No diretório \texttt{/sscs/dev}, presente no repositório de código do projeto,
 encontram-se todos os arquivos requeridos para a construção do contêiner que
 compõe o servidor intermediário, configurando, assim, um ambiente de
@@ -2057,15 +2078,15 @@ apagados, dependendo de como o componente foi configurado.
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
-\section{HTTP RESTful API}
+\section{API HTTP RESTful}
 
 Os vídeos, eventos e imagens geradas pelos componentes do SSCS precisam de
-algum forma serem servidos para os usuários finais. Nisso, uma API HTTP pode
-ser consumida em uma grande variedade de clientes diferentes: front-ends Web,
-CLIs, aplicativos móveis e desktop. Vale ressaltar que apesar dessa API ser um
-componente também, ela funciona como uma aplicação paralela ao SSCS. Ou seja,
-não precisa estar acoplada com nenhum dos outros componentes para funcionar sem
-erros, embora precise importar algumas estruturas do indexador.
+algum forma serem servidos para os usuários finais. Nisso, uma API HTTP RESTful
+pode ser consumida em uma grande variedade de clientes diferentes: front-ends
+Web, CLIs, aplicativos móveis e desktop. Vale ressaltar que apesar dessa API
+ser um componente também, ela funciona como uma aplicação paralela ao SSCS. Ou
+seja, não precisa estar acoplada com nenhum dos outros componentes para
+funcionar sem erros, embora precise importar algumas estruturas do indexador.
 
 Nesse sentido, A função da API é fazer a ponte entre as informações do
 indexador e gerenciador  de armazenamento até o usuário. Para isso, essa
@@ -2086,6 +2107,31 @@ arquivos.
 prover uma interface de acesso. Esse pacote traz uma série de facilitações para
 a configuração: rate limiting, security headers, tempo de timeout, arquivos
 estáticos, CORS, middlewares, validação de dados, etc.
+
+Entre as funcionalidades da API estão:
+
+\begin{itemize}
+	\item Busca por todos os eventos de reconhecimento, permitindo o filtro
+	      por data em intervalo, usando datas no formato da RFC3339. A API responde com o
+	      contexto de reconhecimento, a data de criação do evento e um hyperlink para a
+	      imagem do que foi reconhecido, com marcações;
+	\item Busca por todas as gravações, com filtro intervalar de datas como
+	      a funcionalidade anterior. A API devolve o tempo de início e fim de cada
+	      gravação assim como um hyperlink para sua visualização;
+	\item Devolver um agregado das gravações em um intervalo de datas para
+	      download.
+\end{itemize}
+
+\section{Aspectos de segurança}
+
+É comum que usuários de sistemas de vigilância tenham como requisito a
+limitação do acesso do sistema. Pensando nisso, Um sistema de autenticação
+opcional pode ser usado no SSCS. Esse sistema é baseado em tokens JWT. Assim,
+usuários válidos podem ser cadastrados no servidor de identidade.
+
+A implementação consiste em usar um servidor de identidade externo capaz de
+gerar JWTs e prover um endpoint JWKS, como o Keycloak. Tanto a API do SSCS
+quanto o MediaMTX são capazes de utilizar o mesmo servidor de identidade.
 
 \section{Core}
 % TODO: Checar o código anterior para ver se algo mudou
