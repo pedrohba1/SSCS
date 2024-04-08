@@ -193,51 +193,35 @@ Aqui estão as siglas organizadas em ordem alfabética:
 
 \begin{siglas}
 	\item[API] \textit{Application Programming Interface} - Interface de
-	Programação de Aplicações
-	\item[AU] \textit{Access Unit} - Unidade de Acesso
-	\item[AVC] \textit{Advanced Video Coding} - Codificação de Vídeo
-	Avançada
-	\item[CAGR] \textit{Compound Annual Growth Rate} - Taxa de Crescimento
-	Anual Composta
-	\item[CCTV] \textit{Closed-circuit Television} - Televisão de circuito fechado
-	\item[DVR] \textit{Digital Video Recorder} - Gravador de Vídeo Digital
-	\item[FPS] \textit{Frames Per Second} - Quadros Por Segundo
-	\item[HEVC] \textit{High Efficiency Video Coding} - Codificação de
-	Vídeo de Alta Eficiência
-	\item[HSL] \textit{HTTP Live Streaming} - Transmissão ao Vivo HTTP
-	\item[LBPH] \textit{Local Binary Patterns Histogram} - Histograma de
-	Padrões Binários Locais
-	\item[NALU] \textit{Network Abstraction Layer Unit} - Unidade de Camada
-	de Abstração de Rede
-	\item[NUC] \textit{Next Unit of Computing} - Próxima Unidade de
-	Computação
-	\item[NVR] \textit{Network Video Recorder} - Gravador de Vídeo em Rede
-	\item[ORM] \textit{Object-Relational Mapping} - Mapeamento
-	Objeto-Relacional
-	\item[REST] \textit{Representational State Transfer} - Transferência de
-	Estado Representacional
-	\item[RTMP] \textit{Real Time Messaging Protocol} - Protocolo de
-	Mensagens em Tempo Real
-	\item[RTSP] \textit{Real-time Streaming Protocol} - Protocolo de
-	Transmissão em Tempo Real
-	\item[RTP] \textit{Real-time Transport Protocol} - Protocolo de
-	Transporte em Tempo Real
-	\item[SaaS] \textit{Software as a Service} - Software como Serviço
+	Programação de Aplicações \item[AU] \textit{Access Unit} - Unidade de
+	Acesso \item[AVC] \textit{Advanced Video Coding} - Codificação de Vídeo
+	Avançada \item[CAGR] \textit{Compound Annual Growth Rate} - Taxa de Crescimento
+	Anual Composta \item[CCTV] \textit{Closed-circuit Television} - Televisão de
+	circuito fechado \item[DVR] \textit{Digital Video Recorder} - Gravador de Vídeo
+	Digital \item[FPS] \textit{Frames Per Second} - Quadros Por Segundo \item[HEVC]
+	\textit{High Efficiency Video Coding} - Codificação de Vídeo de Alta Eficiência
+	\item[HSL] \textit{HTTP Live Streaming} - Transmissão ao Vivo HTTP \item[LBPH]
+	\textit{Local Binary Patterns Histogram} - Histograma de Padrões Binários
+	Locais \item[NALU] \textit{Network Abstraction Layer Unit} - Unidade de Camada
+	de Abstração de Rede \item[NIC] \textit{Network Interface Card} - Placa de
+	Interface de Rede \item[NUC] \textit{Next Unit of Computing} - Próxima Unidade
+	de Computação \item[NVR] \textit{Network Video Recorder} - Gravador de Vídeo em
+	Rede \item[ORM] \textit{Object-Relational Mapping} - Mapeamento
+	Objeto-Relacional \item[REST] \textit{Representational State Transfer} -
+	Transferência de Estado Representacional \item[RTMP] \textit{Real Time
+		Messaging Protocol} - Protocolo de Mensagens em Tempo Real \item[RTSP]
+	\textit{Real-time Streaming Protocol} - Protocolo de Transmissão em Tempo Real
+	\item[RTP] \textit{Real-time Transport Protocol} - Protocolo de Transporte em
+	Tempo Real \item[SaaS] \textit{Software as a Service} - Software como Serviço
 	\item[SBC] \textit{Single Board Computer} - Computador de Placa Única
-	\item[SDP] \textit{Session Description Protocol} - Protocolo de
-	Descrição de Sessão
-	\item[SSCS] \textit{Self-Sovereign Camera System} - Sistema de Câmera
-	Auto-Soberana
-	\item[SRT] \textit{Secure Reliable Transport} - Transporte Seguro e
-	Confiável
-	\item[UML] \textit{Unified Modeling Language} - Linguagem de Modelagem
-	Unificada
-	\item[URL] \textit{Unique Resource Locator} - Localizador de Recursos
-	Único
-	\item[VMS] \textit{Video Surveillance Management System} - Sistema de
-	Gerenciamento de Vigilância por Vídeo
-	\item[WebRTC] \textit{Web Real-time Communication} - Comunicação em
-	Tempo Real na Web
+	\item[SDP] \textit{Session Description Protocol} - Protocolo de Descrição de
+	Sessão \item[SSCS] \textit{Self-Sovereign Camera System} - Sistema de Câmera
+	Auto-Soberana \item[SRT] \textit{Secure Reliable Transport} - Transporte Seguro
+	e Confiável \item[UML] \textit{Unified Modeling Language} - Linguagem de
+	Modelagem Unificada \item[URL] \textit{Unique Resource Locator} - Localizador
+	de Recursos Único \item[VMS] \textit{Video Surveillance Management System} -
+	Sistema de Gerenciamento de Vigilância por Vídeo \item[WebRTC] \textit{Web
+		Real-time Communication} - Comunicação em Tempo Real na Web
 \end{siglas}
 
 % ---
@@ -387,17 +371,19 @@ A figura abaixo mostra um sistema de cliente-servidor para transmissão de dados
 de multimídia. Na origem, tem-se a gravação comprimida, codificada e armazenada
 no dispositivo de armazenamento, como um disco rígido, por exemplo. Em seguida,
 por meio de algum software de mídia, esses arquivos são requisitados por
-usuários e entregues de acordo. Uma Network Interface Card (NIC na figura)
-então usa um protocolo de transmissão via rede para entregar os dados de
-multimídia para o cliente (tais como RTMP, HLS, RTSP, WebRTC), onde eles são
-primeiramente armazenados na memória principal ou disco e eventualmente
-decodificados e apresentados ao usuário.
+usuários e entregues de acordo. Uma NIC, representada como "interface de rede"
+na figura, então usa um protocolo de transmissão via rede para entregar os
+dados de multimídia para o cliente (tais como RTMP, HLS, RTSP, WebRTC), onde
+eles são primeiramente armazenados na memória principal ou disco e
+eventualmente decodificados e apresentados ao usuário.
 
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1\linewidth]{media_fundamentals.pdf}
 	\caption[Representação de um arquitetura de tempo real
 		genérica]{Arquitetura genérica de transmissão em tempo real}
+	\legend{Fonte: Figura traduzida. \citeonline{lee2005scalable2} }
+
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
@@ -2076,7 +2062,8 @@ respectivamente os diretórios de armazenamento primário e backup,
 	\includegraphics[width=0.3\linewidth]{storer.pdf}
 	\caption[Diagrama isolado da implementação do gerenciador de
 		armazenamento]{Diagrama isolado da implementação do gerenciador de
-		armazenamento }
+		armazenamento
+	}
 	\label{fig:graficosVariandoTamanhoRede}
 \end{figure}
 
