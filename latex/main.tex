@@ -849,12 +849,12 @@ As motivações para usar um servidor proxy podem ser:
 	      potencialmente, cacheando conteúdo estático para reduzir a carga sobre o
 	      servidor de origem.
 	\item \textbf{Acesso Seguro e Controle:} Em muitas organizações,
-	      sistemas críticos operam em redes internas para protegê-los de acessos não
-	      autorizados da internet. No entanto, pode haver necessidade de acessar esses
-	      sistemas de fora da rede interna, como no caso de transmissão de vídeo para
-	      usuários remotos. Um servidor proxy configurado adequadamente pode facilitar
-	      esse acesso de maneira controlada e segura, atuando como um ponto de controle
-	      para autenticação e autorização.
+	      sistemas críticos operam em redes internas para protegê-los de
+	      acessos não autorizados da internet. No entanto, pode haver necessidade de
+	      acessar esses sistemas de fora da rede interna, como no caso de transmissão de
+	      vídeo para usuários remotos. Um servidor proxy configurado adequadamente pode
+	      facilitar esse acesso de maneira controlada e segura, atuando como um ponto de
+	      controle para autenticação e autorização.
 
 \end{itemize}
 
@@ -947,7 +947,7 @@ redundâncias e detalhes visuais não perceptíveis, para reduzir o tamanho dos
 arquivos e permitir sua transmissão, armazenamento e reprodução eficientes.
 Eles desempenham um papel fundamental na compressão de vídeo e na manutenção da
 qualidade do conteúdo visual. \cite{CodecMerriamWebster2019}
- 
+
 Existem vários padrões de codecs de vídeo, como H.264, H.265 (HEVC), VP9, AV1,
 entre outros. A escolha do codec pode afetar a compatibilidade entre
 dispositivos e aplicativos, bem como a eficiência da compressão. No caso, dada
@@ -1206,6 +1206,23 @@ baixo custo.
 
 \section{Tecnologias e técnicas comuns}
 
+O projeto desse estudo tem como fundação uma série de tecnologias essenciais
+para viabilizar a coleta, transmissão, processamento e armazenamento de imagens
+e vídeos em sistemas de vigilância e monitoramento. Estas tecnologias abrangem
+desde os protocolos de comunicação de dados até os métodos de compressão de
+imagem, passando por algoritmos de reconhecimento e análise. A escolha dessas
+tecnologias deve considerar um equilíbrio entre eficiência, custo,
+escalabilidade e precisão. Neste contexto, a integração de diferentes
+tecnologias e técnicas se mostra fundamental para superar os desafios técnicos
+e operacionais, garantindo a eficácia do sistema em ambientes variados e sob
+demandas distintas.
+
+À seguir, são exploradas algumas das tecnologias e técnicas mais comuns e
+cruciais no desenvolvimento e implementação de sistemas de vigilância e
+monitoramento. Essas incluem métodos de transmissão multimídia, técnicas de
+reconhecimento de imagem, e estratégias de armazenamento, resolução e
+compressão de vídeo, cada qual com suas especificidades e aplicações ideais.
+
 \subsection{métodos de transmissão}
 
 No quesito dos métodos de transmissão multimídia por essas câmeras, temos três
@@ -1280,8 +1297,7 @@ especial, a resolução da câmera tem uma forte relação com o volume de dados
 por sua vez afeta muitos dos outros fatores também. A tabela a seguir detalha o
 espaço de armazenamento necessário, em Terabytes, para arquivar 30 dias de
 filmagem, capturada em diferentes resoluções de 12 câmeras, operando
-continuamente durante 24 horas por dia. \clearpage
-% Ends the current page and places the table at the top of the next page
+continuamente durante 24 horas por dia. % Ends the current page and places the table at the top of the next page
 
 \begin{table}[ht]
 	\centering
@@ -1352,7 +1368,7 @@ dos recursos. Portanto, mecanismos de controle de acesso técnicos, físicos e
 administrativos precisam ser implementados e documentados independente da
 escolha armazenamento, como forma de mitigar vulnerabilidades.
 
-\subsection{custos de operação}
+\section{custos de operação}
 
 O custo total do SSCS é composto por dois elementos principais: o investimento
 inicial na aquisição das câmeras e a opção de hospedagem do serviço. Para a
