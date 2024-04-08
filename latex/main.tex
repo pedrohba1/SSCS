@@ -693,8 +693,8 @@ O diagrama de componentes é uma ferramenta da UML (Unified Modeling Language).
 Ele tem como objetivo visualizar a organização e as relações entre diferentes
 componentes em um sistema de software. Enquanto outros diagramas focam na
 funcionalidade do sistema, o diagrama de componentes se concentra no aspecto
-estrutural. Além disso, assume-se que componentes podem ser reutilizados ou realocados
-por um equivalente. \cite{UMLComponentDiagrams2023}
+estrutural. Além disso, assume-se que componentes podem ser reutilizados ou
+realocados por um equivalente. \cite{UMLComponentDiagrams2023}
 
 Um diagrama de componentes representa partes modulares de um sistema, chamadas
 de componentes. Estes componentes podem ser físicos (como bibliotecas, módulos,
@@ -713,7 +713,6 @@ Ao trabalhar com diagramas de componentes, as equipes podem compreender melhor
 a estrutura do sistema e identificar áreas para atenção ou desenvolvimento.
 
 Abaixo, um exemplo de um componente e suas partes:
-
 
 \begin{figure}[!ht]
 	\centering
@@ -796,7 +795,6 @@ agrupamentos. O objetivo dos princípios é a criação de estruturas de softwar
 de nível médio que são fáceis de entender, formam a base de componentes que
 podem ser usados em muitos sistemas software.
 
-
 \begin{itemize}
 	\item \textbf{SRP: Princípio da Responsabilidade Única}\\
 	      Um corolário ativo da lei de Conway: A melhor estrutura para um
@@ -831,11 +829,34 @@ limpo, legível, organizado e de fácil manutenção. \cite{martin2018clean3}
 
 \section{Servidor Proxy}
 
-Explicar o porquê de às vezes usar um proxy. Às vezes queremos dar um feed de
-imagem, mas não tem como fazer uma conexão direta ao sistema que está provendo
-diretamente a imagem com RTSP. Tanto porque o sistema não consegue lidar com
-muitas requisições ao mesmo tempo, ou porque ele está numa intranet que precisa
-de um acesso seguro para prover ao resto da rede.
+Inserido em redes de computadores, um servidor proxy atua como intermediário
+entre um cliente e um servidor, redirecionando as solicitações dos clientes
+para outros servidores e, em seguida, transmitindo as respostas de volta aos
+clientes. O uso de servidores proxy é motivado por diversas razões, tanto
+operacionais quanto de segurança. Especificamente na transmissão de imagens ou
+fluxos de vídeo, como aqueles fornecidos via RTSP, os servidores proxy podem
+superar limitações técnicas e de rede.
+
+As motivações para usar um servidor proxy podem ser:
+
+\begin{itemize}
+	\item \textbf{Gerenciamento de carga:} Sistemas com elevado volume de
+	      dados, como os que fornecem fluxos de mídia como vídeos em tempo
+	      real, podem não ser capazes de lidar com um grande número de requisições
+	      simultâneas devido a limitações de largura de banda ou capacidade de
+	      processamento. Um servidor proxy pode mitigar esse problema ao distribuir as
+	      solicitações de forma mais eficiente, atuando como um balanceador de carga, e
+	      potencialmente, cacheando conteúdo estático para reduzir a carga sobre o
+	      servidor de origem.
+	\item \textbf{Acesso Seguro e Controle:} Em muitas organizações,
+	      sistemas críticos operam em redes internas para protegê-los de acessos não
+	      autorizados da internet. No entanto, pode haver necessidade de acessar esses
+	      sistemas de fora da rede interna, como no caso de transmissão de vídeo para
+	      usuários remotos. Um servidor proxy configurado adequadamente pode facilitar
+	      esse acesso de maneira controlada e segura, atuando como um ponto de controle
+	      para autenticação e autorização.
+
+\end{itemize}
 
 \section{REST}
 
