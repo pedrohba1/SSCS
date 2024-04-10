@@ -1,46 +1,49 @@
-\documentclass[12pt, %
-openright, 
-oneside, %
-%twoside, %TCC: Se seu texto tem mais de 100 páginas, descomente esta linha e comente a anterior
-a4paper,    %
-%english,   %
-brazil]{facom-ufu-abntex2}
+	\documentclass[12pt, %
+	openright, 
+	oneside, %
+	%twoside, %TCC: Se seu texto tem mais de 100 páginas, descomente esta linha e comente a anterior
+	a4paper,    %
+	%english,   %
+	brazil]{facom-ufu-abntex2}
 
-\usepackage[brazil]{babel}
-\usepackage{graphicx}
-\usepackage{minted}
-\usepackage{hyperref}
-
-
-% coisas relacionadas às cores do código:
-
-\definecolor{dkgreen}{rgb}{0,0.6,0}
-\definecolor{gray}{rgb}{0.5,0.5,0.5}
-\definecolor{mauve}{rgb}{0.58,0,0.82}
+	\usepackage[brazil]{babel}
+	\usepackage{graphicx}
+	\usepackage{minted}
+	\usepackage{hyperref}
 
 
+	% coisas relacionadas às cores do código:
 
-\graphicspath{{figuras/}{pictures/}{images/}{./}}
-% where to search for the images
-
-\newcommand{\blue}[1]{\textcolor{blue}{#1}}
-\newcommand{\red}[1]{\textcolor{red}{#1}}
+	\definecolor{dkgreen}{rgb}{0,0.6,0}
+	\definecolor{gray}{rgb}{0.5,0.5,0.5}
+	\definecolor{mauve}{rgb}{0.58,0,0.82}
 
 
-\autor{Pedro Henrique Bufulin de Almeida} %TCC
-\data{2021}
-\orientador{Pedro Frosi Rosa} %TCC
-%\coorientador{Algum?} %TCC
 
-% ---
-% Informações de dados para CAPA e FOLHA DE ROSTO
-% ---
+	\graphicspath{{figuras/}{pictures/}{images/}{./}}
+	% where to search for the images
 
-\titulo{Sistema de vigilância \textit{\foreignlanguage{english}{open source}} e
-customizável} %TCC
+	\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+	\newcommand{\red}[1]{\textcolor{red}{#1}}
 
-\hypersetup{pdfkeywords={palavra 1}{palavra 2}{palavra 4}{palavra 4}{palavra
-5}} %TCC
+
+	\autor{Pedro Henrique Bufulin de Almeida}
+%TCC
+	\data{2021}
+	\orientador{Pedro Frosi Rosa} %TCC
+	%\coorientador{Algum?} %TCC
+
+	% ---
+	% Informações de dados para CAPA e FOLHA DE ROSTO
+	% ---
+
+	\titulo{Sistema de vigilância \textit{\foreignlanguage{english}{open
+source}} e
+	customizável} %TCC
+
+	\hypersetup{pdfkeywords={palavra 1}{palavra 2}{palavra 4}{palavra
+4}{palavra
+	5}} %TCC
 
 \begin{document}
 
@@ -377,7 +380,7 @@ A figura abaixo mostra um sistema de cliente-servidor para transmissão de dados
 de multimídia. Na origem, tem-se a gravação comprimida, codificada e armazenada
 no dispositivo de armazenamento, como um disco rígido, por exemplo. Em seguida,
 por meio de algum software de mídia, esses arquivos são requisitados por
-usuários e entregues de acordo. Uma NIC, representada como "interface de rede"
+usuários e entregues de acordo. Uma NIC, representada como ``interface de rede''
 na figura, então usa um protocolo de transmissão via rede para entregar os
 dados de multimídia para o cliente (tais como RTMP, HLS, RTSP, WebRTC), onde
 eles são primeiramente armazenados na memória principal ou disco e
@@ -470,7 +473,8 @@ simplesmente prover uma imagem. Geralmente, nesse estágio ocorre algum tipo de
 pré-processamento também, como o  scaling da imagem. Em seguida, podem ocorrem
 as etapas de aprimoramento, restauração e compressão. Por último, podem ocorrer
 as etapas de processamento morfológico, segmentação, representação e descrição.
-Após essas etapas pode-se então realizar o reconhecimento de imagem. \cite{gonzalez2002digital}
+Após essas etapas pode-se então realizar o reconhecimento de imagem.
+\cite{gonzalez2002digital}
 
 \subsection{Subtração de Fundo baseada em Modelos de Mistura Gaussiana}
 
@@ -1572,24 +1576,24 @@ métodos, utilizando-se essa ferramenta com o terminal, para replicar localmente
 os sistemas externos básicos dos quais o SSCS depende.
 
 \begin{minted}
-[%
- breaklines,
- mathescape,
- linenos,
- numbersep=5pt,
- frame=single,
- numbersep=5pt,
- xleftmargin=0pt,
- ]{make}
- docker build -t sscs-mtx ./dev
+	[%
+	breaklines,
+	mathescape,
+	linenos,
+	numbersep=5pt,
+	frame=single,
+	numbersep=5pt,
+	xleftmargin=0pt,
+	]{make}
+	docker build -t sscs-mtx ./dev
 
- docker run -d --rm --network=host -p 8554:8554 -p 8889:8889 \
- -v ./dev/mediamtx.yml --name sscs-mtx sscs-mtx
+	docker run -d --rm --network=host -p 8554:8554 -p 8889:8889 \
+	-v ./dev/mediamtx.yml --name sscs-mtx sscs-mtx
 
- docker run -d --rm --network=host  -p 5432:5432   \
- -e POSTGRES_PASSWORD=gorm -e POSTGRES_USER=gorm  \
- -e  POSTGRES_DB=gorm --name sscs-postgres postgres
-\end{minted}
+	docker run -d --rm --network=host  -p 5432:5432   \
+	-e POSTGRES_PASSWORD=gorm -e POSTGRES_USER=gorm  \
+	-e  POSTGRES_DB=gorm --name sscs-postgres postgres
+	\end{minted}
 
 Esse script realiza as seguintes ações: primeiro constrói uma imagem Docker
 chamada \texttt{sscs-mtx} a partir de um Dockerfile no diretório
@@ -1608,19 +1612,19 @@ Opcionalmente, para testar a autenticação se for necessário, é possível rod
 Keycloak em um contêiner:
 
 \begin{minted}
-	[%
-	 breaklines,
-	 mathescape,
-	 linenos,
-	 numbersep=5pt,
-	 frame=single,
-	 numbersep=5pt,
-	 xleftmargin=0pt,
-	 ]{make}
-	 docker run --name=keycloak -p 8080:8080 -e KEYCLOAK_ADMIN=admin \
-	 -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:23.0.7 \
-	 start-dev	
-\end{minted}
+		[%
+		breaklines,
+		mathescape,
+		linenos,
+		numbersep=5pt,
+		frame=single,
+		numbersep=5pt,
+		xleftmargin=0pt,
+		]{make}
+		docker run --name=keycloak -p 8080:8080 -e KEYCLOAK_ADMIN=admin \
+		-e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:23.0.7 \
+		start-dev	
+	\end{minted}
 
 Esse container pode ser usado para configurar um servidor de identidade que usa
 tokens JWT, permitindo autenticação tanto no MediaMTX quanto an API. Essa etapa
@@ -1699,20 +1703,20 @@ o método \mintinline{go}{findConfig()} procura o arquivo \texttt{sscs.yml} em
 algumas localizações comuns diferentes e devolve a primeira que encontrar.
 
 \begin{minted}
-	[%
-	 breaklines,
-	 mathescape,
-	 linenos,
-	 numbersep=5pt,
-	 frame=single,
-	 numbersep=5pt,
-	 xleftmargin=0pt,
-	 ]{go}
-func ReadConf() (Config, error) {
-	cfg, err := findConfig()
-	return cfg, err
-}
-\end{minted}
+		[%
+		breaklines,
+		mathescape,
+		linenos,
+		numbersep=5pt,
+		frame=single,
+		numbersep=5pt,
+		xleftmargin=0pt,
+		]{go}
+	func ReadConf() (Config, error) {
+		cfg, err := findConfig()
+		return cfg, err
+	}
+	\end{minted}
 
 \section{Gravador}
 
@@ -1732,32 +1736,32 @@ para aquele componente. Isso facilita a depuração de problemas e performance.
 Os últimos dois ficam á critério da implementação.
 
 \begin{minted}
-	[%
-	 breaklines,
-	 mathescape,
-	 linenos,
-	 numbersep=5pt,
-	 frame=single,
-	 numbersep=5pt,
-	 xleftmargin=0pt,
-	 ]{go}
-type Recorder interface {
-	Start() error 
-	Stop() error 
-	setupLogger()
-	record() error
-	sendFrame(image.Image) error
-}
+		[%
+		breaklines,
+		mathescape,
+		linenos,
+		numbersep=5pt,
+		frame=single,
+		numbersep=5pt,
+		xleftmargin=0pt,
+		]{go}
+	type Recorder interface {
+		Start() error 
+		Stop() error 
+		setupLogger()
+		record() error
+		sendFrame(image.Image) error
+	}
 
-type EventChannels struct {
-	RecordOut chan<- RecordedEvent
-	FrameOut  chan<- image.Image
-}	
+	type EventChannels struct {
+		RecordOut chan<- RecordedEvent
+		FrameOut  chan<- image.Image
+	}	
 
-type Config struct {
-	rtspFeed string
-}
-\end{minted}
+	type Config struct {
+		rtspFeed string
+	}
+	\end{minted}
 
 No contexto do desenvolvimento em Go, o método \mintinline{golang}{record}
 implementado pelo componente \texttt{Recorder} é privado, o que significa que
@@ -1859,22 +1863,22 @@ encaminhá-los para as funções que lidam o registro da informação no banco d
 dados.
 
 \begin{minted}
-	[%
-	 breaklines,
-	 mathescape,
-	 linenos,
-	 numbersep=5pt,
-	 frame=single,
-	 numbersep=5pt,
-	 xleftmargin=0pt,
-	 ]{go}
-type Indexer interface {
-	Start() error
-	Stop() error
-	setupLogger()
-	listen() error
-}
-\end{minted}
+		[%
+		breaklines,
+		mathescape,
+		linenos,
+		numbersep=5pt,
+		frame=single,
+		numbersep=5pt,
+		xleftmargin=0pt,
+		]{go}
+	type Indexer interface {
+		Start() error
+		Stop() error
+		setupLogger()
+		listen() error
+	}
+	\end{minted}
 
 No diagrama à seguir, mostra-se que o indexador não provê nenhuma interface,
 ele apenas requer algumas. Isso porque ele lida exclusivamente com a escrita
@@ -1925,38 +1929,38 @@ associados a cada imagem reconhecida, tais como categoria do evento
 reconhecido, timestamp e enquadramento da figura reconhecida.
 
 \begin{minted}
-	[%
-	 breaklines,
-	 mathescape,
-	 linenos,
-	 numbersep=5pt,
-	 frame=single,
-	 numbersep=5pt,
-	 xleftmargin=0pt,
-	 ]{go}
-type Recognizer interface {
-	Start() error
-	Stop() error
-	setupLogger()
-	view() error
-}
+		[%
+		breaklines,
+		mathescape,
+		linenos,
+		numbersep=5pt,
+		frame=single,
+		numbersep=5pt,
+		xleftmargin=0pt,
+		]{go}
+	type Recognizer interface {
+		Start() error
+		Stop() error
+		setupLogger()
+		view() error
+	}
 
-type EventChannels struct {
-	FrameIn  <-chan image.Image
-	FrameOut chan<- image.Image
-	RecogOut chan<- RecognizedEvent
-}
+	type EventChannels struct {
+		FrameIn  <-chan image.Image
+		FrameOut chan<- image.Image
+		RecogOut chan<- RecognizedEvent
+	}
 
 
-type Config struct {
-	ThumbsDir string
-}
+	type Config struct {
+		ThumbsDir string
+	}
 
-type RecognizedEvent struct {
-	name      string
-	timestamp int
-}
-\end{minted}
+	type RecognizedEvent struct {
+		name      string
+		timestamp int
+	}
+	\end{minted}
 
 Assim como o indexador, essa interface é simplificada. Há apenas um método
 privado, o \texttt{view}, que lida com o processamento de cada imagem. As
@@ -2041,48 +2045,48 @@ arquivos e a ação para que componentes como o indexador possam deletar as
 referências aos arquivos.
 
 \begin{minted}
-	[%
-	 breaklines,
-	 mathescape,
-	 linenos,
-	 numbersep=5pt,
-	 frame=single,
-	 numbersep=5pt,
-	 xleftmargin=0pt,
-	 ]{go}
-type Storer interface {
-	Start() error
-	Stop() error
-	setupLogger()
-	monitor() error
-	OpenFiles(filenames []string) ([]*os.File, error)
-}	
+		[%
+		breaklines,
+		mathescape,
+		linenos,
+		numbersep=5pt,
+		frame=single,
+		numbersep=5pt,
+		xleftmargin=0pt,
+		]{go}
+	type Storer interface {
+		Start() error
+		Stop() error
+		setupLogger()
+		monitor() error
+		OpenFiles(filenames []string) ([]*os.File, error)
+	}	
 
-type EventChannels struct {
-	CleanOut chan<- CleanedEvent
-}
+	type EventChannels struct {
+		CleanOut chan<- CleanedEvent
+	}
 
-type Config struct {
-	sizeLimit   int
-	checkPeriod int
-	folderPath  string
-	backupPath  string
-}
+	type Config struct {
+		sizeLimit   int
+		checkPeriod int
+		folderPath  string
+		backupPath  string
+	}
 
-type FileStatus int
+	type FileStatus int
 
-const (
-	FileUnchanged FileStatus = iota 
-	FileMoved                      
-	FileErased                    
-)
+	const (
+		FileUnchanged FileStatus = iota 
+		FileMoved                      
+		FileErased                    
+	)
 
-type CleanedEvent struct {
-	filename   string
-	fileSize   int
-	fileStatus FileStatus
-}
-\end{minted}
+	type CleanedEvent struct {
+		filename   string
+		fileSize   int
+		fileStatus FileStatus
+	}
+	\end{minted}
 
 Por meio dos método \texttt{monitor} demonstrado na interface acima, é ativada
 a rotina periódica do \texttt{Storer} descrita no parágrafo anterior. Além
@@ -2223,19 +2227,19 @@ documentado. Veja como exemplo um comentário do pacote \texttt{recognizer} do
 SSCS:
 
 \begin{minted}
-	[%
-	 breaklines,
-	 mathescape,
-	 linenos,
-	 numbersep=5pt,
-	 frame=single,
-	 numbersep=5pt,
-	 xleftmargin=0pt,
-	 ]{go}
-// Package recognizer provides implementations
-// for multiple image recognition algorithms.
-package recognizer
-\end{minted}
+		[%
+		breaklines,
+		mathescape,
+		linenos,
+		numbersep=5pt,
+		frame=single,
+		numbersep=5pt,
+		xleftmargin=0pt,
+		]{go}
+	// Package recognizer provides implementations
+	// for multiple image recognition algorithms.
+	package recognizer
+	\end{minted}
 
 Note que o comentário começa com o nome do elemento que está descrevendo. É
 essa convenção simples que permite gerar documentos em uma vários formatos,
@@ -2244,29 +2248,29 @@ preciso visualizar a documentação de um módulo direto no terminal, uma das
 maneiras é usar o comando \texttt{go doc}, da seguinte maneira:
 
 \begin{minted}
-	[%
-	 breaklines,
-	 mathescape,
-	 linenos,
-	 numbersep=5pt,
-	 frame=single,
-	 numbersep=5pt,
-	 xleftmargin=0pt,
-	 ]{bash}
-$  go doc  github.com/pedrohba1/SSCS/services/recognizer  	 
-package recognizer // import "github.com/pedrohba1/SSCS/services/recognizer"
+		[%
+		breaklines,
+		mathescape,
+		linenos,
+		numbersep=5pt,
+		frame=single,
+		numbersep=5pt,
+		xleftmargin=0pt,
+		]{bash}
+	$  go doc  github.com/pedrohba1/SSCS/services/recognizer  	 
+	package recognizer // import "github.com/pedrohba1/SSCS/services/recognizer"
 
-Package recognizer provides implementations for multiple image recognition algorithms.
+	Package recognizer provides implementations for multiple image recognition algorithms.
 
 
-type CompositeRecognizer struct{ ... }
-    func MewCompositeRecognizer(fchan chan image.Image) *CompositeRecognizer
-type FaceDetector struct{ ... }
-    func NewFaceDetector(fchan chan image.Image) *FaceDetector
-type MotionDetector struct{ ... }
-    func NewMotionDetector(fchan chan image.Image) *MotionDetector
-type Recognizer interface{ ... }
-\end{minted}
+	type CompositeRecognizer struct{ ... }
+		func MewCompositeRecognizer(fchan chan image.Image) *CompositeRecognizer
+	type FaceDetector struct{ ... }
+		func NewFaceDetector(fchan chan image.Image) *FaceDetector
+	type MotionDetector struct{ ... }
+		func NewMotionDetector(fchan chan image.Image) *MotionDetector
+	type Recognizer interface{ ... }
+	\end{minted}
 
 Analogamente, se for preferível páginas web para navegar pela documentação, uma
 instância de servidor web local da \texttt{godoc} pode ser iniciada localmente
