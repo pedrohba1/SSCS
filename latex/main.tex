@@ -1319,33 +1319,34 @@ continuamente durante 24 horas por dia.  % Ends the current page and places the 
 	\label{table:example}
 \end{table}
 
-Essas resoluções na tabela são as mais comuns encontradas nas câmeras
-disponíveis no mercado para uso domiciliar e empresarial. As resoluções são
-medidas em megapixels (MP) e indicam o total de pixels existentes na imagem.
-Quanto mais pixels, maior a resolução e melhor a qualidade, porém, como é
-possível perceber pela tabela, mais espaço é necessário para armazenar o vídeo.
+As resoluções expressas na \autoref{table:example} são as mais comuns
+encontradas nas câmeras disponíveis no mercado para uso domiciliar e
+empresarial. As resoluções são medidas em megapixels (MP) e indicam o total de
+pixels existentes na imagem. Quanto mais pixels, maior a resolução e melhor a
+qualidade porém, como é possível perceber pela tabela, mais espaço é necessário
+para armazenar o vídeo.
 
-A resolução adequada depende de qual vai ser o uso dessas câmeras. A resolução
-de 1 MP é uma boa escolha para domicílios, pequenas lojas e outros locais onde
-só é preciso detectar movimento de pessoas sem muito detalhes. Full HD (2 MP)
-já é capaz de fazer reconhecimento facial ou de texto, tornando-se uma opção
+A resolução adequada depende de qual será o uso dessas câmeras. A resolução de
+1 MP é uma boa escolha para domicílios, pequenas lojas e outros locais onde só
+é preciso detectar movimento de pessoas sem muito detalhes. Full HD (2 MP) já é
+capaz de fazer reconhecimento facial ou de texto, tornando-se uma opção
 adequada para locais que requerem um nível de detalhe intermediário. Para a
-monitoração de espaços amplos, resoluções de 4 MP e 5 MP são recomendadas,
+monitoramento de espaços amplos, resoluções de 4 MP e 5 MP são recomendadas,
 sendo que a última oferece uma qualidade superior na ampliação de imagens, com
 uma menor perda de detalhes. 4K é uma resolução comum em ambientes que exigem
 identificação precisa, como instituições financeiras no geral, cassinos e áreas
 de infraestrutura crítica como usinas de energia e estações de tratamento.
 
-Repare que além da resolução o tipo de compressão pode afetar drasticamente o
-tamanho. MJPEG, por ser um formato antigo usado pela primeira em meados de
-1990, é bem menos eficiente mas amplamente adotado. H.264, também conhecido
-como AVC, é bem mais eficiente e não deixa de ser comum para compressão de
-vídeos em HD. Por último, o H.265, ou HEVC, é um dos métodos mais eficientes
-mas nem sempre suportado pelos equipamentos de NVR e DVR. Até mesmo alguns
-protocolos de transmissão de vídeo em rede como o WebRTC e RTMP não possuem
-suporte esse padrão.
+Além da resolução, o tipo de compressão pode afetar drasticamente o tamanho.
+MJPEG, por ser um formato antigo usado pela primeira em meados de 1990, é bem
+menos eficiente mas amplamente adotado. H.264, também conhecido como AVC, é bem
+mais eficiente e não deixa de ser comum para compressão de vídeos em HD. Por
+último, o H.265, ou HEVC, é um dos métodos mais eficientes, mas nem sempre
+suportado pelos equipamentos de NVR e DVR. Até mesmo alguns protocolos de
+transmissão de vídeo em rede como o WebRTC e RTMP não possuem suporte esse
+padrão.
 
-\subsection{vulnerabilidades de segurança}
+\subsection{Vulnerabilidades de Segurança}
 
 Em relação aos riscos de segurança, as câmeras IP apresentam várias
 vulnerabilidades que podem expô-las a ameaças. Uma das falhas mais comuns é a
@@ -1357,37 +1358,39 @@ confidenciais é outro ponto de preocupação, pois muitas vezes os dados são
 transmitidos sem qualquer processo de criptografia, tornando-os suscetíveis a
 interceptações e ataques. Como exemplo dessas falhas, em \citeonline{9116392}
 uma câmera smart identifica como Onvif YY HD passou por um teste de penetração.
-Nesse teste, um ataque do tipo man in the middle (MITM) foi capaz de visualizar
-em texto plano todos os dados transmitidos pela câmera, inclusive credenciais.
+Nesse teste, um ataque do tipo \textit{Man In The Middle} (MITM) foi capaz de
+visualizar em texto plano todos os dados transmitidos pela câmera, inclusive
+credenciais.
 
 O local onde o vídeo é armazenado e seu acesso também podem ser vetores para
-ataques. Se o VMS utilizar armazenamento em nuvem, por exemplo, como a conexão
-em rede é necessária praticamente o tempo todo existe a chance de ocorre um
-Denial Of Service (DoS). Por outro lado, sistemas que operam isoladamente da
-internet, utilizando DVR ou NVR em redes locais, embora menos suscetíveis a
-DoS, ainda requerem uma gestão do acesso por parte de usuários e do controle
-dos recursos. Portanto, mecanismos de controle de acesso técnicos, físicos e
-administrativos precisam ser implementados e documentados independente da
-escolha armazenamento, como forma de mitigar vulnerabilidades.
+ataques. Se o \textit{Video Surveillance Management System} (VMS) utilizar
+armazenamento em nuvem, por exemplo, como a conexão em rede é necessária
+praticamente o tempo todo existe a chance de ocorre um \textit{Denial Of
+	Service} (DoS). Por outro lado, sistemas que operam isoladamente da internet,
+utilizando DVR ou NVR em redes locais, embora menos suscetíveis a DoS, ainda
+requerem uma gestão do acesso por parte de usuários e do controle dos recursos.
+Portanto, mecanismos de controle de acesso técnicos, físicos e administrativos
+precisam ser implementados e documentados independente da escolha
+armazenamento, como forma de mitigar vulnerabilidades.
 
-\subsection{custos de operação}
+\subsection{Custos de Operação}
 
 O custo total do SSCS é composto por dois elementos principais: o investimento
 inicial na aquisição das câmeras e a opção de hospedagem do serviço. Para a
 hospedagem, existem duas alternativas: o aluguel de um servidor na nuvem, ou a
-aquisição de hardware que funcione como servidor, tais como uma Next Unit of
-Computing (NUC) ou um Single board computers (SBC). Foram desconsiderados
-custos com rede e armazenamento externo, porque assume-se que a largura de
-banda já existente será suficiente e que o armazenamento é barato o suficiente
-ou já estava disponível.
+aquisição de hardware que funcione como servidor, tais como uma \textit{Next
+	Unit of Computing} (NUC) ou um \textit{Single Board Computers} (SBC). Foram
+desconsiderados custos com rede e armazenamento externo, porque assume-se que a
+largura de banda já existente será suficiente e que o armazenamento é barato o
+suficiente ou já estava disponível.
 
 O investimento inicial em câmeras IP varia de acordo com o tipo e as
-especificações necessárias para cada aplicação. No caso do SSCS, não precisamos
+especificações necessárias para cada aplicação. No caso do SSCS, não se precisa
 de câmeras com funcionalidades de reconhecimento ou armazenamento embutidas, e
 todas precisam pelo menos suportar algum protocolo para transmissão em rede
-como RTSP. Abaixo estão alguns dos tipos mais comuns de câmeras IP disponíveis
-no mercado seguindo essas necessidades, juntamente com seus preços aproximados
-em fevereiro de 2024:
+como RTSP. Na sequência estão alguns dos tipos mais comuns de câmeras IP
+disponíveis no mercado seguindo essas necessidades, juntamente com seus preços
+aproximados em fevereiro de 2024:
 
 \begin{itemize}
 	\item Câmera IP Bullet: caracterizadas por seu formato alongado, são de
@@ -1427,7 +1430,7 @@ em fevereiro de 2024:
 \end{itemize}
 
 Algumas câmeras dessas ainda possuem ferramentas adicionais como visão noturna,
-saídas e entradas de áudio e zoom digital. Elas continuam sendo viáveis pois
+saídas e entradas de áudio e zoom digital. Elas continuam sendo viáveis, pois
 não acrescentam substancialmente ao preço e essas funções podem ser
 aproveitadas no SSCS. Tendo o acervo de câmeras escolhido e adquirido, sobra
 escolher como processar e  armazenar as imagens. Para uma solução local,
@@ -1458,7 +1461,7 @@ transmissão.
 O Odroid N2+ tem uma CPU baseada na arquitetura big.Little, que integra um
 cluster de CPU ARM Cortex-A73  de quatro núcleos e um cluster Cortex-A53 de
 dois núcleos com uma GPU Mali-G52. Assim como o Raspberry pi 4, esse SBC não
-tem entradas para SATA. Porém, O Odroid-HC4 tem uma configuração similar e
+tem entradas para SATA. Porém, o Odroid-HC4 tem uma configuração similar e
 entradas SATA. Ele poderia ser usado para evitar os gargalos citados
 anteriormente.
 
@@ -1474,14 +1477,17 @@ Por último, ainda há a alternativa de utilizar servidores alugados remotamente
 como as câmeras podem transmitir a imagem por IP, servidores remotos em
 provedores como AWS, Google Cloud, Azure, DigitalOcean e similares podem ser
 usados para todas as funções. Entretanto, deve-se considerar que esses
-servidores possuem custo por hora e que alugar GPUs  traz um acréscimo
+servidores possuem custo por hora e que alugar GPUs traz um acréscimo
 considerável no preço. Nesse sentido, qualquer máquina desses provedores com ao
-menos 2 vCPUs e 2 GB de RAM é suficiente para um sistema com uma câmera. Na
-tabela abaixo, uma comparação da estimativa do custo mensal para o aluguel de
-máquinas com essas características em instâncias dedicadas em regiões dos
-Estados Unidos.
+menos 2 vCPUs e 2 GB de RAM é suficiente para um sistema com uma câmera. A
+\autoref{tab:estima} ilustra uma comparação da estimativa do custo mensal para
+o aluguel de máquinas com essas características em instâncias dedicadas em
+regiões dos Estados Unidos.
 
-\begin{center}
+\begin{table}[ht]
+	\centering
+	\caption{Comparativo entre instâncias de máquinas virtuais em diferentes provedores de infraestrutura em nuvem}
+	\label{tab:estima}
 	\begin{tabular}{|l|l|l|}
 		\hline
 		Provedor     & Nome da instância   & Custo mensal
@@ -1496,9 +1502,8 @@ Estados Unidos.
 		\\ \hline
 		DigitalOcean & Droplet Regular CPU & USD\$ 63.00
 		\\ \hline
-
 	\end{tabular}
-\end{center}
+\end{table}
 
 Todos esses provedores possuem planos de economia para contratos de longo
 prazo, reduzindo entre 30\% e 50\% desses custos mensais.
@@ -1510,7 +1515,7 @@ object-based como o S3, Azure Blob Storage, ou Google Storage bucket.
 
 \chapter{Desenvolvimento}
 
-Nesta seção, apresentaremos uma descrição detalhada do processo de construção
+Nesta seção, será apresentada uma descrição detalhada do processo de construção
 do SSCS. O sistema foi projetado com uma arquitetura modular, composta por
 componentes independentes, o que justifica a escolha de representá-los por meio
 de diagramas de componentes do UML. Os componentes são definidos por um
@@ -1518,17 +1523,17 @@ conjunto de métodos essenciais que admitem várias implementações, adaptávei
 demandas do usuário. Contudo, é importante que essas implementações obedeçam a
 certos padrões para garantir que o sistema opere de forma coesa e integrada.
 
-\section{Ambiente de desenvolvimento}
+\section{Ambiente de Desenvolvimento}
 
 Para possibilitar testes e criar um ambiente de desenvolvimento que reproduza
 fielmente as condições em que o sistema operará quando implantado em um
 ambiente de produção, faz sentido criar uma forma de simular um fluxo de vídeo.
-É importante esclarecer que, ao mencionar o "sistema em produção", está sendo
+É importante esclarecer que, ao mencionar o ``sistema em produção'', está sendo
 feita uma referência à aplicação prática do software em contextos comerciais,
 residenciais ou outras situações reais onde a vigilância é utilizada para fins
 de segurança e monitoramento.
 
-Para criar esse ambiente de simulação, utilizamos o MediaMTX \cite{mediamtx},
+Para criar esse ambiente de simulação foi utilizado o MediaMTX \cite{mediamtx},
 um servidor de mídia em tempo real de código aberto. O MediaMTX facilita a
 publicação, leitura, gravação e roteamento de fluxos de vídeo. Embora tenha
 sido originalmente projetado como um roteador de mídia de ponta a ponta, ele
@@ -1537,66 +1542,69 @@ vídeo. No entanto, para tornar o servidor operacional, é necessário publicar 
 mídia nele.
 
 De acordo com a documentação do MediaMTX, uma das abordagens recomendadas para
-isso é o uso do ffmpeg, um framework de multimídia que oferece funcionalidades
+isso é o uso do FFMPEG, um framework de multimídia que oferece funcionalidades
 como codificação, decodificação, transcodificação, muxing, demuxing, streaming
-e reprodução de dados de mídia. Utilizando o ffmpeg \cite{ffmpeg}, é possível
+e reprodução de dados de mídia. Utilizando o FFMPEG \cite{ffmpeg}, é possível
 enviar fluxos de vídeo para o servidor MediaMTX, criando assim um ambiente
-adequado para a integração e operação eficiente com o SSCS. Observe também que
-essas duas ferramentas são plenamente capazes de lidar não apenas com ambientes
-de simulação, mas também com ambientes de produção. A intensificação aqui é
+adequado para a integração e operação eficiente com o SSCS. Nota-se que essas
+duas ferramentas são plenamente capazes de lidar não apenas com ambientes de
+simulação, mas também com ambientes de produção. A intensificação aqui é
 minimizar a diferença entre esses dois cenários, facilitando a transição futura
 de uma simulação para a prática.
 
 A implementação da tecnologia de contêineres, especialmente por meio do Docker,
 surge como uma estratégia crucial para reforçar a eficiência e a confiabilidade
-do ambiente de desenvolvimento e testes. A "dockerização" do ambiente, que
-inclui tanto o MediaMTX quanto o ffmpeg, contribui significativamente para a
+do ambiente de desenvolvimento e testes. A ``dockerização'' do ambiente, que
+inclui tanto o MediaMTX quanto o FFMPEG, contribui significativamente para a
 criação de um sistema mais robusto e controlado. Isso ocorre porque, com o
 Docker, é possível encapsular o software e suas dependências em um contêiner
 isolado, o que evita os tradicionais problemas de incompatibilidade ou
 conflitos com os sistemas onde eles são implantados. Esse nível de isolamento
 promove a consistência entre os ambientes de desenvolvimento, teste e produção,
 minimizando assim as discrepâncias que geralmente surgem quando se transita
-entre diferentes plataformas e infraestruturas. Além disso, o Docker facilita a
-automação e a replicação de contêineres, o que acelera significativamente o
-ciclo de desenvolvimento, permitindo que os desenvolvedores se concentrem mais
-na lógica de aplicação do que em questões operacionais. Em um cenário onde a
-agilidade, a escalabilidade e a estabilidade são indispensáveis, a utilização
-do Docker não apenas otimiza o uso dos recursos e melhora o desempenho, mas
-também simplifica o processo de integração e entrega contínua (CI/CD),
-fundamentais para a evolução consistente do SSCS. A seguir, está um dos
-métodos, utilizando-se essa ferramenta com o terminal, para replicar localmente
-os sistemas externos básicos dos quais o SSCS depende.
+entre diferentes plataformas e infraestruturas.
+
+Além disso, o Docker facilita a automação e a replicação de contêineres, o que
+acelera significativamente o ciclo de desenvolvimento, permitindo que os
+desenvolvedores se concentrem mais na lógica de aplicação do que em questões
+operacionais. Em um cenário onde a agilidade, a escalabilidade e a estabilidade
+são indispensáveis, a utilização do Docker não apenas otimiza o uso dos
+recursos e melhora o desempenho, mas também simplifica o processo de integração
+e entrega contínua (CI/CD), fundamentais para a evolução consistente do SSCS.
+
+Para exemplificar, utilizando-se essa ferramenta com o terminal, está um dos
+métodos para replicar localmente os sistemas externos básicos dos quais o SSCS
+depende:
 
 \begin{minted}
 [breaklines,
- mathescape,
- linenos,
- numbersep=5pt,
- frame=single,
- numbersep=5pt,
- xleftmargin=0pt
- ]{make}
- docker build -t sscs-mtx ./dev
+mathescape,
+linenos,
+numbersep=5pt,
+frame=single,
+numbersep=5pt,
+xleftmargin=0pt
+]{make}
+docker build -t sscs-mtx ./dev
 
- docker run -d --rm --network=host -p 8554:8554 -p 8889:8889 \
- -v ./dev/mediamtx.yml --name sscs-mtx sscs-mtx
+docker run -d --rm --network=host -p 8554:8554 -p 8889:8889 \
+-v ./dev/mediamtx.yml --name sscs-mtx sscs-mtx
 
- docker run -d --rm --network=host  -p 5432:5432   \
- -e POSTGRES_PASSWORD=gorm -e POSTGRES_USER=gorm  \
- -e  POSTGRES_DB=gorm --name sscs-postgres postgres
+docker run -d --rm --network=host  -p 5432:5432   \
+-e POSTGRES_PASSWORD=gorm -e POSTGRES_USER=gorm  \
+-e  POSTGRES_DB=gorm --name sscs-postgres postgres
 \end{minted}
 
 Esse script realiza as seguintes ações: primeiro constrói uma imagem Docker
 chamada \texttt{sscs-mtx} a partir de um Dockerfile no diretório
 \texttt{./dev}. Esse arquivo tem como base uma imagem do \texttt{mediamtx} e
-responsável por encapsular as amostras de mídia. Depois, ele cria e inicializa
-um contêiner a partir dessa imagem, mapeia portas de rede e monta o arquivo de
+responsável por encapsular as amostras de mídia. Depois, cria e inicializa um
+contêiner a partir dessa imagem, mapeia portas de rede e monta o arquivo de
 configuração \texttt{mediamtx.yml} dentro do contêiner. A intenção nesse caso é
 recriar um servidor de mídia localmente que contenha alguns vídeos para testes
 que podem ser consumidos pelo SSCS.
 
-Em seguida, ele cria e inicia outro contêiner usando a imagem oficial do
+Em seguida, cria e inicia outro contêiner usando a imagem oficial do
 PostgreSQL, configurando-o com variáveis de ambiente e mapeando a porta 5432.
 Ambos os contêineres usam a rede do host para comunicação.
 
@@ -1604,18 +1612,18 @@ Opcionalmente, para testar a autenticação se for necessário, é possível rod
 Keycloak em um contêiner:
 
 \begin{minted}
-	[%
-	 breaklines,
-	 mathescape,
-	 linenos,
-	 numbersep=5pt,
-	 frame=single,
-	 numbersep=5pt,
-	 xleftmargin=0pt,
-	 ]{make}
-	 docker run --name=keycloak -p 8080:8080 -e KEYCLOAK_ADMIN=admin \
-	 -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:23.0.7 \
-	 start-dev	
+[%
+breaklines,
+mathescape,
+linenos,
+numbersep=5pt,
+frame=single,
+numbersep=5pt,
+xleftmargin=0pt,
+]{make}
+docker run --name=keycloak -p 8080:8080 -e KEYCLOAK_ADMIN=admin \
+-e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:23.0.7 \
+start-dev	
 \end{minted}
 
 Esse container pode ser usado para configurar um servidor de identidade que usa
@@ -1639,23 +1647,24 @@ entre dois componentes: um encarregado da transferência das imagens da câmera
 para um servidor intermediário e outro, o servidor intermediário, que cria uma
 corrente de multimídia destinada ao SSCS.
 
+A \autoref{fig:arqTrans} ilustra a configuração básica do SSCS, onde câmeras ou
+outras fontes de transmissão de multimídia podem encaminhar fluxos para um
+servidor intermediário. Esse servidor de mídia intermediário disponibiliza uma
+interface chamada PublishStream, que possibilita a recepção de fluxos de
+multimídia de diversas origens distintas. O símbolo em forma de losango indica
+que o MediaServer age como um agregador, o que significa que ele pode interagir
+simultaneamente com várias aplicações do SSCS. Contudo, é importante observar
+que essa conexão é de natureza flexível: o MediaServer pode operar de forma
+independente, sem depender do SSCS.
+
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1\linewidth]{arch1.pdf}
 	\caption[Exemplo de arquitetura de transmissão]{Arquitetura de
 		transmissão, múltiplas fontes para um servidor de mídia}
-	\label{fig:arqtransm}
+	\label{fig:arqTrans}
 \end{figure}
 
-A imagem mostra a configuração básica do SSCS, onde câmeras ou outras fontes de
-transmissão de multimídia podem encaminhar fluxos para um servidor
-intermediário. Esse servidor de mídia intermediário disponibiliza uma interface
-chamada PublishStream, que possibilita a recepção de fluxos de multimídia de
-diversas origens distintas. O símbolo em forma de losango indica que o
-MediaServer age como um agregador, o que significa que ele pode interagir
-simultaneamente com várias aplicações do SSCS. Contudo, é importante observar
-que essa conexão é de natureza flexível: o MediaServer pode operar de forma
-independente, sem depender do SSCS.
 
 Os servidores intermediários desempenham o papel de proxies para o servidor que
 opera o SSCS. A utilização de um servidor de mídia como proxy apresenta
@@ -1664,7 +1673,7 @@ transmissão de RTSP para WebRTC ou HLS, realizar balanceamento de carga, ou at�
 mesmo implementar autenticação externa.
 
 À seguir, será apresentada uma visão geral de cada componente do sistema, sua
-função, como ele interage com as outras partes do sistema e detalhes de
+função, como interage com as outras partes do sistema e detalhes de
 implementação. Note que cada componente é abstrato. Ou seja, é uma base que
 deve ser adaptada de acordo com os protocolos, formato de imagem, banco de
 dados e outros detalhes específicos de implementação. Em cada seção, há também
@@ -1688,15 +1697,15 @@ o método \mintinline{go}{findConfig()} procura o arquivo \texttt{sscs.yml} em
 algumas localizações comuns diferentes e devolve a primeira que encontrar.
 
 \begin{minted}
-	[%
-	 breaklines,
-	 mathescape,
-	 linenos,
-	 numbersep=5pt,
-	 frame=single,
-	 numbersep=5pt,
-	 xleftmargin=0pt,
-	 ]{go}
+[%
+breaklines,
+mathescape,
+linenos,
+numbersep=5pt,
+frame=single,
+numbersep=5pt,
+xleftmargin=0pt,
+]{go}
 func ReadConf() (Config, error) {
 	cfg, err := findConfig()
 	return cfg, err
@@ -1705,11 +1714,11 @@ func ReadConf() (Config, error) {
 
 \section{Gravador}
 
-Esse é o componente principal do sistema. Sua função básica consiste em em
-receber pacotes da corrente de vídeo por meio de algum protocolo de rede,
-concatená-los e codificá-los em um arquivo único, com subsequente armazenamento
-no disco ou nuvem em segmentos de arquivos. Estes arquivos são registrados com
-uma timestamp, refletindo o instante de criação do arquivo de gravação.
+Esse é o componente principal do sistema. Sua função básica consiste em receber
+pacotes da corrente de vídeo por meio de algum protocolo de rede, concatená-los
+e codificá-los em um arquivo único, com subsequente armazenamento no disco ou
+nuvem em segmentos de arquivos. Estes arquivos são registrados com uma
+\textit{timestamp}, refletindo o instante de criação do arquivo de gravação.
 
 Assim como a maioria dos outros componentes desse sistema, o gravador precisa
 implementar todas as funções de uma interface padrão, à seguir. Os métodos
@@ -1721,15 +1730,15 @@ para aquele componente. Isso facilita a depuração de problemas e performance.
 Os últimos dois ficam á critério da implementação.
 
 \begin{minted}
-	[%
-	 breaklines,
-	 mathescape,
-	 linenos,
-	 numbersep=5pt,
-	 frame=single,
-	 numbersep=5pt,
-	 xleftmargin=0pt,
-	 ]{go}
+[%
+breaklines,
+mathescape,
+linenos,
+numbersep=5pt,
+frame=single,
+numbersep=5pt,
+xleftmargin=0pt,
+]{go}
 type Recorder interface {
 	Start() error 
 	Stop() error 
@@ -1756,7 +1765,15 @@ prática, uma entidade do tipo \texttt{MediaServer} fornece uma interface para
 que o \texttt{Recorder} desempenhe suas operações. A gravação também não é
 exclusiva a um protocolo específico: qualquer sistema que tenha a capacidade de
 transmitir mídia utilizando os protocolos RTSP, WebRTC ou SRT pode ser
-integrado também, assumindo que o componente de gravador dê suporte.
+integrado também, assumindo que o componente de gravador dê suporte. Na
+\autoref{fig:gravador} está ilustrado o diagrama isolado do gravador.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.7\linewidth]{gravador.pdf}
+	\caption[Diagrama isolado do gravador]{Diagrama isolado do gravador}
+	\label{fig:gravador}
+\end{figure}
 
 Para comunicar aos outros componentes que um segmento foi gravado no
 armazenamento, utiliza-se a interface provida \texttt{RecordedEvent}, que
@@ -1781,27 +1798,21 @@ enviá-los para a leitura por detectores de imagem.
 Esse componente aceita como configuração uma URL de um servidor de mídia que
 utiliza o protocolo RTSP para transmissão de dados de mídia.
 
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[width=0.7\linewidth]{gravador.pdf}
-	\caption[Diagram isolado do gravador]{Diagram isolado do gravador}
-	\label{fig:diaggravador}
-\end{figure}
-
 \subsection{Implementação de gravador com RTSP e compressão H.264}
 
 Considerando a prevalência do protocolo RTSP e do codec de compressão H.264 no
 universo das câmeras IP, é fundamental que o SSCS empregue essas tecnologias em
 seu gravador. Essa implementação utiliza um cliente RTSP, um multiplexador para
 converter quadros H.264 em um arquivo MPEG-TS e um decodificador para extrair
-quadros de vídeo.
+quadros de vídeo. A \autoref{fig:gravadorRTSP} ilustra o diagrama isolado do
+gravador utilizando RTSP.
 
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1\linewidth]{rtsp_h264recorder.pdf}
 	\caption[Diagrama isolado do gravador RTSP]{Diagrama isolado do
 		gravador RTSP}
-	\label{fig:diaggravadorisolado}
+	\label{fig:gravadorRTSP}
 \end{figure}
 
 O cliente RTSP primeiro emite um requisição do tipo DESCRIBE ao servidor de
@@ -1809,16 +1820,16 @@ mídia, que por sua vez responde com a descrição dos dados da sessão, de acor
 com o protocolo SDP. Essa descrição contém as informações necessárias para
 iniciar o streaming.
 
-Em seguida, o cliente processa cada pacote RTP recebido e extrai as Access
-Unities (AUs). Essas, são formadas por um conjunto de unidades de Network
-Abstraction Layer (NAL) sempre contendo uma imagem codificada primária,
-tipicamente um quadro do tipo I. Além da imagem codificada primária, uma AU
-também pode conter uma ou mais imagens codificadas redundantes ou outras
-unidades NAL que não contenham fatias ou partições de dados de fatias de uma
-imagem codificada. A decodificação de uma AU sempre resulta em uma imagem
-decodificada. Por isso, as AUs são passadas para o multiplexador que codifica
-elas e organiza as unidades NAL para formar um único segmento de vídeo e
-salvá-lo no disco.
+Em seguida, o cliente processa cada pacote RTP recebido e extrai as
+\textit{Access Unities} (AUs). Essas, são formadas por um conjunto de unidades
+de \textit{Network Abstraction Layer} (NAL) sempre contendo uma imagem
+codificada primária, tipicamente um quadro do tipo I. Além da imagem codificada
+primária, uma AU também pode conter uma ou mais imagens codificadas redundantes
+ou outras unidades NAL que não contenham fatias ou partições de dados de fatias
+de uma imagem codificada. A decodificação de uma AU sempre resulta em uma
+imagem decodificada. Por isso, as AUs são passadas para o multiplexador que
+codifica elas e organiza as unidades NAL para formar um único segmento de vídeo
+e salvá-lo no disco.
 
 O decodificador que extrai quadros de vídeo faz isso iterando as unidades NAL
 até encontrar um Quadro I, que contém uma imagem completa. Quando encontrado,
@@ -1835,11 +1846,11 @@ sistema.
 \section{Indexador}
 
 O indexador é responsável por fazer referências aos vídeos em um banco de dados
-e salvar eventos de reconhecimento de imagem. Posteriormente, exploraremos como
-o indexador interage com uma API que simplifica e expande o processo de busca e
-recuperação de gravações. É importante salientar também que a implementação do
-indexador não se torna mandatória, a menos que corresponda a uma necessidade
-específica do usuário.
+e salvar eventos de reconhecimento de imagem. Posteriormente, será explorado
+como o indexador interage com uma API que simplifica e expande o processo de
+busca e recuperação de gravações. É importante salientar também que a
+implementação do indexador não se torna mandatória, a menos que corresponda a
+uma necessidade específica do usuário.
 
 A interface do indexador é bem mais simplificada. Ele requer apenas um método
 privado, chamado \mintinline{go}{listen()}. A única função desse método é
@@ -1848,15 +1859,15 @@ encaminhá-los para as funções que lidam o registro da informação no banco d
 dados.
 
 \begin{minted}
-	[%
-	 breaklines,
-	 mathescape,
-	 linenos,
-	 numbersep=5pt,
-	 frame=single,
-	 numbersep=5pt,
-	 xleftmargin=0pt,
-	 ]{go}
+[%
+breaklines,
+mathescape,
+linenos,
+numbersep=5pt,
+frame=single,
+numbersep=5pt,
+xleftmargin=0pt,
+]{go}
 type Indexer interface {
 	Start() error
 	Stop() error
@@ -1865,24 +1876,25 @@ type Indexer interface {
 }
 \end{minted}
 
-No diagrama à seguir, mostra-se que o indexador não provê nenhuma interface,
-ele apenas requer algumas. Isso porque ele lida exclusivamente com a escrita
-das informações que recebe por meio dos eventos recebidos por meio dos canais.
-Um detalhe pertinente é o fato do indexador ser agnóstico quanto ao banco de
-dados usado. Do ponto de vista da arquitetura, o banco de dados é uma
-não-entidade. É um detalhe que não se eleva ao nível de um elemento
-arquitetônico. Ele é uma utilidade que provê acesso aos dados. No mesmo ponto
-de vista, essa utilidade é irrelevante pois é um detalhe de baixo nível, ou
-seja, um mecanismo. \cite{martin2018clean}
+No diagrama da \autoref{fig:diaIndex}, ilustra-se que o indexador não provê
+nenhuma interface, apenas requer a implementação de outras. Isso porque lida
+exclusivamente com a escrita das informações que recebe por meio dos eventos
+recebidos por meio dos canais.	      Do ponto de vista da arquitetura, o banco
+de dados é uma não-entidade. É um detalhe que não se eleva ao nível de um
+elemento arquitetônico. Ele é uma utilidade que provê acesso aos dados. No
+mesmo ponto de vista, essa utilidade é irrelevante pois é um detalhe de baixo
+nível, ou seja, um mecanismo \cite{martin2018clean}.
+%%Um detalhe pertinente é o fato do indexador ser agnóstico quanto ao banco de dados usado.% FICOU ESTRANHA A FRASE ABAIXO
 
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.8\linewidth]{indexer.pdf}
 	\caption[Diagrama isolado do indexador]{Diagrama isolado do indexador}
-	\label{fig:diagindexisolado}
+	\label{fig:diaIndex}
 \end{figure}
 
-\subsection{Implementação do indexador com PostgreSQL}
+\subsection{Implementação do Indexador com PostgreSQL}
+
 Bancos de dados relacionais são normalmente utilizados para indexação de dados,
 e nesta implementação optou-se pelo PostgreSQL. A interação com o banco é
 simplificada através do ORM GORM \cite{gorm}, que abstrai os eventos para
@@ -1890,17 +1902,19 @@ persistência nas tabelas e facilita migrações automáticas. Essas migrações
 sincronizam a estrutura do banco com os modelos Go, agilizando o
 desenvolvimento ao dispensar scripts SQL. No entanto, em ambientes de produção,
 recomenda-se desativar as migrações automáticas para evitar alterações não
-testadas.
+testadas. A \autoref{fig:diaPost} ilustra o diagrama isolado da implementação
+do indexador com PostgreSQL.
 
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1\linewidth]{postgres_indexer.pdf}
 	\caption[Diagrama isolado da implementação do indexador com
 		PostgreSQL]{Diagrama isolado da implementação do indexador com PostgreSQL}
-	\label{fig:idagindexisoladopostgres}
+	\label{fig:diaPost}
 \end{figure}
 
 \section{Reconhecedor}
+
 Esse componente tem como responsabilidade analisar as correntes de vídeo
 recebidas e identificar padrões ou objetos específicos. Após a captura dos
 pacotes de vídeo através de um protocolo de rede pelo gravador, o reconhecedor
@@ -1914,15 +1928,15 @@ associados a cada imagem reconhecida, tais como categoria do evento
 reconhecido, timestamp e enquadramento da figura reconhecida.
 
 \begin{minted}
-	[%
-	 breaklines,
-	 mathescape,
-	 linenos,
-	 numbersep=5pt,
-	 frame=single,
-	 numbersep=5pt,
-	 xleftmargin=0pt,
-	 ]{go}
+[%
+breaklines,
+mathescape,
+linenos,
+numbersep=5pt,
+frame=single,
+numbersep=5pt,
+xleftmargin=0pt,
+]{go}
 type Recognizer interface {
 	Start() error
 	Stop() error
@@ -1962,46 +1976,48 @@ O reconhecedor também pode ser configurado quanto ao diretório de thumbnails.
 Nesse diretório, são salvas as imagens contornadas que demonstram o que foi
 detectado pelos algoritmos de visão computacional.
 
-Por alto nível, o componente reconhecedor se assemelha com o diagrama seguinte,
-onde ele provê a interface que emite eventos de reconhecimento e necessita a
-integração de uma interface para ler quadros.
+Por alto nível, o componente reconhecedor se assemelha com o diagrama da
+\autoref{fig:diaImg}, onde provê a interface que emite eventos de
+reconhecimento e necessita a integração de uma interface para ler quadros.
 
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.4\linewidth]{recognizer.pdf}
 	\caption[Diagrama isolado da implementação do reconhecedor de
 		imagens]{Diagrama isolado da implementação do reconhecedor de imagens}
-	\label{fig:diagrecogisolado}
+	\label{fig:diaImg}
 \end{figure}
 
-\subsection{Implementação de reconhecedor de movimento}
+\subsection{Implementação de Reconhecedor de Movimento}
+
 Essa implementação utiliza o algoritmo de segmentação de fundo baseado em
 mistura gaussiana da biblioteca OpenCV, definido na classe
 \texttt{BackgroundSubtractorMOG2}. Como o projeto está codificado na linguagem
 Go, foi usado o pacote gocv, que encapsula o OpenCV para facilitar a interação
-\cite{gocv_package}.
-
-De maneira resumida, para cada quadro lido do canal \texttt{FrameIn},
-computa-se a diferença do plano de fundo para o primeiro plano usando o
-algoritmo citado anteriormente. Feito isso, ocorre uma limpeza utilizando a
-técnica de limiarização (thresholding) na imagem resultante da diferenciação. O
-resultado disso é uma imagem binária, onde todos os pixels acima de um valor de
-limiar são definidos para um valor máximo e todos os outro para zero. Em
-seguida, ocorre a dilatação, que expande as áreas brancas (também chamadas de
-áreas de movimento) da imagem conectando regiões próximas e preenchendo
-lacunas, o que simplifica a próxima etapa, que é inserção de contornos.
-
-\clearpage
+\cite{gocv_package}. O diagrama da \autoref{fig:diaRec} ilustra a implementação
+do reconhecedor de movimento.
 
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1.0\linewidth]{motion_detector.pdf}
 	\caption[Diagrama da implementação do reconhecedor de
 		movimento]{Diagrama da implementação do reconhecedor de movimento}
-	\label{fig:diagrecogmove}
+	\label{fig:diaRec}
 \end{figure}
 
-\section{Implementação do detector usando cascata Haar}
+De maneira resumida, para cada quadro lido do canal \texttt{FrameIn},
+computa-se a diferença do plano de fundo para o primeiro plano usando o
+algoritmo citado anteriormente. Feito isso, ocorre uma limpeza utilizando a
+técnica de limiarização (\textit{thresholding}) na imagem resultante da
+diferenciação. O resultado disso é uma imagem binária, onde todos os pixels
+acima de um valor de limiar são definidos para um valor máximo e todos os outro
+para zero. Em seguida, ocorre a dilatação, que expande as áreas brancas (também
+chamadas de áreas de movimento) da imagem conectando regiões próximas e
+preenchendo lacunas, o que simplifica a próxima etapa, que é inserção de
+contornos.
+
+\section{Implementação do Detector usando Cascata Haar}
+
 Essa implementação utiliza o classificador em cascata
 \texttt{CascadeClassifier} também da biblioteca OpenCV, nas mesma condições que
 a implementação anterior. A diferença principal está no arquivo de cascata Haar
@@ -2014,7 +2030,8 @@ Isso significa que o algoritmo pode detectar objetos de diferentes tamanhos, o
 que é útil para câmeras de segurança já que o tamanho do objeto varia
 dependendo da distância.
 
-\section{Gerenciador de armazenamento}
+\section{Gerenciador de Armazenamento}
+
 As câmeras de segurança geralmente operam em vigilância contínua, o que
 significa que elas podem produzir uma quantidade significativa de dados de
 mídia. Dado que o espaço de armazenamento é um recurso custeado e limitado,
@@ -2030,15 +2047,15 @@ arquivos e a ação para que componentes como o indexador possam deletar as
 referências aos arquivos.
 
 \begin{minted}
-	[%
-	 breaklines,
-	 mathescape,
-	 linenos,
-	 numbersep=5pt,
-	 frame=single,
-	 numbersep=5pt,
-	 xleftmargin=0pt,
-	 ]{go}
+[%
+breaklines,
+mathescape,
+linenos,
+numbersep=5pt,
+frame=single,
+numbersep=5pt,
+xleftmargin=0pt,
+]{go}
 type Storer interface {
 	Start() error
 	Stop() error
@@ -2061,9 +2078,9 @@ type Config struct {
 type FileStatus int
 
 const (
-	FileUnchanged FileStatus = iota 
-	FileMoved                      
-	FileErased                    
+FileUnchanged FileStatus = iota 
+FileMoved                      
+FileErased                    
 )
 
 type CleanedEvent struct {
@@ -2078,31 +2095,35 @@ a rotina periódica do \texttt{Storer} descrita no parágrafo anterior. Além
 desse método e dos outros métodos padrões de componente, há o método
 \mintinline{go}{OpenFiles} que lida com a busca e abertura dos arquivos por
 meio de seus nomes. Isso é útil para outros componentes ou aplicações que
-precisem filtrar arquivos de mídia específicos.
-
-Existem quatro configurações disponíveis para o \texttt{Storer}. um inteiro que
-representa o limite do tamanho do diretório em bytes, \texttt{sizeLimit}. Um
-outro inteiro que representa o período de checagem do tamanho do armazenamento
-em segundos, \texttt{checkPeriod}. Por último, duas strings que representam
-respectivamente os diretórios de armazenamento primário e backup,
-\texttt{folderPath} e \texttt{backupPath}.
+precisem filtrar arquivos de mídia específicos. O diagrama da
+\autoref{fig:diaArmazena} ilustra a implementação do do gerenciador de
+armazenamento.
 
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.3\linewidth]{storer.pdf}
 	\caption[Diagrama isolado da implementação do gerenciador de
 		armazenamento]{Diagrama isolado da implementação do gerenciador de
-		armazenamento }
-	\label{fig:diagisoladostorer}
+		armazenamento.}
+	\label{fig:diaArmazena}
 \end{figure}
 
-\subsection{Implementação de gerenciador de armazenamento sobre espaço em
+Existem quatro configurações disponíveis para o \texttt{Storer}: um inteiro que
+representa o limite do tamanho do diretório em bytes, \texttt{sizeLimit}; outro
+inteiro que representa o período de checagem do tamanho do armazenamento em
+segundos, \texttt{checkPeriod} e por último, duas strings que representam
+respectivamente os diretórios de armazenamento primário e backup,
+\texttt{folderPath} e \texttt{backupPath}.
+
+\subsection{Implementação de Gerenciador de Armazenamento sobre espaço em
 	disco}
+
 Nesta implementação, são usados comandos do sistema operacional para mover ou
 deletar os arquivos. Checa-se primeiro o espaço acumulado de todos os arquivos
 do diretório primário escolhido para armazenamento das gravações. Em seguida,
 eles são ordenados por data de criação e os mais antigos podem ser movidos ou
-apagados, dependendo de como o componente foi configurado.
+apagados, dependendo de como o componente foi configurado
+(\autoref{fig:diaArmDisc}).
 
 \begin{figure}[!ht]
 	\centering
@@ -2110,8 +2131,8 @@ apagados, dependendo de como o componente foi configurado.
 	\caption[Diagrama da implementação do gerenciador de armazenamento
 		usando o sistema operacional]{Diagrama da implementação do gerenciador de
 		armazenamento usando o disco como fonte de armazenamento e o sistema
-		operacional para interagir com ele}
-	\label{fig:diagstoreros}
+		operacional para interagir com ele.}
+	\label{fig:diaArmDisc}
 \end{figure}
 
 \section{API HTTP RESTful}
@@ -2120,32 +2141,31 @@ Os vídeos, eventos e imagens geradas pelos componentes do SSCS precisam de
 algum forma serem servidos para os usuários finais. Nisso, uma API HTTP RESTful
 pode ser consumida em uma grande variedade de clientes diferentes: front-ends
 Web, CLIs, aplicativos móveis e desktop. Vale ressaltar que apesar dessa API
-ser um componente também, ela funciona como uma aplicação paralela ao SSCS. Ou
+ser um componente, também funciona como uma aplicação paralela ao SSCS. Ou
 seja, não precisa estar acoplada com nenhum dos outros componentes para
 funcionar sem erros, embora precise importar algumas estruturas do indexador.
 
-Nesse sentido, A função da API é fazer a ponte entre as informações do
+Nesse sentido, a função da API é fazer a ponte entre as informações do
 indexador e gerenciador  de armazenamento até o usuário. Para isso, essa
-aplicação utiliza os dados armazenados pelo indexador na instância do Postgres.
-Faz-se uma conexão direta com o banco de dados, habilitando funções de
-paginação dos dados, filtro de dados por datas de criação e download dos
+aplicação utiliza os dados armazenados pelo indexador na instância do
+PostgreSQL. Faz-se uma conexão direta com o banco de dados, habilitando funções
+de paginação dos dados, filtro de dados por datas de criação e download dos
 arquivos.
+
+É possível visualizar no diagrama da \autoref{fig:diaAPIHTTP} que ela depende
+do pacote Gin para prover uma interface de acesso. Esse pacote traz uma série
+de facilitações para a configuração: rate limiting, security headers, tempo de
+timeout, arquivos estáticos, CORS, middlewares, validação de dados, etc.
 
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.8\linewidth]{api_http.pdf}
 	\caption[Diagrama da implementação da API HTTP]{Diagrama da API HTTP e
 		seus sub-componentes}
-	\label{fig:diagapihttp}
+	\label{fig:diaAPIHTTP}
 \end{figure}
 
-É possível ver no diagrama da API HTTP que ela depende do pacote Gin para
-prover uma interface de acesso. Esse pacote traz uma série de facilitações para
-a configuração: rate limiting, security headers, tempo de timeout, arquivos
-estáticos, CORS, middlewares, validação de dados, etc.
-
 Entre as funcionalidades da API estão:
-
 \begin{itemize}
 	\item Busca por todos os eventos de reconhecimento, permitindo o filtro
 	      por data em intervalo, usando datas no formato da RFC3339. A API responde com o
@@ -2158,10 +2178,10 @@ Entre as funcionalidades da API estão:
 	      download.
 \end{itemize}
 
-\section{Aspectos de segurança}
+\section{Aspectos de Segurança}
 
 É comum que usuários de sistemas de vigilância tenham como requisito a
-limitação do acesso do sistema. Pensando nisso, Um sistema de autenticação
+limitação do acesso do sistema. Pensando nisso, um sistema de autenticação
 opcional pode ser usado no SSCS. Esse sistema é baseado em tokens JWT. Assim,
 usuários válidos podem ser cadastrados no servidor de identidade.
 
@@ -2170,77 +2190,80 @@ gerar JWTs e prover um endpoint JWKS, como o Keycloak. Tanto a API do SSCS
 quanto o MediaMTX são capazes de utilizar o mesmo servidor de identidade.
 
 \section{Core}
+
 % TODO: Checar o código anterior para ver se algo mudou
-Esse é componente que une todo o restante. Nele, o gravador é configurado, seus
+Esse é componente que une todos os itens. Nele, o gravador é configurado, seus
 canais de saída disparam quadros para o componente reconhecedor e eventos de
 gravação para o indexador, o gerenciador de armazenamento salva os arquivos das
 gravações e limpa o disco quando necessário e o indexador recebe os demais
 eventos para estruturar em um banco de dados. Por último, a API, não inclusa no
-core, serve os eventos estruturados para os clientes.
+core, serve os eventos estruturados para os clientes. O diagrama da
+\autoref{fig:diaSSCS} ilustra todos os componentes principais do SSCS e suas
+interações.
 
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1.0\linewidth]{core.pdf}
 	\caption[Diagrama geral do SSCS]{Todos os componentes principais do
 		SSCS e suas interações}
-	\label{fig:diagsscs}
+	\label{fig:diaSSCS}
 \end{figure}
 
 % \section{Interface gráfica}
 
 \section{Documentação}
+
 A documentação é fundamental para tornar o software acessível e simplificar sua
 manutenção. Ela deve ser clara, precisa e fácil de gerar. Idealmente, deve
 estar integrada ao próprio código, para que a documentação evolua juntamente
 com ele. Quanto mais fácil for para os programadores produzirem uma boa
 documentação, melhor para todos.
 
-Nesse sentido, para o código do SSCS a melhor ferramenta documentativa é a
-\texttt{godoc}, que já vem integrada do toolchain do Go. A \texttt{godoc}
-examina os arquivos de código Go, extrai os comentários e organiza-os em uma
-documentação legível, seja como HTML ou como texto puro. Essa abordagem
-assegura que a documentação esteja fortemente acoplada com o código que ela
-descreve, refletindo as convenções de comentários do Go e simplificando a
-navegação e compreensão do código para outros desenvolvedores.
+Nesse sentido, para o código do SSCS a ferramenta utilizada para gerar a
+documentação é a \texttt{godoc}, que já vem integrada do toolchain do Go. A
+\texttt{godoc} examina os arquivos de código Go, extrai os comentários e
+organiza-os em uma documentação legível, seja como HTML ou como texto puro.
+Essa abordagem assegura que a documentação esteja fortemente acoplada com o
+código que descreve, refletindo as convenções de comentários do Go e
+simplificando a navegação e compreensão do código para outros desenvolvedores.
 
 As convenções de comentários do Go são fáceis de lembrar também. Para comentar
 um tipo, variável, constante, função ou pacote, escreva o comentário
 diretamente antes de sua declaração, sem linhas em branco. A \texttt{godoc}
 então será capaz de apresentar o comentário junto com o item que está sendo
-documentado. Veja como exemplo um comentário do pacote \texttt{recognizer} do
-SSCS:
+documentado. Um exemplo de um comentário do pacote \texttt{recognizer} do SSCS:
 
 \begin{minted}
-	[%
-	 breaklines,
-	 mathescape,
-	 linenos,
-	 numbersep=5pt,
-	 frame=single,
-	 numbersep=5pt,
-	 xleftmargin=0pt,
-	 ]{go}
+[%
+breaklines,
+mathescape,
+linenos,
+numbersep=5pt,
+frame=single,
+numbersep=5pt,
+xleftmargin=0pt,
+]{go}
 // Package recognizer provides implementations
 // for multiple image recognition algorithms.
 package recognizer
 \end{minted}
 
-Note que o comentário começa com o nome do elemento que está descrevendo. É
+Nota-se que o comentário começa com o nome do elemento que está descrevendo. É
 essa convenção simples que permite gerar documentos em uma vários formatos,
 como páginas web, texto plano ou páginas \texttt{man} do UNIX. Ou seja, se for
 preciso visualizar a documentação de um módulo direto no terminal, uma das
 maneiras é usar o comando \texttt{go doc}, da seguinte maneira:
 
 \begin{minted}
-	[%
-	 breaklines,
-	 mathescape,
-	 linenos,
-	 numbersep=5pt,
-	 frame=single,
-	 numbersep=5pt,
-	 xleftmargin=0pt,
-	 ]{bash}
+[%
+breaklines,
+mathescape,
+linenos,
+numbersep=5pt,
+frame=single,
+numbersep=5pt,
+xleftmargin=0pt,
+]{bash}
 $  go doc  github.com/pedrohba1/SSCS/services/recognizer  	 
 package recognizer // import "github.com/pedrohba1/SSCS/services/recognizer"
 
@@ -2248,18 +2271,18 @@ Package recognizer provides implementations for multiple image recognition algor
 
 
 type CompositeRecognizer struct{ ... }
-    func MewCompositeRecognizer(fchan chan image.Image) *CompositeRecognizer
+func MewCompositeRecognizer(fchan chan image.Image) *CompositeRecognizer
 type FaceDetector struct{ ... }
-    func NewFaceDetector(fchan chan image.Image) *FaceDetector
+func NewFaceDetector(fchan chan image.Image) *FaceDetector
 type MotionDetector struct{ ... }
-    func NewMotionDetector(fchan chan image.Image) *MotionDetector
+func NewMotionDetector(fchan chan image.Image) *MotionDetector
 type Recognizer interface{ ... }
 \end{minted}
 
 Analogamente, se for preferível páginas web para navegar pela documentação, uma
 instância de servidor web local da \texttt{godoc} pode ser iniciada localmente
 por meio da execução do comando \mintinline{bash}{ godoc -http=:6060} na raiz
-do módulo. Além disso, a documentação pode ser publica online no domínio da
+do módulo. Além disso, a documentação pode ser pública online no domínio da
 central de documentações do Go, \texttt{pkg.go.dev}, desde que as tags de
 versão sejam usadas no repositório contendo o código. pacotes da linguagem Go.
 Inclusive, o SSCS tem sua documentação toda disponível em
@@ -2275,25 +2298,27 @@ foram levantados os objetivos gerais e disso surgiram as funcionalidades
 (gravação, armazenamento, reconhecimento) que resultaram, por sua vez, nos
 componentes.
 
-O código está disponível sob a licença de código aberto do MIT, resolvendo o
-objetivo 1. A documentação tmabém está pública e pode ser visualizada
-facilmente tanto na ferramenta de documentação do golang quanto no site
-oficial, resolvendo o objetivo 9. Ambos também contribuem para o objetivo 7
-indiretamente, além do código limpo da estrutura de componentes do código.
+O código está disponível sob a licença de código aberto do MIT. A documentação
+também está pública e pode ser visualizada facilmente tanto na ferramenta de
+documentação do golang quanto no site oficial. Ambos também contribuem para
+possibilitar a customização do sistema, incluindo a adição de novas
+funcionalidades como notificações de eventos, além do código limpo da estrutura
+de componentes do código.
 
 A visualização em tempo real das câmeras acontece pelo MediaMTX, sendo
 consumida pelo SSCS, que aplica algoritmos de reconhecimento de imagem,
 estruturando o que foi reconhecido junto com as filmagens em um banco de dados
-e no sistema de arquivos. Isso cobre os objetivos 3, 4 e 5.
+e no sistema de arquivos.
 
 Foram implementadas algumas opções de componentes visão computacional, e todos
-eles implementam uma estrutura bem simples de comunicação via canais. Á partir
-disso, podem ser criadas várias  outras variações com técnicas diferentes.
-Garantindo o objetivo 8.
+eles implementam uma estrutura bem simples de comunicação via canais. A partir
+disso, podem ser criadas várias outras variações com técnicas diferentes.
 
-Por último, a API HTTP construída resolve o objetivo 6. Buscas filtradas por
-datas, por tipo de evento de reconhecimento, download de arquivos e paginação
-foram adicionados para criar uma API funcional.
+Por último, a API HTTP construída consegue habilitar a busca de vídeos com
+critérios baseados nas identificações realizadas pelos algoritmos de visão
+computacional. Buscas filtradas por datas, por tipo de evento de
+reconhecimento, download de arquivos e paginação foram adicionados para criar
+uma API funcional.
 
 Espera-se que esse trabalho possa contribuir com o desenvolvimento de projetos
 de reconhecimento de imagem, dando uma fundação para a aplicação das técnicas
@@ -2303,96 +2328,44 @@ desenvolvedores.
 
 Entretanto, ainda existem melhorias a serem feitas no sistema: apesar de ter
 uma API para servir o consumidor final anida é necessário que sejam construídas
-interface para facitilar o uso. Uma interface web e outra mobile seriam o
+interface para facilitar o uso. Uma interface web e outra mobile seriam o
 ideal. Também é possível expĺorar implementações de gravador em outros
 protocolos além do RTSP, como WebRTC, HLS e RTMP, e outros encodings, como VP9,
-H.265 e AV1. A inmplementação de algum algoritmo de compressão nas imagens e
+H.265 e AV1. A implementação de algum algoritmo de compressão nas imagens e
 vídeos gerados poderia ser benéfica para quem utilizar o sistema em máquinas
 com armazenamento limitado.
 
 Na versão ao fim deste estudo, o SSCS também carece de testes unitários, de
 integração e de performance. Isso dificulta a ampliação e manutenção de suas
-ferramentas além de indiretamente tornar o entedimento do código mais difícil,
+ferramentas além de indiretamente tornar o entendimento do código mais difícil,
 já que muitas vezes os testes conseguem exemplificar o uso esperado. Outro
 aspecto que pode ser desenvolvido futuramente é mudança do meio de comunicação
 entre os componentes: as implementações do gravador, reconhecedor, gerenciador
 de armazenamento e indexador se comunicam por meio de canais de mensagens
 intra-processo. Nisso, protocolos para comunicação inter-processual, como o
 gRPC, poderiam ser implementados. Isso permitiria executar componentes em
-máquians diferentes e ainda manter a comunicação, o que vantajoso especialmente
-para o reconhedor, que pode precisar de um poder computacional desproporcional
-dependendo da tarefa de reconhecimento.
+máquinas diferentes e ainda manter a comunicação, o que vantajoso especialmente
+para o reconhecedor, que pode precisar de um poder computacional
+desproporcional dependendo da tarefa de reconhecimento.
 
-Em resumo,  o SSCS representa um passo significativo na direção de um sistema
-de reconhecimento de imagem abrangente e versátil. Ele oferece uma estrutura
-sobre a qual construções futuras podem ser baseadas, tanto para aprimoramentos
+Em resumo, o SSCS representa um passo significativo na direção de um sistema de
+reconhecimento de imagem abrangente e versátil. Ele oferece uma estrutura sobre
+a qual construções futuras podem ser baseadas, tanto para aprimoramentos
 diretos do sistema quanto para a exploração de novas aplicações em domínios
 diferentes. A modularidade e a abertura do código facilitam a customização e a
 extensão por parte de outros desenvolvedores, promovendo uma comunidade ativa e
 colaborativa ao redor do projeto.
-\postextual% ----------------------------------------------------------% ELEMENTOS PÓS-TEXTUAIS% ----------------------------------------------------------
+
+\postextual
+
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
 
 % ----------------------------------------------------------
 % Referências bibliográficas
 % ----------------------------------------------------------
 \bibliography{abntex2-modelo-references}
-
-%% ----------------------------------------------------------
-%% Apêndices TCC: só mantenha se for pertinente.
-%% ----------------------------------------------------------
-
-% ---
-% Inicia os apêndices
-% ---
-% \begin{apendicesenv}
-
-% 	% Imprime uma página indicando o início dos apêndices
-% 	\partapendices
-
-% 	% ----------------------------------------------------------
-% 	\chapter{Quisque libero justo}
-% 	% ----------------------------------------------------------
-
-% 	\lipsum[50]
-
-% 	% ----------------------------------------------------------
-% 	\chapter{Coisas que fiz e que achei interessante mas não tanto para entrar no corpo do texto}
-% 	% ----------------------------------------------------------
-% 	\lipsum[55-57]
-
-% \end{apendicesenv}
-% ---
-
-% ----------------------------------------------------------
-% Anexos %TCC: so mantenha se pertinente.
-% ----------------------------------------------------------
-
-% ---
-% Inicia os anexos
-% ---
-% \begin{anexosenv}
-
-% 	% Imprime uma página indicando o início dos anexos
-% 	\partanexos
-
-% 	% ---
-% 	\chapter{Eu sempre quis aprender latim}
-% 	% ---
-% 	\lipsum[30]
-
-% 	% ---
-% 	\chapter{Coisas que eu não fiz mas que achei interessante o suficiente para colocar aqui}
-% 	% ---
-
-% 	\lipsum[31]
-
-% 	% ---
-% 	\chapter{Fusce facilisis lacinia dui}
-% 	% ---
-
-% 	\lipsum[32]
-
-% \end{anexosenv}
 
 %---------------------------------------------------------------------
 % INDICE REMISSIVO
