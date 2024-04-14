@@ -370,20 +370,20 @@ elementos necessários para a materialização da solução proposta.
 
 A \autoref{fig:arqt} ilustra um sistema de cliente-servidor para transmissão de
 dados de multimídia. Na origem, tem-se a gravação comprimida, codificada e
-armazenada no dispositivo de armazenamento, como um disco rígido, por exemplo.Em seguida,
-por meio de algum software de mídia, esses arquivos são requisitados por
-usuários e entregues de acordo. Uma NIC, representada como ``interface de rede''
-na figura, então usa um protocolo de transmissão via rede para entregar os
-dados de multimídia para o cliente (tais como RTMP, HLS, RTSP, WebRTC), onde
-eles são primeiramente armazenados na memória principal ou disco e
-eventualmente decodificados e apresentados ao usuário.
+armazenada no dispositivo de armazenamento, como um disco rígido, por
+exemplo.Em seguida, por meio de algum software de mídia, esses arquivos são
+requisitados por usuários e entregues de acordo. Uma NIC, representada como
+``interface de rede'' na figura, então usa um protocolo de transmissão via rede
+para entregar os dados de multimídia para o cliente (tais como RTMP, HLS, RTSP,
+WebRTC), onde eles são primeiramente armazenados na memória principal ou disco
+e eventualmente decodificados e apresentados ao usuário.
 
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=1\linewidth]{media_fundamentals.pdf}
 	\caption[Representação de um arquitetura de tempo real
 		genérica]{Arquitetura genérica de transmissão em tempo real}
-		\legend{Fonte: Figura traduzida. \citeonline{lee2005scalable2} }
+	\legend{Fonte: Figura traduzida. \citeonline{lee2005scalable2} }
 	\label{fig:arqt}
 \end{figure}
 
@@ -717,7 +717,6 @@ uma interface provida, e o semicírculo indica uma interface requerida.
 %  No caso, essa imagem não foi traduzida, ela faz parte dos diagramas que criei para o trabalho
 %  Deixo sem legenda?
 
-
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.8\linewidth]{example_diagram.pdf}
@@ -830,7 +829,6 @@ limpo, legível, organizado e de fácil manutenção.
 
 \section{Servidor Proxy}
 
-
 Inserido em redes de computadores, um servidor proxy atua como intermediário
 entre um cliente e um servidor, redirecionando as solicitações dos clientes
 para outros servidores e, em seguida, transmitindo as respostas de volta aos
@@ -862,9 +860,10 @@ As motivações para usar um servidor proxy podem ser:
 
 \section{REST}
 
-REST (Representational State Transfer - Transferência de Estado Representacional) é um estilo de arquitetura para sistemas
-distribuídos de hipermídia proposto pela primeira vez por Roy Thomas Fielding
-em \citeonline{Fielding2000}.
+REST (Representational State Transfer - Transferência de Estado
+Representacional) é um estilo de arquitetura para sistemas distribuídos de
+hipermídia proposto pela primeira vez por Roy Thomas Fielding em
+\citeonline{Fielding2000}.
 
 Esse estilo de arquitetura ignora os detalhes de implementação dos componentes
 e sintaxe de protocolos para focar no papel dos componentes. Nisso, os dados
@@ -1231,12 +1230,12 @@ suas vantagens e desvantagens quanto aos critérios de latência, qualidade,
 requerimentos de processamento e compatibilidade com outros tipos de software.
 \begin{itemize}
 	\item \textit{\foreignlanguage{english}{Streaming}} tradicional requer
-	      um protocolo \textit{\foreignlanguage{english}{stateful}} que estabelece uma
-	      sessão entre o servidor e o cliente. Nesse último método, a mídia é transmitida
-	      como uma corrente constante de pacotes por UDP ou TCP. Como exemplo o Real Time
-	      Streaming Protocol (RTSP), baseado no Real-time Transport Protocol (RTP), que é
-	      o mais comum para a transmissão de vídeo nas câmeras por IP: a vasta maioria
-	      delas o integram como padrão.
+	      um protocolo \textit{\foreignlanguage{english}{stateful}} que
+	      estabelece uma sessão entre o servidor e o cliente. Nesse último método, a
+	      mídia é transmitida como uma corrente constante de pacotes por UDP ou TCP. Como
+	      exemplo o Real Time Streaming Protocol (RTSP), baseado no Real-time Transport
+	      Protocol (RTP), que é o mais comum para a transmissão de vídeo nas câmeras por
+	      IP: a vasta maioria delas o integram como padrão.
 	\item Já no método do streaming por
 	      \textit{\foreignlanguage{english}{download}} progressivo, usa-se um servidor
 	      HTTP para transferir o vídeo entre o cliente e o servidor, de maneira
@@ -1647,7 +1646,6 @@ corrente de multimídia destinada ao SSCS.
 		transmissão, múltiplas fontes para um servidor de mídia}
 	\label{fig:arqtransm}
 \end{figure}
-
 
 A imagem mostra a configuração básica do SSCS, onde câmeras ou outras fontes de
 transmissão de multimídia podem encaminhar fluxos para um servidor
