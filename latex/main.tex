@@ -1,49 +1,46 @@
-	\documentclass[12pt, %
-	openright, 
-	oneside, %
-	%twoside, %TCC: Se seu texto tem mais de 100 páginas, descomente esta linha e comente a anterior
-	a4paper,    %
-	%english,   %
-	brazil]{facom-ufu-abntex2}
+\documentclass[12pt, %
+openright, 
+oneside, %
+%twoside, %TCC: Se seu texto tem mais de 100 páginas, descomente esta linha e comente a anterior
+a4paper,    %
+%english,   %
+brazil]{facom-ufu-abntex2}
 
-	\usepackage[brazil]{babel}
-	\usepackage{graphicx}
-	\usepackage{minted}
-	\usepackage{hyperref}
-
-
-	% coisas relacionadas às cores do código:
-
-	\definecolor{dkgreen}{rgb}{0,0.6,0}
-	\definecolor{gray}{rgb}{0.5,0.5,0.5}
-	\definecolor{mauve}{rgb}{0.58,0,0.82}
+\usepackage[brazil]{babel}
+\usepackage{graphicx}
+\usepackage{minted}
+\usepackage{hyperref}
 
 
+% coisas relacionadas às cores do código:
 
-	\graphicspath{{figuras/}{pictures/}{images/}{./}}
-	% where to search for the images
-
-	\newcommand{\blue}[1]{\textcolor{blue}{#1}}
-	\newcommand{\red}[1]{\textcolor{red}{#1}}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
 
 
-	\autor{Pedro Henrique Bufulin de Almeida}
-%TCC
-	\data{2021}
-	\orientador{Pedro Frosi Rosa} %TCC
-	%\coorientador{Algum?} %TCC
 
-	% ---
-	% Informações de dados para CAPA e FOLHA DE ROSTO
-	% ---
+\graphicspath{{figuras/}{pictures/}{images/}{./}}
+% where to search for the images
 
-	\titulo{Sistema de vigilância \textit{\foreignlanguage{english}{open
-source}} e
-	customizável} %TCC
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
 
-	\hypersetup{pdfkeywords={palavra 1}{palavra 2}{palavra 4}{palavra
-4}{palavra
-	5}} %TCC
+
+\autor{Pedro Henrique Bufulin de Almeida} %TCC
+\data{2024}
+\orientador{Thiago Pirola Ribeiro} %TCC
+%\coorientador{Algum?} %TCC
+
+% ---
+% Informações de dados para CAPA e FOLHA DE ROSTO
+% ---
+
+\titulo{Sistema de vigilância \textit{\foreignlanguage{english}{open source}} e
+customizável} %TCC
+
+\hypersetup{pdfkeywords={palavra 1}{palavra 2}{palavra 4}{palavra 4}{palavra
+5}} %TCC
 
 \begin{document}
 
@@ -78,7 +75,7 @@ source}} e
 		\vspace*{\fill}
 	\end{center}
 
-	Trabalho aprovado. \imprimirlocal, 01 de novembro de 2016:
+	Trabalho aprovado. \imprimirlocal, 26 de abril de 2024:
 	%TCC:
 
 	\assinatura{\textbf{\imprimirorientador} \\ Orientador}
@@ -192,7 +189,6 @@ source}} e
 % ---
 % inserir lista de abreviaturas e siglas
 % ---
-Aqui estão as siglas organizadas em ordem alfabética:
 
 \begin{siglas}
 	\item[API] \textit{Application Programming Interface} - Interface de
@@ -269,24 +265,24 @@ Aqui estão as siglas organizadas em ordem alfabética:
 Em 2019 foi estimado que existem 200 milhões de câmeras de vigilância na China
 e na última década, avanços tecnológicos tornaram essas câmeras ainda mais
 eficientes em monitorar 1.4 bilhões de chineses. Ainda segundo o autor, o
-reconhecimento de rostos por câmeras começou a ser uma realidade em 2010 quando
-pesquisadores descobriram algoritmos de deep learning usados para reconhecer
-imagens e voz. Esses algoritmos podem também inferir em tempo real a quantidade
-e a densidade de pessoas numa dada imagem \cite{qiang2019road}.
+reconhecimento de rostos por câmeras começou a ser uma realidade em 2010,
+quando pesquisadores descobriram algoritmos de \textit{deep learning} usados
+para reconhecer imagens e voz. Esses algoritmos podem, também, inferir em tempo
+real a quantidade e a densidade de pessoas em uma dada imagem
+\cite{qiang2019road}.
 
-Esta intensificação do uso da tecnologia de vigilância não se limita à China;
-ou está se tornando ou já é a realidade em muitos outros países. De acordo com
-um relatório da Market Research Future \cite{Gupta2018}, a América do Norte é
-atualmente líder em termos de participação de mercado de câmeras de CCTV,
-detendo 28,5\% do mercado global, seguida pela Europa com 18,3\%. Este domínio
-é reflexo de um mercado de vigilância por vídeo que tem mostrado crescimento
-substancial: avaliado em 45,9 bilhões de dólares em 2021, este mercado tem uma
-projeção de crescimento para 110,2 bilhões de dólares até 2030, com uma taxa
-composta anual de crescimento (CAGR) de 11,6\% para o período de 2022 a 2030.
-Esses dados evidenciam não apenas a escala atual da indústria de vigilância,
-mas também sua trajetória ascendente, realçando a importância de abordar
-questões de privacidade e segurança em um contexto tão amplo e em rápido
-crescimento.
+Esta intensificação do uso da tecnologia de vigilância não se limita à China,
+sendo ou tornando-se realidade em muitos outros países. De acordo com um
+relatório da Market Research Future \cite{Gupta2018}, a América do Norte é
+líder em termos de participação de mercado de câmeras de CCTV, detendo 28,5\%
+do mercado global, seguida pela Europa com 18,3\%. Este domínio é reflexo de um
+mercado de vigilância por vídeo que tem mostrado crescimento substancial:
+avaliado em 45,9 bilhões de dólares em 2021, este mercado tem uma projeção de
+crescimento para 110,2 bilhões de dólares até 2030, com uma taxa composta anual
+de crescimento (CAGR) de 11,6\% para o período de 2022 a 2030. Esses dados
+evidenciam não apenas a escala atual da indústria de vigilância, mas também sua
+trajetória ascendente, realçando a importância de abordar questões de
+privacidade e segurança em um contexto tão amplo e em rápido crescimento.
 
 À medida que o mercado de vigilância por vídeo se expande, os sistemas
 associados também se tornam progressivamente mais complexos e de maior alcance.
@@ -300,7 +296,7 @@ prestação de serviços em tempo real, de maneira eficaz e confiável.
 Entretanto, a privacidade dos indivíduos não é uma preocupação primária dos
 principais provedores desse tipo de serviço. Nesse contexto, tecnologias de
 código aberto podem oferecer uma solução, pois permitem que qualquer pessoa
-verifique se o software tratando a segurança e a privacidade de maneira
+verifique se o software está tratando a segurança e a privacidade de maneira
 adequada \cite{mardjan2016open}.
 
 Considerando-se a necessidade de criar uma solução que traga os benefícios da
@@ -313,11 +309,11 @@ proposta da construção de um software de vigilância.
 O propósito deste trabalho é projetar um sistema de monitoramento integralmente
 sustentado por software livre, com capacidade de integração com uma ampla
 variedade de dispositivos de hardware. Este sistema oferecerá visualização em
-tempo real de imagens de câmeras, incorporando algoritmos de visão
-computacional para análise destas. Será possível armazenar e buscar vídeos,
-utilizando critérios identificados pelos algoritmos. Uma das grandes virtudes
-do projeto é sua adaptabilidade: ele é projetado para permitir a inclusão de
-novas funcionalidades, como notificações de eventos, e a modificação de
+tempo real de imagens de câmeras, incorporando algoritmos de análise baseados
+em visão computacional. Será possível armazenar e buscar vídeos, utilizando
+critérios identificados pelos algoritmos. Uma das grandes virtudes do projeto é
+sua adaptabilidade, pois é projetado para permitir a inclusão de novas
+funcionalidades, como notificações de eventos, e a modificação de
 características existentes. Por exemplo, o armazenamento pode ser configurado
 para ser local ou em nuvem, e o processamento para reconhecimento de imagens
 pode ocorrer tanto em transmissões ao vivo quanto em vídeos arquivados. Para
@@ -362,10 +358,6 @@ que seja possível integrar, ele não tem as funcionalidades desejadas. Portanto
 faz sentido um software customizável que possa se adaptar as necessidades do
 usuário e que crie uma fundação para criar novas funções de vigilância.
 
-% \section{Resultados esperados}
-
-%  (não sei se é necessária essa parte, já que temos todos os objetivos específicos postulados logo acima)
-
 \chapter{Fundamentação Teórica}
 
 Neste capítulo, são apresentadas as tecnologias e os conceitos que serão
@@ -376,9 +368,9 @@ elementos necessários para a materialização da solução proposta.
 
 \section{Elementos genéricos de um sistema de multimídia}
 
-A figura abaixo mostra um sistema de cliente-servidor para transmissão de dados
-de multimídia. Na origem, tem-se a gravação comprimida, codificada e armazenada
-no dispositivo de armazenamento, como um disco rígido, por exemplo. Em seguida,
+A \autoref{fig:arqt} ilustra um sistema de cliente-servidor para transmissão de
+dados de multimídia. Na origem, tem-se a gravação comprimida, codificada e
+armazenada no dispositivo de armazenamento, como um disco rígido, por exemplo.Em seguida,
 por meio de algum software de mídia, esses arquivos são requisitados por
 usuários e entregues de acordo. Uma NIC, representada como ``interface de rede''
 na figura, então usa um protocolo de transmissão via rede para entregar os
@@ -391,9 +383,8 @@ eventualmente decodificados e apresentados ao usuário.
 	\includegraphics[width=1\linewidth]{media_fundamentals.pdf}
 	\caption[Representação de um arquitetura de tempo real
 		genérica]{Arquitetura genérica de transmissão em tempo real}
-	\legend{Fonte: Figura traduzida. \citeonline{lee2005scalable2} }
-
-	\label{fig:graficosVariandoTamanhoRede}
+		\legend{Fonte: Figura traduzida. \citeonline{lee2005scalable2} }
+	\label{fig:arqt}
 \end{figure}
 
 Uma característica única deste modelo de sistema é que os componentes do
@@ -403,7 +394,7 @@ desempenho de toda a cadeia.
 
 \subsection{Dados de mídia}
 
-O 'multi' em multimídia refere-se a múltiplos meios de comunicação do mesmo
+O ``multi'' em multimídia refere-se a múltiplos meios de comunicação do mesmo
 tipo ou de tipos diferentes que são criados, entregues e apresentados juntos.
 Existem muitos tipos diferentes de mídia, desde o texto simples mais básico,
 até texto formatado, gráficos, imagens, áudio, vídeo ou até mesmo informações
@@ -411,18 +402,18 @@ táteis. Podemos classificar amplamente esses diversos tipos de mídia em duas
 categorias principais, especialmente no contexto da entrega de dados
 multimídia: mídias discreta ou contínuas.
 
-As discretas referem-se às que não possuem nenhum requerimento explícito de
-tempo de apresentação. Por exemplo, buscar na rede para exibi-la no navegador.
-Dependendo da largura de banda disponível, o navegador pode levar um tempo
-largamente variável até receber a imagem antes que ela seja decodificada e em
-seguida apresentada. Obviamente, é preferível que esse processo seja o mais
-breve o possível, mas desde que os dados da imagem sejam recebidos
+As mídias discretas referem-se às que não possuem nenhum requerimento explícito
+de tempo de apresentação. Por exemplo, buscar na rede para exibí-la no
+navegador. Dependendo da largura de banda disponível, o navegador pode levar um
+tempo largamente variável até receber a imagem antes que ela seja decodificada
+e em seguida apresentada. Obviamente, é preferível que esse processo seja o
+mais breve o possível, mas desde que os dados da imagem sejam recebidos
 corretamente, renderizados e apresentados, a requisição é considerada bem
 sucedida. Em outras palavras, não há restrição inerente nos dados de mídia que
 exigem a apresentação em um prazo de tempo ou limite de atraso. É por isso que
 o tráfego de rede criado pela entrega de mídia discreta é chamado tráfego
 elástico. Esse nome refere-se à possibilidade de tolerar variações em tempo de
-atraso.
+atraso \cite{lee2005scalable}.
 
 As contínuas, em contrapartida, possuem um prazo de tempo para a apresentação
 embarcados nos seus dados de mídia. Por exemplo, dados de vídeo estão
@@ -433,7 +424,7 @@ sequenciar de acordo com os tempos especificados. Falhas no sequenciamento
 podem causar degradações perceptíveis na qualidade do vídeo (movimentação lenta
 ou fatiada) mesmo se a transmissão foi bem sucedida. Nesse sentido, tráfego de
 rede proveniente de mídia contínua também é conhecido como tráfego
-não-elástico, pois precisa manter o tempo íntegro. \cite{lee2005scalable}
+não-elástico, pois precisa manter o tempo íntegro \cite{lee2005scalable}.
 
 % \section{Sistema distribuído aberto}
 
@@ -466,7 +457,6 @@ não-elástico, pois precisa manter o tempo íntegro. \cite{lee2005scalable}
 % é simplesmente a \emph{View layer} da aplicação. \cite{boduch2017react}
 
 \section{Técnicas de reconhecimento de imagem}
-
 O processo de reconhecimento de imagem depende de algumas etapas anteriores. A
 primeira etapa é a aquisição de imagem, que pode ser tão simples quanto
 simplesmente prover uma imagem. Geralmente, nesse estágio ocorre algum tipo de
@@ -492,18 +482,30 @@ fácil. Basta subtrair a nova imagem do fundo. Porém, na maioria dos casos, a
 imagem não é regular, então é preciso extrair o fundo das imagens existentes.
 Essa tarefa fica mais complicada quando há sombras nos objetos em movimento,
 pois a sombra se move junto com o objeto e algoritmos que não levam isso em
-consideração marcam a sombra como plano primário \cite{opencv_bgsubtraction}.
+consideração marcando a sombra como plano primário \cite{opencv_bgsubtraction}.
 
-Nesse sentido, como a maioria dos algoritmos de subtração de fundo têm sua
-performance afetada pela disposição da iluminação do cenário, pesquisadores
-desenvolveram um método baseado na mistura de Gaussianos para lidar com esse
-problema. Nesse método, no lugar de modelar os valores de todos os pixels em um
-tipo particular de distribuição, os valores de um pixel em particular são
-modelados como uma mistura de Gaussianos. Baseado na persistência e variância
-de cada um dos Gaussianos da mistura, é possível determinar quais Gaussianos
-correspondem à cores do fundo. Valores de pixel que não se encaixam nas
-distribuições do fundo são considerados como primeiro plano, até que um
-Gaussiano inclua-as con evidências consistentes e suficientes.
+Nesse sentido, pesquisadores desenvolveram um método baseado na mistura de
+Gaussianos para lidar com a disposição da iluminação do cenário, pois isso
+afeta a performance da maioria dos algoritmos de subtração de fundo. Nesse
+método, no lugar de modelar os valores de todos os pixels em um tipo particular
+de distribuição, os valores de um pixel em particular são modelados como uma
+mistura de Gaussianos. Baseado na persistência e variância de cada um dos
+Gaussianos da mistura, é possível determinar quais Gaussianos correspondem à
+cores do fundo. Valores de pixel que não se encaixam nas distribuições do fundo
+são considerados como primeiro plano, até que um Gaussiano inclua-as com
+evidências consistentes e suficientes. Um exemplo usando os modelos de Mistura
+Gaussianas é ilustrado na \autoref{fig:mistG}.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\linewidth]{background_subtraction.jpeg}
+	\caption{Aplicação da técnica de subtração de fundo baseada em modelos
+		de Mistura Gaussiana}
+
+	\legend{Fonte:\href{https://docs.opencv.org/3.4/de/df4/tutorial_js_bg_subtraction.html}{Subtração
+			de fundo no OpenCV} }
+	\label{fig:mistG}
+\end{figure}
 
 Assim, essa técnica se adapta para lidar com robustez à mudanças na iluminação,
 movimentos repetitivos de elementos em cena, rastreamento através de regiões
@@ -513,44 +515,25 @@ ao fundo, porque a cor deles tem uma variação maior do que a do fundo. Além
 disso, variações repetitivas são aprendidas, e um modelo para a distribuição de
 fundo é geralmente mantido, mesmo que temporariamente substituído por outra
 distribuição, o que leva a uma recuperação mais rápida quando os objetos são
-removidos. \cite{784637}
-
-% \begin{figure}[!ht]
-% 	\centering
-% 	\includegraphics[width=0.7\linewidth]{background_subtraction.jpeg}
-% 	\caption[Aplicação da técnica de subtração de fundo baseada em modelos de Mistura Gaussiana]{Aplicação da técnica de subtração de fundo baseada em modelos de Mistura Gaussiana}
-% 	\label{fig:graficosVariandoTamanhoRede}
-% \end{figure}
-
-\begin{figure}[ht]
-	\begin{center}
-
-		\includegraphics[width=0.7\linewidth]{background_subtraction.jpeg}
-	\end{center}
-	\caption{Aplicação da técnica de subtração de fundo baseada em modelos
-		de Mistura Gaussiana}
-	\legend{Fonte:
-		\href{https://docs.opencv.org/3.4/de/df4/tutorial_js_bg_subtraction.html}{Subtração
-			de fundo no OpenCV} }
-\end{figure}
+removidos \cite{784637}.
 
 \subsection{Detecção de objetos usando classificadores em cacata baseados em
-	características de haar}
+	características de Haar}
 
 Neste método, utiliza-se aprendizado de máquina, onde uma função de cascata é
 treinada a partir de um grande número de imagens positivas (contendo o objeto
-de interesse) e negativas (sem o objeto de interesse). Nisso, as
-características Haar, inspiradas nas wavelets de Haar, são usadas para
+de interesse) e negativas (sem o objeto de interesse). Para isso, as
+características Haar, inspiradas nas Wavelets de Haar, são usadas para
 encontrar padrões visuais que diferenciam o objeto de interesse do restante da
 imagem.
 
-Essas características haar são simples retângulos de 3 tipos. A de dois
+Essas características Haar são simples retângulos de 3 tipos: com dois
 retângulos, onde o valor dessa é atribuído calculando-se a diferença entre a
 soma dos pixels dentro de duas regiões retangulares de mesmo tamanho e forma,
-adjacentes horizontalmente ou verticalmente. A de três retângulos calcula a
-soma dentro de dois retângulos externos subtraindo a soma em um retângulo
-central. Por último, uma característica de quatro retângulos calcula a
-diferença entre pares de retângulos diagonais.
+adjacentes horizontalmente ou verticalmente; com três retângulos calcula a soma
+dentro de dois retângulos externos subtraindo a soma em um retângulo central.
+Por último, uma característica de quatro retângulos calcula a diferença entre
+pares de retângulos diagonais (\autoref{fig:haar}).
 
 % \begin{figure}[ht]
 % 	\begin{center}
@@ -566,8 +549,8 @@ diferença entre pares de retângulos diagonais.
 	\includegraphics[width=0.7\linewidth]{haar_features.jpeg}
 	\caption[Exemplos de características Haar mostradas em uma janela de
 		detecção]{Exemplos de características Haar mostradas em uma janela de detecção}
-	\label{fig:graficosVariandoTamanhoRede}
-	\legend{Imagem extraída de artigo.  \cite{990517} }
+	\label{fig:haar}
+	\legend{Fonte: Imagem extraída de artigo \cite{990517}.}
 \end{figure}
 
 As características Haar também podem ser calculadas rapidamente graças ao uso
@@ -576,7 +559,7 @@ que permite a soma de valores de intensidade em áreas retangulares da imagem de
 forma eficiente. Estas características são simples, mas extremamente eficazes
 na captura de bordas, linhas e mudanças de textura em imagens.
 
-A arquitetura em cascata do classificador também acrescenta na velocidade do
+A arquitetura em cascata do classificador também aumenta na velocidade do
 método. Cada estágio da cascata utiliza um conjunto de características Haar
 para determinar se uma determinada região da imagem deve continuar sendo
 processada pelas etapas subsequentes. As regiões que são prontamente
@@ -594,7 +577,8 @@ em segurança, interação humano-computador e outras áreas \cite{990517}.
 Um sistema distribuído é um sistema em que os componentes de hardware ou
 software conectados em rede se comunicam e coordenam suas operações
 exclusivamente por meio da troca de mensagens. Essa descrição destaca as
-seguintes características cruciais dos sistemas distribuídos:
+seguintes características cruciais dos sistemas distribuídos
+\cite{coulouris2013sistemas}:
 
 \begin{itemize}
 	\item Concorrência: em uma rede de computadores, a execução concorrente
@@ -610,7 +594,7 @@ seguintes características cruciais dos sistemas distribuídos:
 	      noção global única do tempo correto. Essa é uma consequência direta do fato de
 	      que a única comunicação se dá por meio do envio de mensagens em uma rede.
 	\item Falhas independentes: todos os sistemas de computador podem
-	      falhar, e é responsabilidade dos projetistas de sistema pensar nas
+	      falhar, sendo de responsabilidade dos projetistas de sistema pensar nas
 	      consequências das possíveis falhas. Nos sistemas distribuídos, as falhas são
 	      diferentes. Falhas na rede resultam no isolamento dos computadores que estão
 	      conectados a ela, mas isso não significa que eles param de funcionar. Na
@@ -628,13 +612,12 @@ componentes que podem ser compartilhadas de maneira útil em um sistema de
 computadores interligados em rede. Esses componentes podem ser tanto em
 hardware, como discos, impressoras, câmeras, quanto em software, como arquivos,
 bancos de dados e objetos de dados de todos os tipos.
-\cite{coulouris2013sistemas}
 
 \section{Banco de dados relacional}
 
 Um banco de dados relacional emprega o modelo relacional de dados, uma inovação
 significativa proposta por Edgar F. Codd na década de 1970
-\citeonline{10.1145/362384.362685}. Este modelo é fundamentado na teoria dos
+\cite{10.1145/362384.362685}. Este modelo é fundamentado na teoria dos
 conjuntos e utiliza abstrações em tabelas para organizar os dados. Cada tabela
 é composta por linhas (também conhecidas como registros) e colunas (atributos),
 onde cada linha possui um valor único chamado chave primária, que identifica o
@@ -666,20 +649,20 @@ protocolo é independente do protocolo de camada inferior. Assim, o RTSP pode
 ser transmitido por meio de TCP, UDP ou outros protocolos de transporte. A
 sintaxe do RTSP compartilha muitas semelhanças com o HTTP/1.1, simplificando
 assim a implementação e a implantação. No entanto, além das semelhanças de
-sintaxe, o RTSP difere do HTTP em muitos aspectos importantes.
+sintaxe, o RTSP difere do HTTP em muitos aspectos importantes \cite{rfc2326}.
 
 Primeiro, ao contrário do HTTP, o RTSP é um protocolo com estado, exigindo que
-o host mantenha informações de estado de uma sessão de streaming em várias
-requisições RTSP. Segundo, tanto o servidor quanto o cliente RTSP podem emitir
-requisições RTSP. Finalmente, os dados de mídia devem ser entregues fora do
-canal principal, ou seja, usando um protocolo separado, como, mas não limitado
-a, o Protocolo de Transporte em Tempo Real (RTP).
+o \textit{host} mantenha informações de estado de uma sessão de streaming em
+várias requisições RTSP. Segundo, tanto o servidor quanto o cliente RTSP podem
+emitir requisições RTSP. Finalmente, os dados de mídia devem ser entregues fora
+do canal principal, ou seja, usando um protocolo separado, como, mas não
+limitado a, o Protocolo de Transporte em Tempo Real (RTP).
 
-Em uma aplicação de streaming típica (veja a figura abaixo), o cliente primeiro
-obterá um arquivo de descrição de apresentação usando métodos fora do canal
-principal (por exemplo, através da web usando HTTP). O arquivo de descrição de
-apresentação descreve uma ou mais apresentações, cada uma composta por uma ou
-mais transmissões de mídia sincronizadas. O arquivo de descrição de
+Em uma aplicação de streaming típica (\autoref{fig:rtspDiagram}), o cliente
+primeiro obterá um arquivo de descrição de apresentação usando métodos fora do
+canal principal (por exemplo, através da web usando HTTP). O arquivo de
+descrição de apresentação descreve uma ou mais apresentações, cada uma composta
+por uma ou mais transmissões de mídia sincronizadas. O arquivo de descrição de
 apresentação também contém propriedades das transmissões de mídia, como o
 formato de codificação, para permitir que o cliente selecione e se prepare para
 a reprodução da mídia. Cada transmissão de mídia controlável é identificada por
@@ -693,9 +676,8 @@ meio de uma sessão RTSP separada. \cite{rfc2326}
 	\centering
 	\includegraphics[width=0.8\linewidth]{rtsp.pdf}
 	\caption[Diagrama RTSP]{Transmissão de mídia usando o RTSP, início ao
-		fim. }
-	\legend{Figura traduzida.\cite{lee2005scalableRTSP} }
-
+		fim.}
+	\legend{Fonte: Figura traduzida de \citeonline{lee2005scalableRTSP}.}
 	\label{fig:rtspDiagram}
 \end{figure}
 
@@ -724,20 +706,25 @@ Características dos diagramas de componentes:
 Ao trabalhar com diagramas de componentes, as equipes podem compreender melhor
 a estrutura do sistema e identificar áreas para atenção ou desenvolvimento.
 
-Abaixo, um exemplo de um componente e suas partes:
+A \autoref{fig:compon} é um exemplo de um componente e suas partes, sendo o
+componente é representado pela estrutura retangular. O ícone no topo direito do
+retângulo é opcional, sendo uma especificação do UML 1.4. Na
+\autoref{fig:compon}, o círculo à esquerda com a legenda PublishStream indica
+uma interface provida, e o semicírculo indica uma interface requerida.
+
+% TODO: como essa imagem foi uma tradução, colocar na legenda dela a origem da imagem (o livro)
+% e avisar que foi uma tradução da imagem
+%  No caso, essa imagem não foi traduzida, ela faz parte dos diagramas que criei para o trabalho
+%  Deixo sem legenda?
+
 
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=0.8\linewidth]{example_diagram.pdf}
 	\caption[Componente de exemplo]{Componente, provendo uma interface e
 		com requerimento de outra}
-	\label{fig:graficosVariandoTamanhoRede}
+	\label{fig:compon}
 \end{figure}
-
-O componente é representado pela estrutura retangular. O ícone no topo direito
-do retângulo é opcional, sendo uma especificação do UML 1.4. Na Figura, o
-círculo à esquerda com a legenda PublishStream indica uma interface provida, e
-o semicírculo indica uma interface requerida.
 
 Uma interface fornecida é aquela que é realizada diretamente pelo próprio
 componente, ou realizada por um dos classificadores que implementam o
@@ -754,14 +741,14 @@ ReadStream.
 O pequeno quadrado na linha é uma porta, e ela indica que a interface faz parte
 não do componente em si mas de um de seus componentes internos encapsulados.
 
-\section{Versionamento Semântico (SEMVER)}
+\section{Versionamento Semântico}
 
-O \textit{SEMVER}, abreviação de Versionamento Semântico, é uma convenção de
-nomenclatura usada para gerenciar e comunicar eficazmente as mudanças em
-versões de software. Ele cria uma maneira compreensível de representar as
-mudanças em software através do número de sua versão.
+O Versionamento Semântico (SEMVER) é uma convenção de nomenclatura usada para
+gerenciar e comunicar eficazmente as mudanças em versões de software. Ele cria
+uma maneira compreensível de representar as mudanças em software através do
+número de sua versão.
 
-A estrutura básica de um número de versão SEMVER é \textit{MAJOR.MINOR.PATCH},
+A estrutura básica de um número de versão SEMVER é \texttt{MAJOR.MINOR.PATCH},
 onde:
 
 \begin{itemize}
@@ -782,30 +769,32 @@ versões alfa, beta, candidatas a lançamento, entre outros.
 O principal benefício de adotar o \textit{SEMVER} é a clareza. Ao olhar para o
 número de versão de um software, os desenvolvedores podem rapidamente entender
 a natureza e a magnitude das mudanças, facilitando decisões sobre a atualização
-ou integração de dependências. \cite{semver}
+ou integração de dependências \cite{semver}.
 
 \section{Daemon}
 
-Um daemon é um processo em segundo plano que normalmente é executado
-indefinidamente. O sistema operacional UNIX depende de muitos processos daemon
-para realizar tarefas rotineiras (e não tão rotineiras). No ambiente
-operacional Solaris, por exemplo, o daemon \texttt{pageout} gerencia a
-paginação para o gerenciamento de memória. O \texttt{in.rlogind} lida com
-solicitações de login remoto. Outros daemons lidam com correio, transferência
-de arquivos, estatísticas e solicitações de impressora, para citar alguns.
-\cite{kay2004unix}
+Um \textit{daemon} é um processo em segundo plano que normalmente é executado
+indefinidamente. O sistema operacional UNIX depende de muitos processos
+\textit{daemon} para realizar tarefas rotineiras (e não tão rotineiras). No
+ambiente operacional Solaris, por exemplo, o \textit{daemon} \texttt{pageout}
+gerencia a paginação para o gerenciamento de memória. O \texttt{in.rlogind}
+lida com solicitações de login remoto. Outros \textit{daemons} lidam com
+correio, transferência de arquivos, estatísticas e solicitações de impressora,
+para citar alguns \cite{kay2004unix}.
 
 \section{Princípios SOLID}
 
 Os princípios SOLID, nos dizem como organizar nossas funções e estruturas de
 dados em classes e como essas classes devem estar interconectadas. O uso da
-palavra "classe" não implica que esses princípios se aplicam apenas ao software
-orientado a objetos. Uma classe é simplesmente um agrupamento acoplado de
-funções e dados. Todo sistema de software tem esses agrupamentos, quer sejam
+palavra ``classe'' não implica que esses princípios se aplicam apenas ao
+software orientado a objetos. Uma classe é simplesmente um agrupamento acoplado
+de funções e dados. Todo sistema de software tem esses agrupamentos, quer sejam
 chamados de classes ou não. Os princípios SOLID se aplicam a esses
 agrupamentos. O objetivo dos princípios é a criação de estruturas de software
 de nível médio que são fáceis de entender, formam a base de componentes que
 podem ser usados em muitos sistemas software.
+
+Segundo \citeonline{martin2018clean3}, SOLID é:
 
 \begin{itemize}
 	\item \textbf{SRP: Princípio da Responsabilidade Única}\\
@@ -837,9 +826,10 @@ podem ser usados em muitos sistemas software.
 \end{itemize}
 
 Esses princípios, se aplicados em conjunto e habilmente, tornam o código mais
-limpo, legível, organizado e de fácil manutenção. \cite{martin2018clean3}
+limpo, legível, organizado e de fácil manutenção.
 
 \section{Servidor Proxy}
+
 
 Inserido em redes de computadores, um servidor proxy atua como intermediário
 entre um cliente e um servidor, redirecionando as solicitações dos clientes
@@ -872,7 +862,7 @@ As motivações para usar um servidor proxy podem ser:
 
 \section{REST}
 
-REST (Representational State Transfer) é um estilo de arquitetura para sistemas
+REST (Representational State Transfer - Transferência de Estado Representacional) é um estilo de arquitetura para sistemas
 distribuídos de hipermídia proposto pela primeira vez por Roy Thomas Fielding
 em \citeonline{Fielding2000}.
 
@@ -881,7 +871,7 @@ e sintaxe de protocolos para focar no papel dos componentes. Nisso, os dados
 nunca são acessados diretamente, mas são transferidos por meio de
 representações.
 
-REST é definido pelo conjunto de restrições arquiteturais à seguir:
+REST é definido pelo conjunto de restrições arquiteturais:
 
 \begin{itemize}
 	\item \textbf{Interface Uniforme:} Cada recurso é tratado como uma
@@ -939,7 +929,7 @@ exigem que modificações ou trabalhos derivados também sejam de código aberto
 mantendo o software livre e protegendo futuras modificações e redistribuições
 sob os mesmos termos.
 
-No entanto, licenças copyleft são por vezes rotuladas como "licenças virais",
+No entanto, licenças copyleft são por vezes rotuladas como ``licenças virais'',
 um termo pejorativo que surgiu em meados de 1990, um ano depois do lançamento
 da GPLv1. Devido à maneira como suas obrigações legais podem se estender aos
 projetos derivados. Essas licenças estipulam condições específicas, sob as
@@ -989,32 +979,28 @@ sequência de vídeo. Existem três tipos de quadros no H.264:
 	      quadros de referência.
 \end{itemize}
 
-Para manter a qualidade da imagem, o H.264 opera em um "ciclo de quadros", onde
-os quadros de referência são periodicamente atualizados. Isso assegura que
+Para manter a qualidade da imagem, o H.264 opera em um ``ciclo de quadros'',
+onde os quadros de referência são periodicamente atualizados. Isso assegura que
 quadros-chave (I-frames) sejam inseridos regularmente para preservar a
 qualidade visual durante a transmissão de vídeo. Também utilizam-se várias
 técnicas avançadas de compressão de vídeo para eficientemente codificar quadros
-P e B. Uma dessas técnicas é a "predição de movimento", que identifica padrões
-de movimento nos quadros de referência e registra apenas as diferenças entre o
-quadro atual e as previsões de movimento dos quadros de referência. Isso
-economiza espaço de armazenamento e largura de banda, eliminando informações
-redundantes.
+P e B. Uma dessas técnicas é a ``predição de movimento'', que identifica
+padrões de movimento nos quadros de referência e registra apenas as diferenças
+entre o quadro atual e as previsões de movimento dos quadros de referência.
+Isso economiza espaço de armazenamento e largura de banda, eliminando
+informações redundantes.
 
-Outra técnica crucial é a "transformada de blocos", onde os blocos de pixels em
-um quadro são convertidos em coeficientes de frequência por meio da Discrete
+Outra técnica crucial é a ``transformada de blocos'', onde os blocos de pixels
+em um quadro são convertidos em coeficientes de frequência por meio da Discrete
 Cosine Transform (DCT). Essa conversão permite a compactação de informações, e
 os coeficientes de alta frequência, que contêm menos detalhes visíveis, podem
-ser quantizados ou eliminados com perda mínima de qualidade. \cite{1626286}
+ser quantizados ou eliminados com perda mínima de qualidade \cite{1626286}.
 
 Em resumo, esse codec é amplamente utilizado em aplicações em tempo real, como
 videoconferência, streaming ao vivo e videochamadas, devido à sua eficiência de
 compressão e baixa latência. Ele oferece uma boa qualidade de vídeo com taxas
 de bits relativamente baixas e é compatível com uma ampla variedade de
 dispositivos e aplicativos.
-
-% \subsection{AV1}
-
-% \subsection{VP9}
 
 \section{Tecnologias}
 
@@ -1121,8 +1107,8 @@ tempo real e aproveita as instruções MMX e SSE quando disponíveis. Interfaces
 completas para CUDA e OpenCL estão sendo desenvolvidas ativamente no momento.
 Existem mais de 500 algoritmos e cerca de 10 vezes mais funções que compõem ou
 suportam esses algoritmos. O OpenCV é escrito nativamente em C++ e possui uma
-interface com modelos que funciona perfeitamente com contêineres STL.
-\cite{opencvwebsite}
+interface com modelos que funciona perfeitamente com contêineres STL
+\cite{opencvwebsite}.
 
 \section{Trabalhos Correlatos}
 
@@ -1169,9 +1155,9 @@ algoritmos sofisticados de compressão e reconhecimento, assim como casos de
 vulnerabilidades de segurança. O intuito é discernir os padrões de uso e as
 preferências do setor.
 
-Dentro desse contexto, uma análise focada no SSCS será realizada.
-Investigaremos se ele propõe uma reinvenção dessas soluções padrão ou se opta
-por uma integração harmônica com elas. Esta etapa é crucial para entender a
+Dentro desse contexto, uma análise focada no SSCS será realizada. Será
+investigado se este propõe uma reinvenção dessas soluções padrão ou se opta por
+uma integração harmônica com elas. Esta etapa é crucial para entender a
 proposta de valor e o diferencial que o sistema proposto oferece em relação às
 alternativas tradicionais.
 
@@ -1205,7 +1191,7 @@ geração. A maior parte da pesquisa nesses sistemas é baseada na criação de
 algoritmos para detecção automática em tempo real de eventos, auxiliando o
 usuário a reconhecer os eventos.
 
-Seguindo essa mesma tendência tecnológica, chegamos então à terceira geração,
+Seguindo essa mesma tendência tecnológica, chega-se então à terceira geração,
 que se refere aos sistemas de vigilância concebidos para lidar com um grande
 número de câmeras, uma dispersão geográfica de recursos, muitos pontos de
 monitoramento, e para espelhar a natureza hierárquica e distribuída do processo
@@ -1237,54 +1223,58 @@ compressão de vídeo, cada qual com suas especificidades e aplicações ideais.
 
 \subsection{métodos de transmissão}
 
-No quesito dos métodos de transmissão multimídia por essas câmeras, temos três
+No quesito dos métodos de transmissão multimídia por essas câmeras, tem-se três
 métodos principais: \textit{\foreignlanguage{english}{streaming}} tradicional,
 \textit{\foreignlanguage{english}{download}} progressivo, e
 \textit{\foreignlanguage{english}{streaming}} adaptativo. Cada um deles tem
 suas vantagens e desvantagens quanto aos critérios de latência, qualidade,
 requerimentos de processamento e compatibilidade com outros tipos de software.
-O \textit{\foreignlanguage{english}{Streaming}} tradicional requer um protocolo
-\textit{\foreignlanguage{english}{stateful}} que estabelece uma sessão entre o
-servidor e o cliente. Nesse último método, a mídia é transmitida como uma
-corrente constante de pacotes por UDP ou TCP. Como exemplo o Real Time
-Streaming Protocol (RTSP), baseado no Real-time Transport Protocol (RTP), que é
-o mais comum para a transmissão de vídeo nas câmeras por IP: a vasta maioria
-delas o integram como padrão. Já no método do streaming por
-\textit{\foreignlanguage{english}{download}} progressivo, usa-se um servidor
-HTTP para transferir o vídeo entre o cliente e o servidor, de maneira
-\textit{\foreignlanguage{english}{stateless}}. Os clientes fazem requisições de
-multimídia, que é enviado progressivamente para um buffer local. Assim que ele
-tem informação o suficiente, o vídeo começa a tocar. Se a taxa de
-\textit{\foreignlanguage{english}{playback}} excede a taxa de transmissão de
-dados, então o vídeo é interrompido até que o buffer seja preenchido
-adequadamente. O \textit{\foreignlanguage{english}{streaming}} adaptativo por
-sua vez, consiste em detectar a largura de banda de rede e capacidade de CPU do
-cliente para ajustar a qualidade do vídeo transmitido buscando a melhor opção
-para as condições dadas. Isso requer um
-\textit{\foreignlanguage{english}{encoder}} para prover vídeo em múltiplos
-\textit{\foreignlanguage{english}{bit rates}} diferentes, ou múltiplos
-\textit{\foreignlanguage{english}{encoders}} e pode ser usada uma Content
-Delivery Network (CDN) para aumentar a escalabilidade. É comum em streaming
-adaptativo utilizar a técnica de \textit{\foreignlanguage{english}{stream
-		switching}}. Esse é um método híbrido que usa HTTP como o protocolo de entrega
-no lugar de definir um novo protocolo. Os dados de multimídia são segmentados
-em pequenas partes de mesmo tamanho, codificados no formato desejado e
-armazenadas em um servidor. Os clientes então requisitam os segmentos
-sequencialmente por download progressivo e eles são tocados em ordem já que são
-contíguos. O resultado é uma experiência de usuário praticamente livre de
-gargalos de buffering em condições normais de rede e CPU.
+\begin{itemize}
+	\item \textit{\foreignlanguage{english}{Streaming}} tradicional requer
+	      um protocolo \textit{\foreignlanguage{english}{stateful}} que estabelece uma
+	      sessão entre o servidor e o cliente. Nesse último método, a mídia é transmitida
+	      como uma corrente constante de pacotes por UDP ou TCP. Como exemplo o Real Time
+	      Streaming Protocol (RTSP), baseado no Real-time Transport Protocol (RTP), que é
+	      o mais comum para a transmissão de vídeo nas câmeras por IP: a vasta maioria
+	      delas o integram como padrão.
+	\item Já no método do streaming por
+	      \textit{\foreignlanguage{english}{download}} progressivo, usa-se um servidor
+	      HTTP para transferir o vídeo entre o cliente e o servidor, de maneira
+	      \textit{\foreignlanguage{english}{stateless}}. Os clientes fazem requisições de
+	      multimídia, que é enviado progressivamente para um buffer local. Assim que ele
+	      tem informação o suficiente, o vídeo começa a tocar. Se a taxa de
+	      \textit{\foreignlanguage{english}{playback}} excede a taxa de transmissão de
+	      dados, então o vídeo é interrompido até que o buffer seja preenchido
+	      adequadamente.
+	\item O \textit{\foreignlanguage{english}{streaming}} adaptativo por
+	      sua vez, consiste em detectar a largura de banda de rede e capacidade de CPU do
+	      cliente para ajustar a qualidade do vídeo transmitido buscando a melhor opção
+	      para as condições dadas. Isso requer um
+	      \textit{\foreignlanguage{english}{encoder}} para prover vídeo em múltiplos
+	      \textit{\foreignlanguage{english}{bit rates}} diferentes, ou múltiplos
+	      \textit{\foreignlanguage{english}{encoders}} e pode ser usada uma Content
+	      Delivery Network (CDN) para aumentar a escalabilidade. É comum em streaming
+	      adaptativo utilizar a técnica de \textit{\foreignlanguage{english}{stream
+			      switching}}. Esse é um método híbrido que usa HTTP como o protocolo de entrega
+	      no lugar de definir um novo protocolo. Os dados de multimídia são segmentados
+	      em pequenas partes de mesmo tamanho, codificados no formato desejado e
+	      armazenadas em um servidor. Os clientes então requisitam os segmentos
+	      sequencialmente por download progressivo e eles são tocados em ordem já que são
+	      contíguos. O resultado é uma experiência de usuário praticamente livre de
+	      gargalos de buffering em condições normais de rede e CPU.
+\end{itemize}
 
-\subsection{algoritmos de reconhecimento de imagem}
+\subsection{Algoritmos de Reconhecimento de Imagem}
 
 Existem duas abordagens convencionais principais para detecção de objetos:
-"diferença temporal" e "subtração de fundo". A primeira abordagem consiste na
-subtração de dois quadros consecutivos seguida por uma limiarização. A segunda
-técnica é baseada na subtração de um modelo de fundo ou referência e a imagem
-atual seguida por um processo de rotulagem. Além destas, existem abordagens
-baseadas em aprendizado de máquina, como o Haar Cascade, onde classificadores
-são treinados usando imagens positivas (com objetos) e imagens negativas (sem
-objetos) para criar uma função que pode ser usada para detectar algo específico
-em outras imagens. \cite{Valera2005IntelligentDS31}
+``diferença temporal'' e ``subtração de fundo''. A primeira abordagem consiste
+na subtração de dois quadros consecutivos seguida por uma limiarização. A
+segunda técnica é baseada na subtração de um modelo de fundo ou referência e a
+imagem atual seguida por um processo de rotulagem. Além destas, existem
+abordagens baseadas em aprendizado de máquina, como o Haar Cascade, onde
+classificadores são treinados usando imagens positivas (com objetos) e imagens
+negativas (sem objetos) para criar uma função que pode ser usada para detectar
+algo específico em outras imagens. \cite{Valera2005IntelligentDS31}
 
 O Haar Cascade é especialmente eficaz para detecção de faces e oferece
 processamento rápido, sendo uma opção viável para detecção em tempo real. No
@@ -1295,7 +1285,7 @@ detecção de diversos tipos de objetos em cenários variados, embora exijam um
 grande volume de dados para treinamento e recursos computacionais
 consideráveis. \cite{MLKHaarCascade2021}
 
-\subsection{armazenamento, resolução e compressão}
+\subsection{Armazenamento, Resolução e Compressão}
 
 Uma das funções fundamentais presente em quase todos os sistemas de vigilância
 é o armazenamento do vídeo e sua leitura posterior. A maneira de como é feita
@@ -1303,26 +1293,30 @@ esse armazenamento depende de vários fatores: volume de dados, período de
 retenção, velocidade de acesso, largura de banda (se houver interação com
 sistemas pela rede), escalabilidade, segurança, conformidade legal e outros. Em
 especial, a resolução da câmera tem uma forte relação com o volume de dados que
-por sua vez afeta muitos dos outros fatores também. A tabela a seguir detalha o
-espaço de armazenamento necessário, em Terabytes, para arquivar 30 dias de
-filmagem, capturada em diferentes resoluções de 12 câmeras, operando
-continuamente durante 24 horas por dia. % Ends the current page and places the table at the top of the next page
+por sua vez afeta muitos dos outros fatores também. A \autoref{table:example}
+detalha o espaço de armazenamento necessário, em Terabytes, para arquivar 30
+dias de filmagem, capturada em diferentes resoluções de 12 câmeras, operando
+continuamente durante 24 horas por dia.  % Ends the current page and places the table at the top of the next page%\clearpage
 
 \begin{table}[ht]
 	\centering
-	\begin{tabular}{|c|c|c|c|}
-		\hline
-		Resolução         & MJPEG     & H.264    & H.265    \\ \hline
-		1MP (1280x720)    & 27,5 TB   & 3,97 TB  & 1,34 TB  \\ \hline
-		2MP  (1920x1080)  & 61 TB     & 8,9 TB   & 3,0 TB   \\ \hline
-		3MP  (2048x1536)  & 93 TB     & 13 TB    & 4 TB     \\ \hline
-		5MP  (2592x19044) & 150 TB    & 21,74 TB & 7,37 TB  \\ \hline
-		8MP  (4K)         & 464,38 TB & 67,10 TB & 22,76 TB \\ \hline
-
-	\end{tabular}
 	\caption{Tabela comparativa de resoluções e compressão versus tamanho,
 		baseada em dados obtidos do Surveillance Capacity Calculator
 		\cite{surveillancecalculator}.}
+	\begin{tabular}{|l|c|c|c|}
+		\hline
+		Resolução        & MJPEG     & H.264    & H.265    \\ \hline
+		1MP (1280x720)   & 27,50 TB  & 3,97 TB  & 1,34 TB  \\
+		%\hline
+		2MP (1920x1080)  & 61,00 TB  & 8,90 TB  & 3,00 TB  \\
+		%\hline
+		3MP (2048x1536)  & 93,00 TB  & 13,00 TB & 4,00 TB  \\
+		%\hline
+		5MP (2592x19044) & 150,00 TB & 21,74 TB & 7,37 TB  \\
+		%\hline
+		8MP (4K)         & 464,38 TB & 67,10 TB & 22,76 TB \\ \hline
+
+	\end{tabular}
 	\label{table:example}
 \end{table}
 
@@ -1377,7 +1371,7 @@ dos recursos. Portanto, mecanismos de controle de acesso técnicos, físicos e
 administrativos precisam ser implementados e documentados independente da
 escolha armazenamento, como forma de mitigar vulnerabilidades.
 
-\section{custos de operação}
+\subsection{custos de operação}
 
 O custo total do SSCS é composto por dois elementos principais: o investimento
 inicial na aquisição das câmeras e a opção de hospedagem do serviço. Para a
@@ -1576,24 +1570,23 @@ métodos, utilizando-se essa ferramenta com o terminal, para replicar localmente
 os sistemas externos básicos dos quais o SSCS depende.
 
 \begin{minted}
-	[%
-	breaklines,
-	mathescape,
-	linenos,
-	numbersep=5pt,
-	frame=single,
-	numbersep=5pt,
-	xleftmargin=0pt,
-	]{make}
-	docker build -t sscs-mtx ./dev
+[breaklines,
+ mathescape,
+ linenos,
+ numbersep=5pt,
+ frame=single,
+ numbersep=5pt,
+ xleftmargin=0pt
+ ]{make}
+ docker build -t sscs-mtx ./dev
 
-	docker run -d --rm --network=host -p 8554:8554 -p 8889:8889 \
-	-v ./dev/mediamtx.yml --name sscs-mtx sscs-mtx
+ docker run -d --rm --network=host -p 8554:8554 -p 8889:8889 \
+ -v ./dev/mediamtx.yml --name sscs-mtx sscs-mtx
 
-	docker run -d --rm --network=host  -p 5432:5432   \
-	-e POSTGRES_PASSWORD=gorm -e POSTGRES_USER=gorm  \
-	-e  POSTGRES_DB=gorm --name sscs-postgres postgres
-	\end{minted}
+ docker run -d --rm --network=host  -p 5432:5432   \
+ -e POSTGRES_PASSWORD=gorm -e POSTGRES_USER=gorm  \
+ -e  POSTGRES_DB=gorm --name sscs-postgres postgres
+\end{minted}
 
 Esse script realiza as seguintes ações: primeiro constrói uma imagem Docker
 chamada \texttt{sscs-mtx} a partir de um Dockerfile no diretório
@@ -1612,19 +1605,19 @@ Opcionalmente, para testar a autenticação se for necessário, é possível rod
 Keycloak em um contêiner:
 
 \begin{minted}
-		[%
-		breaklines,
-		mathescape,
-		linenos,
-		numbersep=5pt,
-		frame=single,
-		numbersep=5pt,
-		xleftmargin=0pt,
-		]{make}
-		docker run --name=keycloak -p 8080:8080 -e KEYCLOAK_ADMIN=admin \
-		-e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:23.0.7 \
-		start-dev	
-	\end{minted}
+	[%
+	 breaklines,
+	 mathescape,
+	 linenos,
+	 numbersep=5pt,
+	 frame=single,
+	 numbersep=5pt,
+	 xleftmargin=0pt,
+	 ]{make}
+	 docker run --name=keycloak -p 8080:8080 -e KEYCLOAK_ADMIN=admin \
+	 -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:23.0.7 \
+	 start-dev	
+\end{minted}
 
 Esse container pode ser usado para configurar um servidor de identidade que usa
 tokens JWT, permitindo autenticação tanto no MediaMTX quanto an API. Essa etapa
@@ -1652,15 +1645,9 @@ corrente de multimídia destinada ao SSCS.
 	\includegraphics[width=1\linewidth]{arch1.pdf}
 	\caption[Exemplo de arquitetura de transmissão]{Arquitetura de
 		transmissão, múltiplas fontes para um servidor de mídia}
-	\label{fig:graficosVariandoTamanhoRede}
+	\label{fig:arqtransm}
 \end{figure}
 
-% \begin{figure}[!ht]
-% 	\centering
-% 	\includegraphics[width=0.8\linewidth]{arch2.pdf}
-% 	\caption[Exemplo de arquiteutra de transmissão]{Arquitetura de transmissão, múltiplos servidores de mídia}
-% 	\label{fig:graficosVariandoTamanhoRede}
-% \end{figure}
 
 A imagem mostra a configuração básica do SSCS, onde câmeras ou outras fontes de
 transmissão de multimídia podem encaminhar fluxos para um servidor
@@ -1703,20 +1690,20 @@ o método \mintinline{go}{findConfig()} procura o arquivo \texttt{sscs.yml} em
 algumas localizações comuns diferentes e devolve a primeira que encontrar.
 
 \begin{minted}
-		[%
-		breaklines,
-		mathescape,
-		linenos,
-		numbersep=5pt,
-		frame=single,
-		numbersep=5pt,
-		xleftmargin=0pt,
-		]{go}
-	func ReadConf() (Config, error) {
-		cfg, err := findConfig()
-		return cfg, err
-	}
-	\end{minted}
+	[%
+	 breaklines,
+	 mathescape,
+	 linenos,
+	 numbersep=5pt,
+	 frame=single,
+	 numbersep=5pt,
+	 xleftmargin=0pt,
+	 ]{go}
+func ReadConf() (Config, error) {
+	cfg, err := findConfig()
+	return cfg, err
+}
+\end{minted}
 
 \section{Gravador}
 
@@ -1736,32 +1723,32 @@ para aquele componente. Isso facilita a depuração de problemas e performance.
 Os últimos dois ficam á critério da implementação.
 
 \begin{minted}
-		[%
-		breaklines,
-		mathescape,
-		linenos,
-		numbersep=5pt,
-		frame=single,
-		numbersep=5pt,
-		xleftmargin=0pt,
-		]{go}
-	type Recorder interface {
-		Start() error 
-		Stop() error 
-		setupLogger()
-		record() error
-		sendFrame(image.Image) error
-	}
+	[%
+	 breaklines,
+	 mathescape,
+	 linenos,
+	 numbersep=5pt,
+	 frame=single,
+	 numbersep=5pt,
+	 xleftmargin=0pt,
+	 ]{go}
+type Recorder interface {
+	Start() error 
+	Stop() error 
+	setupLogger()
+	record() error
+	sendFrame(image.Image) error
+}
 
-	type EventChannels struct {
-		RecordOut chan<- RecordedEvent
-		FrameOut  chan<- image.Image
-	}	
+type EventChannels struct {
+	RecordOut chan<- RecordedEvent
+	FrameOut  chan<- image.Image
+}	
 
-	type Config struct {
-		rtspFeed string
-	}
-	\end{minted}
+type Config struct {
+	rtspFeed string
+}
+\end{minted}
 
 No contexto do desenvolvimento em Go, o método \mintinline{golang}{record}
 implementado pelo componente \texttt{Recorder} é privado, o que significa que
@@ -1800,7 +1787,7 @@ utiliza o protocolo RTSP para transmissão de dados de mídia.
 	\centering
 	\includegraphics[width=0.7\linewidth]{gravador.pdf}
 	\caption[Diagram isolado do gravador]{Diagram isolado do gravador}
-	\label{fig:graficosVariandoTamanhoRede}
+	\label{fig:diaggravador}
 \end{figure}
 
 \subsection{Implementação de gravador com RTSP e compressão H.264}
@@ -1816,7 +1803,7 @@ quadros de vídeo.
 	\includegraphics[width=1\linewidth]{rtsp_h264recorder.pdf}
 	\caption[Diagrama isolado do gravador RTSP]{Diagrama isolado do
 		gravador RTSP}
-	\label{fig:graficosVariandoTamanhoRede}
+	\label{fig:diaggravadorisolado}
 \end{figure}
 
 O cliente RTSP primeiro emite um requisição do tipo DESCRIBE ao servidor de
@@ -1863,22 +1850,22 @@ encaminhá-los para as funções que lidam o registro da informação no banco d
 dados.
 
 \begin{minted}
-		[%
-		breaklines,
-		mathescape,
-		linenos,
-		numbersep=5pt,
-		frame=single,
-		numbersep=5pt,
-		xleftmargin=0pt,
-		]{go}
-	type Indexer interface {
-		Start() error
-		Stop() error
-		setupLogger()
-		listen() error
-	}
-	\end{minted}
+	[%
+	 breaklines,
+	 mathescape,
+	 linenos,
+	 numbersep=5pt,
+	 frame=single,
+	 numbersep=5pt,
+	 xleftmargin=0pt,
+	 ]{go}
+type Indexer interface {
+	Start() error
+	Stop() error
+	setupLogger()
+	listen() error
+}
+\end{minted}
 
 No diagrama à seguir, mostra-se que o indexador não provê nenhuma interface,
 ele apenas requer algumas. Isso porque ele lida exclusivamente com a escrita
@@ -1894,7 +1881,7 @@ seja, um mecanismo. \cite{martin2018clean}
 	\centering
 	\includegraphics[width=0.8\linewidth]{indexer.pdf}
 	\caption[Diagrama isolado do indexador]{Diagrama isolado do indexador}
-	\label{fig:graficosVariandoTamanhoRede}
+	\label{fig:diagindexisolado}
 \end{figure}
 
 \subsection{Implementação do indexador com PostgreSQL}
@@ -1912,7 +1899,7 @@ testadas.
 	\includegraphics[width=1\linewidth]{postgres_indexer.pdf}
 	\caption[Diagrama isolado da implementação do indexador com
 		PostgreSQL]{Diagrama isolado da implementação do indexador com PostgreSQL}
-	\label{fig:graficosVariandoTamanhoRede}
+	\label{fig:idagindexisoladopostgres}
 \end{figure}
 
 \section{Reconhecedor}
@@ -1929,38 +1916,38 @@ associados a cada imagem reconhecida, tais como categoria do evento
 reconhecido, timestamp e enquadramento da figura reconhecida.
 
 \begin{minted}
-		[%
-		breaklines,
-		mathescape,
-		linenos,
-		numbersep=5pt,
-		frame=single,
-		numbersep=5pt,
-		xleftmargin=0pt,
-		]{go}
-	type Recognizer interface {
-		Start() error
-		Stop() error
-		setupLogger()
-		view() error
-	}
+	[%
+	 breaklines,
+	 mathescape,
+	 linenos,
+	 numbersep=5pt,
+	 frame=single,
+	 numbersep=5pt,
+	 xleftmargin=0pt,
+	 ]{go}
+type Recognizer interface {
+	Start() error
+	Stop() error
+	setupLogger()
+	view() error
+}
 
-	type EventChannels struct {
-		FrameIn  <-chan image.Image
-		FrameOut chan<- image.Image
-		RecogOut chan<- RecognizedEvent
-	}
+type EventChannels struct {
+	FrameIn  <-chan image.Image
+	FrameOut chan<- image.Image
+	RecogOut chan<- RecognizedEvent
+}
 
 
-	type Config struct {
-		ThumbsDir string
-	}
+type Config struct {
+	ThumbsDir string
+}
 
-	type RecognizedEvent struct {
-		name      string
-		timestamp int
-	}
-	\end{minted}
+type RecognizedEvent struct {
+	name      string
+	timestamp int
+}
+\end{minted}
 
 Assim como o indexador, essa interface é simplificada. Há apenas um método
 privado, o \texttt{view}, que lida com o processamento de cada imagem. As
@@ -1986,7 +1973,7 @@ integração de uma interface para ler quadros.
 	\includegraphics[width=0.4\linewidth]{recognizer.pdf}
 	\caption[Diagrama isolado da implementação do reconhecedor de
 		imagens]{Diagrama isolado da implementação do reconhecedor de imagens}
-	\label{fig:graficosVariandoTamanhoRede}
+	\label{fig:diagrecogisolado}
 \end{figure}
 
 \subsection{Implementação de reconhecedor de movimento}
@@ -2013,7 +2000,7 @@ lacunas, o que simplifica a próxima etapa, que é inserção de contornos.
 	\includegraphics[width=1.0\linewidth]{motion_detector.pdf}
 	\caption[Diagrama da implementação do reconhecedor de
 		movimento]{Diagrama da implementação do reconhecedor de movimento}
-	\label{fig:graficosVariandoTamanhoRede}
+	\label{fig:diagrecogmove}
 \end{figure}
 
 \section{Implementação do detector usando cascata Haar}
@@ -2045,48 +2032,48 @@ arquivos e a ação para que componentes como o indexador possam deletar as
 referências aos arquivos.
 
 \begin{minted}
-		[%
-		breaklines,
-		mathescape,
-		linenos,
-		numbersep=5pt,
-		frame=single,
-		numbersep=5pt,
-		xleftmargin=0pt,
-		]{go}
-	type Storer interface {
-		Start() error
-		Stop() error
-		setupLogger()
-		monitor() error
-		OpenFiles(filenames []string) ([]*os.File, error)
-	}	
+	[%
+	 breaklines,
+	 mathescape,
+	 linenos,
+	 numbersep=5pt,
+	 frame=single,
+	 numbersep=5pt,
+	 xleftmargin=0pt,
+	 ]{go}
+type Storer interface {
+	Start() error
+	Stop() error
+	setupLogger()
+	monitor() error
+	OpenFiles(filenames []string) ([]*os.File, error)
+}	
 
-	type EventChannels struct {
-		CleanOut chan<- CleanedEvent
-	}
+type EventChannels struct {
+	CleanOut chan<- CleanedEvent
+}
 
-	type Config struct {
-		sizeLimit   int
-		checkPeriod int
-		folderPath  string
-		backupPath  string
-	}
+type Config struct {
+	sizeLimit   int
+	checkPeriod int
+	folderPath  string
+	backupPath  string
+}
 
-	type FileStatus int
+type FileStatus int
 
-	const (
-		FileUnchanged FileStatus = iota 
-		FileMoved                      
-		FileErased                    
-	)
+const (
+	FileUnchanged FileStatus = iota 
+	FileMoved                      
+	FileErased                    
+)
 
-	type CleanedEvent struct {
-		filename   string
-		fileSize   int
-		fileStatus FileStatus
-	}
-	\end{minted}
+type CleanedEvent struct {
+	filename   string
+	fileSize   int
+	fileStatus FileStatus
+}
+\end{minted}
 
 Por meio dos método \texttt{monitor} demonstrado na interface acima, é ativada
 a rotina periódica do \texttt{Storer} descrita no parágrafo anterior. Além
@@ -2107,9 +2094,8 @@ respectivamente os diretórios de armazenamento primário e backup,
 	\includegraphics[width=0.3\linewidth]{storer.pdf}
 	\caption[Diagrama isolado da implementação do gerenciador de
 		armazenamento]{Diagrama isolado da implementação do gerenciador de
-		armazenamento
-	}
-	\label{fig:graficosVariandoTamanhoRede}
+		armazenamento }
+	\label{fig:diagisoladostorer}
 \end{figure}
 
 \subsection{Implementação de gerenciador de armazenamento sobre espaço em
@@ -2127,7 +2113,7 @@ apagados, dependendo de como o componente foi configurado.
 		usando o sistema operacional]{Diagrama da implementação do gerenciador de
 		armazenamento usando o disco como fonte de armazenamento e o sistema
 		operacional para interagir com ele}
-	\label{fig:graficosVariandoTamanhoRede}
+	\label{fig:diagstoreros}
 \end{figure}
 
 \section{API HTTP RESTful}
@@ -2152,7 +2138,7 @@ arquivos.
 	\includegraphics[width=0.8\linewidth]{api_http.pdf}
 	\caption[Diagrama da implementação da API HTTP]{Diagrama da API HTTP e
 		seus sub-componentes}
-	\label{fig:graficosVariandoTamanhoRede}
+	\label{fig:diagapihttp}
 \end{figure}
 
 É possível ver no diagrama da API HTTP que ela depende do pacote Gin para
@@ -2199,7 +2185,7 @@ core, serve os eventos estruturados para os clientes.
 	\includegraphics[width=1.0\linewidth]{core.pdf}
 	\caption[Diagrama geral do SSCS]{Todos os componentes principais do
 		SSCS e suas interações}
-	\label{fig:graficosVariandoTamanhoRede}
+	\label{fig:diagsscs}
 \end{figure}
 
 % \section{Interface gráfica}
@@ -2227,19 +2213,19 @@ documentado. Veja como exemplo um comentário do pacote \texttt{recognizer} do
 SSCS:
 
 \begin{minted}
-		[%
-		breaklines,
-		mathescape,
-		linenos,
-		numbersep=5pt,
-		frame=single,
-		numbersep=5pt,
-		xleftmargin=0pt,
-		]{go}
-	// Package recognizer provides implementations
-	// for multiple image recognition algorithms.
-	package recognizer
-	\end{minted}
+	[%
+	 breaklines,
+	 mathescape,
+	 linenos,
+	 numbersep=5pt,
+	 frame=single,
+	 numbersep=5pt,
+	 xleftmargin=0pt,
+	 ]{go}
+// Package recognizer provides implementations
+// for multiple image recognition algorithms.
+package recognizer
+\end{minted}
 
 Note que o comentário começa com o nome do elemento que está descrevendo. É
 essa convenção simples que permite gerar documentos em uma vários formatos,
@@ -2248,29 +2234,29 @@ preciso visualizar a documentação de um módulo direto no terminal, uma das
 maneiras é usar o comando \texttt{go doc}, da seguinte maneira:
 
 \begin{minted}
-		[%
-		breaklines,
-		mathescape,
-		linenos,
-		numbersep=5pt,
-		frame=single,
-		numbersep=5pt,
-		xleftmargin=0pt,
-		]{bash}
-	$  go doc  github.com/pedrohba1/SSCS/services/recognizer  	 
-	package recognizer // import "github.com/pedrohba1/SSCS/services/recognizer"
+	[%
+	 breaklines,
+	 mathescape,
+	 linenos,
+	 numbersep=5pt,
+	 frame=single,
+	 numbersep=5pt,
+	 xleftmargin=0pt,
+	 ]{bash}
+$  go doc  github.com/pedrohba1/SSCS/services/recognizer  	 
+package recognizer // import "github.com/pedrohba1/SSCS/services/recognizer"
 
-	Package recognizer provides implementations for multiple image recognition algorithms.
+Package recognizer provides implementations for multiple image recognition algorithms.
 
 
-	type CompositeRecognizer struct{ ... }
-		func MewCompositeRecognizer(fchan chan image.Image) *CompositeRecognizer
-	type FaceDetector struct{ ... }
-		func NewFaceDetector(fchan chan image.Image) *FaceDetector
-	type MotionDetector struct{ ... }
-		func NewMotionDetector(fchan chan image.Image) *MotionDetector
-	type Recognizer interface{ ... }
-	\end{minted}
+type CompositeRecognizer struct{ ... }
+    func MewCompositeRecognizer(fchan chan image.Image) *CompositeRecognizer
+type FaceDetector struct{ ... }
+    func NewFaceDetector(fchan chan image.Image) *FaceDetector
+type MotionDetector struct{ ... }
+    func NewMotionDetector(fchan chan image.Image) *MotionDetector
+type Recognizer interface{ ... }
+\end{minted}
 
 Analogamente, se for preferível páginas web para navegar pela documentação, uma
 instância de servidor web local da \texttt{godoc} pode ser iniciada localmente
