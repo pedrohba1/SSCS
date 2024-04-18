@@ -1,7 +1,9 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -51,7 +53,13 @@ func FindRecogs(c *gin.Context) {
 	baseUrl := conf.CachedConfig.API.BaseUrl
 
 	for i := range recognitions {
-        recognitions[i].Path = baseUrl + "/file/" + recognitions[i].Path
+		baseIndex := strings.Index(recognitions[i].Path, "thumbs")
+		if baseIndex == -1 {
+			fmt.Println("Base directory not found in the path")
+			continue
+		}
+
+        recognitions[i].Path = baseUrl + "/file/" + recognitions[i].Path[baseIndex:]
     }
 
 	c.JSON(http.StatusOK, gin.H{"data": recognitions})
