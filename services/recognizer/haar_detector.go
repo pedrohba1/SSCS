@@ -23,6 +23,8 @@ type HaarDetector struct {
 	eChans EventChannels
 	haarPath string
 	thumbsDir  string
+	eventName string
+	frameLabel string
 	stopCh chan struct{}
 }
 
@@ -36,18 +38,22 @@ func NewHaarDetector(eChans EventChannels) *HaarDetector {
 	return r
 }
 
-func (fd *HaarDetector) Start() error {
+func (hd *HaarDetector) Start() error {
 	// Ensure the recordings directory exists
 	cfg, _ := conf.ReadConf()
-	fd.haarPath = cfg.Recognizer.FaceHaarPath
-	fd.thumbsDir = cfg.Recognizer.ThumbsDir
+	hd.haarPath = cfg.Recognizer.HaarPath
+	hd.logger.Info(cfg)
+	hd.logger.Info("haar path:", hd.haarPath)
+
+	hd.thumbsDir = cfg.Recognizer.ThumbsDir
+	hd.frameLabel = cfg.Recognizer.FrameLabel
 	err := helpers.EnsureDirectoryExists(cfg.Recognizer.ThumbsDir)
 	if err != nil {
-		fd.logger.Errorf("%v", err)
+		hd.logger.Errorf("%v", err)
 		return err
 	}
-	fd.wg.Add(1)
-	go fd.view()
+	hd.wg.Add(1)
+	go hd.view()
 	return nil
 }
 
@@ -115,9 +121,9 @@ func (r *HaarDetector) view() error {
 			// along with text identifying as "Human"
 			for _, rect := range rects {
 				gocv.Rectangle(&img, rect, blue, 3)
-				size := gocv.GetTextSize("Human", gocv.FontHersheyPlain, 1.2, 2)
+				size := gocv.GetTextSize(r.frameLabel, gocv.FontHersheyPlain, 1.2, 2)
 				pt := image.Pt(rect.Min.X+(rect.Min.X/2)-(size.X/2), rect.Min.Y-2)
-				gocv.PutText(&img, "Human", pt, gocv.FontHersheyPlain, 1.2, blue, 2)
+				gocv.PutText(&img, r.frameLabel, pt, gocv.FontHersheyPlain, 1.2, blue, 2)
 			}
 
 			helpers.SaveMatToFile(img, r.thumbsDir)
@@ -129,7 +135,7 @@ func (r *HaarDetector) view() error {
 			}
 			r.sendRecog(RecognizedEvent{
 				Path: fname,
-				Context: "face detected",
+				Context: r.eventName,
 			})
 		
 

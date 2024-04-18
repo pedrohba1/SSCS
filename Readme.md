@@ -84,7 +84,8 @@ To check if the media server is running properly, go to `http://localhost:8889/m
 
 ### Connecting SSCS
 
-With all the dev environment, SSCS can be run either through the binary now or by running `go run ./cmd/daemon`. It should
+With all the dev environment, SSCS can be run either through the binary now or by running `go run ./cmd/daemon`. Notice that
+it is going to use the `sscs.yml` that is present in the root directory. So make sure to run the correct one.  It should
 start prompting logs as below:
 
 ```
@@ -107,11 +108,31 @@ $ sudo ./daemon install
 $ sudo ./daemon start
 ```
 
-### Recognition
+When started, SSSC will recognize images, index when they were recognized and what was recognized, record and
+handle storage size. It is possible to run multiple recognizers side by side, for the same video feed, just by
+running more cores. The recognized images will be saved all into the same folder, as the events will be indexed
+into the same database, assuming it is using the same `sscs.yml` configuration for both cores.
+<table>
+  <tr>
+    <td>
+      <img src="services/docs/rec1.jpeg" alt="Tina, my cat, being recognized" style="width: 100%;">
+    </td>
+    <td>
+      <img src="services/docs/rec2.jpeg" alt="Me being recognized" style="width: 100%;">
+    </td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">
+      <em>Figure 1: Tina, my cat, being recognized from one core</em>
+    </td>
+    <td style="text-align: center;">
+      <em>Figure 2: Me being recognized from another core</em>
+    </td>
+  </tr>
+</table>
 
 
-
-
+### API usage
 
 
 

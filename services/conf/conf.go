@@ -25,8 +25,10 @@ type IndexerConfig struct {
 }
 
 type RecognizerConfig struct {
-	FaceHaarPath string `yaml:"faceHaarPath"`
+	HaarPath string `yaml:"haarPath"`
 	ThumbsDir    string `yaml:"thumbsDir"`
+	EventName string `yaml:"eventName"`
+	FrameLabel string `yaml:"frameLabel"`
 }
 
 type StorerConfig struct {
