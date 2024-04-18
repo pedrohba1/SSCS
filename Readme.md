@@ -134,6 +134,20 @@ into the same database, assuming it is using the same `sscs.yml` configuration f
 
 ### API usage
 
+The HTTP API has the following features:
+
+1. Search for all recognition events, allowing filtering by date range using RFC3339 format dates. The API responds with the recognition context, the creation date of the event, and a hyperlink to the image of what was recognized, with markings.
+2. Search for all recordings, with a date range filter similar to the previous functionality. The API provides the start and end time of each recording as well as a hyperlink for its viewing.
+3. Return an aggregate of the recordings over a date range for download.
+
+Here are some usage examples:
+
+
+
+
+
+
+
 
 
 

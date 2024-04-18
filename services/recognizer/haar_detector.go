@@ -42,6 +42,7 @@ func (hd *HaarDetector) Start() error {
 	// Ensure the recordings directory exists
 	cfg, _ := conf.ReadConf()
 	hd.haarPath = cfg.Recognizer.HaarPath
+	hd.eventName = cfg.Recognizer.EventName
 	hd.logger.Info(cfg)
 	hd.logger.Info("haar path:", hd.haarPath)
 
