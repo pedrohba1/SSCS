@@ -20,7 +20,7 @@ recognizer:
   haarPath: "./../../data/haarcascade_frontalface_default.xml"
 
   # Directory where thumbnail images from the recognition process will be stored.
-  thumbsDir: "./../../thumbs"
+  thumbsDir: "/home/bufulin/Desktop/TCC/services/thumbs"
 
   # label that is put over images recognized
   frameLabel: "Human"
