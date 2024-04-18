@@ -2272,8 +2272,8 @@ Package recognizer provides implementations for multiple image recognition algor
 
 type CompositeRecognizer struct{ ... }
 func MewCompositeRecognizer(fchan chan image.Image) *CompositeRecognizer
-type FaceDetector struct{ ... }
-func NewFaceDetector(fchan chan image.Image) *FaceDetector
+type HaarDetector struct{ ... }
+func NewHaarDetector(fchan chan image.Image) *HaarDetector
 type MotionDetector struct{ ... }
 func NewMotionDetector(fchan chan image.Image) *MotionDetector
 type Recognizer interface{ ... }

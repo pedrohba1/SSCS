@@ -8,6 +8,8 @@ import (
 )
 
 // ServeFile dynamically serves files based on the provided URL path
+// can be used to either fetch individual recordings or recognition
+// images
 func ServeFile(c *gin.Context)  {
 		// Extract the filepath from the URL
 		filepath := c.Param("filepath")

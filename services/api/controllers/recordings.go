@@ -6,9 +6,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// GET /recognitions
-// Get all recognition events. It is capable to filter by
-// dates in unix timestamp
+// GET /recordings
+// Gets all recordings between two dates as a single served file.
+// dates have to be passed in Unix timestamp
 func FindRecordings(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"data": "recogs"})

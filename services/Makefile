@@ -6,7 +6,7 @@
 default: build
 
 build: 
-	go build
+	go build ./cmd/daemon
 
 dev-api:
 	go run ./cmd/api
@@ -28,4 +28,9 @@ dev-env:
 install-opencv:
 	make -f Makefile.opencv install
 
+
+# runs a keycloak instankce to simulate jwt authentication. ATTENTION! this is only to be used in
+# a development environment, NOT in production
+key-cloak: 
+	docker run --name=keycloak -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:23.0.7 start-dev
 

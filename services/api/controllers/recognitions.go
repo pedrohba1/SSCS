@@ -10,6 +10,9 @@ import (
 	"github.com/pedrohba1/SSCS/services/recognizer"
 )
 
+// GET /recognitions
+// Get all recognition events. It is capable to filter by
+// dates in unix timestamp, given in as query params
 func FindRecogs(c *gin.Context) {
 	startDateQuery := c.Query("start_date")
 	endDateQuery := c.Query("end_date")

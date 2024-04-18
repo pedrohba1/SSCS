@@ -15,5 +15,5 @@ func main() {
 	r.GET("/recordings", controllers.FindRecordings)
 	r.GET("/file/*filepath", controllers.ServeFile)
 
-	r.Run(":8080")
+	r.Run(":3000")
 }
