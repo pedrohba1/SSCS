@@ -134,20 +134,76 @@ into the same database, assuming it is using the same `sscs.yml` configuration f
 
 ### API usage
 
-The HTTP API has the following features:
+These are the features of the HTTP API and how to use them:
+
 
 1. Search for all recognition events, allowing filtering by date range using RFC3339 format dates. The API responds with the recognition context, the creation date of the event, and a hyperlink to the image of what was recognized, with markings.
+
+```
+$ curl --request GET \
+  --url http://localhost:3000/recognitions \
+  --header 'User-Agent: insomnia/8.6.1'
+
+  {
+	"data": [
+		{
+			"Path": "http://localhost:3000/file/thumbs/1713474679488.jpg",
+			"Context": "Cat detected",
+			"CreatedAt": "2024-04-18T18:11:19.491083-03:00"
+		},
+		{
+			"Path": "http://localhost:3000/file/thumbs/1713474679567.jpg",
+			"Context": "Cat detected",
+			"CreatedAt": "2024-04-18T18:11:19.571432-03:00"
+		},
+		{
+			"Path": "http://localhost:3000/file/thumbs/1713474679655.jpg",
+			"Context": "Cat detected",
+			"CreatedAt": "2024-04-18T18:11:19.657414-03:00"
+		},
+		{
+			"Path": "http://localhost:3000/file/thumbs/1713474679737.jpg",
+			"Context": "Cat detected",
+			"CreatedAt": "2024-04-18T18:11:19.739881-03:00"
+		},
+		{
+			"Path": "http://localhost:3000/file/thumbs/1713474679828.jpg",
+			"Context": "Cat detected",
+			"CreatedAt": "2024-04-18T18:11:19.830649-03:00"
+		}
+}
+```
+
 2. Search for all recordings, with a date range filter similar to the previous functionality. The API provides the start and end time of each recording as well as a hyperlink for its viewing.
+
+```
+$ curl --request GET \
+  --url http://localhost:3000/recordings/ \
+  --header 'User-Agent: insomnia/8.6.1'
+
+{
+	"data": [
+		{
+			"Path": "http://localhost:3000/file/recordings/feed_2024-04-18_18-11-14.ts",
+			"StartTime": "2024-04-18T18:11:24.600196-03:00",
+			"EndTime": "2024-04-18T18:11:24.600106-03:00"
+		}
+	]
+}
+
+```
+
 3. Return an aggregate of the recordings over a date range for download.
 
-Here are some usage examples:
+```
+$ curl --request GET \
+  --url 'http://localhost:3000/full-recording/?start_date=2024-04-18T18%3A11%3A24.600196-03%3A00&end_date=2024-04-19T18%3A11%3A24.600196-03%3A00' \
+  --header 'User-Agent: insomnia/8.6.1'
 
-
-
-
-
-
-
+{
+	"data": "http://localhost:3000/file/recordings/2024-04-18T18-11-24-03-00-2024-04-18T18-11-24-03-00.mp4"
+}
+```
 
 
 

@@ -14,6 +14,6 @@ func main() {
 	r.GET("/recognitions", controllers.FindRecogs)
 	r.GET("/recordings", controllers.FindRecordings)
 	r.GET("/file/*filepath", controllers.ServeFile)
-
+	r.GET("full-recording", controllers.ServeMp4)
 	r.Run(":3000")
 }
