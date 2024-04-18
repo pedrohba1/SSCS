@@ -9,12 +9,14 @@ The Self-Sovereign Camera System (SSCS) is an open-source, distributed camera su
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Testing](#testing)
+- [Full Feature Walkthrough](#full-feature-walkthrough)
 - [Contribution](#contribution)
 - [License](#license)
 
 ## Features
 
-1. **Facial Detection**: Capable of detecting faces in real-time.
+1. **Facial Detection**: Capable of detecting faces in real-time, using Haar cascade classifiers.
 2. **Movement Detection**: Real-time detection of movement.
 3.**Detection event storage**: Recognized patterns on footage can be saved in a database.
 4. **Multiple Video Feeds**: If you have multiple cameras you can integrate multiple video feeds.  
@@ -33,29 +35,102 @@ The Self-Sovereign Camera System (SSCS) is an open-source, distributed camera su
 - GoLang (v1.19+ recommended)
 - OpenCV (v4.0+ recommended)
 - ffmpeg (version 4.4.2 recommended)
+- Docker (version 24.0.5 recommended) 
 
 To quickly install openCV, just clone this repo and run `make install-opencv`. It will attempt to install all dependencies required and setup openCV properly.
+
+Docker is not necessary for production environment but useful for development and running the scripts in `/services/Makefile`.
 
 Some other libraries might be needed to install run some components:
 ```
 apt install -y libavformat-dev libswscale-dev gcc pkg-config
 ```
 
+## Testing 
+
+###  Dev environment
+
+Running a development environment can be done via `make dev-env`. This will create a postgres instance and 
+a MediaMTX instance running with some video feed to simulate a RTSP connection.
+
+ Running all core functionalities with ` go run ./cmd/daemon/main.go` should run normally after that. 
+
+# Full Feature Walkthrough
+
+This walkthrough will assume that all parts are running in a development environment so the configuration templates can be used
+as their default configurations. As the parts of the system are ran under different conditions, i.e. remote servers, alternative
+authentication methods, alternative storage structure and so on, the user will have to adjust them on the fly. 
+
+### Setting up working environment
+
+A full working environment setup can be achieved in a few steps. First it is necessary to satisfy all the [prerequisites](#prerequisites). Next,
+it is necessary to configure a media server, so SSCS can have somewhere to fetch video from. If there is no media server available for usage yet,
+a script to run a [MediaMTX](https://github.com/bluenviron/mediamtx) server is available in `/services/Makefile`. Run it with `make dev-env`. It will also run a PostgreSQL instance, which is necessary for indexing events and storage paths.
+
+For authentication, if necessary, it is possible to use [Keycloak](https://www.keycloak.org/). A script to run it in development is also available in the makefile, and can be run with `make key-cloak`. 
+
+In the given configuration above, this is the following containers expected:
+
+```
+$ docker ps --format="table {{.Image}}\t{{.Status}}\t{{.Ports}}\t{{.Names}}"
+
+IMAGE                              NAMES
+quay.io/keycloak/keycloak:23.0.7   keycloak
+postgres                           sscs-postgres
+sscs-mtx                           sscs-mtx
+```
+
+To check if the media server is running properly, go to `http://localhost:8889/mystream/` and a video should start playing.
+
+### Connecting SSCS
+
+With all the dev environment, SSCS can be run either through the binary now or by running `go run ./cmd/daemon`. It should
+start prompting logs as below:
+
+```
+INFO[0000] I'm completely operational, and all my circuits are functioning perfectly  package=core
+INFO[0000] starting storer service...                    package=storer
+WARN[0000] backupPath is not defined in configuration. Files will be erased by default  package=storer
+INFO[0000] connecting postgres...                        package=indexer
+INFO[0000] recording...                                  package=recorder
+[h264 @ 0x7f6760000bc0] no frame!
+[h264 @ 0x7f6760000bc0] no frame!
+INFO[0000] migrating tables...                           package=indexer
+INFO[0000] listening to index events...                  package=indexer
+```
+
+It is also possible to install as a Daemon so it keeps running as long as the operating system is running:
+
+```
+$ make build
+$ sudo ./daemon install
+$ sudo ./daemon start
+```
+
+### Recognition
+
+
+
+
+
+
+
+
 ## Contribution
-Fork the project.
+Fork the project.l
 Create a new branch (git checkout -b feature/YourFeature).
 Commit your changes (git commit -am 'Add some feature').
 Push to the branch (git push origin feature/YourFeature).
 Open a pull request.
 We welcome contributions! Please read our CONTRIBUTING.md for more information on how to contribute to SSCS.
 
-License
+
+## License
 This project is licensed under the MIT License - see the LICENSE.md file for details.
 
-## Testing 
 
-###  Dev environment
-Running a development environment can be done via `make dev-env`. This will create a postgres instance and 
-a MediaMTX instance running with some video feed to simulate a RTSP connection.
 
- Running all core functionalities with ` go run ./cmd/daemon/main.go` should run normally after that. 
+
+
+
+

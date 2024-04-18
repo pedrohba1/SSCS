@@ -20,9 +20,11 @@ type Recognizer interface {
 
 // EventChannels are channels for communicating with this service.
 type EventChannels struct {
-	FrameIn  <-chan image.Image
-	FrameOut chan<- image.Image
-	RecogOut chan<- RecognizedEvent
+    FrameIn      <-chan image.Image
+    FrameOut     chan<- image.Image
+    RecogOut     chan<- RecognizedEvent
+    FrameInCopy1 chan image.Image  // Channel for the first HaarDetector
+    FrameInCopy2 chan image.Image  // Channel for the second HaarDetector
 }
 
 // Config contains all parameters that can be customized

@@ -14,20 +14,46 @@ type CompositeRecognizer struct {
 	logger *logrus.Entry
 
 	frameChan <-chan image.Image
-	fr        *FaceDetector
+	fr        *HaarDetector
+	cr  	*HaarDetector
 	stopCh    chan struct{}
+
 }
 
-func MewCompositeRecognizer(echan EventChannels) *CompositeRecognizer {
-	r := &CompositeRecognizer{
-		stopCh: make(chan struct{}),
-		fr:     NewFaceDetector(EventChannels{FrameIn: echan.FrameIn, RecogOut: echan.RecogOut}),
-	}
+func NewCompositeRecognizer(echan EventChannels) *CompositeRecognizer {
+    r := &CompositeRecognizer{
+        stopCh: make(chan struct{}),
+    }
+	r.frameChan = echan.FrameIn
 
-	r.setupLogger()
+    // Create the channels for each HaarDetector
+    echan.FrameInCopy1 = make(chan image.Image)
+    echan.FrameInCopy2 = make(chan image.Image)
 
-	return r
+    // Initialize each HaarDetector with its respective channel
+    r.fr= NewHaarDetector(EventChannels{FrameIn: echan.FrameInCopy1, RecogOut: echan.RecogOut})
+    r.cr = NewHaarDetector(EventChannels{FrameIn: echan.FrameInCopy2, RecogOut: echan.RecogOut})
+
+    r.setupLogger()
+
+    // Start the duplicator goroutine
+    go r.duplicateFrames(echan)
+
+    return r
 }
+func (r *CompositeRecognizer) duplicateFrames(echan EventChannels) {
+    for {
+        select {
+        case frame := <-echan.FrameIn:
+            // Send the frame to both HaarDetectors
+            echan.FrameInCopy1 <- frame
+            echan.FrameInCopy2 <- frame
+        case <-r.stopCh:
+            return
+        }
+    }
+}
+
 
 func (r *CompositeRecognizer) Start() error {
 	// Ensure the recordings directory exists
@@ -38,7 +64,6 @@ func (r *CompositeRecognizer) Start() error {
 		r.logger.Errorf("%v", err)
 		return err
 	}
-
 	go r.view()
 
 	return nil
@@ -46,11 +71,13 @@ func (r *CompositeRecognizer) Start() error {
 
 func (r *CompositeRecognizer) Stop() error {
 	r.fr.Stop()
+	r.cr.Stop()
 	return nil
 }
 
 func (r *CompositeRecognizer) view() error {
 	go r.fr.view()
+	go r.cr.view()
 	return nil
 }
 

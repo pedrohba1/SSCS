@@ -73,7 +73,7 @@ func (service *Service) Manage() (string, error) {
 
 	// Initialize the Core application
 	args := []string{""}
-	service.core = core.New(args)
+	service.core = core.NewBasic(args)
 	service.core.Logger.Info("I'm completely operational, and all my circuits are functioning perfectly")
 	// loop work cycle with accept connections or interrupt
 	// by system signal

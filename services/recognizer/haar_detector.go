@@ -14,9 +14,9 @@ import (
 	"gocv.io/x/gocv"
 )
 
-// FaceDetector is a type representing
+// HaarDetector is a type representing
 // the face detector component
-type FaceDetector struct {
+type HaarDetector struct {
 	logger *logrus.Entry
 	wg     sync.WaitGroup
 
@@ -26,8 +26,8 @@ type FaceDetector struct {
 	stopCh chan struct{}
 }
 
-func NewFaceDetector(eChans EventChannels) *FaceDetector {
-	r := &FaceDetector{
+func NewHaarDetector(eChans EventChannels) *HaarDetector {
+	r := &HaarDetector{
 		eChans: eChans,
 		stopCh: make(chan struct{}),
 	}
@@ -36,7 +36,7 @@ func NewFaceDetector(eChans EventChannels) *FaceDetector {
 	return r
 }
 
-func (fd *FaceDetector) Start() error {
+func (fd *HaarDetector) Start() error {
 	// Ensure the recordings directory exists
 	cfg, _ := conf.ReadConf()
 	fd.haarPath = cfg.Recognizer.FaceHaarPath
@@ -51,14 +51,14 @@ func (fd *FaceDetector) Start() error {
 	return nil
 }
 
-func (r *FaceDetector) Stop() error {
+func (r *HaarDetector) Stop() error {
 	close(r.stopCh) // signal to stop the view
 	r.wg.Wait()     // Wait for the recording goroutine to finish
 	return nil
 }
 
 
-func (m *FaceDetector) sendRecog(recog RecognizedEvent) error {
+func (m *HaarDetector) sendRecog(recog RecognizedEvent) error {
 	select {
 	case m.eChans.RecogOut <- recog:
 		return nil
@@ -71,7 +71,7 @@ func (m *FaceDetector) sendRecog(recog RecognizedEvent) error {
 	}
 }
 
-func (r *FaceDetector) view() error {
+func (r *HaarDetector) view() error {
 	defer r.wg.Done()
 
 	// load classifier to recognize faces
@@ -140,6 +140,6 @@ func (r *FaceDetector) view() error {
 	}
 }
 
-func (m *FaceDetector) setupLogger() {
+func (m *HaarDetector) setupLogger() {
 	m.logger = BaseLogger.BaseLogger.WithField("package", "face-detector")
 }
