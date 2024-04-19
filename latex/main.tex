@@ -1881,12 +1881,12 @@ type Indexer interface {
 No diagrama da \autoref{fig:diaIndex}, ilustra-se que o indexador não provê
 nenhuma interface, apenas requer a implementação de outras. Isso porque lida
 exclusivamente com a escrita das informações que recebe por meio dos eventos
-recebidos por meio dos canais.					      Do ponto
-de vista da arquitetura, o banco de dados é uma não-entidade. É um detalhe que
-não se eleva ao nível de um elemento arquitetônico. Ele é uma utilidade que
-provê acesso aos dados. No mesmo ponto de vista, essa utilidade é irrelevante
-pois é um detalhe de baixo nível, ou seja, um mecanismo \cite{martin2018clean}.
-%%Um detalhe pertinente é o fato do indexador ser agnóstico quanto ao banco de dados usado.% FICOU ESTRANHA A FRASE ABAIXO
+recebidos por meio dos canais.						Do
+ponto de vista da arquitetura, o banco de dados é uma não-entidade. É um
+detalhe que não se eleva ao nível de um elemento arquitetônico. Ele é uma
+utilidade que provê acesso aos dados. No mesmo ponto de vista, essa utilidade é
+irrelevante pois é um detalhe de baixo nível, ou seja, um mecanismo
+\cite{martin2018clean}. %%Um detalhe pertinente é o fato do indexador ser agnóstico quanto ao banco de dados usado.% FICOU ESTRANHA A FRASE ABAIXO
 
 \begin{figure}[!ht]
 	\centering
@@ -2497,14 +2497,14 @@ $ sudo ./daemon start
 	\centering
 	\begin{minipage}{0.48\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{../services/docs/rec1.jpeg}
+		\includegraphics[width=\linewidth]{./figuras/rec1.jpeg}
 		\captionof{figure}{Tina, a gata, sendo reconhecida em um
 			\texttt{Core}}
 		\label{fig:tina}
 	\end{minipage}\hfill
 	\begin{minipage}{0.48\textwidth}
 		\centering
-		\includegraphics[width=\linewidth]{../services/docs/rec2.jpeg}
+		\includegraphics[width=\linewidth]{./figuras/rec2.jpeg}
 		\captionof{figure}{Eu, sendo reconhecido em outro
 			\texttt{Core}}
 		\label{fig:me}
@@ -2564,15 +2564,15 @@ $ curl --request GET \
 "CreatedAt": "2024-04-18T18:11:19.830649-03:00"
 }]}
 \end{minted}
-}
+	      }
 
 	\item Busca por todas as gravações, com filtro de intervalo de datas
 	      semelhante à funcionalidade anterior. A API fornece o horário de início e fim
 	      de cada gravação, bem como um hyperlink para sua visualização.
 
-{
-\footnotesize % Adjusts the font size to footnotesize. You can also use \small or \scriptsize for smaller sizes.
-\begin{minted}[
+	      {
+	      \footnotesize % Adjusts the font size to footnotesize. You can also use \small or \scriptsize for smaller sizes.
+	      \begin{minted}[
 breaklines,
 mathescape,
 linenos,
@@ -2590,15 +2590,15 @@ xleftmargin=0pt,
 "EndTime": "2024-04-18T18:11:24.600106-03:00"
 }]}
 \end{minted}
-}
+	      }
 
 	\item Devolve um agregado das gravações em um intervalo de datas para
 	      download.
 
-{
-\footnotesize
-% Adjusts the font size to footnotesize. You can also use \small or \scriptsize for smaller sizes.
-\begin{minted}[
+		      {
+			      \footnotesize
+			      % Adjusts the font size to footnotesize. You can also use \small or \scriptsize for smaller sizes.
+			      \begin{minted}[
 breaklines,
 mathescape,
 linenos,
@@ -2612,7 +2612,7 @@ $ curl --request GET \
 
 {"data": "http://localhost:3000/file/recordings/arquivo_completo.mp4"}
 \end{minted}
-}
+		      }
 
 \end{enumerate}
 
