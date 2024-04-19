@@ -194,16 +194,17 @@ customizável} %TCC
 
 \begin{siglas}
 	\item[API] \textit{Application Programming Interface} - Interface de
-	Programação de Aplicações \item[AU] \textit{Access Unit} - Unidade de
-	Acesso \item[AVC] \textit{Advanced Video Coding} - Codificação de Vídeo
+	Programação de Aplicações
+	\item[AU] \textit{Access Unit} - Unidade de Acesso
+	\item[AVC] \textit{Advanced Video Coding} - Codificação de Vídeo
 	Avançada \item[CAGR] \textit{Compound Annual Growth Rate} - Taxa de Crescimento
-	Anual Composta \item[CCTV] \textit{Closed-circuit Television} - Televisão de
-	circuito fechado \item[DVR] \textit{Digital Video Recorder} - Gravador de Vídeo
-	Digital \item[FPS] \textit{Frames Per Second} - Quadros Por Segundo \item[HEVC]
-	High Efficiency Video Coding - Codificação de vídeo de alta eficiência
-	\item[HLS] \textit{HTTP Live Streaming} - Transmissão ao Vivo HTTP \textit{High
-		Efficiency Video Coding} - Codificação de Vídeo de Alta Eficiência \item[HSL]
-	\textit{HTTP Live Streaming} - Transmissão ao Vivo HTTP \item[LBPH]
+	Anual Composta \item[CCTV] \textit{Closed-circuit Television} -
+	Televisão de circuito fechado \item[DVR] \textit{Digital Video Recorder} -
+	Gravador de Vídeo Digital \item[FPS] \textit{Frames Per Second} - Quadros Por
+	Segundo \item[HEVC] High Efficiency Video Coding - Codificação de vídeo de alta
+	eficiência \item[HLS] \textit{HTTP Live Streaming} - Transmissão ao Vivo HTTP
+	\textit{High Efficiency Video Coding} - Codificação de Vídeo de Alta Eficiência
+	\item[HSL] \textit{HTTP Live Streaming} - Transmissão ao Vivo HTTP \item[LBPH]
 	\textit{Local Binary Patterns Histogram} - Histograma de Padrões Binários
 	Locais \item[NALU] \textit{Network Abstraction Layer Unit} - Unidade de Camada
 	de Abstração de Rede \item[NIC] \textit{Network Interface Card} - Placa de
@@ -360,6 +361,18 @@ que seja possível integrar, ele não tem as funcionalidades desejadas. Portanto
 faz sentido um software customizável que possa se adaptar as necessidades do
 usuário e que crie uma fundação para criar novas funções de vigilância.
 
+\section{Organização da Monografia}
+
+O Capítulo 2 apresenta uma fundamentação teórica sobre o assunto, abordando
+conceitos relacionados à arquitetura do sistema que será desenvolvido, aos
+protocolos, técnicas de reconhecimento de imagem, compressão, técnicas de
+software e demais elementos necessários para a materialização da solução
+proposta. No Capítulo 3 é apresentado o método de desenvolvimento, descrevendo
+o estado da arte de diversos itens utilizados no projeto. O Capítulo 4
+apresenta uma descrição detalhada do processo de construção do SSCS. O Capítulo
+5 apresenta a conclusão do trabalho, onde descreve as principais contribuições
+deste trabalho, além de abordar sugestões para futuras pesquisas.
+
 \chapter{Fundamentação Teórica}
 
 Neste capítulo, são apresentadas as tecnologias e os conceitos que serão
@@ -385,7 +398,7 @@ e eventualmente decodificados e apresentados ao usuário.
 	\includegraphics[width=1\linewidth]{media_fundamentals.pdf}
 	\caption[Representação de um arquitetura de tempo real
 		genérica]{Arquitetura genérica de transmissão em tempo real}
-	\legend{Fonte: Figura traduzida. \citeonline{lee2005scalable2} }
+	\legend{Fonte: Figura traduzida \citeonline{lee2005scalable2}.}
 	\label{fig:arqt}
 \end{figure}
 
@@ -465,8 +478,8 @@ simplesmente prover uma imagem. Geralmente, nesse estágio ocorre algum tipo de
 pré-processamento também, como o  scaling da imagem. Em seguida, podem ocorrem
 as etapas de aprimoramento, restauração e compressão. Por último, podem ocorrer
 as etapas de processamento morfológico, segmentação, representação e descrição.
-Após essas etapas pode-se então realizar o reconhecimento de imagem.
-\cite{gonzalez2002digital}
+Após essas etapas pode-se então realizar o reconhecimento de imagem
+\cite{gonzalez2002digital}.
 
 \subsection{Subtração de Fundo baseada em Modelos de Mistura Gaussiana}
 
@@ -672,7 +685,7 @@ uma URL RTSP separada, que é semelhante à URL HTTP no sentido de que identific
 o servidor que hospeda a transmissão de mídia e o caminho lógico que identifica
 a transmissão de mídia. Observe que as transmissões de mídia em uma
 apresentação podem vir de vários servidores e cada transmissão é controlada por
-meio de uma sessão RTSP separada. \cite{rfc2326}
+meio de uma sessão RTSP separada \cite{rfc2326}.
 
 \begin{figure}[!ht]
 	\centering
@@ -690,7 +703,7 @@ Ele tem como objetivo visualizar a organização e as relações entre diferente
 componentes em um sistema de software. Enquanto outros diagramas focam na
 funcionalidade do sistema, o diagrama de componentes se concentra no aspecto
 estrutural. Além disso, assume-se que componentes podem ser reutilizados ou
-realocados por um equivalente. \cite{UMLComponentDiagrams2023}
+realocados por um equivalente \cite{UMLComponentDiagrams2023}.
 
 Um diagrama de componentes representa partes modulares de um sistema, chamadas
 de componentes. Estes componentes podem ser físicos (como bibliotecas, módulos,
@@ -940,7 +953,7 @@ implicações legais para os usuários. Isso tem o potencial de criar um efeito
 cascata, onde as obrigações da licença se estendem não apenas ao projeto
 original, mas a todos os projetos derivados, exigindo que mantenham as mesmas
 liberdades para os usuários finais, sob pena de terem que interromper o uso ou
-distribuição do software. \cite{Golden2005}
+distribuição do software \cite{Golden2005}.
 
 \section{Encodings de vídeo e som}
 
@@ -949,7 +962,7 @@ algoritmos e padrões que comprimem e codificam dados de vídeo, removendo
 redundâncias e detalhes visuais não perceptíveis, para reduzir o tamanho dos
 arquivos e permitir sua transmissão, armazenamento e reprodução eficientes.
 Eles desempenham um papel fundamental na compressão de vídeo e na manutenção da
-qualidade do conteúdo visual. \cite{CodecMerriamWebster2019}
+qualidade do conteúdo visual \cite{CodecMerriamWebster2019}.
 
 Existem vários padrões de codecs de vídeo, como H.264, H.265 (HEVC), VP9, AV1,
 entre outros. A escolha do codec pode afetar a compatibilidade entre
@@ -1066,7 +1079,7 @@ bibliotecas e ferramentas está disponível gratuitamente para qualquer pessoa.
 Contribuições para o projeto vêm de uma comunidade mundial ativa. Go funciona
 em sistemas semelhantes ao Unix - Linux, FreeBSD, OpenBSD, Mac OS X - e em
 Plan9 e Microsoft Windows. Programas escritos em um desses ambientes geralmente
-funcionam sem modificações nos outros. \cite{donovan2015go}
+funcionam sem modificações nos outros \cite{donovan2015go}.
 
 \section{openCV}
 
@@ -1275,7 +1288,7 @@ imagem atual seguida por um processo de rotulagem. Além destas, existem
 abordagens baseadas em aprendizado de máquina, como o Haar Cascade, onde
 classificadores são treinados usando imagens positivas (com objetos) e imagens
 negativas (sem objetos) para criar uma função que pode ser usada para detectar
-algo específico em outras imagens. \cite{Valera2005IntelligentDS31}
+algo específico em outras imagens \cite{Valera2005IntelligentDS31}.
 
 O Haar Cascade é especialmente eficaz para detecção de faces e oferece
 processamento rápido, sendo uma opção viável para detecção em tempo real. No
@@ -1283,8 +1296,8 @@ entanto, pode apresentar desafios em cenas complexas ou com objetos ocluídos.
 Além disso, há técnicas mais avançadas como Deep Learning, que, através de
 Redes Neurais Convolucionais (CNNs), conseguem alta precisão e robustez na
 detecção de diversos tipos de objetos em cenários variados, embora exijam um
-grande volume de dados para treinamento e recursos computacionais
-consideráveis. \cite{MLKHaarCascade2021}
+grande volume de dados para treinamento e recursos computacionais consideráveis
+\cite{MLKHaarCascade2021}.
 
 \subsection{Armazenamento, Resolução e Compressão}
 
@@ -1859,8 +1872,7 @@ A interface do indexador é bem mais simplificada. Ele requer apenas um método
 privado, chamado \mintinline{go}{listen()}. A única função desse método é
 esperar por eventos de indexação enviados pelos canais de outros componentes e
 encaminhá-los para as funções que lidam o registro da informação no banco de
-dados.
-
+dados. \newpage
 \begin{minted}
 [%
 breaklines,
@@ -1946,18 +1958,14 @@ type Recognizer interface {
 	setupLogger()
 	view() error
 }
-
 type EventChannels struct {
 	FrameIn  <-chan image.Image
 	FrameOut chan<- image.Image
 	RecogOut chan<- RecognizedEvent
 }
-
-
 type Config struct {
 	ThumbsDir string
 }
-
 type RecognizedEvent struct {
 	name      string
 	timestamp int
@@ -2235,7 +2243,7 @@ um tipo, variável, constante, função ou pacote, escreva o comentário
 diretamente antes de sua declaração, sem linhas em branco. A \texttt{godoc}
 então será capaz de apresentar o comentário junto com o item que está sendo
 documentado. Um exemplo de um comentário do pacote \texttt{recognizer} do SSCS:
-
+\newpage
 \begin{minted}
 [%
 breaklines,
@@ -2291,12 +2299,17 @@ versão sejam usadas no repositório contendo o código. pacotes da linguagem Go
 Inclusive, o SSCS tem sua documentação toda disponível em
 \url{https://pkg.go.dev/github.com/pedrohba1/SSCS/services}.
 
-Todo o processo para a execução passo a passo está exemplificado no
-\autoref{apendice}.    \chapter[Conclusão]{Conclusão}  Esse trabalho detalhou o
-processo de desenvolvimento do SSCS. Inicialmente, foram levantados os
-objetivos gerais e disso surgiram as funcionalidades (gravação, armazenamento,
-reconhecimento) que resultaram, por sua vez, nos
-componentes.%TCC:% ---% Conclusão% ---
+\autoref{apendice} descreve e exemplifica todo o processo para a execução de um
+teste completo passo a passo.
+% ---
+% Conclusão
+% ---
+\chapter[Conclusão]{Conclusão}
+%TCC:
+Esse trabalho detalhou o processo de desenvolvimento do SSCS. Inicialmente,
+foram levantados os objetivos gerais e disso surgiram as funcionalidades
+(gravação, armazenamento, reconhecimento) que resultaram, por sua vez, nos
+componentes.
 
 O código está disponível sob a licença de código aberto do MIT. A documentação
 também está pública e pode ser visualizada facilmente tanto na ferramenta de
