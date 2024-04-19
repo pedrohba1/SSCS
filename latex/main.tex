@@ -61,40 +61,40 @@ customizável} %TCC
 %
 % \includepdf{folhadeaprovacao_final.pdf} %TCC: depois de aprovado o trabalho, descomente esta linha e comente o próximo bloco para incluir scan da folha de aprovação.
 %
-\begin{folhadeaprovacao}
+%\begin{folhadeaprovacao}
 
-	\begin{center}
-		{\ABNTEXchapterfont\large\imprimirautor}
+%	\begin{center}
+%		{\ABNTEXchapterfont\large\imprimirautor}
 
-		\vspace*{\fill}\vspace*{\fill}
-		{\ABNTEXchapterfont\bfseries\Large\imprimirtitulo}
-		\vspace*{\fill}
+%		\vspace*{\fill}\vspace*{\fill}
+%		{\ABNTEXchapterfont\bfseries\Large\imprimirtitulo}
+%		\vspace*{\fill}
 
-		\hspace{.45\textwidth}
-		\begin{minipage}{.5\textwidth}
-			\imprimirpreambulo
-		\end{minipage}%
-		\vspace*{\fill}
-	\end{center}
+%		\hspace{.45\textwidth}
+%		\begin{minipage}{.5\textwidth}
+%			\imprimirpreambulo
+%		\end{minipage}%
+%		\vspace*{\fill}
+%	\end{center}
 
-	Trabalho aprovado. \imprimirlocal, 26 de abril de 2024:
-	%TCC:
+%	Trabalho aprovado. \imprimirlocal, 26 de abril de 2024:
+%TCC:
 
-	\assinatura{\textbf{\imprimirorientador} \\ Orientador}
-	\assinatura{\textbf{Professor}}% \\ Convidado 1} %TCC:
-	\assinatura{\textbf{Professor}}% \\ Convidado 2} %TCC:
-	%\assinatura{\textbf{Professor} \\ Convidado 3}
-	%\assinatura{\textbf{Professor} \\ Convidado 4}
+%	\assinatura{\textbf{\imprimirorientador} \\ Orientador}
+%	\assinatura{\textbf{Professor}}% \\ Convidado 1} %TCC:
+%	\assinatura{\textbf{Professor}}% \\ Convidado 2} %TCC:
+%\assinatura{\textbf{Professor} \\ Convidado 3}
+%\assinatura{\textbf{Professor} \\ Convidado 4}
 
-	\begin{center}
-		\vspace*{0.5cm}
-		{\large\imprimirlocal}
-		\par
-		{\large\imprimirdata}
-		\vspace*{1cm}
-	\end{center}
+%	\begin{center}
+%		\vspace*{0.5cm}
+%		{\large\imprimirlocal}
+%		\par
+%		{\large\imprimirdata}
+%		\vspace*{1cm}
+%	\end{center}
 
-\end{folhadeaprovacao}
+%\end{folhadeaprovacao}
 % ---
 
 %%As seções dedicatória, agradecimento e epígrafe não são obrigatórias.
@@ -1527,6 +1527,7 @@ demandas do usuário. Contudo, é importante que essas implementações obedeça
 certos padrões para garantir que o sistema opere de forma coesa e integrada.
 
 \section{Ambiente de Desenvolvimento}
+\label{sec:amb}
 
 Para possibilitar testes e criar um ambiente de desenvolvimento que reproduza
 fielmente as condições em que o sistema operará quando implantado em um
@@ -2290,15 +2291,12 @@ versão sejam usadas no repositório contendo o código. pacotes da linguagem Go
 Inclusive, o SSCS tem sua documentação toda disponível em
 \url{https://pkg.go.dev/github.com/pedrohba1/SSCS/services}.
 
-% ---
-% Conclusão
-% ---
-\chapter[Conclusão]{Conclusão}
-%TCC:
-Esse trabalho detalhou o processo de desenvolvimento do SSCS. Inicialmente,
-foram levantados os objetivos gerais e disso surgiram as funcionalidades
-(gravação, armazenamento, reconhecimento) que resultaram, por sua vez, nos
-componentes.
+Todo o processo para a execução passo a passo está exemplificado no
+\autoref{apendice}.    \chapter[Conclusão]{Conclusão}  Esse trabalho detalhou o
+processo de desenvolvimento do SSCS. Inicialmente, foram levantados os
+objetivos gerais e disso surgiram as funcionalidades (gravação, armazenamento,
+reconhecimento) que resultaram, por sua vez, nos
+componentes.%TCC:% ---% Conclusão% ---
 
 O código está disponível sob a licença de código aberto do MIT. A documentação
 também está pública e pode ser visualizada facilmente tanto na ferramenta de
@@ -2383,18 +2381,20 @@ colaborativa ao redor do projeto.
 
 	% ----------------------------------------------------------
 	\chapter{Funcionamento Completo}
+	\label{apendice}
 	% ----------------------------------------------------------
 
-	Neste capítulo, faz-se a cobertura completa por todas as
+	Neste apêndice, faz-se a cobertura completa por todas as
 	funcionalidades principais do SSCS e seu uso por um usuário comum. Assume-se à
 	partir daqui que todos os componentes estão funcionando em um ambiente de
-	desenvolvimento, portanto, os modelos de configuração podem ser usados como
-	suas configurações padrão. À medida que as partes do sistema são executadas em
-	condições diferentes, ou seja, servidores remotos, métodos de autenticação
-	alternativos, estrutura de armazenamento alternativa e assim por diante, o
-	usuário terá que ajustá-los em tempo real.
+	desenvolvimento\footnote{Para mais informações sobre o ambiente de
+		desenvolvimento, consulte a \autoref{sec:amb}}, portanto, os modelos de
+	configuração podem ser usados como suas configurações padrão. À medida que as
+	partes do sistema são executadas em condições diferentes, ou seja, servidores
+	remotos, métodos de autenticação alternativos, estrutura de armazenamento
+	alternativa e assim por diante, o usuário terá que ajustá-los em tempo real.
 
-	\section{Inicialização todos os componentes básicos}
+	\section{Inicialização de todos os componentes básicos}
 
 	Uma configuração completa do ambiente de trabalho pode ser alcançada em
 	alguns passos. Primeiro, é necessário satisfazer todos os pré-requisitos. Em
@@ -2406,8 +2406,8 @@ colaborativa ao redor do projeto.
 	caminhos de armazenamento.
 
 	Para autenticação, se necessário, é possível usar o Keycloak. Um script
-	para executá-lo em desenvolvimento também está disponível no makefile e pode
-	ser executado com make key-cloak.
+	para executá-lo em desenvolvimento também está disponível no \texttt{makefile}
+	e pode	 ser executado com \texttt{make key-cloak}.
 
 	Na configuração fornecida acima, espera-se os seguintes contêineres:
 
@@ -2433,15 +2433,15 @@ sscs-mtx                           sscs-mtx
 	basta acessar a URL \texttt{http://localhost:8889/mystream/} e um vídeo deve
 	começar a ser reproduzido. O serviço de autenticação e o banco de dados estarão
 	funcionando se o \textit{\foreignlanguage{english}{status}} estiver como
-	\textit{\foreignlanguage{english}{up}}
+	\textit{\foreignlanguage{english}{up}}.
 
 	\section{Conexão com o SSCS}
 
 	Com todo o ambiente de desenvolvimento configurado, o SSCS pode ser
 	executado tanto através do binário quanto executando \texttt{go run
-		./cmd/daemon}. Observe que ele vai utilizar o \texttt{sscs.yml} que está
-	presente no diretório raiz. Portanto, certifique-se de executar no caminho
-	correto. Ele deve começar a exibir \textit{logs} como abaixo:
+		./cmd/daemon}. Observe que será utilizado o \texttt{sscs.yml} que está presente
+	no diretório raiz. Portanto, certifique-se de executar no caminho correto. Deve
+	começar a exibir \textit{logs}, conforme exemplo:
 
 	\begin{minted}
 [%
@@ -2464,8 +2464,8 @@ INFO[0000] migrating tables...                           package=indexer
 INFO[0000] listening to index events...                  package=indexer
 \end{minted}
 
-	Também é possível instalar como um Daemon para que continue funcionando
-	enquanto o sistema operacional estiver em execução:
+	Também é possível instalar como um \texttt{Daemon} para que continue
+	funcionando enquanto o Sistema Operacional estiver em execução:
 
 	\begin{minted}
 [%
@@ -2482,48 +2482,46 @@ $ sudo ./daemon install
 $ sudo ./daemon start
 \end{minted}
 
-	Quando iniciado, o SSSC reconhecerá imagens, indexará quando elas foram
-	reconhecidas e o que foi reconhecido, gravará e gerenciará o tamanho do
-	armazenamento. É possível executar vários reconhecedores lado a lado, para o
-	mesmo feed de vídeo, simplesmente executando mais de um \texttt{Core}. As
-	imagens reconhecidas serão salvas todas na mesma pasta, assim como os eventos
-	serão indexados no mesmo banco de dados, assumindo que está sendo usada a mesma
-	configuração sscs.yml para ambos os \texttt{Core}.
+	Quando iniciado, o SSCS reconhecerá imagens (Figuras \ref{fig:tina} e
+	\ref{fig:me}), indexará quando elas foram reconhecidas e o que foi reconhecido,
+	gravará e gerenciará o tamanho do armazenamento. É possível executar vários
+	reconhecedores lado a lado, para o mesmo feed de vídeo, simplesmente executando
+	mais de um \texttt{Core}. As imagens reconhecidas serão salvas todas na mesma
+	pasta, assim como os eventos serão indexados no mesmo banco de dados, assumindo
+	que está sendo usada a mesma configuração \texttt{sscs.yml} para ambos os
+	\texttt{Core}.
 
-\end{apendicesenv}
-% ---
-
-\begin{figure}[htbp]
-	\centering
-	\begin{minipage}{0.48\textwidth}
+	\begin{figure}[ht]
 		\centering
-		\includegraphics[width=\linewidth]{./figuras/rec1.jpeg}
-		\captionof{figure}{Tina, a gata, sendo reconhecida em um
-			\texttt{Core}}
-		\label{fig:tina}
-	\end{minipage}\hfill
-	\begin{minipage}{0.48\textwidth}
-		\centering
-		\includegraphics[width=\linewidth]{./figuras/rec2.jpeg}
-		\captionof{figure}{Eu, sendo reconhecido em outro
-			\texttt{Core}}
-		\label{fig:me}
-	\end{minipage}
-\end{figure}
+		\begin{minipage}{0.48\textwidth}
+			\centering
+			\includegraphics[scale=0.35]{./figuras/rec1.jpeg}
+			\captionof{figure}{Tina, a gata, sendo reconhecida em
+				um \texttt{Core}}
+			\label{fig:tina}
+		\end{minipage}\hfill
+		\begin{minipage}{0.48\textwidth}
+			\centering
+			\includegraphics[scale=0.35]{./figuras/rec2.jpeg}
+			\captionof{figure}{Eu, sendo reconhecido em outro
+				\texttt{Core}}
+			\label{fig:me}
+		\end{minipage}
+	\end{figure}
 
-\section{Uso da API}
+	\section{Uso da API}
 
-Estas são as funcionalidades da API HTTP e como utilizá-las:
+	Estas são as funcionalidades da API HTTP e como utilizá-las:
 
-\begin{enumerate}
-	\item Busca por todos os eventos de reconhecimento, permitindo filtro
-	      por intervalo de datas usando datas no formato RFC3339. A API responde com o
-	      contexto de reconhecimento, a data de criação do evento e um hyperlink para a
-	      imagem do que foi reconhecido, com marcações.
+	\begin{enumerate}
+		\item Busca por todos os eventos de reconhecimento, permitindo
+		      filtro por intervalo de datas usando datas no formato RFC3339. A API responde
+		      com o contexto de reconhecimento, a data de criação do evento e um hyperlink
+		      para a imagem do que foi reconhecido, com marcações.
 
-	      {
-	      \footnotesize % Adjusts the font size to footnotesize. You can also use \small or \scriptsize for smaller sizes.
-	      \begin{minted}
+		      {
+		      \footnotesize % Adjusts the font size to footnotesize. You can also use \small or \scriptsize for smaller sizes.
+		      \begin{minted}
 [%
 breaklines,
 mathescape,
@@ -2564,15 +2562,15 @@ $ curl --request GET \
 "CreatedAt": "2024-04-18T18:11:19.830649-03:00"
 }]}
 \end{minted}
-	      }
+		      }
 
-	\item Busca por todas as gravações, com filtro de intervalo de datas
-	      semelhante à funcionalidade anterior. A API fornece o horário de início e fim
-	      de cada gravação, bem como um hyperlink para sua visualização.
+		\item Busca por todas as gravações, com filtro de intervalo de
+		      datas semelhante à funcionalidade anterior. A API fornece o horário de início e
+		      fim de cada gravação, bem como um hyperlink para sua visualização.
 
-	      {
-	      \footnotesize % Adjusts the font size to footnotesize. You can also use \small or \scriptsize for smaller sizes.
-	      \begin{minted}[
+		      {
+		      \footnotesize % Adjusts the font size to footnotesize. You can also use \small or \scriptsize for smaller sizes.
+		      \begin{minted}[
 breaklines,
 mathescape,
 linenos,
@@ -2590,15 +2588,16 @@ xleftmargin=0pt,
 "EndTime": "2024-04-18T18:11:24.600106-03:00"
 }]}
 \end{minted}
-	      }
+		      }
 
-	\item Devolve um agregado das gravações em um intervalo de datas para
-	      download.
+		\item Devolve um agregado das gravações em um intervalo de
+		      datas para
+		      download.
 
-		      {
-			      \footnotesize
-			      % Adjusts the font size to footnotesize. You can also use \small or \scriptsize for smaller sizes.
-			      \begin{minted}[
+			      {
+				      \footnotesize
+				      % Adjusts the font size to footnotesize. You can also use \small or \scriptsize for smaller sizes.
+				      \begin{minted}[
 breaklines,
 mathescape,
 linenos,
@@ -2612,9 +2611,12 @@ $ curl --request GET \
 
 {"data": "http://localhost:3000/file/recordings/arquivo_completo.mp4"}
 \end{minted}
-		      }
+			      }
 
-\end{enumerate}
+	\end{enumerate}
+
+\end{apendicesenv}
+% ---
 
 %---------------------------------------------------------------------
 % INDICE REMISSIVO
