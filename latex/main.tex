@@ -10,6 +10,8 @@ brazil]{facom-ufu-abntex2}
 \usepackage{graphicx}
 \usepackage{minted}
 \usepackage{hyperref}
+\usepackage{caption}
+
 
 
 % coisas relacionadas às cores do código:
@@ -1879,11 +1881,11 @@ type Indexer interface {
 No diagrama da \autoref{fig:diaIndex}, ilustra-se que o indexador não provê
 nenhuma interface, apenas requer a implementação de outras. Isso porque lida
 exclusivamente com a escrita das informações que recebe por meio dos eventos
-recebidos por meio dos canais.		  Do ponto de vista da arquitetura, o
-banco de dados é uma não-entidade. É um detalhe que não se eleva ao nível de um
-elemento arquitetônico. Ele é uma utilidade que provê acesso aos dados. No
-mesmo ponto de vista, essa utilidade é irrelevante pois é um detalhe de baixo
-nível, ou seja, um mecanismo \cite{martin2018clean}.
+recebidos por meio dos canais.					      Do ponto
+de vista da arquitetura, o banco de dados é uma não-entidade. É um detalhe que
+não se eleva ao nível de um elemento arquitetônico. Ele é uma utilidade que
+provê acesso aos dados. No mesmo ponto de vista, essa utilidade é irrelevante
+pois é um detalhe de baixo nível, ou seja, um mecanismo \cite{martin2018clean}.
 %%Um detalhe pertinente é o fato do indexador ser agnóstico quanto ao banco de dados usado.% FICOU ESTRANHA A FRASE ABAIXO
 
 \begin{figure}[!ht]
@@ -2366,6 +2368,253 @@ colaborativa ao redor do projeto.
 % Referências bibliográficas
 % ----------------------------------------------------------
 \bibliography{abntex2-modelo-references}
+
+%% ----------------------------------------------------------
+%% Apêndices TCC: só mantenha se for pertinente.
+%% ----------------------------------------------------------
+
+% ---
+% Inicia os apêndices
+% ---
+\begin{apendicesenv}
+
+	% Imprime uma página indicando o início dos apêndices
+	\partapendices
+
+	% ----------------------------------------------------------
+	\chapter{Funcionamento Completo}
+	% ----------------------------------------------------------
+
+	Neste capítulo, faz-se a cobertura completa por todas as
+	funcionalidades principais do SSCS e seu uso por um usuário comum. Assume-se à
+	partir daqui que todos os componentes estão funcionando em um ambiente de
+	desenvolvimento, portanto, os modelos de configuração podem ser usados como
+	suas configurações padrão. À medida que as partes do sistema são executadas em
+	condições diferentes, ou seja, servidores remotos, métodos de autenticação
+	alternativos, estrutura de armazenamento alternativa e assim por diante, o
+	usuário terá que ajustá-los em tempo real.
+
+	\section{Inicialização todos os componentes básicos}
+
+	Uma configuração completa do ambiente de trabalho pode ser alcançada em
+	alguns passos. Primeiro, é necessário satisfazer todos os pré-requisitos. Em
+	seguida, é necessário configurar um servidor de mídia, para que o SSCS possa
+	ter de onde buscar vídeos. Se ainda não houver um servidor de mídia disponível
+	para uso, um script para executar um servidor MediaMTX está disponível em
+	\texttt{/services/Makefile}. Execute-o com \texttt{make dev-env}. Isso também
+	executará uma instância do PostgreSQL, que é necessária para indexar eventos e
+	caminhos de armazenamento.
+
+	Para autenticação, se necessário, é possível usar o Keycloak. Um script
+	para executá-lo em desenvolvimento também está disponível no makefile e pode
+	ser executado com make key-cloak.
+
+	Na configuração fornecida acima, espera-se os seguintes contêineres:
+
+	\begin{minted}
+[%
+breaklines,
+mathescape,
+linenos,
+numbersep=5pt,
+frame=single,
+numbersep=5pt,
+xleftmargin=0pt,
+]{bash}
+$ docker ps --format="table {{.Image}}\t{{.Status}}\t{{.Ports}}\t{{.Names}}"
+
+IMAGE                              NAMES
+quay.io/keycloak/keycloak:23.0.7   keycloak
+postgres                           sscs-postgres
+sscs-mtx                           sscs-mtx		
+\end{minted}
+
+	Para verificar se o servidor de mídia está funcionando corretamente,
+	basta acessar a URL \texttt{http://localhost:8889/mystream/} e um vídeo deve
+	começar a ser reproduzido. O serviço de autenticação e o banco de dados estarão
+	funcionando se o \textit{\foreignlanguage{english}{status}} estiver como
+	\textit{\foreignlanguage{english}{up}}
+
+	\section{Conexão com o SSCS}
+
+	Com todo o ambiente de desenvolvimento configurado, o SSCS pode ser
+	executado tanto através do binário quanto executando \texttt{go run
+		./cmd/daemon}. Observe que ele vai utilizar o \texttt{sscs.yml} que está
+	presente no diretório raiz. Portanto, certifique-se de executar no caminho
+	correto. Ele deve começar a exibir \textit{logs} como abaixo:
+
+	\begin{minted}
+[%
+breaklines,
+mathescape,
+linenos,
+numbersep=5pt,
+frame=single,
+numbersep=5pt,
+xleftmargin=0pt,
+]{bash}
+INFO[0000] I'm completely operational, and all my circuits are functioning perfectly  package=core
+INFO[0000] starting storer service...                    package=storer
+WARN[0000] backupPath is not defined in configuration. Files will be erased by default  package=storer
+INFO[0000] connecting postgres...                        package=indexer
+INFO[0000] recording...                                  package=recorder
+[h264 @ 0x7f6760000bc0] no frame!
+[h264 @ 0x7f6760000bc0] no frame!
+INFO[0000] migrating tables...                           package=indexer
+INFO[0000] listening to index events...                  package=indexer
+\end{minted}
+
+	Também é possível instalar como um Daemon para que continue funcionando
+	enquanto o sistema operacional estiver em execução:
+
+	\begin{minted}
+[%
+breaklines,
+mathescape,
+linenos,
+numbersep=5pt,
+frame=single,
+numbersep=5pt,
+xleftmargin=0pt,
+]{bash}
+$ make build
+$ sudo ./daemon install
+$ sudo ./daemon start
+\end{minted}
+
+	Quando iniciado, o SSSC reconhecerá imagens, indexará quando elas foram
+	reconhecidas e o que foi reconhecido, gravará e gerenciará o tamanho do
+	armazenamento. É possível executar vários reconhecedores lado a lado, para o
+	mesmo feed de vídeo, simplesmente executando mais de um \texttt{Core}. As
+	imagens reconhecidas serão salvas todas na mesma pasta, assim como os eventos
+	serão indexados no mesmo banco de dados, assumindo que está sendo usada a mesma
+	configuração sscs.yml para ambos os \texttt{Core}.
+
+\end{apendicesenv}
+% ---
+
+\begin{figure}[htbp]
+	\centering
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{../services/docs/rec1.jpeg}
+		\captionof{figure}{Tina, a gata, sendo reconhecida em um
+			\texttt{Core}}
+		\label{fig:tina}
+	\end{minipage}\hfill
+	\begin{minipage}{0.48\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{../services/docs/rec2.jpeg}
+		\captionof{figure}{Eu, sendo reconhecido em outro
+			\texttt{Core}}
+		\label{fig:me}
+	\end{minipage}
+\end{figure}
+
+\section{Uso da API}
+
+Estas são as funcionalidades da API HTTP e como utilizá-las:
+
+\begin{enumerate}
+	\item Busca por todos os eventos de reconhecimento, permitindo filtro
+	      por intervalo de datas usando datas no formato RFC3339. A API responde com o
+	      contexto de reconhecimento, a data de criação do evento e um hyperlink para a
+	      imagem do que foi reconhecido, com marcações.
+
+	      {
+	      \footnotesize % Adjusts the font size to footnotesize. You can also use \small or \scriptsize for smaller sizes.
+	      \begin{minted}
+[%
+breaklines,
+mathescape,
+linenos,
+numbersep=5pt,
+frame=single,
+numbersep=5pt,
+xleftmargin=0pt,
+]{bash}
+$ curl --request GET \
+--url http://localhost:3000/recognitions \
+--header 'User-Agent: insomnia/8.6.1'
+
+{"data": [
+{
+"Path": "http://localhost:3000/file/thumbs/1713474679488.jpg",
+"Context": "Cat detected",
+"CreatedAt": "2024-04-18T18:11:19.491083-03:00"
+},
+{
+"Path": "http://localhost:3000/file/thumbs/1713474679567.jpg",
+"Context": "Cat detected",
+"CreatedAt": "2024-04-18T18:11:19.571432-03:00"
+},
+{
+"Path": "http://localhost:3000/file/thumbs/1713474679655.jpg",
+"Context": "Cat detected",
+"CreatedAt": "2024-04-18T18:11:19.657414-03:00"
+},
+{
+"Path": "http://localhost:3000/file/thumbs/1713474679737.jpg",
+"Context": "Cat detected",
+"CreatedAt": "2024-04-18T18:11:19.739881-03:00"
+},
+{
+"Path": "http://localhost:3000/file/thumbs/1713474679828.jpg",
+"Context": "Cat detected",
+"CreatedAt": "2024-04-18T18:11:19.830649-03:00"
+}]}
+\end{minted}
+}
+
+	\item Busca por todas as gravações, com filtro de intervalo de datas
+	      semelhante à funcionalidade anterior. A API fornece o horário de início e fim
+	      de cada gravação, bem como um hyperlink para sua visualização.
+
+{
+\footnotesize % Adjusts the font size to footnotesize. You can also use \small or \scriptsize for smaller sizes.
+\begin{minted}[
+breaklines,
+mathescape,
+linenos,
+numbersep=5pt,
+frame=single,
+xleftmargin=0pt,
+]{bash}
+	$ curl --request GET \
+--url http://localhost:3000/recordings/ \
+--header 'User-Agent: insomnia/8.6.1'
+
+{"data": [{
+"Path": "http://localhost:3000/file/recordings/feed_2024-04-18_18-11-14.ts",
+"StartTime": "2024-04-18T18:11:24.600196-03:00",
+"EndTime": "2024-04-18T18:11:24.600106-03:00"
+}]}
+\end{minted}
+}
+
+	\item Devolve um agregado das gravações em um intervalo de datas para
+	      download.
+
+{
+\footnotesize
+% Adjusts the font size to footnotesize. You can also use \small or \scriptsize for smaller sizes.
+\begin{minted}[
+breaklines,
+mathescape,
+linenos,
+numbersep=5pt,
+frame=single,
+xleftmargin=0pt,
+]{bash}
+$ curl --request GET \
+--url 'http://localhost:3000/full-recording/?start_date=....&end_date=....' \
+--header 'User-Agent: insomnia/8.6.1'
+
+{"data": "http://localhost:3000/file/recordings/arquivo_completo.mp4"}
+\end{minted}
+}
+
+\end{enumerate}
 
 %---------------------------------------------------------------------
 % INDICE REMISSIVO

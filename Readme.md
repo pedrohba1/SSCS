@@ -85,7 +85,7 @@ To check if the media server is running properly, go to `http://localhost:8889/m
 ### Connecting SSCS
 
 With all the dev environment, SSCS can be run either through the binary now or by running `go run ./cmd/daemon`. Notice that
-it is going to use the `sscs.yml` that is present in the root directory. So make sure to run the correct one.  It should
+it is going to use the `sscs.yml` that is present in the root directory. So make sure to run in the correct path.  It should
 start prompting logs as below:
 
 ```
