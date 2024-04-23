@@ -1,3 +1,6 @@
+// Package core provides the central coordination logic for a multimedia processing system.
+// It integrates several services such as recording, indexing, storing, and recognizing,
+// and handles graceful shutdowns and resource management.
 package core
 
 import (
@@ -14,21 +17,26 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+// Core coordinates the various components of the system. It manages the lifecycle of
+// services like the recorder, indexer, storer, and recognizer, ensuring that they start,
+// operate, and stop gracefully. Core also handles application-level configurations and logging.
 type Core struct {
-	ctx        context.Context
-	ctxCancel  func()
-	configPath string
-	config     conf.Config
-	Logger     *logrus.Entry
-	recorder   recorder.Recorder
-	indexer    indexer.Indexer
-	storer     storer.Storer
-	recognizer recognizer.Recognizer
-	done       chan struct{}
+	ctx        context.Context    // Application context used to manage cancellation.
+	ctxCancel  func()             // Function to call to cancel the application context.
+	configPath string             // Path to the configuration file.
+	config     conf.Config        // Struct holding the loaded configuration.
+	Logger     *logrus.Entry      // Logger instance for logging throughout the application.
+	recorder   recorder.Recorder  // Component responsible for recording media.
+	indexer    indexer.Indexer    // Component responsible for indexing recorded media.
+	storer     storer.Storer      	  // Component responsible for storing media.
+	recognizer recognizer.Recognizer // Component responsible for recognizing elements in media.
+	done       chan struct{}      	// Channel to signal the completion of Core operations.
 }
 
 
-// Close closes Core and waits for all goroutines to return.
+// Close gracefully shuts down all components of Core and waits for all goroutines
+// associated with the components to finish. This ensures that all resources are properly
+// cleaned up and that there are no resource leaks.
 func (p *Core) Close() {
 	p.closeResources()
 	p.ctxCancel()
@@ -36,11 +44,16 @@ func (p *Core) Close() {
 	<-p.done
 }
 
-// Wait waits for the Core to exit.
+// Wait blocks until the Core has fully stopped, ensuring that all operations are
+// cleanly terminated before the application exits.
 func (p *Core) Wait() {
 	<-p.done
 }
 
+
+// Start begins the operation of all system components and monitors for interrupt
+// signals to initiate a graceful shutdown. This method is the main entry point for
+// running the Core's services and should be called after all configurations are set.
 func (p *Core) Start() {
 	defer close(p.done)
 	// Start your components

@@ -78,6 +78,7 @@ func (r *OSStorer) Stop() error {
 	return nil
 }
 
+// monitor checks for the folder size given a checking period stored in the `sscs.yml`
 func (s *OSStorer) monitor() error {
 	defer s.wg.Done()
 
@@ -100,6 +101,8 @@ func (s *OSStorer) monitor() error {
 	}
 }
 
+
+// checkAndCleanFolder checks for folder size and once it exceeds a limit, deletes the oldest files
 func (s *OSStorer) checkAndCleanFolder() error {
 
 	entries, err := os.ReadDir(s.cfg.folderPath)

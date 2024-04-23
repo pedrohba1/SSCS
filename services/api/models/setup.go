@@ -13,6 +13,8 @@ import (
 
 var DB *gorm.DB
 
+
+// Connects to the database, migrating the tables when necessary
 func ConnectDatabase() {
 
 	cfg, _ := conf.ReadConf()

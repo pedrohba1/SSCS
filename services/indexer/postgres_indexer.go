@@ -95,6 +95,9 @@ func (p *PostgresIndexer) Start() error {
 	return nil
 }
 
+
+// listens to indexing events, sent by the other components and redirects them to 
+// the according functions to save them
 func (p *PostgresIndexer) listen() error {
 	defer p.wg.Done()
 

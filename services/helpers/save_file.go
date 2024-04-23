@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+// saves an image to file
 func SaveToFile(img image.Image, folder string) error {
 	// create file
 	fname := strconv.FormatInt(time.Now().UnixNano()/int64(time.Millisecond), 10) + ".jpg"

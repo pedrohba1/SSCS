@@ -9,6 +9,7 @@ import (
 	"gocv.io/x/gocv"
 )
 
+// saves a recognition matrix from gocv into file
 func SaveMatToFile(mat gocv.Mat, dir string) (string, error) {
 	// Create a complete file path
 
