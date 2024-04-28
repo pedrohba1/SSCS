@@ -5,6 +5,14 @@
 
 The Self-Sovereign Camera System (SSCS) is an open-source, distributed camera surveillance solution with integrated facial and human detection capabilities.
 
+
+This project was part of my Bachelor's thesis in Computer Science at [Universidade Federal de Uberlândia](https://ufu.br/).
+I would like to extend my gratitude to all the professors at the institution who provided their support and guidance throughout the development of this project.
+
+
+<img src="latex/figuras/image-1.png"  style="width: 300px;"/> 
+
+
 ## Table of Contents
 - [Features](#features)
 - [Installation](#installation)
@@ -13,6 +21,7 @@ The Self-Sovereign Camera System (SSCS) is an open-source, distributed camera su
 - [Full Feature Walkthrough](#full-feature-walkthrough)
 - [Contribution](#contribution)
 - [License](#license)
+- [Acknowledgments](#acknowledgments)
 
 ## Features
 
@@ -218,10 +227,5 @@ We welcome contributions! Please read our CONTRIBUTING.md for more information o
 
 ## License
 This project is licensed under the MIT License - see the LICENSE.md file for details.
-
-
-
-
-
 
 
