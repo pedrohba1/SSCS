@@ -43,7 +43,6 @@ func (hd *HaarDetector) Start() error {
 	cfg, _ := conf.ReadConf()
 	hd.haarPath = cfg.Recognizer.HaarPath
 	hd.eventName = cfg.Recognizer.EventName
-	hd.logger.Info(cfg)
 	hd.logger.Info("haar path:", hd.haarPath)
 
 	hd.thumbsDir = cfg.Recognizer.ThumbsDir
@@ -148,5 +147,5 @@ func (r *HaarDetector) view() error {
 }
 
 func (m *HaarDetector) setupLogger() {
-	m.logger = BaseLogger.BaseLogger.WithField("package", "face-detector")
+	m.logger = BaseLogger.BaseLogger.WithField("package", "recognizer")
 }
