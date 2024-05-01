@@ -1501,7 +1501,8 @@ regiões dos Estados Unidos.
 \begin{table}[ht]
 	\centering
 	\caption{Comparativo entre instâncias de máquinas virtuais em
-		diferentes provedores de infraestrutura em nuvem \cite{awsCalc,gcpCalc,azureCalc}.}
+		diferentes provedores de infraestrutura em nuvem
+		\cite{awsCalc,gcpCalc,azureCalc}.}
 	\label{tab:estima}
 	\begin{tabular}{|l|l|l|}
 		\hline
@@ -1893,12 +1894,12 @@ type Indexer interface {
 No diagrama da \autoref{fig:diaIndex}, ilustra-se que o indexador não provê
 nenhuma interface, apenas requer a implementação de outras. Isso porque lida
 exclusivamente com a escrita das informações que recebe por meio dos eventos
-recebidos por meio dos canais.
-Do ponto de vista da arquitetura, o banco de dados é uma não-entidade. É um
-detalhe que não se eleva ao nível de um elemento arquitetônico. Ele é uma
-utilidade que provê acesso aos dados. No mesmo ponto de vista, essa utilidade é
-irrelevante pois é um detalhe de baixo nível, ou seja, um mecanismo
-\cite{martin2018clean}. %%Um detalhe pertinente é o fato do indexador ser agnóstico quanto ao banco de dados usado.% FICOU ESTRANHA A FRASE ABAIXO
+recebidos por meio dos canais. Do ponto de vista da arquitetura, o banco de
+dados é uma não-entidade. É um detalhe que não se eleva ao nível de um elemento
+arquitetônico. Ele é uma utilidade que provê acesso aos dados. No mesmo ponto
+de vista, essa utilidade é irrelevante pois é um detalhe de baixo nível, ou
+seja, um mecanismo \cite{martin2018clean}.
+%%Um detalhe pertinente é o fato do indexador ser agnóstico quanto ao banco de dados usado.% FICOU ESTRANHA A FRASE ABAIXO
 
 \begin{figure}[!ht]
 	\centering
@@ -2299,11 +2300,14 @@ Inclusive, o SSCS tem sua documentação toda disponível em
 \url{https://pkg.go.dev/github.com/pedrohba1/SSCS/services}.
 
 \autoref{apendice} descreve e exemplifica todo o processo para a execução de um
-teste completo passo a passo.	 \chapter[Conclusão]{Conclusão}  Esse trabalho
-detalhou o processo de desenvolvimento do SSCS. Inicialmente, foram levantados
-os objetivos gerais e disso surgiram as funcionalidades (gravação,
-armazenamento, reconhecimento) que resultaram, por sua vez, nos
-componentes.%TCC:% ---% Conclusão% ---
+teste completo passo a passo.
+
+\chapter[Conclusão]{Conclusão}
+
+Esse trabalho detalhou o processo de desenvolvimento do SSCS. Inicialmente,
+foram levantados os objetivos gerais e disso surgiram as funcionalidades
+(gravação, armazenamento, reconhecimento) que resultaram, por sua vez, nos
+componentes.
 
 O código está disponível sob a licença de código aberto do MIT. A documentação
 também está pública e pode ser visualizada facilmente tanto na ferramenta de
@@ -2414,7 +2418,7 @@ colaborativa ao redor do projeto.
 
 	Para autenticação, se necessário, é possível usar o Keycloak. Um script
 	para executá-lo em desenvolvimento também está disponível no \texttt{makefile}
-	e pode	  ser executado com \texttt{make key-cloak}.
+	e pode ser executado com \texttt{make key-cloak}.
 
 	Na configuração fornecida acima, espera-se os seguintes contêineres:
 
